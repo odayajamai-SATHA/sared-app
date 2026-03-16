@@ -1,0 +1,156 @@
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { StyleSheet, Text, View, Animated, Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useI18n } from '../utils/i18n';
+
+// Simple queue for pending ride requests
+const pendingRequests = [];
+
+export function queueRideRequest(request) {
+  pendingRequests.push(request);
+}
+
+export function getPendingRequests() {
+  return [...pendingRequests];
+}
+
+export function clearPendingRequests() {
+  pendingRequests.length = 0;
+}
+
+export async function retryPendingRequests(submitFn) {
+  const requests = getPendingRequests();
+  if (requests.length === 0) return;
+
+  for (const req of requests) {
+    try {
+      await submitFn(req);
+    } catch {
+      return;
+    }
+  }
+  clearPendingRequests();
+}
+
+function useNetworkStatus() {
+  const [isOffline, setIsOffline] = useState(false);
+
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      // Use browser online/offline events
+      const handleOffline = () => setIsOffline(true);
+      const handleOnline = () => setIsOffline(false);
+
+      setIsOffline(!navigator.onLine);
+      window.addEventListener('offline', handleOffline);
+      window.addEventListener('online', handleOnline);
+
+      return () => {
+        window.removeEventListener('offline', handleOffline);
+        window.removeEventListener('online', handleOnline);
+      };
+    } else {
+      // Use NetInfo on native
+      let NetInfo;
+      try {
+        NetInfo = require('@react-native-community/netinfo').default;
+      } catch {
+        return;
+      }
+
+      const unsubscribe = NetInfo.addEventListener((state) => {
+        setIsOffline(!state.isConnected);
+      });
+
+      return () => unsubscribe();
+    }
+  }, []);
+
+  return isOffline;
+}
+
+export default function OfflineBanner() {
+  const isOffline = useNetworkStatus();
+  const [showReconnected, setShowReconnected] = useState(false);
+  const wasOffline = useRef(false);
+  const slideAnim = useRef(new Animated.Value(-60)).current;
+  const { t } = useI18n();
+
+  const animateBanner = useCallback((show) => {
+    Animated.spring(slideAnim, {
+      toValue: show ? 0 : -60,
+      useNativeDriver: true,
+      tension: 80,
+      friction: 12,
+    }).start();
+  }, [slideAnim]);
+
+  useEffect(() => {
+    if (isOffline) {
+      setShowReconnected(false);
+      wasOffline.current = true;
+      animateBanner(true);
+    } else {
+      if (wasOffline.current) {
+        setShowReconnected(true);
+        animateBanner(true);
+        wasOffline.current = false;
+        const timer = setTimeout(() => {
+          setShowReconnected(false);
+          animateBanner(false);
+        }, 3000);
+        return () => clearTimeout(timer);
+      } else {
+        animateBanner(false);
+      }
+    }
+  }, [isOffline, animateBanner]);
+
+  if (!isOffline && !showReconnected) return null;
+
+  return (
+    <Animated.View
+      style={[
+        styles.banner,
+        isOffline ? styles.offlineBanner : styles.onlineBanner,
+        { transform: [{ translateY: slideAnim }] },
+      ]}
+    >
+      <Ionicons
+        name={isOffline ? 'cloud-offline-outline' : 'checkmark-circle-outline'}
+        size={18}
+        color="#FFFFFF"
+      />
+      <Text style={styles.bannerText}>
+        {isOffline ? t('noInternet') : t('backOnline')}
+      </Text>
+    </Animated.View>
+  );
+}
+
+const styles = StyleSheet.create({
+  banner: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingTop: 50,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+    zIndex: 9999,
+  },
+  offlineBanner: {
+    backgroundColor: '#EF4444',
+  },
+  onlineBanner: {
+    backgroundColor: '#22C55E',
+  },
+  bannerText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+});

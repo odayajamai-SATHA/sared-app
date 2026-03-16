@@ -1,0 +1,842 @@
+import { useState, createContext, useContext, useCallback } from 'react';
+import { I18nManager } from 'react-native';
+
+const translations = {
+  en: {
+    // Login
+    appName: 'Sared',
+    tagline: 'Your road story, handled',
+    enterPhone: 'Enter your phone number',
+    phonePlaceholder: '5X XXX XXXX',
+    getOTP: 'Get OTP',
+    terms: 'By continuing, you agree to our Terms of Service and Privacy Policy',
+    langToggle: 'العربية',
+    switchToDriver: 'Driver Mode',
+    switchToUser: 'User Mode',
+
+    // Home
+    hello: 'Hello!',
+    whereNeedSared: 'Where do you need a Sared?',
+    mapView: 'Map View',
+    locationAppear: 'Your location will appear here',
+    pickupLocation: 'Pickup Location',
+    setLocation: 'Set your current location',
+    requestSared: 'Request Sared',
+    home: 'Home',
+
+    // Service
+    chooseService: 'Choose Service',
+    whatNeed: 'What do you need?',
+    towVehicle: 'Tow Vehicle',
+    towDesc: 'Flatbed tow for cars, SUVs, and light trucks',
+    transportItems: 'Transport Items',
+    transportDesc: 'Move heavy items, furniture, or equipment',
+    emergencyRoadside: 'Emergency Roadside',
+    emergencyDesc: 'Breakdown, flat tire, or accident recovery',
+    vehicleRelocation: 'Vehicle Relocation',
+    relocationDesc: 'Move your vehicle to a different location',
+
+    // Size
+    selectSize: 'Select Size',
+    chooseSize: 'Choose your Sared size',
+    smallSared: 'Small Sared',
+    smallDesc: 'Sedans, compact cars',
+    mediumSared: 'Medium Sared',
+    mediumDesc: 'SUVs, pickup trucks',
+    largeSared: 'Large Sared',
+    largeDesc: 'Large SUVs, vans, heavy vehicles',
+    enclosed: 'Enclosed',
+    enclosedDesc: 'Luxury & classic cars, full protection',
+    select: 'Select',
+
+    // Booking
+    bookingConfirmed: 'Booking Confirmed!',
+    driverOnWay: 'Your driver is on the way',
+    driverName: 'Ahmed',
+    rating: 'Rating',
+    saredType: 'Sared Type',
+    eta: 'ETA',
+    minutes: 'minutes',
+    estimatedPrice: 'Estimated Price',
+    cancelRide: 'Cancel Ride',
+    trackDriver: 'Track Driver',
+
+    // Tracking
+    trackingDriver: 'Tracking Driver',
+    driverArriving: 'Driver is arriving...',
+    etaArrival: 'Estimated arrival',
+    min: 'min',
+    callDriver: 'Call Driver',
+    driverLocation: 'Driver Location',
+    movingToYou: 'Moving towards you',
+
+    // Trip Complete
+    tripComplete: 'Trip Complete!',
+    tripSummary: 'Trip Summary',
+    service: 'Service',
+    vehicleSize: 'Vehicle Size',
+    distance: 'Distance',
+    duration: 'Duration',
+    totalPrice: 'Total Price',
+    rateDriver: 'Rate your driver',
+    tapToRate: 'Tap a star to rate',
+    submitRating: 'Submit Rating',
+    km: 'km',
+
+    // History
+    rideHistory: 'Ride History',
+    noRides: 'No rides yet',
+    ridesAppear: 'Your completed rides will appear here',
+
+    // Profile
+    profile: 'Profile',
+    editProfile: 'Edit Profile',
+    paymentMethods: 'Payment Methods',
+    notifications: 'Notifications',
+    helpSupport: 'Help & Support',
+    termsConditions: 'Terms & Conditions',
+    logOut: 'Log Out',
+    rides: 'Rides',
+    saved: 'Saved',
+
+    // ---- Driver Translations ----
+    driverMode: 'Driver Mode',
+    driverLogin: 'Login as Driver',
+    driverIdLabel: 'Driver ID / Iqama Number',
+    driverIdPlaceholder: 'Enter your ID number',
+
+    // Driver Dashboard
+    helloDriver: 'Hello,',
+    youAreOnline: 'You are Online',
+    youAreOffline: 'You are Offline',
+    goOnline: 'Go Online',
+    goOffline: 'Go Offline',
+    todayEarnings: "Today's Earnings",
+    totalRidesToday: 'Rides Today',
+    avgResponseTime: 'Avg Response',
+    acceptanceRate: 'Acceptance Rate',
+    seconds: 'sec',
+
+    // Incoming ride
+    newRideRequest: 'New Ride Request!',
+    away: 'away',
+    accept: 'Accept',
+    decline: 'Decline',
+
+    // Driver Navigation
+    navigateToCustomer: 'Navigate to Customer',
+    routeToCustomer: 'Route to Customer',
+    followRoute: 'Follow the route on your GPS',
+    customerPickupAddress: 'King Fahd Road, Riyadh',
+    iHaveArrived: 'I Have Arrived',
+
+    // Driver Job
+    jobInProgress: 'Job in Progress',
+    stepArrived: 'Arrived',
+    stepLoading: 'Loading',
+    stepInTransit: 'In Transit',
+    stepCompleted: 'Completed',
+    startLoading: 'Start Loading',
+    startTrip: 'Start Trip',
+    completeJob: 'Complete Job',
+    done: 'Done',
+    arrivedInstruction: 'You have arrived at the pickup location. Contact the customer if needed.',
+    loadingInstruction: 'Secure the vehicle/items on the flatbed. Ensure everything is properly fastened.',
+    inTransitInstruction: 'Navigate to the drop-off location. Drive safely.',
+    completedInstruction: 'Job is complete. Unload and confirm with the customer.',
+    dropoffLocation: 'Drop-off Location',
+
+    // Driver Complete
+    jobCompleted: 'Job Completed!',
+    jobCompletedSub: 'Great work! Payment has been added.',
+    customerLabel: 'Customer',
+    youEarned: 'You Earned',
+    waitingForRating: 'Waiting for Rating',
+    ratingNotice: 'The customer will rate you after the trip.',
+    backToDashboard: 'Back to Dashboard',
+
+    // Driver Earnings
+    driverEarnings: 'Earnings',
+    tripsCompleted: 'Trips',
+    onlineHours: 'Online Hours',
+    tripAvg: 'trip',
+    recentTrips: 'Recent Trips',
+
+    // Driver Profile
+    driverProfile: 'Driver Profile',
+    vehicleInfo: 'Vehicle Information',
+    documents: 'Documents',
+    bankDetails: 'Bank Details',
+    totalTrips: 'Total Trips',
+    memberSince: 'Member',
+
+    // OTP Screen
+    verifyOTP: 'Verify OTP',
+    otpSentTo: 'Code sent to',
+    verifyCode: 'Verify Code',
+    resendOTP: 'Resend Code',
+    otpInvalid: 'Invalid code. Please try again.',
+    otpResent: 'Code Resent',
+    otpFailed: 'Failed to send OTP. Please try again.',
+    error: 'Error',
+
+    // Offline
+    noInternet: 'No internet connection',
+    backOnline: 'Back online',
+    requestQueued: 'Request queued — will retry when connected',
+
+    // Share
+    shareApp: 'Share App',
+    shareMessage: 'Download Sared - Your road story, handled! ',
+
+    // Destination
+    setDropoff: 'Set Drop-off',
+    searchDestination: 'Search for a destination...',
+    dropPin: 'Drop a pin on map',
+    confirmLocation: 'Confirm Location',
+    destination: 'Destination',
+    tapToSetDropoff: 'Tap to set drop-off location',
+
+    // Pricing
+    baseFare: 'Base Fare',
+    distanceCharge: 'Distance',
+    nightSurcharge: 'Night Surcharge (1.5x)',
+    subtotal: 'Subtotal',
+    vat: 'VAT (15%)',
+    priceBreakdown: 'Price Breakdown',
+
+    // Promo
+    promoCode: 'Promo Code',
+    promoPlaceholder: 'Enter promo code',
+    applyPromo: 'Apply',
+    promoApplied: 'Promo applied!',
+    invalidCode: 'Invalid promo code',
+    firstRideOnly: 'This code is for first ride only',
+    discount: 'Discount',
+
+    // History
+    completed: 'Completed',
+    cancelled: 'Cancelled',
+    pending: 'Pending',
+    accepted: 'Accepted',
+    pullToRefresh: 'Pull to refresh',
+    loadingHistory: 'Loading rides...',
+    sar: 'SAR',
+
+    // Guest & Login
+    continueAsGuest: 'Continue as Guest',
+    welcomeBack: 'Welcome back',
+    taglineAr: 'قصتك على الطريق، علينا',
+
+    // Quick Actions
+    flatTire: 'Flat Tire',
+    deadBattery: 'Jump Start',
+    fuelDelivery: 'Fuel Delivery',
+    towService: 'Tow Truck',
+    recentLocations: 'Recent Locations',
+    promoOffer: 'First rescue free',
+    useCode: 'Use code SARED1',
+
+    // Expanded Services
+    flatTireChange: 'Flat Tire Change',
+    flatTireDesc: 'Professional tire change at your location',
+    batteryJump: 'Battery Jump Start',
+    batteryJumpDesc: 'Get your dead battery running in minutes',
+    fuelDeliveryService: 'Fuel Delivery',
+    fuelDeliveryDesc: 'Emergency fuel delivered to you',
+    carLockout: 'Car Lockout',
+    carLockoutDesc: 'Locked out? We will get you back in',
+    winchRecovery: 'Winch / Recovery',
+    winchRecoveryDesc: 'Stuck vehicle? Heavy-duty winch recovery',
+    intercityTransport: 'Inter-city Transport',
+    intercityDesc: 'Long-distance vehicle transport between cities',
+    fromSar: 'From SAR',
+
+    // Membership
+    membership: 'Membership',
+    choosePlan: 'Choose Your Plan',
+    membershipSubtitle: 'Save more with a Sared membership',
+    basicPlan: 'Basic',
+    premiumPlan: 'Premium',
+    vipPlan: 'VIP',
+    perYear: '/year',
+    freeTows: 'free tows',
+    unlimitedTows: 'Unlimited tows',
+    priorityResponse: 'Priority response',
+    coveredFlatbed: 'Covered flatbed',
+    dedicatedSupport: 'Dedicated support',
+    allPremiumFeatures: 'All Premium features',
+    subscribe: 'Subscribe',
+    currentPlan: 'Current Plan',
+    mostPopular: 'Most Popular',
+
+    // Vehicles
+    myVehicles: 'My Vehicles',
+    addVehicle: 'Add Vehicle',
+    vehicleMake: 'Make',
+    vehicleModel: 'Model',
+    vehicleYear: 'Year',
+    vehicleColor: 'Color',
+    plateNumber: 'Plate Number',
+    saveVehicle: 'Save Vehicle',
+    noVehicles: 'No vehicles added',
+    addVehicleHint: 'Add your vehicle for faster service',
+    deleteVehicle: 'Delete',
+    makePlaceholder: 'e.g. Toyota',
+    modelPlaceholder: 'e.g. Camry',
+    yearPlaceholder: 'e.g. 2024',
+    colorPlaceholder: 'e.g. White',
+    platePlaceholder: 'e.g. ABC 1234',
+
+    // Onboarding
+    onboard1Title: 'Stuck on the road?',
+    onboard1Sub: 'Help is minutes away. Request a flatbed tow truck instantly.',
+    onboard2Title: 'Choose your service',
+    onboard2Sub: 'Towing, tire change, battery jump, fuel delivery and more.',
+    onboard3Title: 'Track in real-time',
+    onboard3Sub: 'Watch your driver arrive on the map. Know exactly when help arrives.',
+    skip: 'Skip',
+    getStarted: 'Get Started',
+    next: 'Next',
+
+    // Driver Matching
+    findingSared: 'Finding your Sared...',
+    matchingNearest: 'Matching you with nearest driver...',
+    checkingAvail: 'Checking availability...',
+    driverFound: 'Driver found!',
+
+    // Tracking
+    driverAssigned: 'Driver assigned',
+    onTheWay: 'On the way',
+    arriving: 'Arriving',
+    messageDriver: 'Message',
+    plateNum: 'Plate',
+
+    // Receipt
+    receipt: 'Receipt',
+    tripReceipt: 'Trip Receipt',
+    tripDate: 'Date',
+    tripTime: 'Time',
+    pickup: 'Pickup',
+    dropoff: 'Drop-off',
+    serviceFee: 'Service Fee',
+    paymentMethod: 'Payment',
+    cashPayment: 'Cash',
+    downloadPdf: 'Download PDF',
+    shareWhatsapp: 'Share via WhatsApp',
+    viewReceipt: 'View Receipt',
+
+    // Price Guarantee
+    priceGuarantee: 'Price Guarantee',
+    guaranteedNotToExceed: 'Guaranteed Not to Exceed',
+    neverPayMore: 'You will never pay more than this amount.',
+    priceGuaranteeNote: 'Final price may be lower based on actual distance. Price includes all fees and VAT.',
+    confirmBooking: 'Confirm Booking',
+    estimatedDistance: 'Estimated Distance',
+    maxPrice: 'Maximum Price',
+
+    // Insurance
+    insuranceBenefits: 'Insurance Benefits',
+    insuranceTitle: 'Insurance Coverage',
+    insuranceSubtitle: 'Check if your insurance covers roadside assistance through Sared',
+    insuranceCompany: 'Insurance Company',
+    policyNumber: 'Policy Number',
+    companyPlaceholder: 'e.g. Tawuniya, Bupa, Malath',
+    policyPlaceholder: 'Enter your policy number',
+    checkCoverage: 'Check Coverage',
+    insuranceNote: 'Many Saudi insurance policies include roadside assistance. Link your policy to check if your service is covered.',
+    coveredServices: 'Commonly Covered Services',
+    insuranceTow: 'Emergency towing up to 100km',
+    insuranceTire: 'Flat tire change',
+    insuranceBattery: 'Battery jump start',
+    insuranceFuel: 'Emergency fuel delivery',
+    insuranceSaved: 'Policy saved successfully',
+    partnerInsurers: 'Partner Insurers',
+
+    // Driver Signup
+    driverSignup: 'Drive with Sared',
+    driverSignupSub: 'Join our network of flatbed drivers',
+    fullName: 'Full Name',
+    fullNamePlaceholder: 'Enter your full name',
+    iqamaId: 'Iqama / National ID',
+    iqamaPlaceholder: 'Enter your ID number',
+    vehicleType: 'Vehicle Type',
+    selectVehicleType: 'Select vehicle type',
+    smallFlatbed: 'Small Flatbed',
+    mediumFlatbed: 'Medium Flatbed',
+    largeFlatbed: 'Large Flatbed',
+    enclosedFlatbed: 'Enclosed Flatbed',
+    city: 'City',
+    selectCity: 'Select city',
+    submitApplication: 'Submit Application',
+    driverBenefit1: 'Earn SAR 200-800/day',
+    driverBenefit2: 'Set your own hours',
+    driverBenefit3: 'Weekly payments to your bank',
+    applicationSubmitted: 'Application Submitted!',
+    applicationReview: 'We will review your application and contact you within 48 hours.',
+
+    // For Business
+    forBusiness: 'For Business',
+    saredForBusiness: 'Sared for Business',
+    businessSubtitle: 'Fleet roadside assistance for companies',
+    companyName: 'Company Name',
+    companyPlaceholderBiz: 'Enter company name',
+    fleetSize: 'Fleet Size',
+    contactPerson: 'Contact Person',
+    contactPlaceholder: 'Enter contact name',
+    emailAddress: 'Email Address',
+    emailPlaceholder: 'email@company.com',
+    bizBenefit1: 'Volume pricing discounts',
+    bizBenefit2: 'Dedicated account manager',
+    bizBenefit3: 'Monthly invoicing',
+    bizBenefit4: 'Priority response for your fleet',
+    submitInquiry: 'Submit Inquiry',
+    inquirySubmitted: 'Inquiry Submitted!',
+    inquiryReview: 'Our business team will contact you within 24 hours.',
+
+    // Emergency SOS
+    emergencySOS: 'Emergency SOS',
+    sosActivated: 'SOS Activated',
+    sosDesc: 'Tap to request immediate emergency assistance',
+    sosSharing: 'Sharing your live location with emergency contacts',
+    addEmergencyContact: 'Add Emergency Contact',
+    sosConfirm: 'Are you sure you want to activate Emergency SOS?',
+    yes: 'Yes',
+    no: 'No',
+  },
+  ar: {
+    // Login
+    appName: 'سارد',
+    tagline: 'قصتك على الطريق، علينا',
+    enterPhone: 'أدخل رقم جوالك',
+    phonePlaceholder: '5X XXX XXXX',
+    getOTP: 'إرسال رمز التحقق',
+    terms: 'بالمتابعة، أنت توافق على شروط الخدمة وسياسة الخصوصية',
+    langToggle: 'English',
+    switchToDriver: 'وضع السائق',
+    switchToUser: 'وضع المستخدم',
+
+    // Home
+    hello: '!أهلاً',
+    whereNeedSared: 'وين تحتاج سارد؟',
+    mapView: 'عرض الخريطة',
+    locationAppear: 'موقعك سيظهر هنا',
+    pickupLocation: 'موقع الاستلام',
+    setLocation: 'حدد موقعك الحالي',
+    requestSared: 'اطلب سارد',
+    home: 'الرئيسية',
+
+    // Service
+    chooseService: 'اختر الخدمة',
+    whatNeed: 'ماذا تحتاج؟',
+    towVehicle: 'سحب مركبة',
+    towDesc: 'سارد لنقل السيارات والدفع الرباعي',
+    transportItems: 'نقل أغراض',
+    transportDesc: 'نقل أغراض ثقيلة أو أثاث أو معدات',
+    emergencyRoadside: 'طوارئ على الطريق',
+    emergencyDesc: 'عطل، إطار مثقوب، أو حادث',
+    vehicleRelocation: 'نقل مركبة',
+    relocationDesc: 'انقل مركبتك إلى موقع آخر',
+
+    // Size
+    selectSize: 'اختر الحجم',
+    chooseSize: 'اختر حجم السارد',
+    smallSared: 'سارد صغيرة',
+    smallDesc: 'سيدان، سيارات صغيرة',
+    mediumSared: 'سارد متوسطة',
+    mediumDesc: 'دفع رباعي، بيك أب',
+    largeSared: 'سارد كبيرة',
+    largeDesc: 'دفع رباعي كبير، فانات، مركبات ثقيلة',
+    enclosed: 'مغلقة',
+    enclosedDesc: 'سيارات فاخرة وكلاسيكية، حماية كاملة',
+    select: 'اختر',
+
+    // Booking
+    bookingConfirmed: 'تم تأكيد الحجز!',
+    driverOnWay: 'السائق في الطريق إليك',
+    driverName: 'أحمد',
+    rating: 'التقييم',
+    saredType: 'نوع السارد',
+    eta: 'الوصول المتوقع',
+    minutes: 'دقيقة',
+    estimatedPrice: 'السعر المتوقع',
+    cancelRide: 'إلغاء الرحلة',
+    trackDriver: 'تتبع السائق',
+
+    // Tracking
+    trackingDriver: 'تتبع السائق',
+    driverArriving: 'السائق في الطريق...',
+    etaArrival: 'الوصول المتوقع',
+    min: 'د',
+    callDriver: 'اتصل بالسائق',
+    driverLocation: 'موقع السائق',
+    movingToYou: 'في الطريق إليك',
+
+    // Trip Complete
+    tripComplete: 'اكتملت الرحلة!',
+    tripSummary: 'ملخص الرحلة',
+    service: 'الخدمة',
+    vehicleSize: 'حجم المركبة',
+    distance: 'المسافة',
+    duration: 'المدة',
+    totalPrice: 'السعر الإجمالي',
+    rateDriver: 'قيّم السائق',
+    tapToRate: 'اضغط على النجمة للتقييم',
+    submitRating: 'إرسال التقييم',
+    km: 'كم',
+
+    // History
+    rideHistory: 'سجل الرحلات',
+    noRides: 'لا توجد رحلات',
+    ridesAppear: 'رحلاتك المكتملة ستظهر هنا',
+
+    // Profile
+    profile: 'الملف الشخصي',
+    editProfile: 'تعديل الملف',
+    paymentMethods: 'طرق الدفع',
+    notifications: 'الإشعارات',
+    helpSupport: 'المساعدة والدعم',
+    termsConditions: 'الشروط والأحكام',
+    logOut: 'تسجيل الخروج',
+    rides: 'رحلات',
+    saved: 'محفوظة',
+
+    // ---- Driver Translations ----
+    driverMode: 'وضع السائق',
+    driverLogin: 'دخول كسائق',
+    driverIdLabel: 'رقم هوية السائق / الإقامة',
+    driverIdPlaceholder: 'أدخل رقم الهوية',
+
+    // Driver Dashboard
+    helloDriver: 'أهلاً،',
+    youAreOnline: 'أنت متصل',
+    youAreOffline: 'أنت غير متصل',
+    goOnline: 'اتصل',
+    goOffline: 'قطع الاتصال',
+    todayEarnings: 'أرباح اليوم',
+    totalRidesToday: 'رحلات اليوم',
+    avgResponseTime: 'متوسط الاستجابة',
+    acceptanceRate: 'نسبة القبول',
+    seconds: 'ثانية',
+
+    // Incoming ride
+    newRideRequest: 'طلب رحلة جديد!',
+    away: 'بعيد',
+    accept: 'قبول',
+    decline: 'رفض',
+
+    // Driver Navigation
+    navigateToCustomer: 'التوجه للعميل',
+    routeToCustomer: 'المسار للعميل',
+    followRoute: 'اتبع المسار على GPS',
+    customerPickupAddress: 'طريق الملك فهد، الرياض',
+    iHaveArrived: 'وصلت',
+
+    // Driver Job
+    jobInProgress: 'المهمة قيد التنفيذ',
+    stepArrived: 'وصل',
+    stepLoading: 'تحميل',
+    stepInTransit: 'في الطريق',
+    stepCompleted: 'مكتمل',
+    startLoading: 'بدء التحميل',
+    startTrip: 'بدء الرحلة',
+    completeJob: 'إنهاء المهمة',
+    done: 'تم',
+    arrivedInstruction: 'لقد وصلت إلى موقع الاستلام. تواصل مع العميل إذا لزم الأمر.',
+    loadingInstruction: 'ثبّت المركبة/الأغراض على السارد. تأكد من تثبيت كل شيء بشكل صحيح.',
+    inTransitInstruction: 'توجه إلى موقع التسليم. قُد بحذر.',
+    completedInstruction: 'المهمة اكتملت. أنزل الحمولة وأكد مع العميل.',
+    dropoffLocation: 'موقع التسليم',
+
+    // Driver Complete
+    jobCompleted: 'اكتملت المهمة!',
+    jobCompletedSub: 'عمل رائع! تمت إضافة الدفعة.',
+    customerLabel: 'العميل',
+    youEarned: 'ربحت',
+    waitingForRating: 'بانتظار التقييم',
+    ratingNotice: 'سيقوم العميل بتقييمك بعد الرحلة.',
+    backToDashboard: 'العودة للوحة التحكم',
+
+    // Driver Earnings
+    driverEarnings: 'الأرباح',
+    tripsCompleted: 'الرحلات',
+    onlineHours: 'ساعات الاتصال',
+    tripAvg: 'رحلة',
+    recentTrips: 'الرحلات الأخيرة',
+
+    // Driver Profile
+    driverProfile: 'ملف السائق',
+    vehicleInfo: 'معلومات المركبة',
+    documents: 'المستندات',
+    bankDetails: 'البيانات البنكية',
+    totalTrips: 'إجمالي الرحلات',
+    memberSince: 'عضو منذ',
+
+    // OTP Screen
+    verifyOTP: 'تحقق من الرمز',
+    otpSentTo: 'تم إرسال الرمز إلى',
+    verifyCode: 'تحقق',
+    resendOTP: 'إعادة إرسال الرمز',
+    otpInvalid: 'رمز غير صحيح. حاول مرة أخرى.',
+    otpResent: 'تم إعادة إرسال الرمز',
+    otpFailed: 'فشل إرسال الرمز. حاول مرة أخرى.',
+    error: 'خطأ',
+
+    // Offline
+    noInternet: 'لا يوجد اتصال بالإنترنت',
+    backOnline: 'تم الاتصال مجدداً',
+    requestQueued: 'تم حفظ الطلب — سيتم إعادة المحاولة عند الاتصال',
+
+    // Share
+    shareApp: 'شارك التطبيق',
+    shareMessage: 'حمّل تطبيق سارد - قصتك على الطريق، علينا! ',
+
+    // Destination
+    setDropoff: 'تحديد موقع التوصيل',
+    searchDestination: 'ابحث عن وجهة...',
+    dropPin: 'حدد موقع على الخريطة',
+    confirmLocation: 'تأكيد الموقع',
+    destination: 'الوجهة',
+    tapToSetDropoff: 'اضغط لتحديد موقع التوصيل',
+
+    // Pricing
+    baseFare: 'الأجرة الأساسية',
+    distanceCharge: 'المسافة',
+    nightSurcharge: 'رسوم ليلية (1.5x)',
+    subtotal: 'المجموع الفرعي',
+    vat: 'ضريبة القيمة المضافة (15%)',
+    priceBreakdown: 'تفاصيل السعر',
+
+    // Promo
+    promoCode: 'كود خصم',
+    promoPlaceholder: 'أدخل كود الخصم',
+    applyPromo: 'تطبيق',
+    promoApplied: 'تم تطبيق الخصم!',
+    invalidCode: 'كود خصم غير صالح',
+    firstRideOnly: 'هذا الكود للرحلة الأولى فقط',
+    discount: 'الخصم',
+
+    // History
+    completed: 'مكتملة',
+    cancelled: 'ملغية',
+    pending: 'معلقة',
+    accepted: 'مقبولة',
+    pullToRefresh: 'اسحب للتحديث',
+    loadingHistory: 'جاري تحميل الرحلات...',
+    sar: 'ر.س',
+
+    // Guest & Login
+    continueAsGuest: 'متابعة كضيف',
+    welcomeBack: 'أهلاً بعودتك',
+    taglineAr: 'قصتك على الطريق، علينا',
+
+    // Quick Actions
+    flatTire: 'إطار مثقوب',
+    deadBattery: 'شحن بطارية',
+    fuelDelivery: 'توصيل وقود',
+    towService: 'سارد نقل',
+    recentLocations: 'المواقع الأخيرة',
+    promoOffer: 'الخدمة الأولى مجانية',
+    useCode: 'استخدم كود SARED1',
+
+    // Expanded Services
+    flatTireChange: 'تغيير إطار',
+    flatTireDesc: 'تغيير إطار احترافي في موقعك',
+    batteryJump: 'شحن بطارية',
+    batteryJumpDesc: 'أعد تشغيل بطاريتك في دقائق',
+    fuelDeliveryService: 'توصيل وقود',
+    fuelDeliveryDesc: 'وقود طوارئ يوصلك أينما كنت',
+    carLockout: 'فتح سيارة مقفلة',
+    carLockoutDesc: 'مقفل بالخارج؟ سنفتحها لك',
+    winchRecovery: 'ونش / إنقاذ',
+    winchRecoveryDesc: 'سيارة عالقة؟ خدمة ونش ثقيلة',
+    intercityTransport: 'نقل بين المدن',
+    intercityDesc: 'نقل مركبات لمسافات طويلة بين المدن',
+    fromSar: 'من ر.س',
+
+    // Membership
+    membership: 'العضوية',
+    choosePlan: 'اختر خطتك',
+    membershipSubtitle: 'وفّر أكثر مع عضوية سارد',
+    basicPlan: 'أساسية',
+    premiumPlan: 'مميزة',
+    vipPlan: 'VIP',
+    perYear: '/سنة',
+    freeTows: 'سحبات مجانية',
+    unlimitedTows: 'سحبات غير محدودة',
+    priorityResponse: 'أولوية في الاستجابة',
+    coveredFlatbed: 'سارد مغلقة',
+    dedicatedSupport: 'دعم مخصص',
+    allPremiumFeatures: 'جميع مزايا المميزة',
+    subscribe: 'اشترك',
+    currentPlan: 'الخطة الحالية',
+    mostPopular: 'الأكثر شعبية',
+
+    // Vehicles
+    myVehicles: 'مركباتي',
+    addVehicle: 'إضافة مركبة',
+    vehicleMake: 'الشركة المصنعة',
+    vehicleModel: 'الموديل',
+    vehicleYear: 'السنة',
+    vehicleColor: 'اللون',
+    plateNumber: 'رقم اللوحة',
+    saveVehicle: 'حفظ المركبة',
+    noVehicles: 'لا توجد مركبات',
+    addVehicleHint: 'أضف مركبتك لخدمة أسرع',
+    deleteVehicle: 'حذف',
+    makePlaceholder: 'مثال: تويوتا',
+    modelPlaceholder: 'مثال: كامري',
+    yearPlaceholder: 'مثال: 2024',
+    colorPlaceholder: 'مثال: أبيض',
+    platePlaceholder: 'مثال: أ ب ج 1234',
+
+    // Onboarding
+    onboard1Title: 'عالق على الطريق؟',
+    onboard1Sub: 'المساعدة على بعد دقائق. اطلب سارد نقل فوراً.',
+    onboard2Title: 'اختر خدمتك',
+    onboard2Sub: 'سحب، تغيير إطار، شحن بطارية، توصيل وقود والمزيد.',
+    onboard3Title: 'تتبع مباشر',
+    onboard3Sub: 'شاهد السائق يصل على الخريطة. اعرف بالضبط متى تصل المساعدة.',
+    skip: 'تخطي',
+    getStarted: 'ابدأ الآن',
+    next: 'التالي',
+
+    // Driver Matching
+    findingSared: 'جاري البحث عن سارد...',
+    matchingNearest: 'جاري مطابقتك مع أقرب سائق...',
+    checkingAvail: 'جاري التحقق من التوفر...',
+    driverFound: 'تم العثور على سائق!',
+
+    // Tracking
+    driverAssigned: 'تم تعيين السائق',
+    onTheWay: 'في الطريق',
+    arriving: 'يصل قريباً',
+    messageDriver: 'رسالة',
+    plateNum: 'اللوحة',
+
+    // Receipt
+    receipt: 'إيصال',
+    tripReceipt: 'إيصال الرحلة',
+    tripDate: 'التاريخ',
+    tripTime: 'الوقت',
+    pickup: 'الاستلام',
+    dropoff: 'التوصيل',
+    serviceFee: 'رسوم الخدمة',
+    paymentMethod: 'الدفع',
+    cashPayment: 'نقدي',
+    downloadPdf: 'تحميل PDF',
+    shareWhatsapp: 'مشاركة عبر واتساب',
+    viewReceipt: 'عرض الإيصال',
+
+    // Price Guarantee
+    priceGuarantee: 'ضمان السعر',
+    guaranteedNotToExceed: 'مضمون ألا يتجاوز',
+    neverPayMore: 'لن تدفع أكثر من هذا المبلغ أبداً.',
+    priceGuaranteeNote: 'السعر النهائي قد يكون أقل بناءً على المسافة الفعلية. السعر يشمل جميع الرسوم وضريبة القيمة المضافة.',
+    confirmBooking: 'تأكيد الحجز',
+    estimatedDistance: 'المسافة المتوقعة',
+    maxPrice: 'الحد الأقصى للسعر',
+
+    // Insurance
+    insuranceBenefits: 'مزايا التأمين',
+    insuranceTitle: 'تغطية التأمين',
+    insuranceSubtitle: 'تحقق إذا كان تأمينك يغطي المساعدة على الطريق عبر سارد',
+    insuranceCompany: 'شركة التأمين',
+    policyNumber: 'رقم الوثيقة',
+    companyPlaceholder: 'مثال: التعاونية، بوبا، ملاذ',
+    policyPlaceholder: 'أدخل رقم الوثيقة',
+    checkCoverage: 'تحقق من التغطية',
+    insuranceNote: 'العديد من وثائق التأمين السعودية تشمل المساعدة على الطريق. اربط وثيقتك للتحقق من تغطية خدمتك.',
+    coveredServices: 'الخدمات المغطاة عادةً',
+    insuranceTow: 'سحب طوارئ حتى 100 كم',
+    insuranceTire: 'تغيير إطار',
+    insuranceBattery: 'شحن بطارية',
+    insuranceFuel: 'توصيل وقود طوارئ',
+    insuranceSaved: 'تم حفظ الوثيقة بنجاح',
+    partnerInsurers: 'شركات التأمين الشريكة',
+
+    // Driver Signup
+    driverSignup: 'قُد مع سارد',
+    driverSignupSub: 'انضم لشبكة سائقي السطحات',
+    fullName: 'الاسم الكامل',
+    fullNamePlaceholder: 'أدخل اسمك الكامل',
+    iqamaId: 'رقم الإقامة / الهوية',
+    iqamaPlaceholder: 'أدخل رقم الهوية',
+    vehicleType: 'نوع المركبة',
+    selectVehicleType: 'اختر نوع المركبة',
+    smallFlatbed: 'سارد صغيرة',
+    mediumFlatbed: 'سارد متوسطة',
+    largeFlatbed: 'سارد كبيرة',
+    enclosedFlatbed: 'سارد مغلقة',
+    city: 'المدينة',
+    selectCity: 'اختر المدينة',
+    submitApplication: 'تقديم الطلب',
+    driverBenefit1: 'اربح 200-800 ر.س/يوم',
+    driverBenefit2: 'حدد ساعاتك بنفسك',
+    driverBenefit3: 'دفعات أسبوعية لحسابك البنكي',
+    applicationSubmitted: 'تم تقديم الطلب!',
+    applicationReview: 'سنراجع طلبك ونتواصل معك خلال 48 ساعة.',
+
+    // For Business
+    forBusiness: 'للشركات',
+    saredForBusiness: 'سارد للشركات',
+    businessSubtitle: 'مساعدة على الطريق لأساطيل الشركات',
+    companyName: 'اسم الشركة',
+    companyPlaceholderBiz: 'أدخل اسم الشركة',
+    fleetSize: 'حجم الأسطول',
+    contactPerson: 'جهة الاتصال',
+    contactPlaceholder: 'أدخل اسم جهة الاتصال',
+    emailAddress: 'البريد الإلكتروني',
+    emailPlaceholder: 'email@company.com',
+    bizBenefit1: 'خصومات على الحجم',
+    bizBenefit2: 'مدير حساب مخصص',
+    bizBenefit3: 'فواتير شهرية',
+    bizBenefit4: 'أولوية استجابة لأسطولك',
+    submitInquiry: 'إرسال الاستفسار',
+    inquirySubmitted: 'تم إرسال الاستفسار!',
+    inquiryReview: 'سيتواصل معك فريق الأعمال خلال 24 ساعة.',
+
+    // Emergency SOS
+    emergencySOS: 'طوارئ SOS',
+    sosActivated: 'تم تفعيل SOS',
+    sosDesc: 'اضغط لطلب مساعدة طوارئ فورية',
+    sosSharing: 'جاري مشاركة موقعك المباشر مع جهات الطوارئ',
+    addEmergencyContact: 'إضافة جهة اتصال طوارئ',
+    sosConfirm: 'هل أنت متأكد من تفعيل طوارئ SOS؟',
+    yes: 'نعم',
+    no: 'لا',
+  },
+};
+
+const I18nContext = createContext();
+
+export function I18nProvider({ children }) {
+  const [lang, setLang] = useState('en');
+
+  const toggleLang = useCallback(() => {
+    const newLang = lang === 'en' ? 'ar' : 'en';
+    setLang(newLang);
+    const isRTL = newLang === 'ar';
+    if (I18nManager.isRTL !== isRTL) {
+      I18nManager.allowRTL(isRTL);
+      I18nManager.forceRTL(isRTL);
+    }
+  }, [lang]);
+
+  const t = useCallback(
+    (key) => translations[lang][key] || key,
+    [lang]
+  );
+
+  const isRTL = lang === 'ar';
+
+  return (
+    <I18nContext.Provider value={{ lang, t, toggleLang, isRTL }}>
+      {children}
+    </I18nContext.Provider>
+  );
+}
+
+export function useI18n() {
+  return useContext(I18nContext);
+}
