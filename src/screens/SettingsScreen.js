@@ -104,6 +104,30 @@ export default function SettingsScreen({ navigation }) {
               </Text>
               <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
             </TouchableOpacity>
+
+            <View style={{ height: 1, backgroundColor: colors.lightGray, marginVertical: 4 }} />
+
+            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => Linking.openURL('https://sared.app/privacy')}>
+              <View style={[styles.actionIcon, { backgroundColor: '#05966915' }]}>
+                <Ionicons name="shield-checkmark-outline" size={20} color="#059669" />
+              </View>
+              <Text style={[styles.actionText, isRTL && styles.textRight]}>
+                {lang === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}
+              </Text>
+              <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
+            </TouchableOpacity>
+
+            <View style={{ height: 1, backgroundColor: colors.lightGray, marginVertical: 4 }} />
+
+            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => Linking.openURL('https://sared.app/terms')}>
+              <View style={[styles.actionIcon, { backgroundColor: '#3B82F615' }]}>
+                <Ionicons name="document-text-outline" size={20} color="#3B82F6" />
+              </View>
+              <Text style={[styles.actionText, isRTL && styles.textRight]}>
+                {lang === 'ar' ? 'شروط الخدمة' : 'Terms of Service'}
+              </Text>
+              <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
+            </TouchableOpacity>
           </View>
 
           {/* Danger zone */}
