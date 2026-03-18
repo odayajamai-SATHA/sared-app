@@ -88,10 +88,10 @@ export default function VehiclesScreen({ navigation }) {
         {vehicles.length === 0 && !showForm && (
           <View style={styles.emptyState}>
             <View style={styles.emptyIcon}>
-              <Ionicons name="car-outline" size={56} color={colors.border} />
+              <Ionicons name="car-outline" size={64} color={colors.border} />
             </View>
-            <Text style={styles.emptyTitle}>{t('noVehicles')}</Text>
-            <Text style={styles.emptyHint}>{t('addVehicleHint')}</Text>
+            <Text style={styles.emptyTitle}>{t('noVehiclesSaved')}</Text>
+            <Text style={styles.emptyHint}>{t('addVehicleForFaster')}</Text>
             <TouchableOpacity style={styles.emptyBtn} onPress={() => setShowForm(true)}>
               <Ionicons name="add" size={20} color={colors.white} />
               <Text style={styles.emptyBtnText}>{t('addVehicle')}</Text>

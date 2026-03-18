@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08, shadowRadius: 16, elevation: 6,
   },
   logoSection: { alignItems: 'center', marginBottom: 8 },
-  logoEmoji: { fontSize: 36 },
   logoName: { fontSize: 24, fontWeight: '800', color: colors.primary, letterSpacing: 2 },
   logoNameAr: { fontSize: 16, color: colors.textSecondary },
   divider: { height: 1, backgroundColor: colors.border, marginVertical: 16 },

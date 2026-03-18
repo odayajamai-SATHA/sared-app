@@ -3,24 +3,27 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensi
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { getServicePriceWithVAT } from '../utils/pricing';
+import { createDebouncedNav } from '../utils/navigation';
 
 const { width } = Dimensions.get('window');
 
-export default function ServiceScreen({ route, navigation }) {
+export default function ServiceScreen({ route, navigation: rawNav }) {
+  const navigation = createDebouncedNav(rawNav);
   const { t, isRTL } = useI18n();
   const pickup = route.params?.pickup;
   const destination = route.params?.destination;
   const destinationName = route.params?.destinationName;
 
   const services = [
-    { id: 'tow', icon: 'car-sport', title: t('towVehicle'), desc: t('towDesc'), price: 100, color: '#059669' },
-    { id: 'flatTire', icon: 'disc', title: t('flatTireChange'), desc: t('flatTireDesc'), price: 60, color: '#3B82F6' },
-    { id: 'battery', icon: 'flash', title: t('batteryJump'), desc: t('batteryJumpDesc'), price: 50, color: '#8B5CF6' },
-    { id: 'fuel', icon: 'water', title: t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: 40, color: '#22C55E' },
-    { id: 'lockout', icon: 'key', title: t('carLockout'), desc: t('carLockoutDesc'), price: 80, color: '#EC4899' },
-    { id: 'winch', icon: 'link', title: t('winchRecovery'), desc: t('winchRecoveryDesc'), price: 200, color: '#EF4444' },
-    { id: 'transport', icon: 'cube', title: t('transportItems'), desc: t('transportDesc'), price: 150, color: '#F59E0B' },
-    { id: 'intercity', icon: 'airplane', title: t('intercityTransport'), desc: t('intercityDesc'), price: 500, color: '#0EA5E9' },
+    { id: 'tow', icon: 'car-sport', title: t('towVehicle'), desc: t('towDesc'), price: getServicePriceWithVAT('tow'), color: '#059669' },
+    { id: 'flatTire', icon: 'disc', title: t('flatTireChange'), desc: t('flatTireDesc'), price: getServicePriceWithVAT('flatTire'), color: '#3B82F6' },
+    { id: 'battery', icon: 'flash', title: t('batteryJump'), desc: t('batteryJumpDesc'), price: getServicePriceWithVAT('battery'), color: '#8B5CF6' },
+    { id: 'fuel', icon: 'water', title: t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: getServicePriceWithVAT('fuel'), color: '#22C55E' },
+    { id: 'lockout', icon: 'key', title: t('carLockout'), desc: t('carLockoutDesc'), price: getServicePriceWithVAT('lockout'), color: '#EC4899' },
+    { id: 'emergency', icon: 'warning', title: t('winchRecovery'), desc: t('winchRecoveryDesc'), price: getServicePriceWithVAT('emergency'), color: '#EF4444' },
+    { id: 'transport', icon: 'cube', title: t('transportItems'), desc: t('transportDesc'), price: getServicePriceWithVAT('transport'), color: '#F59E0B' },
+    { id: 'heavyTow', icon: 'airplane', title: t('intercityTransport'), desc: t('intercityDesc'), price: getServicePriceWithVAT('heavyTow'), color: '#0EA5E9' },
   ];
 
   const animations = useRef(services.map(() => new Animated.Value(0))).current;
@@ -33,14 +36,14 @@ export default function ServiceScreen({ route, navigation }) {
   }, []);
 
   const handleSelect = (service) => {
-    // Services that don't need size selection
     // Services that don't need size selection go straight to price guarantee
     const directServices = ['flatTire', 'battery', 'fuel', 'lockout'];
     if (directServices.includes(service.id)) {
       navigation.navigate('PriceGuarantee', {
         service: service.title,
+        serviceId: service.id,
         size: '—',
-        price: `SAR ${service.price}`,
+        price: `SAR ${service.price} (incl. VAT)`,
         pickup,
         destination,
         destinationName,
@@ -48,6 +51,7 @@ export default function ServiceScreen({ route, navigation }) {
     } else {
       navigation.navigate('Size', {
         service: service.title,
+        serviceId: service.id,
         pickup,
         destination,
         destinationName,
@@ -85,7 +89,7 @@ export default function ServiceScreen({ route, navigation }) {
                 <Text style={styles.cardTitle}>{service.title}</Text>
                 <Text style={[styles.cardDesc, isRTL && styles.textRight]}>{service.desc}</Text>
                 <Text style={[styles.cardPrice, { color: service.color }]}>
-                  {t('fromSar')} {service.price}
+                  {t('fromSar')} {service.price} ({t('inclVat') || 'incl. VAT'})
                 </Text>
               </View>
               <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={20} color={colors.gray} />
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
   rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
     width: 52, height: 52, borderRadius: 16,
-    justifyContent: 'center', alignItems: 'center', marginRight: 14,
+    justifyContent: 'center', alignItems: 'center', marginHorizontal: 7,
   },
   cardContent: { flex: 1 },
   cardTitle: { fontSize: 16, fontWeight: '700', color: colors.text },

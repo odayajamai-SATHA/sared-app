@@ -1,6 +1,7 @@
 // Web fallback for react-native-maps (not supported on web)
 import { forwardRef, useImperativeHandle } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const MapView = forwardRef(function MapView({ style, children, ...props }, ref) {
   useImperativeHandle(ref, () => ({
@@ -11,7 +12,7 @@ const MapView = forwardRef(function MapView({ style, children, ...props }, ref) 
   return (
     <View style={[styles.container, style]}>
       <View style={styles.mapPlaceholder}>
-        <Text style={styles.icon}>&#x1F5FA;</Text>
+        <Ionicons name="location" size={48} color="#059669" />
         <Text style={styles.text}>Map View</Text>
         <Text style={styles.subtext}>Maps are available on mobile devices</Text>
       </View>
@@ -39,7 +40,7 @@ export const PROVIDER_GOOGLE = 'google';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E8E4DE',
+    backgroundColor: '#E8F5E9',
     overflow: 'hidden',
     position: 'relative',
   },
@@ -48,14 +49,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  icon: {
-    fontSize: 48,
-    marginBottom: 8,
-  },
   text: {
     fontSize: 18,
     fontWeight: '600',
     color: '#374151',
+    marginTop: 8,
   },
   subtext: {
     fontSize: 13,

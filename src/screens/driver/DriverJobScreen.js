@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   Linking,
-  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';

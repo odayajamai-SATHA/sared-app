@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
@@ -29,7 +28,7 @@ export default function DriverLoginScreen({ navigation }) {
       const { data, error } = await getDriverByPhone(`+966${phone}`);
       if (error || !data) {
         // For demo, navigate anyway with mock data
-        navigation.replace('DriverMain', {
+        navigation.replace('DriverDashboard', {
           driver: {
             id: 'demo-driver',
             name: t('driverName'),
@@ -41,10 +40,10 @@ export default function DriverLoginScreen({ navigation }) {
           },
         });
       } else {
-        navigation.replace('DriverMain', { driver: data });
+        navigation.replace('DriverDashboard', { driver: data });
       }
     } catch {
-      navigation.replace('DriverMain', {
+      navigation.replace('DriverDashboard', {
         driver: {
           id: 'demo-driver',
           name: t('driverName'),
@@ -93,7 +92,7 @@ export default function DriverLoginScreen({ navigation }) {
         </Text>
         <View style={[styles.phoneRow, isRTL && styles.rowReverse]}>
           <View style={styles.countryCode}>
-            <Text style={styles.countryCodeText}> +966</Text>
+            <Text style={styles.countryCodeText}>+966</Text>
           </View>
           <TextInput
             style={[styles.phoneInput, isRTL && styles.textRight]}

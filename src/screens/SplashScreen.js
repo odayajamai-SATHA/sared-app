@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
     marginBottom: 20, borderWidth: 2, borderColor: 'rgba(255,255,255,0.3)',
   },
   appName: { fontSize: 52, fontWeight: '800', color: '#FFF', letterSpacing: 3, textAlign: 'center' },
-  appNameAr: { fontSize: 28, fontWeight: '600', color: 'rgba(5,150,105,0.9)', textAlign: 'center', marginTop: 4 },
+  appNameAr: { fontSize: 28, fontWeight: '600', color: 'rgba(255,255,255,0.6)', textAlign: 'center', marginTop: 4 },
   tagline: { fontSize: 15, color: 'rgba(255,255,255,0.5)', marginTop: 16 },
 });

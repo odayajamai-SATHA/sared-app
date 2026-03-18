@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1.5, borderColor: 'transparent',
   },
   partnerChipActive: { borderColor: colors.primary, backgroundColor: colors.primaryFaded },
-  partnerLogo: { fontSize: 18 },
   partnerName: { fontSize: 13, fontWeight: '600', color: colors.text },
   textRight: { textAlign: 'right' },
 });

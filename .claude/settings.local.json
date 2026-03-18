@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx expo:*)",
+      "Bash(node:*)",
+      "Bash(taskkill:*)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo:*)",
+      "Bash(winget install:*)",
+      "Bash(curl -sL https://github.com/cli/cli/releases/download/v2.65.0/gh_2.65.0_windows_amd64.zip -o /tmp/gh.zip)",
+      "Bash(unzip -q -o /tmp/gh.zip -d /tmp/gh)",
+      "Bash(cp /tmp/gh/bin/gh.exe /usr/local/bin/gh)",
+      "Bash(cp /tmp/gh/bin/gh.exe /c/Users/odaya/AppData/Local/Microsoft/WindowsApps/gh.exe)",
+      "Read(//tmp/gh/**)",
+      "Bash(export:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

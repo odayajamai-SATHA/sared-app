@@ -50,7 +50,7 @@ export default function DriverMatchingScreen({ route, navigation }) {
     }, 3000);
     const t3 = setTimeout(() => {
       navigation.replace('Booking', params);
-    }, 4200);
+    }, 4500);
 
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
@@ -120,10 +120,9 @@ const styles = StyleSheet.create({
   },
   centerCircle: {
     width: 96, height: 96, borderRadius: 48,
-    backgroundColor: 'rgba(249,115,22,0.15)', justifyContent: 'center', alignItems: 'center',
-    borderWidth: 2, borderColor: 'rgba(249,115,22,0.3)',
+    backgroundColor: 'rgba(5,150,105,0.15)', justifyContent: 'center', alignItems: 'center',
+    borderWidth: 2, borderColor: 'rgba(5,150,105,0.3)',
   },
-  truckEmoji: { fontSize: 44 },
   findingText: { fontSize: 24, fontWeight: '800', color: '#FFF', marginBottom: 8 },
   statusText: { fontSize: 15, color: 'rgba(255,255,255,0.6)', marginBottom: 24 },
   statusFound: { color: '#4ADE80', fontWeight: '700' },

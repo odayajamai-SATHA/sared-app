@@ -7,7 +7,7 @@ import { notifyDriversNewRide } from '../utils/notifications';
 import { calculateFare, applyPromoCode, getDistanceKm } from '../utils/pricing';
 
 export default function BookingScreen({ route, navigation }) {
-  const { service, size, pickup, destination, destinationName } = route.params;
+  const { service, serviceId, size, pickup, destination, destinationName } = route.params;
   const { t, isRTL } = useI18n();
   const [promoCode, setPromoCode] = useState('');
   const [fare, setFare] = useState(null);
@@ -22,7 +22,7 @@ export default function BookingScreen({ route, navigation }) {
     if (pickup && destination) {
       distKm = getDistanceKm(pickup.latitude, pickup.longitude, destination.latitude, destination.longitude);
     }
-    const calculated = calculateFare(size, distKm);
+    const calculated = calculateFare(serviceId || 'tow', size, distKm);
     setFare(calculated);
 
     const nearbyDriverTokens = route.params?.driverTokens || [];
@@ -45,7 +45,7 @@ export default function BookingScreen({ route, navigation }) {
 
   const handleApplyPromo = () => {
     if (!fare || !promoCode.trim()) return;
-    const baseFare = calculateFare(size, fare.distanceKm);
+    const baseFare = calculateFare(serviceId || 'tow', size, fare.distanceKm);
     const updated = applyPromoCode(baseFare, promoCode, true);
     setFare(updated);
   };
@@ -107,7 +107,7 @@ export default function BookingScreen({ route, navigation }) {
             <Text style={styles.promoBtnText}>{t('applyPromo')}</Text>
           </TouchableOpacity>
         </View>
-        {fare.promoApplied && <View style={styles.promoSuccess}><Ionicons name="checkmark-circle" size={16} color="#22C55E" /><Text style={styles.promoSuccessText}>{t('promoApplied')}</Text></View>}
+        {fare.promoApplied && <View style={styles.promoSuccess}><Ionicons name="checkmark-circle" size={16} color="#22C55E" /><Text style={styles.promoSuccessText}>{fare.promoApplied === 'SARED1' ? (t('promoFirstFree') || 'Promo applied: First rescue free!') : t('promoApplied')}</Text></View>}
         {fare.promoError && <Text style={styles.promoError}>{t(fare.promoError)}</Text>}
       </View>
 

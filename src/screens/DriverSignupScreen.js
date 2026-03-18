@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, TextInput,
-  ScrollView, Alert, Animated,
+  ScrollView, Animated, ActivityIndicator,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { supabase } from '../utils/supabase';
 
 const VEHICLE_TYPES = ['smallFlatbed', 'mediumFlatbed', 'largeFlatbed', 'enclosedFlatbed'];
 const CITIES = ['Riyadh', 'Jeddah', 'Dammam', 'Makkah', 'Madinah'];
@@ -17,6 +18,8 @@ export default function DriverSignupScreen({ navigation }) {
   const [form, setForm] = useState({ name: '', phone: '', iqama: '', vehicleType: '', plate: '', city: '' });
   const [showVehicleMenu, setShowVehicleMenu] = useState(false);
   const [showCityMenu, setShowCityMenu] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
@@ -31,9 +34,20 @@ export default function DriverSignupScreen({ navigation }) {
   const update = (key, val) => setForm({ ...form, [key]: val });
   const isValid = form.name && form.phone && form.iqama && form.vehicleType && form.plate && form.city;
 
-  const handleSubmit = () => {
-    Alert.alert(t('applicationSubmitted'), t('applicationReview'));
-    navigation.goBack();
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      await supabase.from('drivers').insert({
+        name: form.name,
+        phone: form.phone,
+        vehicle_type: form.vehicleType,
+        plate_number: form.plate,
+        city: form.city,
+        status: 'pending',
+      });
+    } catch {}
+    setSubmitting(false);
+    setSubmitted(true);
   };
 
   const benefits = [
@@ -43,6 +57,21 @@ export default function DriverSignupScreen({ navigation }) {
   ];
 
   const cityList = lang === 'ar' ? CITIES_AR : CITIES;
+
+  if (submitted) {
+    return (
+      <View style={styles.successContainer}>
+        <View style={styles.successIconCircle}>
+          <Ionicons name="checkmark-circle" size={72} color="#22C55E" />
+        </View>
+        <Text style={styles.successTitle}>{t('applicationSubmittedSuccess')}</Text>
+        <Text style={styles.successSub}>{t('contactWithin48')}</Text>
+        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
+          <Text style={styles.successBtnText}>{t('done')}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -70,25 +99,21 @@ export default function DriverSignupScreen({ navigation }) {
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Animated.View style={[styles.formCard, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
-          {/* Full Name */}
           <Text style={styles.label}>{t('fullName')}</Text>
           <TextInput style={styles.input} placeholder={t('fullNamePlaceholder')} placeholderTextColor={colors.gray}
             value={form.name} onChangeText={(v) => update('name', v)} />
 
-          {/* Phone */}
           <Text style={styles.label}>{t('enterPhone')}</Text>
           <View style={styles.phoneRow}>
-            <View style={styles.codeBox}><Text style={styles.codeText}> +966</Text></View>
+            <View style={styles.codeBox}><Text style={styles.codeText}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={10} />
           </View>
 
-          {/* Iqama */}
           <Text style={styles.label}>{t('iqamaId')}</Text>
           <TextInput style={styles.input} placeholder={t('iqamaPlaceholder')} placeholderTextColor={colors.gray}
             keyboardType="number-pad" value={form.iqama} onChangeText={(v) => update('iqama', v)} maxLength={10} />
 
-          {/* Vehicle Type */}
           <Text style={styles.label}>{t('vehicleType')}</Text>
           <TouchableOpacity style={styles.dropdown} onPress={() => setShowVehicleMenu(!showVehicleMenu)}>
             <Text style={form.vehicleType ? styles.dropdownValue : styles.dropdownPlaceholder}>
@@ -107,12 +132,10 @@ export default function DriverSignupScreen({ navigation }) {
             </View>
           )}
 
-          {/* Plate */}
           <Text style={styles.label}>{t('plateNumber')}</Text>
           <TextInput style={styles.input} placeholder={t('platePlaceholder')} placeholderTextColor={colors.gray}
             autoCapitalize="characters" value={form.plate} onChangeText={(v) => update('plate', v)} />
 
-          {/* City */}
           <Text style={styles.label}>{t('city')}</Text>
           <TouchableOpacity style={styles.dropdown} onPress={() => setShowCityMenu(!showCityMenu)}>
             <Text style={form.city ? styles.dropdownValue : styles.dropdownPlaceholder}>
@@ -131,12 +154,17 @@ export default function DriverSignupScreen({ navigation }) {
             </View>
           )}
 
-          {/* Submit */}
-          <TouchableOpacity style={[styles.submitBtn, !isValid && { opacity: 0.5 }]}
-            onPress={handleSubmit} disabled={!isValid}>
+          <TouchableOpacity style={[styles.submitBtn, (!isValid || submitting) && { opacity: 0.5 }]}
+            onPress={handleSubmit} disabled={!isValid || submitting}>
             <LinearGradient colors={['#059669', '#047857']} style={styles.submitGradient}>
-              <Ionicons name="checkmark-circle" size={20} color="#FFF" />
-              <Text style={styles.submitText}>{t('submitApplication')}</Text>
+              {submitting ? (
+                <ActivityIndicator size="small" color="#FFF" />
+              ) : (
+                <>
+                  <Ionicons name="checkmark-circle" size={20} color="#FFF" />
+                  <Text style={styles.submitText}>{t('submitApplication')}</Text>
+                </>
+              )}
             </LinearGradient>
           </TouchableOpacity>
         </Animated.View>
@@ -201,4 +229,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center', gap: 8,
   },
   submitText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
+  // Success state
+  successContainer: {
+    flex: 1, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: colors.white, paddingHorizontal: 40,
+  },
+  successIconCircle: { marginBottom: 24 },
+  successTitle: { fontSize: 24, fontWeight: '800', color: colors.text, textAlign: 'center' },
+  successSub: { fontSize: 15, color: colors.textSecondary, textAlign: 'center', marginTop: 12 },
+  successBtn: {
+    backgroundColor: colors.primary, paddingHorizontal: 40, paddingVertical: 16,
+    borderRadius: 14, marginTop: 32,
+  },
+  successBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
 });

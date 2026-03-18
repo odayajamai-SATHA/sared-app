@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { I18nProvider, useI18n } from './src/utils/i18n';
 import { registerForPushNotifications, addNotificationListeners } from './src/utils/notifications';
+import { supabase } from './src/utils/supabase';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import OfflineBanner from './src/components/OfflineBanner';
 
@@ -46,13 +48,13 @@ import DriverProfileScreen from './src/screens/driver/DriverProfileScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function HomeTabs() {
+function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: '#059669',
-        tabBarInactiveTintColor: '#6B7280',
+        tabBarInactiveTintColor: '#9CA3AF',
         tabBarStyle: {
           height: 64, paddingBottom: 10, paddingTop: 8,
           borderTopColor: '#E5E7EB', backgroundColor: '#FFFFFF',
@@ -63,6 +65,7 @@ function HomeTabs() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
           if (route.name === 'Home') iconName = 'home';
+          else if (route.name === 'Services') iconName = 'grid';
           else if (route.name === 'History') iconName = 'time';
           else if (route.name === 'Profile') iconName = 'person';
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -70,6 +73,7 @@ function HomeTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Services" component={ServiceScreen} />
       <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -85,22 +89,38 @@ function AppContent() {
     return cleanup;
   }, []);
 
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        supabase.auth.startAutoRefresh();
+      } else {
+        supabase.auth.stopAutoRefresh();
+      }
+    });
+    return () => subscription.remove();
+  }, []);
+
   return (
     <ErrorBoundary isRTL={isRTL}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}>
-          {/* Splash & Onboarding */}
+          {/* Splash & Onboarding - NO tab bar */}
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
 
-          {/* Auth */}
+          {/* Auth - NO tab bar */}
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="OTP" component={OTPScreen} />
+          <Stack.Screen name="DriverSignup" component={DriverSignupScreen} />
+          <Stack.Screen name="ForBusiness" component={ForBusinessScreen} />
 
-          {/* Main App */}
-          <Stack.Screen name="Main" component={HomeTabs} />
+          {/* Main App with tab bar */}
+          <Stack.Screen name="Main" component={MainTabs} />
+
+          {/* Stack screens (no tab bar) */}
           <Stack.Screen name="Service" component={ServiceScreen} />
           <Stack.Screen name="Size" component={SizeScreen} />
+          <Stack.Screen name="PriceGuarantee" component={PriceGuaranteeScreen} />
           <Stack.Screen name="DriverMatching" component={DriverMatchingScreen} />
           <Stack.Screen name="Booking" component={BookingScreen} />
           <Stack.Screen name="Tracking" component={TrackingScreen} />
@@ -109,15 +129,11 @@ function AppContent() {
           <Stack.Screen name="Destination" component={DestinationScreen} />
           <Stack.Screen name="Membership" component={MembershipScreen} />
           <Stack.Screen name="Vehicles" component={VehiclesScreen} />
-          <Stack.Screen name="PriceGuarantee" component={PriceGuaranteeScreen} />
           <Stack.Screen name="Insurance" component={InsuranceScreen} />
-          <Stack.Screen name="DriverSignup" component={DriverSignupScreen} />
-          <Stack.Screen name="ForBusiness" component={ForBusinessScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
 
           {/* Driver Flow */}
           <Stack.Screen name="DriverLogin" component={DriverLoginScreen} />
-          <Stack.Screen name="DriverMain" component={DriverDashboardScreen} />
           <Stack.Screen name="DriverDashboard" component={DriverDashboardScreen} />
           <Stack.Screen name="DriverNavigation" component={DriverNavigationScreen} />
           <Stack.Screen name="DriverJob" component={DriverJobScreen} />

@@ -2,14 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TextInput, TouchableOpacity,
-  KeyboardAvoidingView, Platform, Animated,
+  KeyboardAvoidingView, Platform, Animated, ActivityIndicator,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { createDebouncedNav } from '../utils/navigation';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation: rawNav }) {
+  const navigation = createDebouncedNav(rawNav);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const { t, toggleLang, isRTL } = useI18n();
@@ -105,7 +107,7 @@ export default function LoginScreen({ navigation }) {
             <LinearGradient colors={['#059669', '#047857']} style={styles.otpGradient}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               {loading ? (
-                <Ionicons name="reload" size={20} color="#FFF" />
+                <ActivityIndicator size="small" color="#FFF" />
               ) : (
                 <>
                   <Ionicons name="arrow-forward" size={20} color="#FFF" />
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 14, paddingHorizontal: 14,
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)',
+    borderLeftWidth: 3, borderLeftColor: '#22C55E',
   },
   codeText: { fontSize: 16, color: '#FFF', fontWeight: '600' },
   phoneInput: {

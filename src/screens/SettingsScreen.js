@@ -64,6 +64,14 @@ export default function SettingsScreen({ navigation }) {
             </View>
           </View>
 
+          {/* Dark Mode - Coming Soon */}
+          <View style={styles.card}>
+            <View style={styles.darkModeRow}>
+              <Ionicons name="moon-outline" size={20} color={colors.gray} />
+              <Text style={styles.darkModeText}>{t('darkModeComingSoon')}</Text>
+            </View>
+          </View>
+
           {/* About */}
           <View style={styles.card}>
             <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
@@ -135,7 +143,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray, borderWidth: 2, borderColor: 'transparent',
   },
   langOptionActive: { borderColor: colors.primary, backgroundColor: colors.primaryFaded },
-  langFlag: { fontSize: 24 },
+  darkModeRow: { flexDirection: 'row', alignItems: 'center', gap: 12, opacity: 0.5 },
+  darkModeText: { fontSize: 15, fontWeight: '600', color: colors.gray },
   langText: { flex: 1, fontSize: 16, fontWeight: '600', color: colors.text },
   langTextActive: { color: colors.primary },
   aboutRow: {
@@ -148,7 +157,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', gap: 8,
     backgroundColor: '#F0FDF4', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10,
   },
-  madeWithText: { fontSize: 20 },
   madeWithLabel: { fontSize: 13, fontWeight: '600', color: '#16A34A' },
   actionRow: {
     flexDirection: 'row', alignItems: 'center', gap: 12,

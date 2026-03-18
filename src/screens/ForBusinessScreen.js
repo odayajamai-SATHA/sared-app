@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, TextInput,
-  ScrollView, Alert, Animated,
+  ScrollView, Animated,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,6 +14,7 @@ export default function ForBusinessScreen({ navigation }) {
   const { t, isRTL } = useI18n();
   const [form, setForm] = useState({ company: '', fleetSize: '', contact: '', email: '', phone: '' });
   const [showFleetMenu, setShowFleetMenu] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
@@ -29,8 +30,7 @@ export default function ForBusinessScreen({ navigation }) {
   const isValid = form.company && form.fleetSize && form.contact && form.email && form.phone;
 
   const handleSubmit = () => {
-    Alert.alert(t('inquirySubmitted'), t('inquiryReview'));
-    navigation.goBack();
+    setSubmitted(true);
   };
 
   const benefits = [
@@ -39,6 +39,19 @@ export default function ForBusinessScreen({ navigation }) {
     { icon: 'document-text-outline', text: t('bizBenefit3'), color: '#8B5CF6' },
     { icon: 'flash-outline', text: t('bizBenefit4'), color: '#22C55E' },
   ];
+
+  if (submitted) {
+    return (
+      <View style={styles.successContainer}>
+        <Ionicons name="checkmark-circle" size={64} color="#22C55E" />
+        <Text style={styles.successTitle}>{t('requestSubmitted')}</Text>
+        <Text style={styles.successSub}>{t('contactWithin24')}</Text>
+        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
+          <Text style={styles.successBtnText}>{t('done')}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -58,7 +71,6 @@ export default function ForBusinessScreen({ navigation }) {
       </LinearGradient>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Benefits */}
         <Animated.View style={[styles.benefitsCard, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
           {benefits.map((b, i) => (
             <View key={i} style={[styles.benefitRow, isRTL && styles.rowReverse]}>
@@ -70,7 +82,6 @@ export default function ForBusinessScreen({ navigation }) {
           ))}
         </Animated.View>
 
-        {/* Form */}
         <Animated.View style={[styles.formCard, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
           <Text style={styles.label}>{t('companyName')}</Text>
           <TextInput style={styles.input} placeholder={t('companyPlaceholderBiz')} placeholderTextColor={colors.gray}
@@ -88,7 +99,7 @@ export default function ForBusinessScreen({ navigation }) {
               {FLEET_SIZES.map((fs) => (
                 <TouchableOpacity key={fs} style={styles.menuItem}
                   onPress={() => { update('fleetSize', fs); setShowFleetMenu(false); }}>
-                  <Text style={styles.menuItemText}>{fs} vehicles</Text>
+                  <Text style={styles.menuItemText}>{fs}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -104,7 +115,7 @@ export default function ForBusinessScreen({ navigation }) {
 
           <Text style={styles.label}>{t('enterPhone')}</Text>
           <View style={styles.phoneRow}>
-            <View style={styles.codeBox}><Text style={styles.codeText}> +966</Text></View>
+            <View style={styles.codeBox}><Text style={styles.codeText}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={10} />
           </View>
@@ -184,4 +195,16 @@ const styles = StyleSheet.create({
   },
   submitText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   textRight: { textAlign: 'right' },
+  // Success state
+  successContainer: {
+    flex: 1, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: colors.white, paddingHorizontal: 40,
+  },
+  successTitle: { fontSize: 24, fontWeight: '800', color: colors.text, marginTop: 20, textAlign: 'center' },
+  successSub: { fontSize: 15, color: colors.textSecondary, marginTop: 12, textAlign: 'center' },
+  successBtn: {
+    backgroundColor: colors.primary, paddingHorizontal: 40, paddingVertical: 16,
+    borderRadius: 14, marginTop: 32,
+  },
+  successBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
 });

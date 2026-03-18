@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
-
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = width - 40;
 
 export default function MembershipScreen({ navigation }) {
   const { t, isRTL } = useI18n();
@@ -110,8 +107,10 @@ export default function MembershipScreen({ navigation }) {
               ))}
             </View>
 
-            <TouchableOpacity style={styles.subscribeBtn} activeOpacity={0.8}>
-              <Text style={styles.subscribeBtnText}>{t('subscribe')}</Text>
+            <Text style={styles.comingSoonNote}>{t('comingSoonPayments')}</Text>
+            <TouchableOpacity style={styles.subscribeBtn} activeOpacity={0.8}
+              onPress={() => Alert.alert(t('comingSoon'), t('notifyMeAlert'))}>
+              <Text style={styles.subscribeBtnText}>{t('notifyMe')}</Text>
             </TouchableOpacity>
           </LinearGradient>
         </Animated.View>
@@ -188,6 +187,7 @@ const styles = StyleSheet.create({
     borderRadius: 14, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)',
   },
   subscribeBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
+  comingSoonNote: { fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center', marginBottom: 12 },
   comparisonCard: {
     backgroundColor: colors.white, borderRadius: 16, padding: 16, overflow: 'hidden',
   },

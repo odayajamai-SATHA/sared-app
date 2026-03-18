@@ -97,7 +97,7 @@ export default function OTPScreen({ route, navigation }) {
 
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-          <Text style={styles.demoHint}>Demo: Enter any 6 digits</Text>
+          <Text style={styles.demoHint}>{t('demoOtpHint')}</Text>
 
           <TouchableOpacity
             style={[styles.verifyBtn, otpCode.length !== 6 && styles.verifyBtnDisabled]}
@@ -135,9 +135,9 @@ const styles = StyleSheet.create({
   content: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 24 },
   iconCircle: {
     width: 96, height: 96, borderRadius: 48,
-    backgroundColor: 'rgba(249,115,22,0.15)',
+    backgroundColor: 'rgba(5,150,105,0.15)',
     justifyContent: 'center', alignItems: 'center', marginBottom: 24,
-    borderWidth: 2, borderColor: 'rgba(249,115,22,0.3)',
+    borderWidth: 2, borderColor: 'rgba(5,150,105,0.3)',
   },
   title: { fontSize: 28, fontWeight: 'bold', color: '#FFF', marginBottom: 8 },
   subtitle: { fontSize: 14, color: 'rgba(255,255,255,0.6)', marginBottom: 32 },
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.08)',
     textAlign: 'center', fontSize: 24, fontWeight: '700', color: '#FFF',
   },
-  otpInputFilled: { borderColor: colors.primary, backgroundColor: 'rgba(249,115,22,0.15)' },
+  otpInputFilled: { borderColor: colors.primary, backgroundColor: 'rgba(5,150,105,0.15)' },
   otpInputError: { borderColor: '#EF4444' },
   errorText: { fontSize: 14, color: '#EF4444', marginBottom: 16 },
   demoHint: { fontSize: 12, color: 'rgba(255,255,255,0.35)', marginBottom: 20 },

@@ -7,7 +7,7 @@ import { useI18n } from '../utils/i18n';
 import { calculateFare, getDistanceKm } from '../utils/pricing';
 
 export default function PriceGuaranteeScreen({ route, navigation }) {
-  const { service, size, price, pickup, destination, destinationName } = route.params;
+  const { service, serviceId, size, price, pickup, destination, destinationName } = route.params;
   const { t, isRTL } = useI18n();
 
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
@@ -22,7 +22,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
     const actual = getDistanceKm(pickup.latitude, pickup.longitude, destination.latitude, destination.longitude);
     distKm = Math.max(actual * 1.2, 5); // add 20% buffer for route vs straight-line
   }
-  const fare = calculateFare(size, distKm);
+  const fare = calculateFare(serviceId || 'tow', size, distKm);
   const maxPrice = fare.total;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 
   const handleConfirm = () => {
     navigation.navigate('DriverMatching', {
-      service, size, price: `SAR ${maxPrice}`,
+      service, serviceId, size, price: `SAR ${maxPrice}`,
       pickup, destination, destinationName,
     });
   };

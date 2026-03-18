@@ -1,11 +1,20 @@
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Share, Platform, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { createDebouncedNav } from '../utils/navigation';
 
-export default function ProfileScreen({ navigation }) {
+export default function ProfileScreen({ navigation: rawNav }) {
+  const navigation = createDebouncedNav(rawNav);
   const { t, isRTL, lang } = useI18n();
+  const [stats, setStats] = useState({ trips: 0, rating: '--', vehicles: 0 });
+
+  // When real auth is added, query Supabase for actual stats
+  useEffect(() => {
+    setStats({ trips: 0, rating: '--', vehicles: 0 });
+  }, []);
 
   const handleShare = async () => {
     const appLink = 'https://sared.app/download';
@@ -58,17 +67,17 @@ export default function ProfileScreen({ navigation }) {
 
         <View style={styles.statsRow}>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>0</Text>
+            <Text style={styles.statNumber}>{stats.trips}</Text>
             <Text style={styles.statLabel}>{t('rides')}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>--</Text>
+            <Text style={styles.statNumber}>{stats.rating}</Text>
             <Text style={styles.statLabel}>{t('rating')}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>0</Text>
+            <Text style={styles.statNumber}>{stats.vehicles}</Text>
             <Text style={styles.statLabel}>{t('saved')}</Text>
           </View>
         </View>
@@ -119,8 +128,8 @@ const styles = StyleSheet.create({
   rowReverse: { flexDirection: 'row-reverse' },
   avatar: {
     width: 56, height: 56, borderRadius: 28,
-    backgroundColor: 'rgba(249,115,22,0.3)', justifyContent: 'center', alignItems: 'center',
-    marginRight: 14, borderWidth: 2, borderColor: 'rgba(249,115,22,0.5)',
+    backgroundColor: 'rgba(5,150,105,0.3)', justifyContent: 'center', alignItems: 'center',
+    marginRight: 14, borderWidth: 2, borderColor: 'rgba(5,150,105,0.5)',
   },
   profileInfo: { flex: 1 },
   name: { fontSize: 18, fontWeight: '700', color: '#FFF' },

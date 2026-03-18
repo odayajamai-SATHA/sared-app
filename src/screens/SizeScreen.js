@@ -2,16 +2,47 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { getSizePriceWithVAT, getPriceRange } from '../utils/pricing';
+import { createDebouncedNav } from '../utils/navigation';
 
-export default function SizeScreen({ route, navigation }) {
-  const { service } = route.params;
+export default function SizeScreen({ route, navigation: rawNav }) {
+  const navigation = createDebouncedNav(rawNav);
+  const { service, serviceId } = route.params;
   const { t, isRTL } = useI18n();
 
   const sizes = [
-    { id: 'small', icon: 'car-outline', title: t('smallSared'), description: t('smallDesc'), price: 'SAR 150 – 250' },
-    { id: 'medium', icon: 'car-sport-outline', title: t('mediumSared'), description: t('mediumDesc'), price: 'SAR 250 – 400' },
-    { id: 'large', icon: 'bus-outline', title: t('largeSared'), description: t('largeDesc'), price: 'SAR 400 – 600' },
-    { id: 'enclosed', icon: 'shield-checkmark-outline', title: t('enclosed'), description: t('enclosedDesc'), price: 'SAR 600 – 900' },
+    {
+      id: 'small',
+      icon: 'car-outline',
+      title: t('smallSared'),
+      description: t('smallDesc'),
+      multiplier: '1.0x',
+      price: `SAR ${getSizePriceWithVAT(serviceId, 'small')}`,
+    },
+    {
+      id: 'medium',
+      icon: 'car-sport-outline',
+      title: t('mediumSared'),
+      description: t('mediumDesc'),
+      multiplier: '1.3x',
+      price: `SAR ${getSizePriceWithVAT(serviceId, 'medium')}`,
+    },
+    {
+      id: 'large',
+      icon: 'bus-outline',
+      title: t('largeSared'),
+      description: t('largeDesc'),
+      multiplier: '1.6x',
+      price: `SAR ${getSizePriceWithVAT(serviceId, 'large')}`,
+    },
+    {
+      id: 'enclosed',
+      icon: 'shield-checkmark-outline',
+      title: t('enclosed'),
+      description: t('enclosedDesc'),
+      multiplier: '2.0x',
+      price: `SAR ${getSizePriceWithVAT(serviceId, 'enclosed')}`,
+    },
   ];
 
   const pickup = route.params?.pickup;
@@ -19,9 +50,8 @@ export default function SizeScreen({ route, navigation }) {
   const destinationName = route.params?.destinationName;
 
   const handleSelect = (size) => {
-    // Show upfront guaranteed price before confirming
     navigation.navigate('PriceGuarantee', {
-      service, size: size.title, price: size.price,
+      service, serviceId, size: size.title, price: `${size.price} (incl. VAT)`,
       pickup, destination, destinationName,
     });
   };
@@ -39,6 +69,7 @@ export default function SizeScreen({ route, navigation }) {
       <ScrollView style={styles.content} contentContainerStyle={styles.contentInner}>
         <Text style={[styles.serviceLabel, isRTL && styles.textRight]}>{service}</Text>
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>{t('chooseSize')}</Text>
+        <Text style={[styles.vatNote, isRTL && styles.textRight]}>{t('allPricesInclVat')}</Text>
 
         {sizes.map((size) => (
           <TouchableOpacity key={size.id} style={styles.card} onPress={() => handleSelect(size)}>
@@ -49,10 +80,14 @@ export default function SizeScreen({ route, navigation }) {
               <View style={[styles.cardContent, isRTL && { alignItems: 'flex-end' }]}>
                 <Text style={styles.cardTitle}>{size.title}</Text>
                 <Text style={[styles.cardDesc, isRTL && styles.textRight]}>{size.description}</Text>
+                <Text style={styles.multiplierText}>{size.multiplier}</Text>
               </View>
             </View>
             <View style={[styles.priceRow, isRTL && styles.rowReverse]}>
-              <Text style={styles.priceText}>{size.price}</Text>
+              <View>
+                <Text style={styles.priceText}>{size.price}</Text>
+                <Text style={styles.vatLabel}>{t('inclVat15')}</Text>
+              </View>
               <View style={styles.selectBtn}>
                 <Text style={styles.selectBtnText}>{t('select')}</Text>
               </View>
@@ -65,121 +100,50 @@ export default function SizeScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
+  container: { flex: 1, backgroundColor: colors.white },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: 56,
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    backgroundColor: colors.white,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingTop: 56, paddingHorizontal: 16, paddingBottom: 16,
+    backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border,
   },
   backBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: colors.lightGray,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  content: {
-    flex: 1,
-  },
-  contentInner: {
-    padding: 20,
-  },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  content: { flex: 1 },
+  contentInner: { padding: 20 },
   serviceLabel: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.primary,
-    backgroundColor: colors.primaryFaded,
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-    overflow: 'hidden',
-    marginBottom: 12,
+    fontSize: 13, fontWeight: '600', color: colors.primary,
+    backgroundColor: colors.primaryFaded, alignSelf: 'flex-start',
+    paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8,
+    overflow: 'hidden', marginBottom: 12,
   },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    marginBottom: 16,
-  },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: colors.textSecondary, marginBottom: 4 },
+  vatNote: { fontSize: 12, color: colors.gray, marginBottom: 16 },
   card: {
-    backgroundColor: colors.white,
-    borderRadius: 14,
-    padding: 16,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.white, borderRadius: 14, padding: 16, marginBottom: 12,
+    borderWidth: 1, borderColor: colors.border,
   },
-  cardTop: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  rowReverse: {
-    flexDirection: 'row-reverse',
-  },
+  cardTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
+  rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
-    width: 52,
-    height: 52,
-    borderRadius: 14,
-    backgroundColor: colors.primaryFaded,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 14,
+    width: 52, height: 52, borderRadius: 14, backgroundColor: colors.primaryFaded,
+    justifyContent: 'center', alignItems: 'center', marginRight: 14,
   },
-  cardContent: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  cardDesc: {
-    fontSize: 13,
-    color: colors.textSecondary,
-    marginTop: 3,
-  },
+  cardContent: { flex: 1 },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
+  cardDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 3 },
+  multiplierText: { fontSize: 11, fontWeight: '600', color: colors.primary, marginTop: 2 },
   priceRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: colors.lightGray,
-    paddingTop: 12,
+    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+    borderTopWidth: 1, borderTopColor: colors.lightGray, paddingTop: 12,
   },
-  priceText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.primary,
-  },
+  priceText: { fontSize: 16, fontWeight: '700', color: colors.primary },
+  vatLabel: { fontSize: 11, color: colors.gray, marginTop: 2 },
   selectBtn: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 8,
+    backgroundColor: colors.primary, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 8,
   },
-  selectBtnText: {
-    color: colors.white,
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  textRight: {
-    textAlign: 'right',
-  },
+  selectBtnText: { color: colors.white, fontWeight: '600', fontSize: 14 },
+  textRight: { textAlign: 'right' },
 });

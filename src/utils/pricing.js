@@ -1,10 +1,24 @@
 const VAT_RATE = 0.15;
+const NIGHT_SURCHARGE_RATE = 0.25;
 
-const SIZE_CONFIG = {
-  small: { baseFare: 100, perKm: 3 },
-  medium: { baseFare: 150, perKm: 4 },
-  large: { baseFare: 250, perKm: 5 },
-  enclosed: { baseFare: 400, perKm: 7 },
+// Base fares per service (before VAT)
+const SERVICE_BASE_FARES = {
+  tow: 150,        // Standard Tow
+  heavyTow: 250,   // Heavy Tow
+  emergency: 200,  // Emergency
+  transport: 300,  // Transport
+  flatTire: 80,    // Flat Tire
+  battery: 100,    // Battery
+  fuel: 70,        // Fuel
+  lockout: 120,    // Lockout
+};
+
+// Size multipliers
+const SIZE_MULTIPLIERS = {
+  small: 1.0,
+  medium: 1.3,
+  large: 1.6,
+  enclosed: 2.0,
 };
 
 // Map translated size names to config keys
@@ -22,23 +36,49 @@ function isNightTime(date = new Date()) {
 }
 
 /**
+ * Get base fare for a service.
+ */
+export function getServiceBaseFare(serviceId) {
+  return SERVICE_BASE_FARES[serviceId] || 150;
+}
+
+/**
+ * Get price including VAT for a service (no size multiplier).
+ */
+export function getServicePriceWithVAT(serviceId) {
+  const base = getServiceBaseFare(serviceId);
+  return Math.round(base * (1 + VAT_RATE));
+}
+
+/**
+ * Get price for a service + size combo including VAT.
+ */
+export function getSizePriceWithVAT(serviceId, sizeKey) {
+  const base = getServiceBaseFare(serviceId);
+  const multiplier = SIZE_MULTIPLIERS[sizeKey] || 1.0;
+  const price = base * multiplier;
+  return Math.round(price * (1 + VAT_RATE));
+}
+
+/**
  * Calculate the fare breakdown.
+ * @param {string} serviceId - Service type key (tow, flatTire, etc.)
  * @param {string} sizeLabel - Translated size name
  * @param {number} distanceKm - Distance in kilometers
  * @param {Date} [date] - Date/time of the ride (defaults to now)
- * @returns {{ baseFare, distanceCharge, subtotal, nightSurcharge, promoDiscount, vat, total, isNight, distanceKm, sizeKey }}
  */
-export function calculateFare(sizeLabel, distanceKm, date = new Date()) {
+export function calculateFare(serviceId, sizeLabel, distanceKm, date = new Date()) {
   const sizeKey = getSizeKey(sizeLabel);
-  const config = SIZE_CONFIG[sizeKey];
+  const baseFareRaw = getServiceBaseFare(serviceId);
+  const multiplier = SIZE_MULTIPLIERS[sizeKey] || 1.0;
+  const baseFare = Math.round(baseFareRaw * multiplier);
   const km = Math.max(0, distanceKm || 0);
+  const distanceCharge = Math.round(km * 3);
 
-  const baseFare = config.baseFare;
-  const distanceCharge = Math.round(km * config.perKm);
   let subtotal = baseFare + distanceCharge;
 
   const isNight = isNightTime(date);
-  const nightSurcharge = isNight ? Math.round(subtotal * 0.5) : 0;
+  const nightSurcharge = isNight ? Math.round(subtotal * NIGHT_SURCHARGE_RATE) : 0;
   subtotal += nightSurcharge;
 
   const vat = Math.round(subtotal * VAT_RATE);
@@ -60,10 +100,6 @@ export function calculateFare(sizeLabel, distanceKm, date = new Date()) {
 
 /**
  * Apply a promo code to a fare breakdown.
- * @param {object} fare - Result from calculateFare()
- * @param {string} code - Promo code
- * @param {boolean} isFirstRide - Whether this is the user's first ride
- * @returns {{ ...fare, promoDiscount, total, promoError?, promoApplied? }}
  */
 export function applyPromoCode(fare, code, isFirstRide = true) {
   const upper = (code || '').trim().toUpperCase();
@@ -72,7 +108,7 @@ export function applyPromoCode(fare, code, isFirstRide = true) {
     if (!isFirstRide) {
       return { ...fare, promoError: 'firstRideOnly' };
     }
-    const discount = Math.min(Math.round(fare.subtotal * 0.5), 75);
+    const discount = fare.subtotal; // 100% discount - first ride free
     const newSubtotal = fare.subtotal - discount;
     const vat = Math.round(newSubtotal * VAT_RATE);
     return {
@@ -86,7 +122,7 @@ export function applyPromoCode(fare, code, isFirstRide = true) {
   }
 
   if (upper === 'SARED10') {
-    const discount = Math.min(10, fare.subtotal);
+    const discount = Math.round(fare.subtotal * 0.10); // 10% discount
     const newSubtotal = fare.subtotal - discount;
     const vat = Math.round(newSubtotal * VAT_RATE);
     return {
@@ -120,12 +156,15 @@ export function getDistanceKm(lat1, lon1, lat2, lon2) {
 }
 
 /**
- * Get price range string for size selection screen.
+ * Get price range string for size selection screen (including VAT).
  */
-export function getPriceRange(sizeKey) {
-  const config = SIZE_CONFIG[sizeKey];
-  if (!config) return '';
-  const min = config.baseFare;
-  const max = Math.round(config.baseFare + config.perKm * 50);
-  return `SAR ${min} – ${max}`;
+export function getPriceRange(serviceId, sizeKey) {
+  const base = getServiceBaseFare(serviceId);
+  const multiplier = SIZE_MULTIPLIERS[sizeKey] || 1.0;
+  const price = Math.round(base * multiplier);
+  const priceWithVat = Math.round(price * (1 + VAT_RATE));
+  const maxWithVat = Math.round((price + 150) * (1 + VAT_RATE));
+  return `SAR ${priceWithVat} – ${maxWithVat}`;
 }
+
+export { SERVICE_BASE_FARES, SIZE_MULTIPLIERS, VAT_RATE, NIGHT_SURCHARGE_RATE };
