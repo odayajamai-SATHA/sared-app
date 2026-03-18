@@ -423,6 +423,17 @@ const translations = {
     contactWithin48: "We'll contact you within 48 hours.",
     processing: 'Processing...',
 
+    // Payment
+    payWithCash: 'Pay with Cash',
+    cashPaymentDesc: 'Pay your driver directly in cash when service is complete.',
+    stcPayInstructions: 'Send {amount} to {number} via STC Pay. Tap "I Paid" after sending.',
+    iPaid: 'I Paid',
+    copyNumber: 'Copy',
+    copied: 'Copied!',
+    madaApplePaySoon: 'Mada and Apple Pay coming soon',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+
     emergencySOS: 'Emergency SOS',
     sosActivated: 'SOS Activated',
     sosDesc: 'Tap to request immediate emergency assistance',
@@ -852,6 +863,17 @@ const translations = {
     applicationSubmittedSuccess: 'تم تقديم الطلب!',
     contactWithin48: 'سنتواصل معك خلال 48 ساعة.',
     processing: 'جاري المعالجة...',
+
+    // Payment
+    payWithCash: 'الدفع نقداً',
+    cashPaymentDesc: 'ادفع للسائق مباشرة نقداً عند اكتمال الخدمة.',
+    stcPayInstructions: 'أرسل {amount} إلى {number} عبر STC Pay. اضغط "دفعت" بعد الإرسال.',
+    iPaid: 'دفعت',
+    copyNumber: 'نسخ',
+    copied: 'تم النسخ!',
+    madaApplePaySoon: 'مدى وApple Pay قريباً',
+    confirm: 'تأكيد',
+    cancel: 'إلغاء',
 
     emergencySOS: 'طوارئ SOS',
     sosActivated: 'تم تفعيل SOS',

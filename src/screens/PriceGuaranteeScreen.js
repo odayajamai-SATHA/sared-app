@@ -40,9 +40,10 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
   }, []);
 
   const handleConfirm = () => {
-    navigation.navigate('DriverMatching', {
+    navigation.navigate('Payment', {
       service, serviceId, size, price: `SAR ${maxPrice}`,
       pickup, destination, destinationName,
+      fareTotal: `SAR ${maxPrice}`,
     });
   };
 

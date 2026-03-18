@@ -31,6 +31,7 @@ import DestinationScreen from './src/screens/DestinationScreen';
 import MembershipScreen from './src/screens/MembershipScreen';
 import VehiclesScreen from './src/screens/VehiclesScreen';
 import PriceGuaranteeScreen from './src/screens/PriceGuaranteeScreen';
+import PaymentScreen from './src/screens/PaymentScreen';
 import InsuranceScreen from './src/screens/InsuranceScreen';
 import DriverSignupScreen from './src/screens/DriverSignupScreen';
 import ForBusinessScreen from './src/screens/ForBusinessScreen';
@@ -121,6 +122,7 @@ function AppContent() {
           <Stack.Screen name="Service" component={ServiceScreen} />
           <Stack.Screen name="Size" component={SizeScreen} />
           <Stack.Screen name="PriceGuarantee" component={PriceGuaranteeScreen} />
+          <Stack.Screen name="Payment" component={PaymentScreen} />
           <Stack.Screen name="DriverMatching" component={DriverMatchingScreen} />
           <Stack.Screen name="Booking" component={BookingScreen} />
           <Stack.Screen name="Tracking" component={TrackingScreen} />
