@@ -2,18 +2,22 @@ import { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TextInput, TouchableOpacity,
-  KeyboardAvoidingView, Platform, Animated, ActivityIndicator,
+  KeyboardAvoidingView, Platform, Animated, ActivityIndicator, Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 import { createDebouncedNav } from '../utils/navigation';
+import { supabase } from '../utils/supabase';
 
 export default function LoginScreen({ navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+  const [sendCount, setSendCount] = useState(0);
+  const cooldownRef = useRef(null);
   const { t, toggleLang, isRTL } = useI18n();
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -36,14 +40,49 @@ export default function LoginScreen({ navigation: rawNav }) {
     ]).start();
   }, []);
 
-  // Replace with real Supabase auth when phone provider is configured
-  const handleGetOTP = () => {
-    if (!phone) return;
+  useEffect(() => {
+    return () => { if (cooldownRef.current) clearInterval(cooldownRef.current); };
+  }, []);
+
+  const startCooldown = () => {
+    const delays = [30, 60, 120];
+    const seconds = delays[Math.min(sendCount, delays.length - 1)];
+    setCooldown(seconds);
+    setSendCount((c) => c + 1);
+    cooldownRef.current = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) { clearInterval(cooldownRef.current); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  const handleGetOTP = async () => {
+    if (!phone || cooldown > 0) return;
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ phone: '+966' + phone });
       setLoading(false);
+      if (error) {
+        Alert.alert(t('error') || 'Error', error.message, [
+          { text: 'OK' },
+          { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
+        ]);
+        return;
+      }
+      startCooldown();
       navigation.navigate('OTP', { phone });
-    }, 500);
+    } catch (e) {
+      setLoading(false);
+      Alert.alert(
+        t('error') || 'Error',
+        'SMS verification not available yet. Continue as guest?',
+        [
+          { text: t('cancel') || 'Cancel', style: 'cancel' },
+          { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
+        ]
+      );
+    }
   };
 
   return (
@@ -99,15 +138,17 @@ export default function LoginScreen({ navigation: rawNav }) {
           </View>
 
           <TouchableOpacity
-            style={[styles.otpButton, (!phone || loading) && styles.otpButtonDisabled]}
+            style={[styles.otpButton, (!phone || loading || cooldown > 0) && styles.otpButtonDisabled]}
             onPress={handleGetOTP}
-            disabled={!phone || loading}
+            disabled={!phone || loading || cooldown > 0}
             activeOpacity={0.8}
           >
             <LinearGradient colors={['#059669', '#047857']} style={styles.otpGradient}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               {loading ? (
                 <ActivityIndicator size="small" color="#FFF" />
+              ) : cooldown > 0 ? (
+                <Text style={styles.otpButtonText}>{t('resendIn') || 'Resend in'} {cooldown}s</Text>
               ) : (
                 <>
                   <Ionicons name="arrow-forward" size={20} color="#FFF" />

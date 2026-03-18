@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { supabase } from '../utils/supabase';
 
 export default function OTPScreen({ route, navigation }) {
   const { phone } = route.params;
@@ -20,7 +21,19 @@ export default function OTPScreen({ route, navigation }) {
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [resendCooldown, setResendCooldown] = useState(30);
+  const cooldownRef = useRef(null);
   const inputs = useRef([]);
+
+  useEffect(() => {
+    cooldownRef.current = setInterval(() => {
+      setResendCooldown((prev) => {
+        if (prev <= 1) { clearInterval(cooldownRef.current); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => { if (cooldownRef.current) clearInterval(cooldownRef.current); };
+  }, []);
 
   const handleChange = (text, index) => {
     const newCode = [...code];
@@ -47,16 +60,58 @@ export default function OTPScreen({ route, navigation }) {
 
   const otpCode = code.join('');
 
-  // Replace with real Supabase auth when phone provider is configured
-  // Accept any 6-digit code for demo purposes
-  const handleVerify = () => {
+  const handleVerify = async () => {
     if (otpCode.length !== 6) return;
     setLoading(true);
     setError('');
-    setTimeout(() => {
+    try {
+      const { data, error: verifyError } = await supabase.auth.verifyOtp({
+        phone: '+966' + phone,
+        token: otpCode,
+        type: 'sms',
+      });
       setLoading(false);
-      navigation.replace('Main');
-    }, 600);
+      if (verifyError) {
+        setError(verifyError.message);
+        return;
+      }
+      if (data?.session) {
+        navigation.replace('Main');
+      } else {
+        setError(t('verificationFailed') || 'Verification failed. Please try again.');
+      }
+    } catch (e) {
+      setLoading(false);
+      Alert.alert(
+        t('error') || 'Error',
+        'SMS verification not available yet. Continue as guest?',
+        [
+          { text: t('cancel') || 'Cancel', style: 'cancel' },
+          { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
+        ]
+      );
+    }
+  };
+
+  const handleResend = async () => {
+    if (resendCooldown > 0) return;
+    try {
+      const { error: resendError } = await supabase.auth.signInWithOtp({ phone: '+966' + phone });
+      if (resendError) {
+        Alert.alert(t('error') || 'Error', resendError.message);
+        return;
+      }
+      Alert.alert(t('otpResent') || 'OTP Resent');
+      setResendCooldown(30);
+      cooldownRef.current = setInterval(() => {
+        setResendCooldown((prev) => {
+          if (prev <= 1) { clearInterval(cooldownRef.current); return 0; }
+          return prev - 1;
+        });
+      }, 1000);
+    } catch (e) {
+      Alert.alert(t('error') || 'Error', 'Could not resend OTP.');
+    }
   };
 
   return (
@@ -97,8 +152,6 @@ export default function OTPScreen({ route, navigation }) {
 
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-          <Text style={styles.demoHint}>{t('demoOtpHint')}</Text>
-
           <TouchableOpacity
             style={[styles.verifyBtn, otpCode.length !== 6 && styles.verifyBtnDisabled]}
             onPress={handleVerify}
@@ -114,8 +167,12 @@ export default function OTPScreen({ route, navigation }) {
             </LinearGradient>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.resendBtn} onPress={() => Alert.alert(t('otpResent'))}>
-            <Text style={styles.resendText}>{t('resendOTP')}</Text>
+          <TouchableOpacity style={styles.resendBtn} onPress={handleResend} disabled={resendCooldown > 0}>
+            <Text style={[styles.resendText, resendCooldown > 0 && { opacity: 0.5 }]}>
+              {resendCooldown > 0
+                ? `${t('resendIn') || 'Resend in'} ${resendCooldown}s`
+                : t('resendOTP')}
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -152,7 +209,6 @@ const styles = StyleSheet.create({
   otpInputFilled: { borderColor: colors.primary, backgroundColor: 'rgba(5,150,105,0.15)' },
   otpInputError: { borderColor: '#EF4444' },
   errorText: { fontSize: 14, color: '#EF4444', marginBottom: 16 },
-  demoHint: { fontSize: 12, color: 'rgba(255,255,255,0.35)', marginBottom: 20 },
   verifyBtn: { width: '100%', borderRadius: 14, overflow: 'hidden', marginBottom: 16 },
   verifyBtnDisabled: { opacity: 0.5 },
   verifyGradient: { paddingVertical: 16, alignItems: 'center' },
