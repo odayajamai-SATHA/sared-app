@@ -111,7 +111,7 @@ export default function ReceiptScreen({ route, navigation }) {
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={{ paddingBottom: 40 }}>
       <View style={[styles.topBar, { backgroundColor: colors.headerBg }]}>
-        <TouchableOpacity onPress={() => navigation.navigate('Main')} style={[styles.closeBtn, { backgroundColor: colors.surfaceSecondary }] hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Main')} style={[styles.closeBtn, { backgroundColor: colors.surfaceSecondary }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name="close" size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.topTitle, { color: colors.text }]}>{t('receipt')}</Text>
