@@ -10,6 +10,7 @@ import { calculateFare, getDistanceKm } from '../utils/pricing';
 export default function PriceGuaranteeScreen({ route, navigation }) {
   const { service, serviceId, size, price, pickup, destination, destinationName } = route.params || {};
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
 
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -49,7 +50,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>

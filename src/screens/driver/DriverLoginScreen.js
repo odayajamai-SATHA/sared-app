@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
+import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { getDriverByPhone } from '../../utils/supabase';
 
@@ -19,6 +20,7 @@ export default function DriverLoginScreen({ navigation }) {
   const [driverId, setDriverId] = useState('');
   const [loading, setLoading] = useState(false);
   const { t, toggleLang, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
 
   const handleLogin = async () => {
     if (!phone || !driverId) return;
@@ -154,7 +156,7 @@ export default function DriverLoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: undefined,
   },
   langToggle: {
     position: 'absolute',

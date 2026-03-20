@@ -5,10 +5,12 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function VehiclesScreen({ navigation }) {
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [vehicles, setVehicles] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ make: '', model: '', year: '', color: '', plate: '' });
@@ -30,7 +32,7 @@ export default function VehiclesScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />

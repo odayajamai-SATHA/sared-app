@@ -8,6 +8,7 @@ import { useI18n } from '../utils/i18n';
 export default function SizeScreen({ route, navigation }) {
   const { service, serviceId } = route.params || {};
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [selectedId, setSelectedId] = useState(null);
 
   const pickup = route.params?.pickup;
@@ -64,7 +65,7 @@ export default function SizeScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -132,7 +133,7 @@ export default function SizeScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.white },
+  container: { flex: 1, backgroundColor: undefined },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 56, paddingHorizontal: 16, paddingBottom: 16,

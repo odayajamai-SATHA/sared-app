@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Alert, 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function MembershipScreen({ navigation }) {
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [selected, setSelected] = useState(1);
   const scaleAnim = useRef(new Animated.Value(0.9)).current;
 
@@ -55,7 +57,7 @@ export default function MembershipScreen({ navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />

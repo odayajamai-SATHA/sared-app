@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
+import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import {
   updateDriverStatus,
@@ -21,6 +22,7 @@ import { notifyCustomerDriverAccepted } from '../../utils/notifications';
 export default function DriverDashboardScreen({ route, navigation }) {
   const driver = route.params?.driver;
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
 
   const [isOnline, setIsOnline] = useState(driver?.is_online || false);
   const [earnings, setEarnings] = useState(450);
@@ -140,7 +142,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       {/* Header */}
       <View style={styles.header}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
@@ -303,7 +305,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',

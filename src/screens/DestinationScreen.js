@@ -29,6 +29,7 @@ const SUGGESTIONS = [
 export default function DestinationScreen({ route, navigation }) {
   const { pickup } = route.params || {};
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const mapRef = useRef(null);
   const [query, setQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -72,7 +73,7 @@ export default function DestinationScreen({ route, navigation }) {
 
   if (showMap) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: C.background }]}>
         <View style={[styles.header, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => setShowMap(false)} style={styles.backBtn}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -176,7 +177,7 @@ export default function DestinationScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: undefined,
   },
   header: {
     flexDirection: 'row',

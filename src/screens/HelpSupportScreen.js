@@ -12,6 +12,7 @@ const REPORT_URL = 'https://wa.me/966554404434?text=' + encodeURIComponent('مر
 
 export default function HelpSupportScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   const faqs = [
@@ -48,7 +49,7 @@ export default function HelpSupportScreen({ navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />

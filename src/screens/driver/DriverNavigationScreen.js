@@ -4,12 +4,14 @@ import MapView, { Marker, Polyline } from '../../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
+import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { updateRideStatus } from '../../utils/supabase';
 
 export default function DriverNavigationScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const mapRef = useRef(null);
 
   const customerName = ride?.users?.name || 'Mohammed';
@@ -136,7 +138,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
     : { ...defaultCoord, latitudeDelta: 0.04, longitudeDelta: 0.04 };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>

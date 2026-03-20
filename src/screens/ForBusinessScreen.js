@@ -6,12 +6,14 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 const FLEET_SIZES = ['1-10', '11-50', '51-200', '200+'];
 
 export default function ForBusinessScreen({ navigation }) {
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [form, setForm] = useState({ company: '', fleetSize: '', contact: '', email: '', phone: '' });
   const [showFleetMenu, setShowFleetMenu] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -54,7 +56,7 @@ export default function ForBusinessScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <LinearGradient colors={['#065F46', '#022C22']} style={styles.headerGradient}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>

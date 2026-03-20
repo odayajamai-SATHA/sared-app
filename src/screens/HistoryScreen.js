@@ -8,6 +8,7 @@ import { supabase } from '../utils/supabase';
 
 export default function HistoryScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,7 +74,7 @@ export default function HistoryScreen({ navigation }) {
 
   if (loading) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: C.background }]}>
         <View style={styles.header}>
           <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
         </View>
@@ -119,7 +120,7 @@ export default function HistoryScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.white },
+  container: { flex: 1, backgroundColor: undefined },
   header: {
     paddingTop: 56, paddingHorizontal: 20, paddingBottom: 16,
     borderBottomWidth: 1, borderBottomColor: colors.border,

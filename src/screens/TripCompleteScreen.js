@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Platfor
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function TripCompleteScreen({ route, navigation }) {
   const { service, size, price, fareBreakdown, paymentMethod } = route.params || {};
   const [rating, setRating] = useState(0);
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
 
   const checkScale = useRef(new Animated.Value(0)).current;
   const cardSlide = useRef(new Animated.Value(60)).current;

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
+import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { updateRideStatus } from '../../utils/supabase';
 
@@ -16,6 +17,7 @@ const STEPS = ['arrived', 'loading', 'in_transit', 'completed'];
 export default function DriverJobScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [currentStep, setCurrentStep] = useState(0); // 0=Arrived, 1=Loading, 2=In Transit, 3=Completed
 
   const customerName = ride?.users?.name || 'Mohammed';
@@ -66,7 +68,7 @@ export default function DriverJobScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>{t('jobInProgress')}</Text>
@@ -184,7 +186,7 @@ export default function DriverJobScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',

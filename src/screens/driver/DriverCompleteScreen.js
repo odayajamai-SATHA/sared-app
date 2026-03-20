@@ -1,18 +1,20 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
+import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
 export default function DriverCompleteScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
 
   const handleDone = () => {
     navigation.navigate('DriverDashboard', { driver });
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={styles.topSection}>
         <View style={styles.checkCircle}>
           <Ionicons name="checkmark-circle" size={64} color={colors.white} />
@@ -69,7 +71,7 @@ export default function DriverCompleteScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: undefined,
   },
   topSection: {
     backgroundColor: '#22C55E',

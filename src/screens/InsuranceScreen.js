@@ -6,6 +6,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 const PARTNER_INSURERS = [
@@ -19,6 +20,7 @@ const PARTNER_INSURERS = [
 
 export default function InsuranceScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [company, setCompany] = useState('');
   const [policyNum, setPolicyNum] = useState('');
   const [saved, setSaved] = useState(false);
@@ -51,7 +53,7 @@ export default function InsuranceScreen({ navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />

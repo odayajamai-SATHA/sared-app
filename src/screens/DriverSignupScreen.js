@@ -6,6 +6,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
 
@@ -15,6 +16,7 @@ const CITIES_AR = ['الرياض', 'جدة', 'الدمام', 'مكة', 'المد
 
 export default function DriverSignupScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [form, setForm] = useState({ name: '', phone: '', iqama: '', vehicleType: '', plate: '', city: '' });
   const [showVehicleMenu, setShowVehicleMenu] = useState(false);
   const [showCityMenu, setShowCityMenu] = useState(false);
@@ -74,7 +76,7 @@ export default function DriverSignupScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <LinearGradient colors={['#022C22', '#065F46']} style={styles.headerGradient}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>

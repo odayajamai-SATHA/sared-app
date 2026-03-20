@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
+import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
 export default function DriverEarningsScreen({ route, navigation }) {
   const driver = route.params?.driver;
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
 
   const recentJobs = [
     { id: 1, customer: 'Mohammed', service: 'Tow', amount: 180, time: '2:30 PM' },
@@ -14,7 +16,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={styles.header}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
@@ -87,7 +89,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',

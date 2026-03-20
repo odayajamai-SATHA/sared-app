@@ -23,6 +23,7 @@ const PAYMENT_OPTIONS = [
 export default function PaymentScreen({ route, navigation }) {
   const { service, serviceId, size, price, pickup, destination, destinationName, fareTotal } = route.params || {};
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [selected, setSelected] = useState(null);
   const [copied, setCopied] = useState(false);
   const copiedTimerRef = useRef(null);
@@ -116,7 +117,7 @@ export default function PaymentScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />

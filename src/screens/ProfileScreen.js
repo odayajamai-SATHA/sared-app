@@ -9,6 +9,7 @@ import { supabase } from '../utils/supabase';
 
 export default function ProfileScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const [stats, setStats] = useState({ trips: 0, rating: '--', vehicles: 0 });
   const [user, setUser] = useState(null);
 
