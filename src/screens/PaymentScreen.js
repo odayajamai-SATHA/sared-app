@@ -183,7 +183,7 @@ export default function PaymentScreen({ route, navigation }) {
             <Text style={styles.secureText}>{t('securePayment')}</Text>
           </View>
         </Animated.View>
-        <View style={{ height: 40 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
     </View>
   );

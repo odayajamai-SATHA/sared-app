@@ -146,7 +146,7 @@ export default function SettingsScreen({ navigation }) {
             </Text>
           </TouchableOpacity>
         </Animated.View>
-        <View style={{ height: 40 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
     </View>
   );

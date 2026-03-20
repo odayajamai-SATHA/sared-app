@@ -110,7 +110,7 @@ export default function SizeScreen({ route, navigation }) {
             </TouchableOpacity>
           );
         })}
-        <View style={{ height: 100 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
     </View>
   );

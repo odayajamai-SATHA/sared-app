@@ -116,7 +116,7 @@ export default function HelpSupportScreen({ navigation }) {
           </Text>
         </View>
 
-        <View style={{ height: 40 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
     </View>
   );

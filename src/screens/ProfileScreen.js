@@ -151,7 +151,7 @@ export default function ProfileScreen({ navigation }) {
           <Ionicons name="log-out-outline" size={22} color="#EF4444" />
           <Text style={styles.logoutText}>{t('logOut')}</Text>
         </Pressable>
-        <View style={{ height: 40 }} />
+        <View style={{ height: 120 }} />
       </View>
     </ScrollView>
   );

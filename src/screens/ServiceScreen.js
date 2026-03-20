@@ -111,7 +111,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
             </TouchableOpacity>
           </Animated.View>
         ))}
-        <View style={{ height: 32 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
     </View>
   );

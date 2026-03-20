@@ -161,7 +161,7 @@ export default function HomeScreen({ navigation: rawNav }) {
             <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
           </TouchableOpacity>
         ))}
-        <View style={{ height: 30 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
     </View>
   );
