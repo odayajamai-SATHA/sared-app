@@ -42,7 +42,7 @@ export default function TripCompleteScreen({ route, navigation }) {
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={[styles.container, { backgroundColor: C.background }]} contentContainerStyle={styles.contentContainer}>
       <LinearGradient colors={['#059669', '#047857']} style={styles.topSection}>
         <Animated.View style={{ transform: [{ scale: checkScale }] }}>
           <View style={styles.checkCircle}>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 26, fontWeight: 'bold', color: '#FFF' },
   card: {
-    backgroundColor: '#FFF', marginHorizontal: 16, marginTop: -24, borderRadius: 20,
+    backgroundColor: C.card, marginHorizontal: 16, marginTop: -24, borderRadius: 20,
     padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08, shadowRadius: 16, elevation: 6,
   },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: 16, fontWeight: '700', color: colors.text },
   totalValue: { fontSize: 18, fontWeight: 'bold', color: colors.primary },
   ratingCard: {
-    backgroundColor: '#FFF', marginHorizontal: 16, marginTop: 16, borderRadius: 20,
+    backgroundColor: C.card, marginHorizontal: 16, marginTop: 16, borderRadius: 20,
     padding: 24, alignItems: 'center',
   },
   rateTitle: { fontSize: 18, fontWeight: '700', color: colors.text, marginBottom: 16 },

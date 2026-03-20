@@ -58,11 +58,11 @@ export default function MembershipScreen({ navigation }) {
 
   return (
     <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, isRTL && styles.rowReverse]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('membership')}</Text>
+        <Text style={styles.headerTitle, { color: C.text }]}>{t('membership')}</Text>
         <View style={{ width: 40 }} />
       </View>
 

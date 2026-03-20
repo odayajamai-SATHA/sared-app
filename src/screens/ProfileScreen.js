@@ -56,7 +56,7 @@ export default function ProfileScreen({ navigation }) {
   const allMenuGroups = [menuGroup1, menuGroup2];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={[styles.container, { backgroundColor: C.background }]} showsVerticalScrollIndicator={false}>
       <LinearGradient colors={['#022C22', '#065F46']} style={styles.headerGradient}
         start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
         <View style={{ height: 56 }} />
@@ -98,7 +98,7 @@ export default function ProfileScreen({ navigation }) {
 
       <View style={styles.content}>
         {allMenuGroups.map((group, gi) => (
-          <View key={gi} style={styles.menuSection}>
+          <View key={gi} style={[styles.menuSection, { backgroundColor: C.card }]}>
             {group.map((item, i) => (
               <Pressable
                 key={i}
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16,
-    borderBottomWidth: 1, borderBottomColor: colors.lightGray,
+    borderBottomWidth: 1, borderBottomColor: C.border,
     cursor: 'pointer',
   },
   menuIcon: {

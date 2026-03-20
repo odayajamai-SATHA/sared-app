@@ -86,7 +86,7 @@ export default function HistoryScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <View style={styles.header}>
         <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
       </View>

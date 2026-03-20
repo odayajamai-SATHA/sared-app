@@ -6,6 +6,7 @@ import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { notifyDriversNewRide } from '../utils/notifications';
 import { calculateFare, applyPromoCode, getDistanceKm } from '../utils/pricing';
+import { supabase, createRide } from '../utils/supabase';
 
 export default function BookingScreen({ route, navigation }) {
   const { service, serviceId, size, pickup, destination, destinationName, paymentMethod } = route.params || {};
@@ -13,6 +14,7 @@ export default function BookingScreen({ route, navigation }) {
   const { colors: C, isDark } = useTheme();
   const [promoCode, setPromoCode] = useState('');
   const [fare, setFare] = useState(null);
+  const [rideId, setRideId] = useState(null);
 
   const cardAnim = useRef(new Animated.Value(60)).current;
   const cardFade = useRef(new Animated.Value(0)).current;
@@ -26,6 +28,28 @@ export default function BookingScreen({ route, navigation }) {
     }
     const calculated = calculateFare(serviceId || 'tow', size, distKm);
     setFare(calculated);
+
+    // Create ride in Supabase
+    (async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data: ride, error } = await createRide({
+            user_id: user.id,
+            service_type: serviceId || 'tow',
+            sared_size: size,
+            pickup_lat: pickup?.latitude,
+            pickup_lng: pickup?.longitude,
+            dropoff_lat: destination?.latitude,
+            dropoff_lng: destination?.longitude,
+            price: calculated.total,
+            payment_method: paymentMethod || 'cash',
+            status: 'pending',
+          });
+          if (ride) setRideId(ride.id);
+        }
+      } catch {}
+    })();
 
     const nearbyDriverTokens = route.params?.driverTokens || [];
     if (nearbyDriverTokens.length > 0) {
@@ -56,7 +80,7 @@ export default function BookingScreen({ route, navigation }) {
   const priceDisplay = `SAR ${fare.total}`;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+    <ScrollView style={[styles.container, { backgroundColor: C.background }]} contentContainerStyle={{ paddingBottom: 40 }}>
       <View style={styles.topSection}>
         <View style={styles.checkCircle}>
           <Ionicons name="checkmark" size={40} color="#FFF" />
@@ -117,7 +141,7 @@ export default function BookingScreen({ route, navigation }) {
         <TouchableOpacity style={styles.cancelBtn} onPress={() => navigation.navigate('Main')}>
           <Text style={styles.cancelBtnText}>{t('cancelRide')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay, fareBreakdown: fare, paymentMethod })}>
+        <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay, fareBreakdown: fare, paymentMethod, rideId })}>
           <Ionicons name="navigate" size={18} color="#FFF" style={{ marginRight: 6 }} />
           <Text style={styles.trackBtnText}>{t('trackDriver')}</Text>
         </TouchableOpacity>
@@ -132,7 +156,7 @@ const styles = StyleSheet.create({
   checkCircle: { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.25)', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
   confirmedTitle: { fontSize: 24, fontWeight: 'bold', color: '#FFF' },
   confirmedSub: { fontSize: 15, color: 'rgba(255,255,255,0.85)', marginTop: 6 },
-  card: { backgroundColor: '#FFF', marginHorizontal: 16, marginTop: -20, borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 6 },
+  card: { backgroundColor: C.card, marginHorizontal: 16, marginTop: -20, borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 6 },
   driverRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.primaryFaded, justifyContent: 'center', alignItems: 'center', marginRight: 14 },
@@ -146,7 +170,7 @@ const styles = StyleSheet.create({
   detailItem: { width: '50%', marginBottom: 14 },
   detailLabel: { fontSize: 12, color: colors.textSecondary, marginBottom: 4 },
   detailValue: { fontSize: 15, fontWeight: '600', color: colors.text },
-  priceCard: { backgroundColor: '#FFF', marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
+  priceCard: { backgroundColor: C.card, marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
   priceCardTitle: { fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 14 },
   priceRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 },
   priceLabel: { fontSize: 14, color: colors.textSecondary },
@@ -154,7 +178,7 @@ const styles = StyleSheet.create({
   priceDivider: { height: 1, backgroundColor: colors.border, marginVertical: 8 },
   totalLabel: { fontSize: 16, fontWeight: '700', color: colors.text },
   totalValue: { fontSize: 18, fontWeight: 'bold', color: colors.primary },
-  promoCard: { backgroundColor: '#FFF', marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
+  promoCard: { backgroundColor: C.card, marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
   promoTitle: { fontSize: 15, fontWeight: '600', color: colors.text, marginBottom: 10 },
   promoRow: { flexDirection: 'row', gap: 10 },
   promoInput: { flex: 1, backgroundColor: colors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15, color: colors.text, borderWidth: 1, borderColor: colors.border },
@@ -164,7 +188,7 @@ const styles = StyleSheet.create({
   promoSuccessText: { fontSize: 13, color: '#22C55E', fontWeight: '600' },
   promoError: { fontSize: 13, color: '#EF4444', marginTop: 8 },
   buttonRow: { flexDirection: 'row', paddingHorizontal: 16, gap: 12, marginTop: 20 },
-  cancelBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5, borderColor: colors.border, backgroundColor: '#FFF', alignItems: 'center' },
+  cancelBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5, borderColor: colors.border, backgroundColor: C.card, alignItems: 'center' },
   cancelBtnText: { fontSize: 15, fontWeight: '600', color: colors.darkGray },
   trackBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, backgroundColor: colors.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
   trackBtnText: { fontSize: 15, fontWeight: '600', color: '#FFF' },

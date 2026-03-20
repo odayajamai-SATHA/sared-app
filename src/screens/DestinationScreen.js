@@ -74,11 +74,11 @@ export default function DestinationScreen({ route, navigation }) {
   if (showMap) {
     return (
       <View style={[styles.container, { backgroundColor: C.background }]}>
-        <View style={[styles.header, isRTL && styles.rowReverse]}>
+        <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
           <TouchableOpacity onPress={() => setShowMap(false)} style={styles.backBtn}>
-            <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
+            <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>{t('dropPin')}</Text>
+          <Text style={styles.headerTitle, { color: C.text }]}>{t('dropPin')}</Text>
           <View style={{ width: 40 }} />
         </View>
 
@@ -113,12 +113,12 @@ export default function DestinationScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.header, isRTL && styles.rowReverse]}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
+          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('setDropoff')}</Text>
+        <Text style={styles.headerTitle, { color: C.text }]}>{t('setDropoff')}</Text>
         <View style={{ width: 40 }} />
       </View>
 

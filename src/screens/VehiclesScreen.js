@@ -33,11 +33,11 @@ export default function VehiclesScreen({ navigation }) {
 
   return (
     <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, isRTL && styles.rowReverse]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('myVehicles')}</Text>
+        <Text style={styles.headerTitle, { color: C.text }]}>{t('myVehicles')}</Text>
         <TouchableOpacity onPress={() => setShowForm(!showForm)} style={styles.addBtn}>
           <Ionicons name={showForm ? 'close' : 'add'} size={24} color={colors.primary} />
         </TouchableOpacity>
