@@ -8,6 +8,7 @@ import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
 import { createDebouncedNav } from '../utils/navigation';
@@ -15,6 +16,7 @@ import { createDebouncedNav } from '../utils/navigation';
 export default function HomeScreen({ navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
   const { t, isRTL } = useI18n();
+  const { colors: C, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,7 +61,7 @@ export default function HomeScreen({ navigation: rawNav }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: C.background }]}>
       <StatusBar style="dark" />
 
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>

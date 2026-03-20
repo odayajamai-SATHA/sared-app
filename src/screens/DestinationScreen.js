@@ -11,6 +11,7 @@ import {
 import MapView, { Marker } from '../components/MapView';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
+import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 // Sample suggestions for Saudi Arabia (in production, use a geocoding API)

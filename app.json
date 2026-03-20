@@ -6,7 +6,7 @@
     "description": "سطحة ومساعدة على الطريق | Tow truck & roadside assistance",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -16,8 +16,12 @@
       "bundleIdentifier": "app.sared.mobile",
       "supportsTablet": true,
       "icon": "./assets/icon.png",
+      "config": {
+        "googleMapsApiKey": "YOUR_GOOGLE_MAPS_IOS_KEY"
+      },
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Sared needs your location to show nearby drivers and set your pickup location."
+        "NSLocationWhenInUseUsageDescription": "Sared needs your location to show nearby drivers and set your pickup location.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Sared needs your location to track your ride in real-time."
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
@@ -32,7 +36,8 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Sared needs your location to show nearby drivers and set your pickup location."
+          "locationAlwaysAndWhenInUsePermission": "Sared needs your location to show nearby drivers and set your pickup location.",
+          "isAndroidBackgroundLocationEnabled": true
         }
       ],
       [
@@ -46,13 +51,21 @@
     "android": {
       "package": "app.sared.mobile",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
         "backgroundColor": "#022C22"
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
-      ]
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_ANDROID_KEY"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

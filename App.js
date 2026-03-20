@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { AppState } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { AppState, StatusBar } from 'react-native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { I18nProvider, useI18n } from './src/utils/i18n';
+import { ThemeProvider, useTheme } from './src/utils/theme';
 import { registerForPushNotifications, addNotificationListeners } from './src/utils/notifications';
 import { supabase } from './src/utils/supabase';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -47,23 +48,25 @@ import DriverJobScreen from './src/screens/driver/DriverJobScreen';
 import DriverCompleteScreen from './src/screens/driver/DriverCompleteScreen';
 import DriverEarningsScreen from './src/screens/driver/DriverEarningsScreen';
 import DriverProfileScreen from './src/screens/driver/DriverProfileScreen';
+import DriverWithdrawalScreen from './src/screens/driver/DriverWithdrawalScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
   const { t } = useI18n();
+  const { colors, isDark } = useTheme();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: '#059669',
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.gray,
         tabBarStyle: {
           height: 64, paddingBottom: 10, paddingTop: 8,
-          borderTopColor: '#E5E7EB', backgroundColor: '#FFFFFF',
-          shadowColor: '#000', shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.06, shadowRadius: 8, elevation: 8,
+          borderTopColor: colors.tabBarBorder, backgroundColor: colors.tabBar,
+          shadowColor: colors.shadow, shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: isDark ? 0.3 : 0.06, shadowRadius: 8, elevation: 8,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarIcon: ({ color, size }) => {
@@ -86,6 +89,7 @@ function MainTabs() {
 
 function AppContent() {
   const { isRTL } = useI18n();
+  const { colors, isDark } = useTheme();
 
   useEffect(() => {
     registerForPushNotifications();
@@ -104,15 +108,24 @@ function AppContent() {
     return () => subscription.remove();
   }, []);
 
+  const navTheme = isDark ? {
+    ...DarkTheme,
+    colors: { ...DarkTheme.colors, background: colors.background, card: colors.surface, text: colors.text, border: colors.border, primary: colors.primary },
+  } : {
+    ...DefaultTheme,
+    colors: { ...DefaultTheme.colors, background: colors.background, card: colors.surface, text: colors.text, border: colors.border, primary: colors.primary },
+  };
+
   return (
     <ErrorBoundary isRTL={isRTL}>
-      <NavigationContainer>
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+      <NavigationContainer theme={navTheme}>
         <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}>
-          {/* Splash & Onboarding - NO tab bar */}
+          {/* Splash & Onboarding */}
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
 
-          {/* Auth - NO tab bar */}
+          {/* Auth */}
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="OTP" component={OTPScreen} />
           <Stack.Screen name="DriverSignup" component={DriverSignupScreen} />
@@ -121,7 +134,7 @@ function AppContent() {
           {/* Main App with tab bar */}
           <Stack.Screen name="Main" component={MainTabs} />
 
-          {/* Stack screens (no tab bar) */}
+          {/* Stack screens */}
           <Stack.Screen name="Service" component={ServiceScreen} />
           <Stack.Screen name="Size" component={SizeScreen} />
           <Stack.Screen name="PriceGuarantee" component={PriceGuaranteeScreen} />
@@ -146,6 +159,7 @@ function AppContent() {
           <Stack.Screen name="DriverComplete" component={DriverCompleteScreen} />
           <Stack.Screen name="DriverEarnings" component={DriverEarningsScreen} />
           <Stack.Screen name="DriverProfile" component={DriverProfileScreen} />
+          <Stack.Screen name="DriverWithdrawal" component={DriverWithdrawalScreen} />
         </Stack.Navigator>
         <OfflineBanner />
       </NavigationContainer>
@@ -156,9 +170,11 @@ function AppContent() {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <I18nProvider>
-        <AppContent />
-      </I18nProvider>
+      <ThemeProvider>
+        <I18nProvider>
+          <AppContent />
+        </I18nProvider>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

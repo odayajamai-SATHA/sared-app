@@ -5,7 +5,7 @@ import { useI18n } from '../../utils/i18n';
 
 export default function DriverEarningsScreen({ route, navigation }) {
   const driver = route.params?.driver;
-  const { t, isRTL } = useI18n();
+  const { t, isRTL, lang } = useI18n();
 
   const recentJobs = [
     { id: 1, customer: 'Mohammed', service: 'Tow', amount: 180, time: '2:30 PM' },
@@ -48,6 +48,17 @@ export default function DriverEarningsScreen({ route, navigation }) {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Withdraw button */}
+        <TouchableOpacity
+          style={styles.withdrawBtn}
+          onPress={() => navigation.navigate('DriverWithdrawal', { driver })}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="wallet-outline" size={20} color="#FFF" />
+          <Text style={styles.withdrawBtnText}>{lang === 'ar' ? 'سحب الأرباح' : 'Withdraw Earnings'}</Text>
+          <Ionicons name="arrow-forward" size={18} color="rgba(255,255,255,0.7)" />
+        </TouchableOpacity>
+
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {t('recentTrips')}
         </Text>
@@ -197,5 +208,22 @@ const styles = StyleSheet.create({
   },
   textRight: {
     textAlign: 'right',
+  },
+  withdrawBtn: {
+    backgroundColor: '#059669',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    borderRadius: 14,
+    gap: 8,
+    marginBottom: 20,
+  },
+  withdrawBtnText: {
+    flex: 1,
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '700',
+    textAlign: 'center',
   },
 });
