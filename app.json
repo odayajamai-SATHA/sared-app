@@ -1,19 +1,21 @@
 {
   "expo": {
-    "name": "Sared",
+    "name": "سارد - Sared",
     "slug": "sared-app",
     "version": "1.0.0",
+    "description": "سطحة ومساعدة على الطريق | Tow truck & roadside assistance",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#059669"
+      "backgroundColor": "#022C22"
     },
     "ios": {
       "bundleIdentifier": "app.sared.mobile",
       "supportsTablet": true,
+      "icon": "./assets/icon.png",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Sared needs your location to show nearby drivers and set your pickup location."
       },
@@ -44,10 +46,8 @@
     "android": {
       "package": "app.sared.mobile",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#022C22"
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
