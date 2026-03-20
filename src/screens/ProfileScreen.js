@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Share, Platform, ScrollView, Alert, Linking } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Share, Platform, ScrollView, Alert, Linking, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
@@ -36,32 +36,7 @@ export default function ProfileScreen({ navigation }) {
     { icon: 'settings-outline', label: t('settings'), color: colors.darkGray, screen: 'Settings' },
   ];
 
-  const handleItemPress = (item) => {
-    if (item.screen) {
-      navigation.navigate(item.screen);
-    } else if (item.action === 'terms') {
-      Linking.openURL('https://sared.app/terms');
-    } else if (item.action === 'help') {
-      Linking.openURL('https://wa.me/966554404434');
-    } else {
-      showComingSoon();
-    }
-  };
-
-  const renderMenuItem = (item, index, total) => (
-    <TouchableOpacity
-      key={index}
-      activeOpacity={0.6}
-      style={[styles.menuItem, isRTL && styles.rowReverse, index === total - 1 && { borderBottomWidth: 0 }]}
-      onPress={() => handleItemPress(item)}
-    >
-      <View style={[styles.menuIcon, { backgroundColor: item.color + '15' }]}>
-        <Ionicons name={item.icon} size={20} color={item.color} />
-      </View>
-      <Text style={[styles.menuLabel, isRTL && styles.textRight, { flex: 1 }]}>{item.label}</Text>
-      <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
-    </TouchableOpacity>
-  );
+  const allMenuGroups = [menuGroup1, menuGroup2];
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -78,9 +53,12 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.name}>User</Text>
             <Text style={styles.phone}>+966 5X XXX XXXX</Text>
           </View>
-          <TouchableOpacity style={styles.editBtn} activeOpacity={0.6} onPress={showComingSoon}>
+          <Pressable
+            style={({ pressed }) => [styles.editBtn, pressed && { opacity: 0.6 }]}
+            onPress={showComingSoon}
+          >
             <Ionicons name="create-outline" size={18} color="rgba(255,255,255,0.7)" />
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         <View style={styles.statsRow}>
@@ -102,17 +80,41 @@ export default function ProfileScreen({ navigation }) {
       </LinearGradient>
 
       <View style={styles.content}>
-        <View style={styles.menuSection}>
-          {menuGroup1.map((item, i) => renderMenuItem(item, i, menuGroup1.length))}
-        </View>
+        {allMenuGroups.map((group, gi) => (
+          <View key={gi} style={styles.menuSection}>
+            {group.map((item, i) => (
+              <Pressable
+                key={i}
+                style={({ pressed }) => [
+                  styles.menuItem,
+                  isRTL && styles.rowReverse,
+                  i === group.length - 1 && { borderBottomWidth: 0 },
+                  pressed && { backgroundColor: '#f0f0f0' },
+                ]}
+                onPress={() => {
+                  if (item.screen) {
+                    navigation.navigate(item.screen);
+                  } else if (item.action === 'terms') {
+                    Linking.openURL('https://sared.app/terms');
+                  } else if (item.action === 'help') {
+                    Linking.openURL('https://wa.me/966554404434');
+                  } else {
+                    showComingSoon();
+                  }
+                }}
+              >
+                <View style={[styles.menuIcon, { backgroundColor: item.color + '15' }]}>
+                  <Ionicons name={item.icon} size={20} color={item.color} />
+                </View>
+                <Text style={[styles.menuLabel, isRTL && styles.textRight, { flex: 1 }]}>{item.label}</Text>
+                <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
+              </Pressable>
+            ))}
+          </View>
+        ))}
 
-        <View style={styles.menuSection}>
-          {menuGroup2.map((item, i) => renderMenuItem(item, i, menuGroup2.length))}
-        </View>
-
-        <TouchableOpacity
-          style={[styles.shareRow, isRTL && styles.rowReverse]}
-          activeOpacity={0.6}
+        <Pressable
+          style={({ pressed }) => [styles.shareRow, isRTL && styles.rowReverse, pressed && { backgroundColor: '#f0f0f0' }]}
           onPress={async () => {
             try {
               await Share.share({ message: 'Download Sared - Saudi tow truck app: https://sared.app', title: 'Sared' });
@@ -124,11 +126,10 @@ export default function ProfileScreen({ navigation }) {
           </View>
           <Text style={[styles.shareText, isRTL && styles.textRight]}>{t('shareApp')}</Text>
           <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
-        </TouchableOpacity>
+        </Pressable>
 
-        <TouchableOpacity
-          style={styles.logoutBtn}
-          activeOpacity={0.6}
+        <Pressable
+          style={({ pressed }) => [styles.logoutBtn, pressed && { opacity: 0.6 }]}
           onPress={() => {
             Alert.alert(
               lang === 'ar' ? 'تسجيل الخروج' : 'Log Out',
@@ -149,7 +150,7 @@ export default function ProfileScreen({ navigation }) {
         >
           <Ionicons name="log-out-outline" size={22} color="#EF4444" />
           <Text style={styles.logoutText}>{t('logOut')}</Text>
-        </TouchableOpacity>
+        </Pressable>
         <View style={{ height: 40 }} />
       </View>
     </ScrollView>
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16,
     borderBottomWidth: 1, borderBottomColor: colors.lightGray,
+    cursor: 'pointer',
   },
   menuIcon: {
     width: 36, height: 36, borderRadius: 10,
@@ -198,11 +200,12 @@ const styles = StyleSheet.create({
   shareRow: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white,
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,
+    cursor: 'pointer',
   },
   shareText: { flex: 1, fontSize: 15, color: '#22C55E', fontWeight: '600', marginLeft: 12 },
   logoutBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    paddingVertical: 14,
+    paddingVertical: 14, cursor: 'pointer',
   },
   logoutText: { fontSize: 16, color: '#EF4444', fontWeight: '600', marginLeft: 8 },
   textRight: { textAlign: 'right' },
