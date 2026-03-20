@@ -4,11 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
-import { createDebouncedNav } from '../utils/navigation';
 import { supabase } from '../utils/supabase';
 
-export default function ProfileScreen({ navigation: rawNav }) {
-  const navigation = createDebouncedNav(rawNav);
+export default function ProfileScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
   const [stats, setStats] = useState({ trips: 0, rating: '--', vehicles: 0 });
 
@@ -16,74 +14,54 @@ export default function ProfileScreen({ navigation: rawNav }) {
     setStats({ trips: 0, rating: '--', vehicles: 0 });
   }, []);
 
-  const comingSoonAlert = () => {
+  const showComingSoon = () => {
     Alert.alert(
       lang === 'ar' ? 'قريباً' : 'Coming Soon',
-      t('featureComingSoon'),
-      [{ text: t('confirm'), style: 'default' }]
+      lang === 'ar' ? 'هذه الميزة ستكون متاحة في التحديث القادم' : 'This feature will be available in the next update'
     );
   };
 
-  const handleLogout = () => {
-    Alert.alert(
-      lang === 'ar' ? 'تسجيل الخروج' : 'Log Out',
-      lang === 'ar' ? 'هل أنت متأكد أنك تريد تسجيل الخروج؟' : 'Are you sure you want to log out?',
-      [
-        { text: t('cancel'), style: 'cancel' },
-        {
-          text: t('confirm'),
-          style: 'destructive',
-          onPress: async () => {
-            try { await supabase.auth.signOut(); } catch {}
-            rawNav.replace('Login');
-          },
-        },
-      ]
-    );
-  };
+  const menuGroup1 = [
+    { icon: 'car-sport-outline', label: t('myVehicles'), color: '#3B82F6', screen: 'Vehicles' },
+    { icon: 'diamond-outline', label: t('membership'), color: '#8B5CF6', screen: 'Membership' },
+    { icon: 'shield-checkmark-outline', label: t('insuranceBenefits'), color: '#22C55E', screen: 'Insurance' },
+  ];
 
-  const handleShare = async () => {
-    const message = 'Download Sared - Saudi tow truck app: https://sared.app';
-    try {
-      await Share.share(Platform.OS === 'ios' ? { message, url: 'https://sared.app' } : { message, title: 'Sared' });
-    } catch {}
-  };
+  const menuGroup2 = [
+    { icon: 'person-outline', label: t('editProfile'), color: colors.darkGray, action: 'comingSoon' },
+    { icon: 'card-outline', label: t('paymentMethods'), color: colors.darkGray, action: 'comingSoon' },
+    { icon: 'notifications-outline', label: t('notifications'), color: colors.darkGray, action: 'comingSoon' },
+    { icon: 'help-circle-outline', label: t('helpSupport'), color: colors.darkGray, screen: 'HelpSupport' },
+    { icon: 'document-text-outline', label: t('termsConditions'), color: colors.darkGray, action: 'terms' },
+    { icon: 'settings-outline', label: t('settings'), color: colors.darkGray, screen: 'Settings' },
+  ];
 
-  const handleMenuPress = (item) => {
+  const handleItemPress = (item) => {
     if (item.screen) {
       navigation.navigate(item.screen);
-      return;
-    }
-    if (item.action === 'terms') {
+    } else if (item.action === 'terms') {
       Linking.openURL('https://sared.app/terms');
-      return;
+    } else if (item.action === 'help') {
+      Linking.openURL('https://wa.me/966554404434');
+    } else {
+      showComingSoon();
     }
-    if (item.action === 'help') {
-      Linking.openURL('mailto:support@sared.app');
-      return;
-    }
-    comingSoonAlert();
   };
 
-  const menuGroups = [
-    {
-      items: [
-        { icon: 'car-sport-outline', label: t('myVehicles'), color: '#3B82F6', screen: 'Vehicles' },
-        { icon: 'diamond-outline', label: t('membership'), color: '#8B5CF6', screen: 'Membership' },
-        { icon: 'shield-checkmark-outline', label: t('insuranceBenefits'), color: '#22C55E', screen: 'Insurance' },
-      ],
-    },
-    {
-      items: [
-        { icon: 'person-outline', label: t('editProfile'), color: colors.darkGray },
-        { icon: 'card-outline', label: t('paymentMethods'), color: colors.darkGray },
-        { icon: 'notifications-outline', label: t('notifications'), color: colors.darkGray },
-        { icon: 'help-circle-outline', label: t('helpSupport'), color: colors.darkGray, screen: 'HelpSupport' },
-        { icon: 'document-text-outline', label: t('termsConditions'), color: colors.darkGray, action: 'terms' },
-        { icon: 'settings-outline', label: t('settings'), color: colors.darkGray, screen: 'Settings' },
-      ],
-    },
-  ];
+  const renderMenuItem = (item, index, total) => (
+    <TouchableOpacity
+      key={index}
+      activeOpacity={0.6}
+      style={[styles.menuItem, isRTL && styles.rowReverse, index === total - 1 && { borderBottomWidth: 0 }]}
+      onPress={() => handleItemPress(item)}
+    >
+      <View style={[styles.menuIcon, { backgroundColor: item.color + '15' }]}>
+        <Ionicons name={item.icon} size={20} color={item.color} />
+      </View>
+      <Text style={[styles.menuLabel, isRTL && styles.textRight, { flex: 1 }]}>{item.label}</Text>
+      <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
+    </TouchableOpacity>
+  );
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -100,7 +78,7 @@ export default function ProfileScreen({ navigation: rawNav }) {
             <Text style={styles.name}>User</Text>
             <Text style={styles.phone}>+966 5X XXX XXXX</Text>
           </View>
-          <TouchableOpacity style={styles.editBtn} onPress={comingSoonAlert}>
+          <TouchableOpacity style={styles.editBtn} activeOpacity={0.6} onPress={showComingSoon}>
             <Ionicons name="create-outline" size={18} color="rgba(255,255,255,0.7)" />
           </TouchableOpacity>
         </View>
@@ -124,25 +102,23 @@ export default function ProfileScreen({ navigation: rawNav }) {
       </LinearGradient>
 
       <View style={styles.content}>
-        {menuGroups.map((group, gi) => (
-          <View key={gi} style={styles.menuGroup}>
-            {group.items.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[styles.menuItem, isRTL && styles.rowReverse, index === group.items.length - 1 && { borderBottomWidth: 0 }]}
-                onPress={() => handleMenuPress(item)}
-              >
-                <View style={[styles.menuIcon, { backgroundColor: item.color + '15' }]}>
-                  <Ionicons name={item.icon} size={20} color={item.color} />
-                </View>
-                <Text style={[styles.menuLabel, isRTL && styles.textRight]}>{item.label}</Text>
-                <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        ))}
+        <View style={styles.menuSection}>
+          {menuGroup1.map((item, i) => renderMenuItem(item, i, menuGroup1.length))}
+        </View>
 
-        <TouchableOpacity style={[styles.shareRow, isRTL && styles.rowReverse]} onPress={handleShare}>
+        <View style={styles.menuSection}>
+          {menuGroup2.map((item, i) => renderMenuItem(item, i, menuGroup2.length))}
+        </View>
+
+        <TouchableOpacity
+          style={[styles.shareRow, isRTL && styles.rowReverse]}
+          activeOpacity={0.6}
+          onPress={async () => {
+            try {
+              await Share.share({ message: 'Download Sared - Saudi tow truck app: https://sared.app', title: 'Sared' });
+            } catch {}
+          }}
+        >
           <View style={[styles.menuIcon, { backgroundColor: '#22C55E15' }]}>
             <Ionicons name="share-social-outline" size={20} color="#22C55E" />
           </View>
@@ -150,7 +126,27 @@ export default function ProfileScreen({ navigation: rawNav }) {
           <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
+        <TouchableOpacity
+          style={styles.logoutBtn}
+          activeOpacity={0.6}
+          onPress={() => {
+            Alert.alert(
+              lang === 'ar' ? 'تسجيل الخروج' : 'Log Out',
+              lang === 'ar' ? 'هل أنت متأكد من تسجيل الخروج؟' : 'Are you sure you want to log out?',
+              [
+                { text: lang === 'ar' ? 'إلغاء' : 'Cancel', style: 'cancel' },
+                {
+                  text: lang === 'ar' ? 'تأكيد' : 'Confirm',
+                  style: 'destructive',
+                  onPress: async () => {
+                    try { await supabase.auth.signOut(); } catch {}
+                    navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+                  },
+                },
+              ]
+            );
+          }}
+        >
           <Ionicons name="log-out-outline" size={22} color="#EF4444" />
           <Text style={styles.logoutText}>{t('logOut')}</Text>
         </TouchableOpacity>
@@ -186,9 +182,9 @@ const styles = StyleSheet.create({
   statNumber: { fontSize: 20, fontWeight: '700', color: colors.primary },
   statLabel: { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4 },
   statDivider: { width: 1, backgroundColor: 'rgba(255,255,255,0.1)' },
-  content: { padding: 16, marginTop: -12 },
-  menuGroup: {
-    backgroundColor: colors.white, borderRadius: 16, overflow: 'hidden', marginBottom: 12,
+  content: { padding: 16 },
+  menuSection: {
+    backgroundColor: colors.white, borderRadius: 16, marginBottom: 12,
   },
   menuItem: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16,
@@ -198,7 +194,7 @@ const styles = StyleSheet.create({
     width: 36, height: 36, borderRadius: 10,
     justifyContent: 'center', alignItems: 'center', marginRight: 12,
   },
-  menuLabel: { flex: 1, fontSize: 15, color: colors.text, fontWeight: '500' },
+  menuLabel: { fontSize: 15, color: colors.text, fontWeight: '500' },
   shareRow: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white,
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,
