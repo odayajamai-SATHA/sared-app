@@ -1,4 +1,5 @@
-// Static fallback colors (used by StyleSheet.create which runs at module load)
+// Static colors used by StyleSheet.create (runs at module load time)
+// For themed/dark mode colors, use useTheme() from './theme' in components
 export const colors = {
   primary: '#059669',
   primaryDark: '#047857',
@@ -14,12 +15,3 @@ export const colors = {
   text: '#1F2937',
   textSecondary: '#6B7280',
 };
-
-// Dynamic hook — import { useColors } from '../utils/colors' in any component
-// Returns themed colors that respond to dark mode
-import { useTheme } from './theme';
-
-export function useColors() {
-  const { colors: themeColors } = useTheme();
-  return themeColors;
-}

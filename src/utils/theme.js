@@ -77,8 +77,13 @@ const ThemeContext = createContext();
 let savedTheme = null;
 
 export function ThemeProvider({ children }) {
-  const systemScheme = useColorScheme();
-  // 'system' | 'light' | 'dark'
+  let systemScheme = 'light';
+  try {
+    const detected = useColorScheme();
+    if (detected) systemScheme = detected;
+  } catch {
+    // useColorScheme can fail on some devices
+  }
   const [mode, setMode] = useState('system');
 
   const isDark = mode === 'dark' || (mode === 'system' && systemScheme === 'dark');

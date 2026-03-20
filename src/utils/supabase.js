@@ -1,25 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+// Hardcoded for production builds - env vars may not be available in EAS builds
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://pgvjkgscvsgnbzwgbtqp.supabase.co';
+const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_IG7nCK4sizomSC7ufsutdg_tPLFVJ9N';
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  console.warn(
-    '[Sared] Missing Supabase env vars. Set EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY in .env'
-  );
-}
-
-export const supabase = createClient(
-  SUPABASE_URL || 'https://placeholder.supabase.co',
-  SUPABASE_ANON_KEY || 'placeholder-key',
-  {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: false,
-    },
-  }
-);
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
+});
 
 // ---- Auth helpers ----
 
