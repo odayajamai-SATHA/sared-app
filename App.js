@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { I18nProvider, useI18n } from './src/utils/i18n';
 import { registerForPushNotifications, addNotificationListeners } from './src/utils/notifications';
 import { supabase } from './src/utils/supabase';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import OfflineBanner from './src/components/OfflineBanner';
 
@@ -154,8 +155,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <I18nProvider>
-      <AppContent />
-    </I18nProvider>
+    <SafeAreaProvider>
+      <I18nProvider>
+        <AppContent />
+      </I18nProvider>
+    </SafeAreaProvider>
   );
 }

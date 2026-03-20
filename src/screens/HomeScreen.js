@@ -142,10 +142,6 @@ export default function HomeScreen({ navigation: rawNav }) {
                 <Ionicons name={action.icon} size={28} color={action.color} />
               </View>
               <Text style={styles.quickLabel} numberOfLines={1}>{action.label}</Text>
-              <Text style={[styles.quickPrice, { color: action.color }]}>
-                SAR {action.price}
-              </Text>
-              <Text style={styles.quickVat}>{t('inclVat')}</Text>
             </TouchableOpacity>
           ))}
         </View>
