@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#FFF',
     textAlign: 'center',
-    letterSpacing: 4,
+    letterSpacing: 3,
   },
   appNameAr: {
     fontSize: 36,

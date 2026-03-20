@@ -207,7 +207,7 @@ export default function TrackingScreen({ route, navigation }) {
       </TouchableOpacity>
 
       {/* SOS Modal */}
-      <Modal visible={showSOS} transparent animationType="fade">
+      <Modal visible={showSOS} transparent animationType="fade" statusBarTranslucent>
         <View style={styles.sosOverlay}>
           <View style={styles.sosModal}>
             <View style={styles.sosIconCircle}><Ionicons name="warning" size={40} color="#FFF" /></View>
