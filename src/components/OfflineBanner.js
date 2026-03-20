@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingTop: 60,
-    paddingBottom: 10,
+    paddingBottom: 20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

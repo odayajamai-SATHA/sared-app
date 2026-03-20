@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   slide: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 40,
+    paddingTop: 60,
   },
   illustrationArea: {
     height: 220,
