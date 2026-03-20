@@ -100,7 +100,7 @@ export default function MembershipScreen({ navigation }) {
                   <Ionicons
                     name={feat.included ? 'checkmark-circle' : 'close-circle'}
                     size={20}
-                    color={feat.included ? '#4ADE80' : 'rgba(255,255,255,0.3)'}
+                    color={feat.included ? '#4ADE80' : 'rgba(255,255,255,0.55)'}
                   />
                   <Text style={[styles.featureText, !feat.included && styles.featureDisabled]}>
                     {feat.text}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     position: 'absolute', top: -8, backgroundColor: colors.primary,
     paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8,
   },
-  popularText: { fontSize: 9, fontWeight: '700', color: '#FFF' },
+  popularText: { fontSize: 11, fontWeight: '700', color: '#FFF' },
   planCard: { borderRadius: 24, padding: 28, marginBottom: 20 },
   planName: { fontSize: 18, fontWeight: '600', color: 'rgba(255,255,255,0.7)' },
   priceRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 8, marginBottom: 24 },
@@ -183,10 +183,10 @@ const styles = StyleSheet.create({
   featuresContainer: { marginBottom: 24 },
   featureRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 12 },
   featureText: { fontSize: 15, color: '#FFF', fontWeight: '500' },
-  featureDisabled: { color: 'rgba(255,255,255,0.35)' },
+  featureDisabled: { color: 'rgba(255,255,255,0.55)' },
   subscribeBtn: {
     backgroundColor: 'rgba(255,255,255,0.2)', paddingVertical: 16,
-    borderRadius: 14, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)',
+    borderRadius: 14, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.55)',
   },
   subscribeBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   comingSoonNote: { fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center', marginBottom: 12 },

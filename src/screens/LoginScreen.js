@@ -214,6 +214,6 @@ const styles = StyleSheet.create({
   otpButtonText: { color: '#FFF', fontSize: 17, fontWeight: '700' },
   guestBtn: { alignItems: 'center', paddingVertical: 8, marginBottom: 4 },
   guestBtnText: { fontSize: 14, color: 'rgba(255,255,255,0.6)', fontWeight: '500', textDecorationLine: 'underline' },
-  terms: { fontSize: 11, color: 'rgba(255,255,255,0.35)', textAlign: 'center', lineHeight: 16 },
+  terms: { fontSize: 11, color: 'rgba(255,255,255,0.55)', textAlign: 'center', lineHeight: 16 },
   textRight: { textAlign: 'right' },
 });

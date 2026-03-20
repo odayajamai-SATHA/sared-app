@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Animated, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
@@ -80,6 +81,7 @@ export default function BookingScreen({ route, navigation }) {
   const priceDisplay = `SAR ${fare.total}`;
 
   return (
+    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={{ paddingBottom: 40 }}>
       <View style={styles.topSection}>
         <View style={styles.checkCircle}>
@@ -147,6 +149,7 @@ export default function BookingScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 }
 
