@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "\u0633\u0627\u0631\u062f - Sared",
+    "name": "سارد - Sared",
     "slug": "sared-app",
     "version": "1.0.0",
-    "description": "\u0633\u0637\u062d\u0629 \u0648\u0645\u0633\u0627\u0639\u062f\u0629 \u0639\u0644\u0649 \u0627\u0644\u0637\u0631\u064a\u0642 | Tow truck & roadside assistance",
+    "description": "سطحة ومساعدة على الطريق | Tow truck & roadside assistance",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -63,7 +63,8 @@
           "icon": "./assets/icon.png",
           "color": "#059669"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "android": {
       "package": "app.sared.mobile",
@@ -76,11 +77,21 @@
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
-        "ACCESS_BACKGROUND_LOCATION"
+        "ACCESS_BACKGROUND_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "70f882d3-12b5-418a-9167-1d06dc836669"
+      }
     }
   }
 }
