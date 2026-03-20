@@ -78,7 +78,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
             }
           );
         }
-      } catch {}
+      } catch { /* silent */ }
     })();
     return () => {
       if (subscription) subscription.remove();
@@ -107,12 +107,12 @@ export default function DriverNavigationScreen({ route, navigation }) {
   const handleArrived = async () => {
     try {
       await updateRideStatus(ride?.id, 'arrived');
-    } catch {}
+    } catch { /* silent */ }
     navigation.navigate('DriverJob', { ride, driver });
   };
 
   const handleCall = () => {
-    Linking.openURL(`tel:${customerPhone}`);
+    try { Linking.openURL(`tel:${customerPhone}`); } catch { /* silent */ }
   };
 
   // Build simple route waypoints (straight line with midpoint offset for curve effect)

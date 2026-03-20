@@ -28,7 +28,7 @@ function useNetworkStatus() {
       } catch (e) {
         console.warn('[Sared] NetInfo not available:', e.message);
       }
-      return () => { try { unsubscribe(); } catch {} };
+      return () => { try { unsubscribe(); } catch { /* silent */ } };
     }
   }, []);
 

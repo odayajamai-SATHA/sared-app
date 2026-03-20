@@ -47,7 +47,7 @@ export default function DriverSignupScreen({ navigation }) {
         city: form.city,
         status: 'pending',
       });
-    } catch {}
+    } catch { /* silent */ }
     setSubmitting(false);
     setSubmitted(true);
   };

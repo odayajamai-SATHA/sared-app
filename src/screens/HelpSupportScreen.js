@@ -65,17 +65,17 @@ export default function HelpSupportScreen({ navigation }) {
         </Text>
         <View style={styles.contactRow}>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#25D36615' }]}
-            onPress={() => Linking.openURL(WHATSAPP_URL)}>
+            onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch { /* silent */ } }}>
             <Ionicons name="logo-whatsapp" size={28} color="#25D366" />
             <Text style={styles.contactLabel}>{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#3B82F615' }]}
-            onPress={() => Linking.openURL(PHONE_URL)}>
+            onPress={() => { try { Linking.openURL(PHONE_URL); } catch { /* silent */ } }}>
             <Ionicons name="call" size={28} color="#3B82F6" />
             <Text style={styles.contactLabel}>{lang === 'ar' ? 'اتصال' : 'Call'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#EF444415' }]}
-            onPress={() => Linking.openURL(EMAIL_URL)}>
+            onPress={() => { try { Linking.openURL(EMAIL_URL); } catch { /* silent */ } }}>
             <Ionicons name="mail" size={28} color="#EF4444" />
             <Text style={styles.contactLabel}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
           </TouchableOpacity>
@@ -103,7 +103,7 @@ export default function HelpSupportScreen({ navigation }) {
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {lang === 'ar' ? 'الإبلاغ عن مشكلة' : 'Report a Problem'}
         </Text>
-        <TouchableOpacity style={styles.reportBtn} onPress={() => Linking.openURL(REPORT_URL)}>
+        <TouchableOpacity style={styles.reportBtn} onPress={() => { try { Linking.openURL(REPORT_URL); } catch { /* silent */ } }}>
           <Ionicons name="logo-whatsapp" size={20} color="#FFF" />
           <Text style={styles.reportBtnText}>
             {lang === 'ar' ? 'أبلغ عبر واتساب' : 'Report via WhatsApp'}

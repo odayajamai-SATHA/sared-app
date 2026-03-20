@@ -75,7 +75,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           { id: '2', amount: 300, status: 'pending', method: 'stc_pay', created_at: new Date(Date.now() - 86400000).toISOString() },
         ]);
       }
-    } catch {}
+    } catch { /* silent */ }
   };
 
   const handleWithdraw = async () => {

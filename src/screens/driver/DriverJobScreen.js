@@ -39,14 +39,14 @@ export default function DriverJobScreen({ route, navigation }) {
       // Job complete
       try {
         await updateRideStatus(ride?.id, 'completed');
-      } catch {}
+      } catch { /* silent */ }
       navigation.navigate('DriverComplete', { ride, driver });
       return;
     }
 
     try {
       await updateRideStatus(ride?.id, STEPS[nextStep]);
-    } catch {}
+    } catch { /* silent */ }
     setCurrentStep(nextStep);
   };
 
@@ -64,7 +64,7 @@ export default function DriverJobScreen({ route, navigation }) {
   };
 
   const handleCall = () => {
-    Linking.openURL(`tel:${customerPhone}`);
+    try { Linking.openURL(`tel:${customerPhone}`); } catch { /* silent */ }
   };
 
   return (

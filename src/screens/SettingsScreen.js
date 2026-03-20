@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert, Animated, Linking, Platform, Switch } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert, Animated, Linking, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useI18n } from '../utils/i18n';
 import { useTheme } from '../utils/theme';
@@ -28,7 +28,7 @@ export default function SettingsScreen({ navigation }) {
           text: t('yes'),
           style: 'destructive',
           onPress: async () => {
-            try { await supabase.auth.signOut(); } catch {}
+            try { await supabase.auth.signOut(); } catch { /* silent */ }
             navigation.replace('Login');
           },
         },
@@ -121,7 +121,7 @@ export default function SettingsScreen({ navigation }) {
 
           {/* Actions */}
           <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
-            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => Linking.openURL('https://sared.app')}>
+            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('https://sared.app'); } catch { /* silent */ } }}>
               <View style={[styles.actionIcon, { backgroundColor: colors.warningFaded }]}>
                 <Ionicons name="star" size={20} color={colors.warning} />
               </View>
@@ -133,7 +133,7 @@ export default function SettingsScreen({ navigation }) {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 4 }} />
 
-            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => Linking.openURL('https://sared.app/privacy')}>
+            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('https://sared.app/privacy'); } catch { /* silent */ } }}>
               <View style={[styles.actionIcon, { backgroundColor: colors.primaryFaded }]}>
                 <Ionicons name="shield-checkmark-outline" size={20} color={colors.primary} />
               </View>
@@ -145,7 +145,7 @@ export default function SettingsScreen({ navigation }) {
 
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 4 }} />
 
-            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => Linking.openURL('https://sared.app/terms')}>
+            <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('https://sared.app/terms'); } catch { /* silent */ } }}>
               <View style={[styles.actionIcon, { backgroundColor: 'rgba(59,130,246,0.1)' }]}>
                 <Ionicons name="document-text-outline" size={20} color="#3B82F6" />
               </View>

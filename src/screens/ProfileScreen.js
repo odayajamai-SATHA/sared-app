@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Share, Platform, ScrollView, Alert, Linking, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Share, ScrollView, Alert, Linking, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
@@ -27,7 +27,7 @@ export default function ProfileScreen({ navigation }) {
             .eq('status', 'completed');
           setStats(prev => ({ ...prev, trips: count || 0 }));
         }
-      } catch {}
+      } catch { /* silent */ }
     })();
   }, []);
 
@@ -112,9 +112,9 @@ export default function ProfileScreen({ navigation }) {
                   if (item.screen) {
                     navigation.navigate(item.screen);
                   } else if (item.action === 'terms') {
-                    Linking.openURL('https://sared.app/terms');
+                    try { Linking.openURL('https://sared.app/terms'); } catch { /* silent */ }
                   } else if (item.action === 'help') {
-                    Linking.openURL('https://wa.me/966554404434');
+                    try { Linking.openURL('https://wa.me/966554404434'); } catch { /* silent */ }
                   } else {
                     showComingSoon();
                   }
@@ -135,7 +135,7 @@ export default function ProfileScreen({ navigation }) {
           onPress={async () => {
             try {
               await Share.share({ message: 'Download Sared - Saudi tow truck app: https://sared.app', title: 'Sared' });
-            } catch {}
+            } catch { /* silent */ }
           }}
         >
           <View style={[styles.menuIcon, { backgroundColor: '#22C55E15' }]}>
@@ -157,7 +157,7 @@ export default function ProfileScreen({ navigation }) {
                   text: t('confirm'),
                   style: 'destructive',
                   onPress: async () => {
-                    try { await supabase.auth.signOut(); } catch {}
+                    try { await supabase.auth.signOut(); } catch { /* silent */ }
                     navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
                   },
                 },

@@ -1,5 +1,5 @@
-import { useState, useEffect, createContext, useContext, useCallback } from 'react';
-import { useColorScheme, Platform } from 'react-native';
+import { useState, createContext, useContext, useCallback } from 'react';
+import { useColorScheme } from 'react-native';
 
 const lightColors = {
   primary: '#059669',

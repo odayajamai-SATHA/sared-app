@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
-  StyleSheet, Text, View, TouchableOpacity, ActivityIndicator,
+  StyleSheet, Text, View, TouchableOpacity,
   ScrollView, Animated, Platform, Alert, Linking, useWindowDimensions,
 } from 'react-native';
 import * as Location from 'expo-location';
@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation: rawNav }) {
           const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
           setLocation({ latitude: loc.coords.latitude, longitude: loc.coords.longitude });
         }
-      } catch {}
+      } catch { /* silent */ }
       setLoading(false);
     })();
     Animated.spring(promoAnim, { toValue: 1, tension: 40, friction: 8, useNativeDriver: Platform.OS !== 'web', delay: 500 }).start();
@@ -72,7 +72,7 @@ export default function HomeScreen({ navigation: rawNav }) {
             {t('howCanWeHelp') || 'How can we help you today?'}
           </Text>
           <TouchableOpacity style={styles.helpLink}
-            onPress={() => Linking.openURL('https://wa.me/966554404434')}>
+            onPress={() => { try { Linking.openURL('https://wa.me/966554404434'); } catch { /* silent */ } }}>
             <Ionicons name="logo-whatsapp" size={14} color="#25D366" />
             <Text style={styles.helpLinkText}>
               {isRTL ? 'تحتاج مساعدة؟' : 'Need help?'}

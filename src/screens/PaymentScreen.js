@@ -51,7 +51,7 @@ export default function PaymentScreen({ route, navigation }) {
       await Clipboard.setStringAsync(STC_PAY_NUMBER);
       setCopied(true);
       copiedTimerRef.current = setTimeout(() => setCopied(false), 2000);
-    } catch {}
+    } catch { /* silent */ }
   }, []);
 
   const handleComingSoon = () => {

@@ -114,7 +114,7 @@ export default function TrackingScreen({ route, navigation }) {
         mapRef.current.fitToCoordinates([userLocation, driverLocation], {
           edgePadding: { top: 120, right: 60, bottom: 340, left: 60 }, animated: true,
         });
-      } catch {}
+      } catch { /* silent */ }
     }
   }, [userLocation, driverLocation]);
 
@@ -160,7 +160,7 @@ export default function TrackingScreen({ route, navigation }) {
         {
           text: t('confirm'),
           onPress: async () => {
-            try { if (rideId) await updateRideStatus(rideId, 'completed'); } catch {}
+            try { if (rideId) await updateRideStatus(rideId, 'completed'); } catch { /* silent */ }
             navigation.navigate('TripComplete', { service, size, price, fareBreakdown, paymentMethod });
           },
         },
@@ -219,7 +219,7 @@ export default function TrackingScreen({ route, navigation }) {
                 <Text style={styles.sosCoordsText}>{userLocation.latitude.toFixed(5)}, {userLocation.longitude.toFixed(5)}</Text>
               </View>
             )}
-            <TouchableOpacity style={styles.sosCallBtn} onPress={() => { setShowSOS(false); Linking.openURL('tel:911'); }}>
+            <TouchableOpacity style={styles.sosCallBtn} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch (e) { /* silent */ } }}>
               <Ionicons name="call" size={20} color="#DC2626" />
               <Text style={styles.sosCallText}>{t('callEmergency') || 'Call 911'}</Text>
             </TouchableOpacity>
@@ -282,7 +282,7 @@ export default function TrackingScreen({ route, navigation }) {
             <Ionicons name="chatbubble-outline" size={20} color={colors.primary} />
             <Text style={{ color: colors.primary, fontSize: 14, fontWeight: '600' }}>{t('messageDriver')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary }]} onPress={() => Linking.openURL('tel:+966500000000')}>
+          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary }]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch { /* silent */ } }}>
             <Ionicons name="call" size={20} color="#FFF" />
             <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '600' }}>{t('callDriver')}</Text>
           </TouchableOpacity>

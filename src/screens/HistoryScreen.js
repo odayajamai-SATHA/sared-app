@@ -25,7 +25,7 @@ export default function HistoryScreen({ navigation }) {
           .limit(50);
         if (!error && data) setRides(data);
       }
-    } catch {}
+    } catch { /* silent */ }
     setLoading(false);
   }, []);
 

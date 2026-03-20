@@ -48,7 +48,7 @@ export default function BookingScreen({ route, navigation }) {
           });
           if (ride) setRideId(ride.id);
         }
-      } catch {}
+      } catch { /* silent */ }
     })();
 
     const nearbyDriverTokens = route.params?.driverTokens || [];

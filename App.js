@@ -111,7 +111,7 @@ function AppContent() {
       try {
         if (state === 'active') supabase.auth.startAutoRefresh();
         else supabase.auth.stopAutoRefresh();
-      } catch {}
+      } catch { /* silent */ }
     });
     return () => subscription.remove();
   }, []);

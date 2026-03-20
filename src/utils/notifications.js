@@ -71,7 +71,7 @@ async function sendPushNotification(expoPushToken, title, body, data = {}) {
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ to: expoPushToken, sound: 'default', title, body, data }),
     });
-  } catch {}
+  } catch { /* silent */ }
 }
 
 export async function notifyDriversNewRide(driverTokens, rideDetails) {

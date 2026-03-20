@@ -107,7 +107,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
     setIsOnline(newStatus);
     try {
       await updateDriverStatus(driver?.id, newStatus);
-    } catch {}
+    } catch { /* silent */ }
   };
 
   const handleAccept = async () => {
@@ -115,7 +115,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
     clearTimeout(timerRef.current);
     try {
       await acceptRide(incomingRide.id, driver?.id);
-    } catch {}
+    } catch { /* silent */ }
 
     // Notify the customer that their driver is on the way
     const customerToken = incomingRide.users?.push_token;
