@@ -20,7 +20,7 @@ const PAYMENT_OPTIONS = [
 ];
 
 export default function PaymentScreen({ route, navigation }) {
-  const { service, serviceId, size, price, pickup, destination, destinationName, fareTotal } = route.params;
+  const { service, serviceId, size, price, pickup, destination, destinationName, fareTotal } = route.params || {};
   const { t, isRTL } = useI18n();
   const [selected, setSelected] = useState(null);
   const [copied, setCopied] = useState(false);

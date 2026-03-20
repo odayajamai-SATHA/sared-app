@@ -277,7 +277,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
 
       {/* Bottom Nav */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={() => {}}>
           <Ionicons name="home" size={22} color={colors.primary} />
           <Text style={[styles.navLabel, { color: colors.primary }]}>{t('home')}</Text>
         </TouchableOpacity>

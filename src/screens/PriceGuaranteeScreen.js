@@ -7,7 +7,7 @@ import { useI18n } from '../utils/i18n';
 import { calculateFare, getDistanceKm } from '../utils/pricing';
 
 export default function PriceGuaranteeScreen({ route, navigation }) {
-  const { service, serviceId, size, price, pickup, destination, destinationName } = route.params;
+  const { service, serviceId, size, price, pickup, destination, destinationName } = route.params || {};
   const { t, isRTL } = useI18n();
 
   const scaleAnim = useRef(new Animated.Value(0.8)).current;

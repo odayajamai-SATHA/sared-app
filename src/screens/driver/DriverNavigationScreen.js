@@ -8,7 +8,7 @@ import { useI18n } from '../../utils/i18n';
 import { updateRideStatus } from '../../utils/supabase';
 
 export default function DriverNavigationScreen({ route, navigation }) {
-  const { ride, driver } = route.params;
+  const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
   const mapRef = useRef(null);
 

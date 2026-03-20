@@ -4,7 +4,7 @@ import { colors } from '../../utils/colors';
 import { useI18n } from '../../utils/i18n';
 
 export default function DriverCompleteScreen({ route, navigation }) {
-  const { ride, driver } = route.params;
+  const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
 
   const handleDone = () => {

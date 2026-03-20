@@ -5,7 +5,7 @@ import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 
 export default function ReceiptScreen({ route, navigation }) {
-  const { service, size, price } = route.params;
+  const { service, size, price } = route.params || {};
   const { t, isRTL } = useI18n();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(40)).current;

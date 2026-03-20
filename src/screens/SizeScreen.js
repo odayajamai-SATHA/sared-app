@@ -7,7 +7,7 @@ import { createDebouncedNav } from '../utils/navigation';
 
 export default function SizeScreen({ route, navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
-  const { service, serviceId } = route.params;
+  const { service, serviceId } = route.params || {};
   const { t, isRTL } = useI18n();
 
   const sizes = [

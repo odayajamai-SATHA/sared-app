@@ -7,7 +7,7 @@ import { useI18n } from '../utils/i18n';
 
 export default function DriverMatchingScreen({ route, navigation }) {
   const { t } = useI18n();
-  const params = route.params;
+  const params = route.params || {};
   const [statusIndex, setStatusIndex] = useState(0);
 
   const pulse1 = useRef(new Animated.Value(0)).current;

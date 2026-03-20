@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../utils/colors';
 import { useI18n } from '../../utils/i18n';
@@ -61,7 +61,8 @@ export default function DriverProfileScreen({ route, navigation }) {
 
       <View style={styles.menu}>
         {menuItems.map((item, index) => (
-          <TouchableOpacity key={index} style={[styles.menuItem, isRTL && styles.rowReverse]}>
+          <TouchableOpacity key={index} style={[styles.menuItem, isRTL && styles.rowReverse]}
+            onPress={() => Alert.alert(item.label, t('featureComingSoon'))}>
             <Ionicons name={item.icon} size={22} color={colors.darkGray} />
             <Text style={[styles.menuLabel, isRTL && styles.textRight]}>{item.label}</Text>
             <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />

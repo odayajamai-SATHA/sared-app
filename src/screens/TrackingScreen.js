@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Animated, Linking, Modal, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Animated, Linking, Modal, Platform, Alert } from 'react-native';
 import MapView, { Marker, Polyline } from '../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,7 +7,7 @@ import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 
 export default function TrackingScreen({ route, navigation }) {
-  const { service, size, price } = route.params;
+  const { service, size, price } = route.params || {};
   const { t, isRTL } = useI18n();
   const mapRef = useRef(null);
   const sheetAnim = useRef(new Animated.Value(100)).current;
@@ -197,7 +197,7 @@ export default function TrackingScreen({ route, navigation }) {
 
         {/* Action buttons */}
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.msgBtn}>
+          <TouchableOpacity style={styles.msgBtn} onPress={() => Alert.alert(t('messageDriver'), t('featureComingSoon'))}>
             <Ionicons name="chatbubble-outline" size={20} color={colors.primary} />
             <Text style={styles.msgBtnText}>{t('messageDriver')}</Text>
           </TouchableOpacity>

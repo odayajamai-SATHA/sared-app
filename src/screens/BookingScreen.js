@@ -7,7 +7,7 @@ import { notifyDriversNewRide } from '../utils/notifications';
 import { calculateFare, applyPromoCode, getDistanceKm } from '../utils/pricing';
 
 export default function BookingScreen({ route, navigation }) {
-  const { service, serviceId, size, pickup, destination, destinationName } = route.params;
+  const { service, serviceId, size, pickup, destination, destinationName } = route.params || {};
   const { t, isRTL } = useI18n();
   const [promoCode, setPromoCode] = useState('');
   const [fare, setFare] = useState(null);

@@ -6,7 +6,7 @@ import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 
 export default function TripCompleteScreen({ route, navigation }) {
-  const { service, size, price } = route.params;
+  const { service, size, price } = route.params || {};
   const [rating, setRating] = useState(0);
   const { t, isRTL } = useI18n();
 

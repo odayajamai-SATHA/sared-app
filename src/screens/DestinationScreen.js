@@ -26,7 +26,7 @@ const SUGGESTIONS = [
 ];
 
 export default function DestinationScreen({ route, navigation }) {
-  const { pickup } = route.params;
+  const { pickup } = route.params || {};
   const { t, isRTL, lang } = useI18n();
   const mapRef = useRef(null);
   const [query, setQuery] = useState('');

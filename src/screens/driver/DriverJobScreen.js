@@ -14,7 +14,7 @@ import { updateRideStatus } from '../../utils/supabase';
 const STEPS = ['arrived', 'loading', 'in_transit', 'completed'];
 
 export default function DriverJobScreen({ route, navigation }) {
-  const { ride, driver } = route.params;
+  const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
   const [currentStep, setCurrentStep] = useState(0); // 0=Arrived, 1=Loading, 2=In Transit, 3=Completed
 
