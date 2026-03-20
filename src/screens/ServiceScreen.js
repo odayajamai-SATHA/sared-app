@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
@@ -8,22 +8,24 @@ import { createDebouncedNav } from '../utils/navigation';
 
 const { width } = Dimensions.get('window');
 
+const COMING_SOON_IDS = ['lockout', 'emergency', 'transport', 'heavyTow'];
+
 export default function ServiceScreen({ route, navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
-  const { t, isRTL } = useI18n();
+  const { t, isRTL, lang } = useI18n();
   const pickup = route.params?.pickup;
   const destination = route.params?.destination;
   const destinationName = route.params?.destinationName;
 
   const services = [
     { id: 'tow', icon: 'car-sport', title: t('towVehicle'), desc: t('towDesc'), price: getServicePriceWithVAT('tow'), color: '#059669' },
-    { id: 'flatTire', icon: 'disc', title: t('flatTireChange'), desc: t('flatTireDesc'), price: getServicePriceWithVAT('flatTire'), color: '#3B82F6' },
-    { id: 'battery', icon: 'flash', title: t('batteryJump'), desc: t('batteryJumpDesc'), price: getServicePriceWithVAT('battery'), color: '#8B5CF6' },
-    { id: 'fuel', icon: 'water', title: t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: getServicePriceWithVAT('fuel'), color: '#22C55E' },
-    { id: 'lockout', icon: 'key', title: t('carLockout'), desc: t('carLockoutDesc'), price: getServicePriceWithVAT('lockout'), color: '#EC4899' },
-    { id: 'emergency', icon: 'warning', title: t('winchRecovery'), desc: t('winchRecoveryDesc'), price: getServicePriceWithVAT('emergency'), color: '#EF4444' },
-    { id: 'transport', icon: 'cube', title: t('transportItems'), desc: t('transportDesc'), price: getServicePriceWithVAT('transport'), color: '#F59E0B' },
-    { id: 'heavyTow', icon: 'airplane', title: t('intercityTransport'), desc: t('intercityDesc'), price: getServicePriceWithVAT('heavyTow'), color: '#0EA5E9' },
+    { id: 'flatTire', icon: 'disc-outline', title: t('flatTireChange'), desc: t('flatTireDesc'), price: getServicePriceWithVAT('flatTire'), color: '#3B82F6' },
+    { id: 'battery', icon: 'flash-outline', title: t('batteryJump'), desc: t('batteryJumpDesc'), price: getServicePriceWithVAT('battery'), color: '#F59E0B' },
+    { id: 'fuel', icon: 'water-outline', title: t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: getServicePriceWithVAT('fuel'), color: '#EF4444' },
+    { id: 'lockout', icon: 'key-outline', title: t('carLockout'), desc: t('carLockoutDesc'), price: getServicePriceWithVAT('lockout'), color: '#8B5CF6' },
+    { id: 'emergency', icon: 'warning-outline', title: t('winchRecovery'), desc: t('winchRecoveryDesc'), price: getServicePriceWithVAT('emergency'), color: '#F97316' },
+    { id: 'transport', icon: 'cube-outline', title: t('transportItems'), desc: t('transportDesc'), price: getServicePriceWithVAT('transport'), color: '#06B6D4' },
+    { id: 'heavyTow', icon: 'airplane-outline', title: t('intercityTransport'), desc: t('intercityDesc'), price: getServicePriceWithVAT('heavyTow'), color: '#6366F1' },
   ];
 
   const animations = useRef(services.map(() => new Animated.Value(0))).current;
@@ -36,8 +38,14 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
   }, []);
 
   const handleSelect = (service) => {
-    // Services that don't need size selection go straight to price guarantee
-    const directServices = ['flatTire', 'battery', 'fuel', 'lockout'];
+    if (COMING_SOON_IDS.includes(service.id)) {
+      Alert.alert(
+        lang === 'ar' ? 'قريباً' : 'Coming Soon',
+        lang === 'ar' ? 'هذه الخدمة ستكون متاحة قريباً' : 'This service will be available soon'
+      );
+      return;
+    }
+    const directServices = ['flatTire', 'battery', 'fuel'];
     if (directServices.includes(service.id)) {
       navigation.navigate('PriceGuarantee', {
         service: service.title,
@@ -72,30 +80,40 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
       <ScrollView style={styles.content} contentContainerStyle={styles.contentInner} showsVerticalScrollIndicator={false}>
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>{t('whatNeed')}</Text>
 
-        {services.map((service, index) => (
-          <Animated.View key={service.id} style={{
-            opacity: animations[index],
-            transform: [{ translateY: animations[index].interpolate({ inputRange: [0, 1], outputRange: [30, 0] }) }],
-          }}>
-            <TouchableOpacity
-              style={[styles.card, isRTL && styles.rowReverse]}
-              onPress={() => handleSelect(service)}
-              activeOpacity={0.7}
-            >
-              <View style={[styles.iconContainer, { backgroundColor: service.color + '15' }]}>
-                <Ionicons name={service.icon} size={26} color={service.color} />
-              </View>
-              <View style={[styles.cardContent, isRTL && { alignItems: 'flex-end' }]}>
-                <Text style={styles.cardTitle}>{service.title}</Text>
-                <Text style={[styles.cardDesc, isRTL && styles.textRight]}>{service.desc}</Text>
-                <Text style={[styles.cardPrice, { color: service.color }]}>
-                  {t('fromSar')} {service.price} ({t('inclVat') || 'incl. VAT'})
-                </Text>
-              </View>
-              <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={20} color={colors.gray} />
-            </TouchableOpacity>
-          </Animated.View>
-        ))}
+        {services.map((service, index) => {
+          const isComingSoon = COMING_SOON_IDS.includes(service.id);
+          return (
+            <Animated.View key={service.id} style={{
+              opacity: animations[index],
+              transform: [{ translateY: animations[index].interpolate({ inputRange: [0, 1], outputRange: [30, 0] }) }],
+            }}>
+              <TouchableOpacity
+                style={[styles.card, isRTL && styles.rowReverse, isComingSoon && styles.cardComingSoon]}
+                onPress={() => handleSelect(service)}
+                activeOpacity={0.7}
+              >
+                <View style={[styles.iconContainer, { backgroundColor: service.color + '15' }]}>
+                  <Ionicons name={service.icon} size={26} color={service.color} />
+                </View>
+                <View style={[styles.cardContent, isRTL && { alignItems: 'flex-end' }]}>
+                  <View style={[styles.titleRow, isRTL && styles.rowReverse]}>
+                    <Text style={styles.cardTitle}>{service.title}</Text>
+                    {isComingSoon && (
+                      <View style={styles.comingSoonBadge}>
+                        <Text style={styles.comingSoonText}>{lang === 'ar' ? 'قريباً' : 'Soon'}</Text>
+                      </View>
+                    )}
+                  </View>
+                  <Text style={[styles.cardDesc, isRTL && styles.textRight]}>{service.desc}</Text>
+                  <Text style={[styles.cardPrice, { color: service.color }]}>
+                    {t('fromSar')} {service.price} ({t('inclVat') || 'incl. VAT'})
+                  </Text>
+                </View>
+                <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={20} color={colors.gray} />
+              </TouchableOpacity>
+            </Animated.View>
+          );
+        })}
         <View style={{ height: 32 }} />
       </ScrollView>
     </View>
@@ -123,14 +141,22 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: colors.border,
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,
   },
+  cardComingSoon: {
+    opacity: 0.6,
+  },
   rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
     width: 52, height: 52, borderRadius: 16,
     justifyContent: 'center', alignItems: 'center', marginHorizontal: 7,
   },
   cardContent: { flex: 1 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   cardTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
   cardDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 3 },
   cardPrice: { fontSize: 13, fontWeight: '700', marginTop: 4 },
+  comingSoonBadge: {
+    backgroundColor: '#F59E0B20', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6,
+  },
+  comingSoonText: { fontSize: 11, fontWeight: '700', color: '#F59E0B' },
   textRight: { textAlign: 'right' },
 });

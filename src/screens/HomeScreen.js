@@ -41,9 +41,9 @@ export default function HomeScreen({ navigation: rawNav }) {
 
   const quickActions = [
     { id: 'tow', icon: 'car-sport', label: t('towService'), color: '#059669', price: getServicePriceWithVAT('tow') },
-    { id: 'emergency', icon: 'warning', label: t('emergency') || 'Emergency', color: '#EF4444', price: getServicePriceWithVAT('emergency') },
-    { id: 'flatTire', icon: 'disc', label: t('flatTire'), color: '#3B82F6', price: getServicePriceWithVAT('flatTire') },
-    { id: 'battery', icon: 'flash', label: t('deadBattery'), color: '#8B5CF6', price: getServicePriceWithVAT('battery') },
+    { id: 'flatTire', icon: 'disc-outline', label: t('flatTire'), color: '#3B82F6', price: getServicePriceWithVAT('flatTire') },
+    { id: 'battery', icon: 'flash-outline', label: t('deadBattery'), color: '#F59E0B', price: getServicePriceWithVAT('battery') },
+    { id: 'fuel', icon: 'water-outline', label: t('fuelDelivery'), color: '#EF4444', price: getServicePriceWithVAT('fuel') },
   ];
 
   const recentLocations = [
