@@ -70,7 +70,7 @@ export default function SizeScreen({ route, navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle, { color: C.text }]}>{t('selectSize')}</Text>
+        <Text style={[styles.headerTitle, { color: C.text }]}>{t('selectSize')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -83,7 +83,7 @@ export default function SizeScreen({ route, navigation }) {
           return (
             <TouchableOpacity
               key={size.id}
-              style={[styles.card, isSelected && styles.cardSelected]}
+              style={[styles.card, { backgroundColor: C.card, borderColor: C.cardBorder }, isSelected && styles.cardSelected]}
               onPress={() => handleSelect(size)}
               activeOpacity={0.7}
             >

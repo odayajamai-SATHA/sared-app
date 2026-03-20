@@ -78,7 +78,7 @@ export default function DestinationScreen({ route, navigation }) {
           <TouchableOpacity onPress={() => setShowMap(false)} style={styles.backBtn}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle, { color: C.text }]}>{t('dropPin')}</Text>
+          <Text style={[styles.headerTitle, { color: C.text }]}>{t('dropPin')}</Text>
           <View style={{ width: 40 }} />
         </View>
 
@@ -118,7 +118,7 @@ export default function DestinationScreen({ route, navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle, { color: C.text }]}>{t('setDropoff')}</Text>
+        <Text style={[styles.headerTitle, { color: C.text }]}>{t('setDropoff')}</Text>
         <View style={{ width: 40 }} />
       </View>
 

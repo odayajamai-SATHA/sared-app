@@ -122,7 +122,7 @@ export default function PaymentScreen({ route, navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle, { color: C.text }]}>{t('paymentMethod')}</Text>
+        <Text style={[styles.headerTitle, { color: C.text }]}>{t('paymentMethod')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -146,7 +146,7 @@ export default function PaymentScreen({ route, navigation }) {
               <View key={option.id}>
                 <TouchableOpacity
                   style={[
-                    styles.optionCard,
+                    styles.optionCard, { backgroundColor: C.card, borderColor: C.cardBorder },
                     isSelected && styles.optionCardSelected,
                     isDisabled && styles.optionCardDisabled,
                   ]}

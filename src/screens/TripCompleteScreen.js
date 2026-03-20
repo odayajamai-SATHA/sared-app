@@ -52,7 +52,7 @@ export default function TripCompleteScreen({ route, navigation }) {
         <Text style={styles.title}>{t('tripComplete')}</Text>
       </LinearGradient>
 
-      <Animated.View style={[styles.card, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
+      <Animated.View style={[styles.card, { backgroundColor: C.card }, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
         <Text style={[styles.cardTitle, isRTL && styles.textRight]}>{t('tripSummary')}</Text>
         {[
           [t('service'), service],
@@ -71,7 +71,7 @@ export default function TripCompleteScreen({ route, navigation }) {
         </View>
       </Animated.View>
 
-      <Animated.View style={[styles.ratingCard, { opacity: cardFade }]}>
+      <Animated.View style={[styles.ratingCard, { backgroundColor: C.card }, { opacity: cardFade }]}>
         <Text style={styles.rateTitle}>{t('rateDriver')}</Text>
         <View style={[styles.driverRow, isRTL && styles.rowReverse]}>
           <View style={styles.driverAvatar}>

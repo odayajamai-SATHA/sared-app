@@ -37,7 +37,7 @@ export default function VehiclesScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle, { color: C.text }]}>{t('myVehicles')}</Text>
+        <Text style={[styles.headerTitle, { color: C.text }]}>{t('myVehicles')}</Text>
         <TouchableOpacity onPress={() => setShowForm(!showForm)} style={styles.addBtn}>
           <Ionicons name={showForm ? 'close' : 'add'} size={24} color={colors.primary} />
         </TouchableOpacity>

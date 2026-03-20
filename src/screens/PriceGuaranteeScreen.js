@@ -56,7 +56,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle, { color: C.text }]}>{t('priceGuarantee')}</Text>
+        <Text style={[styles.headerTitle, { color: C.text }]}>{t('priceGuarantee')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -83,7 +83,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
         </Animated.View>
 
         {/* Price breakdown */}
-        <Animated.View style={[styles.breakdownCard, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
+        <Animated.View style={[styles.breakdownCard, { backgroundColor: C.card }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
           <Text style={[styles.breakdownTitle, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
 
           <View style={styles.breakdownRow}>

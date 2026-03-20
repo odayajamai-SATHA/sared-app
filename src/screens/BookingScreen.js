@@ -125,7 +125,7 @@ export default function BookingScreen({ route, navigation }) {
         <View style={styles.priceRow}><Text style={styles.totalLabel}>{t('totalPrice')}</Text><Text style={styles.totalValue}>SAR {fare.total}</Text></View>
       </Animated.View>
 
-      <View style={styles.promoCard}>
+      <View style={[styles.promoCard, { backgroundColor: C.card }]}>
         <Text style={[styles.promoTitle, isRTL && styles.textRight]}>{t('promoCode')}</Text>
         <View style={[styles.promoRow, isRTL && styles.rowReverse]}>
           <TextInput style={[styles.promoInput, isRTL && styles.textRight]} placeholder={t('promoPlaceholder')} placeholderTextColor={colors.gray} value={promoCode} onChangeText={setPromoCode} autoCapitalize="characters" />

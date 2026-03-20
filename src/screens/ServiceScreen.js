@@ -84,7 +84,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
             transform: [{ translateY: animations[index].interpolate({ inputRange: [0, 1], outputRange: [30, 0] }) }],
           }}>
             <TouchableOpacity
-              style={[styles.card, isRTL && styles.rowReverse, service.comingSoon && styles.cardComingSoon]}
+              style={[styles.card, { backgroundColor: C.card, borderColor: C.cardBorder }, isRTL && styles.rowReverse, service.comingSoon && styles.cardComingSoon]}
               onPress={() => handleSelect(service)}
               activeOpacity={0.7}
             >

@@ -58,7 +58,7 @@ export default function InsuranceScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle, { color: C.text }]}>{t('insuranceBenefits')}</Text>
+        <Text style={[styles.headerTitle, { color: C.text }]}>{t('insuranceBenefits')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
