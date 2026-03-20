@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import MapView, { Marker } from '../components/MapView';
 import { Ionicons } from '@expo/vector-icons';
