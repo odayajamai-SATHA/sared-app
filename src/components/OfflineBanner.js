@@ -3,66 +3,32 @@ import { StyleSheet, Text, View, Animated, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useI18n } from '../utils/i18n';
 
-// Simple queue for pending ride requests
-const pendingRequests = [];
-
-export function queueRideRequest(request) {
-  pendingRequests.push(request);
-}
-
-export function getPendingRequests() {
-  return [...pendingRequests];
-}
-
-export function clearPendingRequests() {
-  pendingRequests.length = 0;
-}
-
-export async function retryPendingRequests(submitFn) {
-  const requests = getPendingRequests();
-  if (requests.length === 0) return;
-
-  for (const req of requests) {
-    try {
-      await submitFn(req);
-    } catch {
-      return;
-    }
-  }
-  clearPendingRequests();
-}
-
 function useNetworkStatus() {
   const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
     if (Platform.OS === 'web') {
-      // Use browser online/offline events
       const handleOffline = () => setIsOffline(true);
       const handleOnline = () => setIsOffline(false);
-
       setIsOffline(!navigator.onLine);
       window.addEventListener('offline', handleOffline);
       window.addEventListener('online', handleOnline);
-
       return () => {
         window.removeEventListener('offline', handleOffline);
         window.removeEventListener('online', handleOnline);
       };
     } else {
-      // Use NetInfo on native
-      let NetInfo;
+      // Lazy load NetInfo - never at module level
+      let unsubscribe = () => {};
       try {
-        NetInfo = require('@react-native-community/netinfo').default;
-      } catch {
-        return;
+        const NetInfo = require('@react-native-community/netinfo').default;
+        unsubscribe = NetInfo.addEventListener((state) => {
+          setIsOffline(!state.isConnected);
+        });
+      } catch (e) {
+        console.warn('[Sared] NetInfo not available:', e.message);
       }
-
-      const unsubscribe = NetInfo.addEventListener((state) => {
-        setIsOffline(!state.isConnected);
-      });
-
-      return () => unsubscribe();
+      return () => { try { unsubscribe(); } catch {} };
     }
   }, []);
 
@@ -122,7 +88,7 @@ export default function OfflineBanner() {
         color="#FFFFFF"
       />
       <Text style={styles.bannerText}>
-        {isOffline ? t('noInternet') : t('backOnline')}
+        {isOffline ? (t('noInternet') || 'No internet') : (t('backOnline') || 'Back online')}
       </Text>
     </Animated.View>
   );
@@ -142,15 +108,7 @@ const styles = StyleSheet.create({
     gap: 8,
     zIndex: 9999,
   },
-  offlineBanner: {
-    backgroundColor: '#EF4444',
-  },
-  onlineBanner: {
-    backgroundColor: '#22C55E',
-  },
-  bannerText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
+  offlineBanner: { backgroundColor: '#EF4444' },
+  onlineBanner: { backgroundColor: '#22C55E' },
+  bannerText: { color: '#FFFFFF', fontSize: 14, fontWeight: '600' },
 });

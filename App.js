@@ -1,22 +1,24 @@
 import { useEffect } from 'react';
-import { AppState, StatusBar } from 'react-native';
+import { AppState, StatusBar, View, Text } from 'react-native';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { I18nProvider, useI18n } from './src/utils/i18n';
 import { ThemeProvider, useTheme } from './src/utils/theme';
-import { registerForPushNotifications, addNotificationListeners } from './src/utils/notifications';
-import { supabase } from './src/utils/supabase';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import ErrorBoundary from './src/components/ErrorBoundary';
-import OfflineBanner from './src/components/OfflineBanner';
 
-// Splash & Onboarding
+// Lazy imports for native modules - these are only called inside components, never at module level
+let supabase = null;
+try {
+  supabase = require('./src/utils/supabase').supabase;
+} catch (e) {
+  console.warn('[Sared] Supabase init failed:', e.message);
+}
+
+// Screen imports
 import SplashScreen from './src/screens/SplashScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
-
-// User screens
 import LoginScreen from './src/screens/LoginScreen';
 import OTPScreen from './src/screens/OTPScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -39,8 +41,6 @@ import DriverSignupScreen from './src/screens/DriverSignupScreen';
 import ForBusinessScreen from './src/screens/ForBusinessScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import HelpSupportScreen from './src/screens/HelpSupportScreen';
-
-// Driver screens
 import DriverLoginScreen from './src/screens/driver/DriverLoginScreen';
 import DriverDashboardScreen from './src/screens/driver/DriverDashboardScreen';
 import DriverNavigationScreen from './src/screens/driver/DriverNavigationScreen';
@@ -91,19 +91,27 @@ function AppContent() {
   const { isRTL } = useI18n();
   const { colors, isDark } = useTheme();
 
+  // Lazy init notifications - inside useEffect, never at module level
   useEffect(() => {
-    registerForPushNotifications();
-    const cleanup = addNotificationListeners(() => {}, () => {});
-    return cleanup;
+    (async () => {
+      try {
+        const { registerForPushNotifications, addNotificationListeners } = require('./src/utils/notifications');
+        await registerForPushNotifications();
+        const cleanup = addNotificationListeners(() => {}, () => {});
+        return cleanup;
+      } catch (e) {
+        console.warn('[Sared] Notifications setup failed:', e.message);
+      }
+    })();
   }, []);
 
   useEffect(() => {
+    if (!supabase) return;
     const subscription = AppState.addEventListener('change', (state) => {
-      if (state === 'active') {
-        supabase.auth.startAutoRefresh();
-      } else {
-        supabase.auth.stopAutoRefresh();
-      }
+      try {
+        if (state === 'active') supabase.auth.startAutoRefresh();
+        else supabase.auth.stopAutoRefresh();
+      } catch {}
     });
     return () => subscription.remove();
   }, []);
@@ -117,24 +125,17 @@ function AppContent() {
   };
 
   return (
-    <ErrorBoundary isRTL={isRTL}>
+    <>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
       <NavigationContainer theme={navTheme}>
         <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}>
-          {/* Splash & Onboarding */}
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-
-          {/* Auth */}
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="OTP" component={OTPScreen} />
           <Stack.Screen name="DriverSignup" component={DriverSignupScreen} />
           <Stack.Screen name="ForBusiness" component={ForBusinessScreen} />
-
-          {/* Main App with tab bar */}
           <Stack.Screen name="Main" component={MainTabs} />
-
-          {/* Stack screens */}
           <Stack.Screen name="Service" component={ServiceScreen} />
           <Stack.Screen name="Size" component={SizeScreen} />
           <Stack.Screen name="PriceGuarantee" component={PriceGuaranteeScreen} />
@@ -150,8 +151,6 @@ function AppContent() {
           <Stack.Screen name="Insurance" component={InsuranceScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="HelpSupport" component={HelpSupportScreen} />
-
-          {/* Driver Flow */}
           <Stack.Screen name="DriverLogin" component={DriverLoginScreen} />
           <Stack.Screen name="DriverDashboard" component={DriverDashboardScreen} />
           <Stack.Screen name="DriverNavigation" component={DriverNavigationScreen} />
@@ -161,20 +160,53 @@ function AppContent() {
           <Stack.Screen name="DriverProfile" component={DriverProfileScreen} />
           <Stack.Screen name="DriverWithdrawal" component={DriverWithdrawalScreen} />
         </Stack.Navigator>
-        <OfflineBanner />
       </NavigationContainer>
-    </ErrorBoundary>
+    </>
   );
+}
+
+// Top-level error boundary as a class component
+import { Component } from 'react';
+
+class CrashGuard extends Component {
+  state = { crashed: false, error: null };
+
+  static getDerivedStateFromError(error) {
+    return { crashed: true, error: error.message };
+  }
+
+  componentDidCatch(error, info) {
+    console.error('[Sared] App crashed:', error, info);
+  }
+
+  render() {
+    if (this.state.crashed) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#022C22', padding: 32 }}>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#FFF', marginBottom: 12 }}>Sared</Text>
+          <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', textAlign: 'center' }}>
+            Something went wrong. Please restart the app.
+          </Text>
+          <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 20, textAlign: 'center' }}>
+            {this.state.error}
+          </Text>
+        </View>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <ThemeProvider>
-        <I18nProvider>
-          <AppContent />
-        </I18nProvider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <CrashGuard>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <I18nProvider>
+            <AppContent />
+          </I18nProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </CrashGuard>
   );
 }
