@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, Component } from 'react';
 import { AppState, StatusBar, View, Text } from 'react-native';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -166,7 +166,6 @@ function AppContent() {
 }
 
 // Top-level error boundary as a class component
-import { Component } from 'react';
 
 class CrashGuard extends Component {
   state = { crashed: false, error: null };
