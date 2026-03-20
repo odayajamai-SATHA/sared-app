@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: undefined },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingTop: 56, paddingHorizontal: 16, paddingBottom: 16,
+    paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
     backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border,
   },
   backBtn: {
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   textRight: { textAlign: 'right' },
   bottomBar: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    padding: 16, paddingBottom: 32, backgroundColor: '#FFF',
+    padding: 16, paddingBottom: 40, backgroundColor: '#FFF',
     borderTopWidth: 1, borderTopColor: colors.border,
   },
   confirmBtn: {

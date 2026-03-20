@@ -122,7 +122,7 @@ export default function HistoryScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: undefined },
   header: {
-    paddingTop: 56, paddingHorizontal: 20, paddingBottom: 16,
+    paddingTop: 60, paddingHorizontal: 20, paddingBottom: 16,
     borderBottomWidth: 1, borderBottomColor: colors.border,
   },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: colors.text },

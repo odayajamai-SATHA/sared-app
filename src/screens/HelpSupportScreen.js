@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingTop: 56, paddingHorizontal: 16, paddingBottom: 16,
+    paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
     backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: colors.border,
   },
   backBtn: {

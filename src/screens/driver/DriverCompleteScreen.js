@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: 20,
-    paddingBottom: 36,
+    paddingBottom: 40,
   },
   doneBtn: {
     backgroundColor: '#1E3A5F',

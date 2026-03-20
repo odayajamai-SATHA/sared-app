@@ -340,7 +340,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  header: { paddingTop: 52, paddingHorizontal: 20, paddingBottom: 24 },
+  header: { paddingTop: 60, paddingHorizontal: 20, paddingBottom: 24 },
   headerRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 },
   backBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.15)', justifyContent: 'center', alignItems: 'center' },
   headerTitle: { fontSize: 18, fontWeight: '700', color: '#FFF' },

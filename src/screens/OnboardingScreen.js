@@ -152,7 +152,7 @@ export default function OnboardingScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  skipBtn: { position: 'absolute', top: 56, right: 20, zIndex: 10, padding: 8 },
+  skipBtn: { position: 'absolute', top: 60, right: 20, zIndex: 10, padding: 8 },
   skipText: { fontSize: 15, color: 'rgba(255,255,255,0.6)', fontWeight: '500' },
   flatList: { flex: 1 },
   slide: {

@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#1E3A5F',
-    paddingTop: 56,
+    paddingTop: 60,
     paddingHorizontal: 20,
     paddingBottom: 20,
     alignItems: 'center',
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: 20,
-    paddingBottom: 36,
+    paddingBottom: 40,
     backgroundColor: colors.white,
     borderTopWidth: 1,
     borderTopColor: colors.border,

@@ -171,7 +171,7 @@ export default function HomeScreen({ navigation: rawNav }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   scroll: { flex: 1, paddingHorizontal: 20 },
-  greetingSection: { paddingTop: 56, marginBottom: 20 },
+  greetingSection: { paddingTop: 60, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800' },
   greetingSub: { fontSize: 15, color: colors.textSecondary, marginTop: 4 },
   helpLink: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },

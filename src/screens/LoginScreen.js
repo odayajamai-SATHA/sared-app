@@ -171,7 +171,7 @@ export default function LoginScreen({ navigation: rawNav }) {
 const styles = StyleSheet.create({
   gradient: { flex: 1 },
   container: { flex: 1, justifyContent: 'space-between' },
-  topRow: { flexDirection: 'row', justifyContent: 'center', paddingTop: 52, paddingHorizontal: 16, gap: 8, flexWrap: 'wrap' },
+  topRow: { flexDirection: 'row', justifyContent: 'center', paddingTop: 60, paddingHorizontal: 16, gap: 8, flexWrap: 'wrap' },
   topBtn: {
     flexDirection: 'row', alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.12)', paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, gap: 5,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   tagline: { fontSize: 13, color: 'rgba(255,255,255,0.7)', textAlign: 'center', marginTop: 6 },
   formCard: {
     backgroundColor: 'rgba(255,255,255,0.08)', borderTopLeftRadius: 32, borderTopRightRadius: 32,
-    paddingHorizontal: 24, paddingTop: 24, paddingBottom: 36,
+    paddingHorizontal: 24, paddingTop: 24, paddingBottom: 40,
     borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)',
   },
   label: { fontSize: 15, fontWeight: '600', color: 'rgba(255,255,255,0.8)', marginBottom: 10 },

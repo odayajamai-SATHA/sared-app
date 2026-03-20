@@ -82,7 +82,7 @@ export default function BookingScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
-    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={{ paddingBottom: 40 }}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={{ paddingBottom: 40 }} keyboardShouldPersistTaps='handled'>
       <View style={styles.topSection}>
         <View style={styles.checkCircle}>
           <Ionicons name="checkmark" size={40} color="#FFF" />
@@ -155,7 +155,7 @@ export default function BookingScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.lightGray },
-  topSection: { backgroundColor: colors.primary, alignItems: 'center', paddingTop: 70, paddingBottom: 36 },
+  topSection: { backgroundColor: colors.primary, alignItems: 'center', paddingTop: 70, paddingBottom: 40 },
   checkCircle: { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.25)', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
   confirmedTitle: { fontSize: 24, fontWeight: 'bold', color: '#FFF' },
   confirmedSub: { fontSize: 15, color: 'rgba(255,255,255,0.85)', marginTop: 6 },

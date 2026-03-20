@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   headerGradient: { paddingHorizontal: 20, paddingBottom: 28, alignItems: 'center' },
   headerRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingTop: 56, paddingBottom: 16, alignSelf: 'stretch',
+    paddingTop: 60, paddingBottom: 16, alignSelf: 'stretch',
   },
   backBtn: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.12)',

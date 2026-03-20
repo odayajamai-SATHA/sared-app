@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingTop: 52, paddingHorizontal: 16, paddingBottom: 12,
+    paddingTop: 60, paddingHorizontal: 16, paddingBottom: 12,
   },
   backBtn: {
     width: 40, height: 40, borderRadius: 20,
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   distText: { fontSize: 12, fontWeight: '600', color: '#FFF' },
   bottomPanel: {
     borderTopLeftRadius: 24, borderTopRightRadius: 24,
-    paddingHorizontal: 20, paddingTop: 12, paddingBottom: 32,
+    paddingHorizontal: 20, paddingTop: 12, paddingBottom: 40,
     shadowColor: '#000', shadowOffset: { width: 0, height: -2 }, shadowOpacity: 0.08, shadowRadius: 12, elevation: 8,
   },
   handle: { width: 40, height: 4, borderRadius: 2, alignSelf: 'center', marginBottom: 16 },
