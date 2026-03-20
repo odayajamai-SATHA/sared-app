@@ -41,3 +41,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Native dirs from prebuild - must not be uploaded to EAS
+/android
+/ios

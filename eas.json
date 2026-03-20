@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://pgvjkgscvsgnbzwgbtqp.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_IG7nCK4sizomSC7ufsutdg_tPLFVJ9N",
+        "EXPO_PUBLIC_MOYASAR_KEY": "pk_test_placeholder"
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  }
+}
