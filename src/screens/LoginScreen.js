@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 14, paddingHorizontal: 14,
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)',
-    borderLeftWidth: 3, borderLeftColor: '#22C55E',
+    borderStartWidth: 3, borderStartColor: '#22C55E',
   },
   codeText: { fontSize: 16, color: '#FFF', fontWeight: '600' },
   phoneInput: {

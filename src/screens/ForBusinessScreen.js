@@ -48,7 +48,7 @@ export default function ForBusinessScreen({ navigation }) {
         <Ionicons name="checkmark-circle" size={64} color="#22C55E" />
         <Text style={styles.successTitle}>{t('requestSubmitted')}</Text>
         <Text style={styles.successSub}>{t('contactWithin24')}</Text>
-        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()} accessibilityRole="button" accessibilityLabel="Go back">
           <Text style={styles.successBtnText}>{t('done')}</Text>
         </TouchableOpacity>
       </View>
@@ -59,7 +59,7 @@ export default function ForBusinessScreen({ navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <LinearGradient colors={['#065F46', '#022C22']} style={styles.headerGradient}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('saredForBusiness')}</Text>

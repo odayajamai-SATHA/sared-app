@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   notifBtn: {
     width: 44, height: 44, borderRadius: 22,
     backgroundColor: colors.lightGray, justifyContent: 'center', alignItems: 'center',
-    marginLeft: 8,
+    marginStart: 8,
   },
   promoBanner: { borderRadius: 16, marginBottom: 24, overflow: 'hidden' },
   promoContent: { flexDirection: 'row', alignItems: 'center', padding: 16, gap: 12 },
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
   recentIcon: {
     width: 36, height: 36, borderRadius: 18, backgroundColor: colors.lightGray,
-    justifyContent: 'center', alignItems: 'center', marginRight: 12,
+    justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
   recentName: { fontSize: 15, fontWeight: '600', color: colors.text },
   recentSub: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },

@@ -22,7 +22,7 @@ export default function DriverProfileScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.header}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.white} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('driverProfile')}</Text>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0E7EF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 14,
+    marginEnd: 14,
   },
   profileInfo: {
     flex: 1,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     color: colors.text,
-    marginLeft: 12,
+    marginStart: 12,
   },
   logoutBtn: {
     flexDirection: 'row',
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#EF4444',
     fontWeight: '600',
-    marginLeft: 8,
+    marginStart: 8,
   },
   rowReverse: {
     flexDirection: 'row-reverse',

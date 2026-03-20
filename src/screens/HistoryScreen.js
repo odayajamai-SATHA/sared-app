@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   rowReverse: { flexDirection: 'row-reverse' },
   rideIcon: {
     width: 44, height: 44, borderRadius: 12,
-    justifyContent: 'center', alignItems: 'center', marginRight: 12,
+    justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
   rideService: { fontSize: 15, fontWeight: '600', color: colors.text },
   rideDate: { fontSize: 12, color: colors.textSecondary, marginTop: 2 },

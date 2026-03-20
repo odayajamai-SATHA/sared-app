@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 20,
     backgroundColor: colors.border,
-    marginLeft: 17,
+    marginStart: 17,
     marginVertical: 4,
   },
   stepLineActive: {
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 16,
     backgroundColor: colors.border,
-    marginLeft: 4,
+    marginStart: 4,
     marginVertical: 4,
   },
   customerCard: {
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0E7EF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginEnd: 12,
   },
   customerInfo: {
     flex: 1,

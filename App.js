@@ -1,5 +1,5 @@
 import { useEffect, Component } from 'react';
-import { AppState, StatusBar, View, Text } from 'react-native';
+import { AppState, StatusBar, View, Text, Linking } from 'react-native';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -116,6 +116,23 @@ function AppContent() {
     return () => subscription.remove();
   }, []);
 
+
+  const linking = {
+    prefixes: ['sared://', 'https://sared.app'],
+    config: {
+      screens: {
+        Splash: 'splash',
+        Login: 'login',
+        Main: { screens: { Home: 'home', Services: 'services', History: 'history', Profile: 'profile' } },
+        Booking: 'booking/:id',
+        Tracking: 'tracking/:id',
+        Receipt: 'receipt/:id',
+        DriverDashboard: 'driver',
+        DriverLogin: 'driver/login',
+      },
+    },
+  };
+
   const navTheme = isDark ? {
     ...DarkTheme,
     colors: { ...DarkTheme.colors, background: colors.background, card: colors.surface, text: colors.text, border: colors.border, primary: colors.primary },
@@ -127,7 +144,7 @@ function AppContent() {
   return (
     <>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
-      <NavigationContainer theme={navTheme}>
+      <NavigationContainer theme={navTheme} linking={linking}>
         <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}>
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
@@ -182,7 +199,7 @@ class CrashGuard extends Component {
     if (this.state.crashed) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#022C22', padding: 32 }}>
-          <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#FFF', marginBottom: 12 }}>Sared</Text>
+          <Text style={{ fontSize: 24, fontWeight: "bold", color: "#FFF", marginBottom: 12 }} accessibilityRole="header">Sared</Text>
           <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', textAlign: 'center' }}>
             Something went wrong. Please restart the app.
           </Text>

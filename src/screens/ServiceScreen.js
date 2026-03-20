@@ -68,7 +68,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('chooseService')}</Text>
@@ -93,7 +93,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
               </View>
               <View style={[styles.cardContent, isRTL && { alignItems: 'flex-end' }]}>
                 <View style={[styles.titleRow, isRTL && styles.rowReverse]}>
-                  <Text style={styles.cardTitle}>{service.title}</Text>
+                  <Text style={styles.cardTitle} numberOfLines={1}>{service.title}</Text>
                   {service.comingSoon && (
                     <View style={styles.comingSoonBadge}>
                       <Text style={styles.comingSoonText}>{lang === 'ar' ? 'قريباً' : 'Soon'}</Text>

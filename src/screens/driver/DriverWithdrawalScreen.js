@@ -157,7 +157,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, { backgroundColor: '#1E3A5F' }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{lang === 'ar' ? 'سحب الأرباح' : 'Withdraw Earnings'}</Text>
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   card: { borderRadius: 16, padding: 20, marginBottom: 12, borderWidth: 1 },
   sectionTitle: { fontSize: 16, fontWeight: '700', marginBottom: 14 },
   amountRow: { flexDirection: 'row', alignItems: 'center', borderRadius: 14, paddingHorizontal: 16, borderWidth: 1 },
-  sarLabel: { fontSize: 16, fontWeight: '600', marginRight: 8 },
+  sarLabel: { fontSize: 16, fontWeight: '600', marginEnd: 8 },
   amountInput: { flex: 1, fontSize: 28, fontWeight: '800', paddingVertical: 14 },
   quickRow: { flexDirection: 'row', gap: 8, marginTop: 12, flexWrap: 'wrap' },
   quickChip: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20 },

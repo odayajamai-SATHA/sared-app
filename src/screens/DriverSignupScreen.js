@@ -68,7 +68,7 @@ export default function DriverSignupScreen({ navigation }) {
         </View>
         <Text style={styles.successTitle}>{t('applicationSubmittedSuccess')}</Text>
         <Text style={styles.successSub}>{t('contactWithin48')}</Text>
-        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()} accessibilityRole="button" accessibilityLabel="Go back">
           <Text style={styles.successBtnText}>{t('done')}</Text>
         </TouchableOpacity>
       </View>
@@ -79,7 +79,7 @@ export default function DriverSignupScreen({ navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <LinearGradient colors={['#022C22', '#065F46']} style={styles.headerGradient}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('driverSignup')}</Text>

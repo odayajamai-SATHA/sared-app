@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 56, height: 56, borderRadius: 28,
     backgroundColor: 'rgba(5,150,105,0.3)', justifyContent: 'center', alignItems: 'center',
-    marginRight: 14, borderWidth: 2, borderColor: 'rgba(5,150,105,0.5)',
+    marginEnd: 14, borderWidth: 2, borderColor: 'rgba(5,150,105,0.5)',
   },
   profileInfo: { flex: 1 },
   name: { fontSize: 18, fontWeight: '700', color: '#FFF' },
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   menuIcon: {
     width: 36, height: 36, borderRadius: 10,
-    justifyContent: 'center', alignItems: 'center', marginRight: 12,
+    justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
   menuLabel: { fontSize: 15, color: colors.text, fontWeight: '500' },
   shareRow: {
@@ -219,11 +219,11 @@ const styles = StyleSheet.create({
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,
     cursor: 'pointer',
   },
-  shareText: { flex: 1, fontSize: 15, color: '#22C55E', fontWeight: '600', marginLeft: 12 },
+  shareText: { flex: 1, fontSize: 15, color: '#22C55E', fontWeight: '600', marginStart: 12 },
   logoutBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     paddingVertical: 14, cursor: 'pointer',
   },
-  logoutText: { fontSize: 16, color: '#EF4444', fontWeight: '600', marginLeft: 8 },
+  logoutText: { fontSize: 16, color: '#EF4444', fontWeight: '600', marginStart: 8 },
   textRight: { textAlign: 'right' },
 });

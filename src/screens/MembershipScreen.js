@@ -59,7 +59,7 @@ export default function MembershipScreen({ navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('membership')}</Text>
@@ -177,9 +177,9 @@ const styles = StyleSheet.create({
   planCard: { borderRadius: 24, padding: 28, marginBottom: 20 },
   planName: { fontSize: 18, fontWeight: '600', color: 'rgba(255,255,255,0.7)' },
   priceRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 8, marginBottom: 24 },
-  planCurrency: { fontSize: 16, fontWeight: '600', color: 'rgba(255,255,255,0.7)', marginRight: 4 },
+  planCurrency: { fontSize: 16, fontWeight: '600', color: 'rgba(255,255,255,0.7)', marginEnd: 4 },
   planPrice: { fontSize: 48, fontWeight: '800', color: '#FFF' },
-  planPeriod: { fontSize: 14, color: 'rgba(255,255,255,0.5)', marginLeft: 4 },
+  planPeriod: { fontSize: 14, color: 'rgba(255,255,255,0.5)', marginStart: 4 },
   featuresContainer: { marginBottom: 24 },
   featureRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 12 },
   featureText: { fontSize: 15, color: '#FFF', fontWeight: '500' },

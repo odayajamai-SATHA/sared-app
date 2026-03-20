@@ -77,7 +77,7 @@ export default function TripCompleteScreen({ route, navigation }) {
           <View style={styles.driverAvatar}>
             <Ionicons name="person" size={24} color={colors.primary} />
           </View>
-          <Text style={styles.driverName}>{t('driverName')}</Text>
+          <Text style={styles.driverName} numberOfLines={1}>{t('driverName')}</Text>
         </View>
 
         <View style={styles.starsRow}>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: {
     width: 48, height: 48, borderRadius: 24, backgroundColor: colors.primaryFaded,
-    justifyContent: 'center', alignItems: 'center', marginRight: 12,
+    justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
   driverName: { fontSize: 16, fontWeight: '600', color: colors.text },
   starsRow: { flexDirection: 'row', gap: 8, marginBottom: 8 },

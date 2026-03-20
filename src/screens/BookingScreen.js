@@ -95,7 +95,7 @@ export default function BookingScreen({ route, navigation }) {
         <View style={[styles.driverRow, isRTL && styles.rowReverse]}>
           <View style={styles.driverAvatar}><Ionicons name="person" size={28} color={colors.primary} /></View>
           <View style={[styles.driverInfo, isRTL && { alignItems: 'flex-end' }]}>
-            <Text style={styles.driverName}>{t('driverName')}</Text>
+            <Text style={styles.driverName} numberOfLines={1}>{t('driverName')}</Text>
             <View style={[styles.ratingRow, isRTL && styles.rowReverse]}>
               <Ionicons name="star" size={16} color="#FBBF24" />
               <Text style={styles.ratingText}>4.8</Text>
@@ -144,7 +144,7 @@ export default function BookingScreen({ route, navigation }) {
           <Text style={styles.cancelBtnText}>{t('cancelRide')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay, fareBreakdown: fare, paymentMethod, rideId })}>
-          <Ionicons name="navigate" size={18} color="#FFF" style={{ marginRight: 6 }} />
+          <Ionicons name="navigate" size={18} color="#FFF" style={{ marginEnd: 6 }} />
           <Text style={styles.trackBtnText}>{t('trackDriver')}</Text>
         </TouchableOpacity>
       </View>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   card: { backgroundColor: colors.card, marginHorizontal: 16, marginTop: -20, borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 6 },
   driverRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
-  driverAvatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.primaryFaded, justifyContent: 'center', alignItems: 'center', marginRight: 14 },
+  driverAvatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.primaryFaded, justifyContent: 'center', alignItems: 'center', marginEnd: 14 },
   driverInfo: { flex: 1 },
   driverName: { fontSize: 18, fontWeight: '700', color: colors.text },
   ratingRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4, gap: 4 },

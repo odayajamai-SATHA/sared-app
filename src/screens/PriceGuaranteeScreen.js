@@ -53,7 +53,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('priceGuarantee')}</Text>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   guaranteeLabel: { fontSize: 15, fontWeight: '600', color: colors.textSecondary, marginBottom: 8 },
   priceBox: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 12 },
-  currency: { fontSize: 20, fontWeight: '600', color: colors.text, marginRight: 6 },
+  currency: { fontSize: 20, fontWeight: '600', color: colors.text, marginEnd: 6 },
   priceAmount: { fontSize: 52, fontWeight: '800', color: colors.text },
   neverPayBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 6,

@@ -67,7 +67,7 @@ export default function SizeScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('selectSize')}</Text>
@@ -164,13 +164,13 @@ const styles = StyleSheet.create({
   rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
     width: 52, height: 52, borderRadius: 14, backgroundColor: colors.lightGray,
-    justifyContent: 'center', alignItems: 'center', marginRight: 14,
+    justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
   cardContent: { flex: 1 },
   cardTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
   cardDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },
   cardSpec: { fontSize: 12, color: colors.gray, marginTop: 2 },
-  priceCol: { alignItems: 'center', marginLeft: 8 },
+  priceCol: { alignItems: 'center', marginStart: 8 },
   priceNum: { fontSize: 24, fontWeight: '800', color: colors.text },
   priceUnit: { fontSize: 11, color: colors.gray, marginTop: 2 },
   selectedCheck: { position: 'absolute', top: 12, right: 12 },

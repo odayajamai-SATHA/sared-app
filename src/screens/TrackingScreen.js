@@ -171,7 +171,7 @@ export default function TrackingScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: isDark ? '#1a1a2e' : '#E8E4DE' }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card }]}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card }] hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}} accessibilityRole="button" accessibilityLabel="Go back">
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('trackingDriver')}</Text>
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   stepLineActive: { backgroundColor: colors.primary },
   driverCard: { flexDirection: 'row', alignItems: 'center', borderRadius: 14, padding: 14, marginBottom: 14 },
   rowReverse: { flexDirection: 'row-reverse' },
-  driverAvatar: { width: 48, height: 48, borderRadius: 24, justifyContent: 'center', alignItems: 'center', marginRight: 12 },
+  driverAvatar: { width: 48, height: 48, borderRadius: 24, justifyContent: 'center', alignItems: 'center', marginEnd: 12 },
   driverName: { fontSize: 16, fontWeight: '700' },
   driverMeta: { flexDirection: 'row', alignItems: 'center', marginTop: 4, gap: 4 },
   ratingText: { fontSize: 12, fontWeight: '600' },

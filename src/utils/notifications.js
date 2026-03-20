@@ -1,3 +1,4 @@
+import * as Device from 'expo-device';
 import { Platform } from 'react-native';
 
 // LAZY LOAD - never require native modules at module level
@@ -36,7 +37,8 @@ export async function registerForPushNotifications() {
   if (!N) return null;
 
   try {
-    const { status: existingStatus } = await N.getPermissionsAsync();
+    if (!Device.isDevice) { console.warn("[Sared] Push tokens require physical device"); return null; }
+  const { status: existingStatus } = await N.getPermissionsAsync();
     let finalStatus = existingStatus;
 
     if (existingStatus !== 'granted') {

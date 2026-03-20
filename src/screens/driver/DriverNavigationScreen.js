@@ -141,7 +141,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('navigateToCustomer')}</Text>
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0E7EF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginEnd: 12,
   },
   customerInfo: {
     flex: 1,
