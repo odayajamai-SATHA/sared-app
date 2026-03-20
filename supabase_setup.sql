@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS drivers (
   name TEXT NOT NULL,
   vehicle_type TEXT NOT NULL,
   plate_number TEXT NOT NULL,
-  satha_size TEXT NOT NULL DEFAULT 'medium',
+  sared_size TEXT NOT NULL DEFAULT 'medium',
   rating NUMERIC(2,1) DEFAULT 5.0,
   is_online BOOLEAN DEFAULT false,
   lat DOUBLE PRECISION,
@@ -35,13 +35,16 @@ CREATE TABLE IF NOT EXISTS rides (
   user_id UUID REFERENCES users(id),
   driver_id UUID REFERENCES drivers(id),
   service_type TEXT NOT NULL,
-  satha_size TEXT NOT NULL,
+  sared_size TEXT,
   status TEXT DEFAULT 'pending',
   pickup_lat DOUBLE PRECISION,
   pickup_lng DOUBLE PRECISION,
   dropoff_lat DOUBLE PRECISION,
   dropoff_lng DOUBLE PRECISION,
+  driver_lat DOUBLE PRECISION,
+  driver_lng DOUBLE PRECISION,
   price NUMERIC(10,2),
+  payment_method TEXT DEFAULT 'cash',
   created_at TIMESTAMPTZ DEFAULT now(),
   completed_at TIMESTAMPTZ
 );
@@ -57,6 +60,20 @@ CREATE TABLE IF NOT EXISTS ratings (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- WITHDRAWALS TABLE
+CREATE TABLE IF NOT EXISTS withdrawals (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  driver_id UUID REFERENCES drivers(id),
+  amount NUMERIC(10,2) NOT NULL,
+  method TEXT NOT NULL,
+  status TEXT DEFAULT 'pending',
+  bank_name TEXT,
+  iban TEXT,
+  stc_number TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  processed_at TIMESTAMPTZ
+);
+
 
 -- ============ ROW LEVEL SECURITY ============
 
@@ -64,6 +81,7 @@ ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE drivers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE rides ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ratings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE withdrawals ENABLE ROW LEVEL SECURITY;
 
 -- USERS POLICIES
 -- Allow authenticated users to read their own row
@@ -124,18 +142,35 @@ CREATE POLICY "Allow rating creation"
   ON ratings FOR INSERT
   WITH CHECK (true);
 
+-- WITHDRAWALS POLICIES
+-- Drivers can read their own withdrawals
+CREATE POLICY "Drivers can read own withdrawals"
+  ON withdrawals FOR SELECT
+  USING (true);
+
+-- Allow creating withdrawal requests
+CREATE POLICY "Allow withdrawal creation"
+  ON withdrawals FOR INSERT
+  WITH CHECK (true);
+
+-- Allow updating withdrawal status (admin)
+CREATE POLICY "Allow withdrawal updates"
+  ON withdrawals FOR UPDATE
+  USING (true);
+
 
 -- ============ REALTIME ============
 
 -- Enable Realtime for rides and drivers tables
 ALTER PUBLICATION supabase_realtime ADD TABLE rides;
 ALTER PUBLICATION supabase_realtime ADD TABLE drivers;
+ALTER PUBLICATION supabase_realtime ADD TABLE withdrawals;
 
 
 -- ============ SEED DATA ============
 
 -- Sample Driver 1: Ahmed with medium satha, rated 4.8
-INSERT INTO drivers (phone, name, vehicle_type, plate_number, satha_size, rating, is_online, lat, lng)
+INSERT INTO drivers (phone, name, vehicle_type, plate_number, sared_size, rating, is_online, lat, lng)
 VALUES (
   '+966501234567',
   'Ahmed',
@@ -151,11 +186,11 @@ ON CONFLICT (phone) DO UPDATE SET
   name = EXCLUDED.name,
   vehicle_type = EXCLUDED.vehicle_type,
   plate_number = EXCLUDED.plate_number,
-  satha_size = EXCLUDED.satha_size,
+  sared_size = EXCLUDED.sared_size,
   rating = EXCLUDED.rating;
 
 -- Sample Driver 2: Mohammed with large satha, rated 4.6
-INSERT INTO drivers (phone, name, vehicle_type, plate_number, satha_size, rating, is_online, lat, lng)
+INSERT INTO drivers (phone, name, vehicle_type, plate_number, sared_size, rating, is_online, lat, lng)
 VALUES (
   '+966509876543',
   'Mohammed',
@@ -171,10 +206,10 @@ ON CONFLICT (phone) DO UPDATE SET
   name = EXCLUDED.name,
   vehicle_type = EXCLUDED.vehicle_type,
   plate_number = EXCLUDED.plate_number,
-  satha_size = EXCLUDED.satha_size,
+  sared_size = EXCLUDED.sared_size,
   rating = EXCLUDED.rating;
 
 
 -- ============ DONE ============
 -- Verify the seed data
-SELECT id, phone, name, satha_size, rating, is_online FROM drivers;
+SELECT id, phone, name, sared_size, rating, is_online FROM drivers;
