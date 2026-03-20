@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Share, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Share, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
@@ -125,7 +125,7 @@ export default function ReceiptScreen({ route, navigation }) {
 
       {/* Action buttons */}
       <View style={styles.actionsRow}>
-        <TouchableOpacity style={styles.actionBtn}>
+        <TouchableOpacity style={styles.actionBtn} onPress={() => Alert.alert(t('downloadPdf'), t('featureComingSoon'))}>
           <Ionicons name="download-outline" size={20} color={colors.primary} />
           <Text style={styles.actionBtnText}>{t('downloadPdf')}</Text>
         </TouchableOpacity>

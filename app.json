@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "sared-app",
+    "name": "Sared",
     "slug": "sared-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,6 +12,7 @@
       "backgroundColor": "#059669"
     },
     "ios": {
+      "bundleIdentifier": "app.sared.mobile",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Sared needs your location to show nearby drivers and set your pickup location."
@@ -41,6 +42,7 @@
       ]
     ],
     "android": {
+      "package": "app.sared.mobile",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
