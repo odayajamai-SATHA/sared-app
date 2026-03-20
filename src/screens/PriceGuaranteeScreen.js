@@ -50,13 +50,13 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
-      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
+          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: C.text }]}>{t('priceGuarantee')}</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('priceGuarantee')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -83,7 +83,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
         </Animated.View>
 
         {/* Price breakdown */}
-        <Animated.View style={[styles.breakdownCard, { backgroundColor: C.card }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
+        <Animated.View style={[styles.breakdownCard, { backgroundColor: colors.card }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
           <Text style={[styles.breakdownTitle, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
 
           <View style={styles.breakdownRow}>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 56, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: C.card, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: colors.card, borderBottomWidth: 1, borderBottomColor: colors.border,
   },
   backBtn: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   neverPayText: { fontSize: 13, fontWeight: '600', color: '#16A34A' },
   breakdownCard: {
-    backgroundColor: C.card, borderRadius: 20, padding: 20,
+    backgroundColor: colors.card, borderRadius: 20, padding: 20,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   maxLabel: { fontSize: 16, fontWeight: '700', color: colors.text },
   maxValue: { fontSize: 20, fontWeight: '800', color: '#22C55E' },
   noteText: { fontSize: 12, color: colors.gray, marginTop: 12, lineHeight: 18 },
-  bottomBar: { padding: 16, backgroundColor: C.card, borderTopWidth: 1, borderTopColor: colors.border },
+  bottomBar: { padding: 16, backgroundColor: colors.card, borderTopWidth: 1, borderTopColor: colors.border },
   confirmBtn: { borderRadius: 16, overflow: 'hidden' },
   confirmGradient: {
     paddingVertical: 18, flexDirection: 'row', alignItems: 'center',

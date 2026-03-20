@@ -49,7 +49,7 @@ export default function HistoryScreen({ navigation }) {
   };
 
   const renderRide = ({ item }) => (
-    <View style={[styles.rideCard, { backgroundColor: C.card, borderColor: C.cardBorder }, isRTL && styles.rowReverse]}>
+    <View style={[styles.rideCard, { backgroundColor: colors.card, borderColor: colors.cardBorder }, isRTL && styles.rowReverse]}>
       <View style={[styles.rideIcon, { backgroundColor: getStatusColor(item.status) + '15' }]}>
         <Ionicons name="car-sport" size={20} color={getStatusColor(item.status)} />
       </View>
@@ -74,8 +74,8 @@ export default function HistoryScreen({ navigation }) {
 
   if (loading) {
     return (
-      <View style={[styles.container, { backgroundColor: C.background }]}>
-        <View style={[styles.header, { borderBottomColor: C.border }]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={[styles.header, { borderBottomColor: colors.border }]}>
           <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
         </View>
         <View style={styles.empty}>
@@ -86,8 +86,8 @@ export default function HistoryScreen({ navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, { borderBottomColor: C.border }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, { borderBottomColor: colors.border }]}>
         <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
       </View>
       {rides.length === 0 ? (

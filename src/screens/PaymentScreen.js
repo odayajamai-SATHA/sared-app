@@ -119,12 +119,12 @@ export default function PaymentScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
+          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: C.text }]}>{t('paymentMethod')}</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('paymentMethod')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -148,7 +148,7 @@ export default function PaymentScreen({ route, navigation }) {
               <View key={option.id}>
                 <TouchableOpacity
                   style={[
-                    styles.optionCard, { backgroundColor: C.card, borderColor: C.cardBorder },
+                    styles.optionCard, { backgroundColor: colors.card, borderColor: colors.cardBorder },
                     isSelected && styles.optionCardSelected,
                     isDisabled && styles.optionCardDisabled,
                   ]}
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 56, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: C.card, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: colors.card, borderBottomWidth: 1, borderBottomColor: colors.border,
   },
   backBtn: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1 },
   scrollContent: { padding: 16 },
   totalCard: {
-    backgroundColor: C.card, borderRadius: 20, padding: 24, alignItems: 'center',
+    backgroundColor: colors.card, borderRadius: 20, padding: 24, alignItems: 'center',
     marginBottom: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     marginBottom: 12, marginTop: 4,
   },
   optionCard: {
-    backgroundColor: C.card, borderRadius: 16, padding: 16, marginBottom: 10,
+    backgroundColor: colors.card, borderRadius: 16, padding: 16, marginBottom: 10,
     borderWidth: 1.5, borderColor: colors.border,
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04, shadowRadius: 8, elevation: 2,
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   optionTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
   optionDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },
   expandedContent: {
-    backgroundColor: C.card, borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
+    backgroundColor: colors.card, borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
     borderWidth: 1, borderColor: colors.border,
   },
   stcInstructions: {
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   numberText: { fontSize: 22, fontWeight: '800', color: colors.text, letterSpacing: 2 },
   copyBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: C.card, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
+    backgroundColor: colors.card, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
     borderWidth: 1, borderColor: colors.border,
   },
   copyText: { fontSize: 13, fontWeight: '600', color: colors.primary },

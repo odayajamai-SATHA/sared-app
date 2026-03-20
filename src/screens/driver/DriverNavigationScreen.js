@@ -138,7 +138,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
     : { ...defaultCoord, latitudeDelta: 0.04, longitudeDelta: 0.04 };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>

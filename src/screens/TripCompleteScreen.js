@@ -42,7 +42,7 @@ export default function TripCompleteScreen({ route, navigation }) {
   };
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: C.background }]} contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.contentContainer}>
       <LinearGradient colors={['#059669', '#047857']} style={styles.topSection}>
         <Animated.View style={{ transform: [{ scale: checkScale }] }}>
           <View style={styles.checkCircle}>
@@ -52,7 +52,7 @@ export default function TripCompleteScreen({ route, navigation }) {
         <Text style={styles.title}>{t('tripComplete')}</Text>
       </LinearGradient>
 
-      <Animated.View style={[styles.card, { backgroundColor: C.card }, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
+      <Animated.View style={[styles.card, { backgroundColor: colors.card }, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
         <Text style={[styles.cardTitle, isRTL && styles.textRight]}>{t('tripSummary')}</Text>
         {[
           [t('service'), service],
@@ -71,7 +71,7 @@ export default function TripCompleteScreen({ route, navigation }) {
         </View>
       </Animated.View>
 
-      <Animated.View style={[styles.ratingCard, { backgroundColor: C.card }, { opacity: cardFade }]}>
+      <Animated.View style={[styles.ratingCard, { backgroundColor: colors.card }, { opacity: cardFade }]}>
         <Text style={styles.rateTitle}>{t('rateDriver')}</Text>
         <View style={[styles.driverRow, isRTL && styles.rowReverse]}>
           <View style={styles.driverAvatar}>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 26, fontWeight: 'bold', color: '#FFF' },
   card: {
-    backgroundColor: C.card, marginHorizontal: 16, marginTop: -24, borderRadius: 20,
+    backgroundColor: colors.card, marginHorizontal: 16, marginTop: -24, borderRadius: 20,
     padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08, shadowRadius: 16, elevation: 6,
   },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: 16, fontWeight: '700', color: colors.text },
   totalValue: { fontSize: 18, fontWeight: 'bold', color: colors.primary },
   ratingCard: {
-    backgroundColor: C.card, marginHorizontal: 16, marginTop: 16, borderRadius: 20,
+    backgroundColor: colors.card, marginHorizontal: 16, marginTop: 16, borderRadius: 20,
     padding: 24, alignItems: 'center',
   },
   rateTitle: { fontSize: 18, fontWeight: '700', color: colors.text, marginBottom: 16 },

@@ -142,7 +142,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={styles.header}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>

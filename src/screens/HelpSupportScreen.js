@@ -49,12 +49,12 @@ export default function HelpSupportScreen({ navigation }) {
   ];
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: C.text }]}>{t('helpSupport')}</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('helpSupport')}</Text>
         <View style={{ width: 40 }} />
       </View>
 

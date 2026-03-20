@@ -56,7 +56,7 @@ export default function ForBusinessScreen({ navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <LinearGradient colors={['#065F46', '#022C22']} style={styles.headerGradient}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>

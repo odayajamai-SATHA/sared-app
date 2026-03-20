@@ -73,12 +73,12 @@ export default function DestinationScreen({ route, navigation }) {
 
   if (showMap) {
     return (
-      <View style={[styles.container, { backgroundColor: C.background }]}>
-        <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
           <TouchableOpacity onPress={() => setShowMap(false)} style={styles.backBtn}>
-            <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
+            <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
           </TouchableOpacity>
-          <Text style={[styles.headerTitle, { color: C.text }]}>{t('dropPin')}</Text>
+          <Text style={[styles.headerTitle, { color: colors.text }]}>{t('dropPin')}</Text>
           <View style={{ width: 40 }} />
         </View>
 
@@ -113,12 +113,12 @@ export default function DestinationScreen({ route, navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
+          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: C.text }]}>{t('setDropoff')}</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('setDropoff')}</Text>
         <View style={{ width: 40 }} />
       </View>
 

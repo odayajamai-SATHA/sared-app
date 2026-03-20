@@ -171,10 +171,10 @@ export default function TrackingScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: isDark ? '#1a1a2e' : '#E8E4DE' }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: C.card }]}>
-          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
+        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card }]}>
+          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: C.text }]}>{t('trackingDriver')}</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('trackingDriver')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -231,63 +231,63 @@ export default function TrackingScreen({ route, navigation }) {
       </Modal>
 
       {/* ETA + Distance badges */}
-      <View style={[styles.etaBubble, { backgroundColor: C.card }]}>
-        <Text style={[styles.etaNumber, { color: C.primary }]}>{eta}</Text>
-        <Text style={[styles.etaUnit, { color: C.textSecondary }]}>{t('min')}</Text>
+      <View style={[styles.etaBubble, { backgroundColor: colors.card }]}>
+        <Text style={[styles.etaNumber, { color: colors.primary }]}>{eta}</Text>
+        <Text style={[styles.etaUnit, { color: colors.textSecondary }]}>{t('min')}</Text>
       </View>
       <View style={styles.distBubble}>
         <Text style={styles.distText}>{getDistance()} {t('km')}</Text>
       </View>
 
       {/* Bottom sheet */}
-      <Animated.View style={[styles.bottomPanel, { backgroundColor: C.card, opacity: sheetFade, transform: [{ translateY: sheetAnim }] }]}>
-        <View style={[styles.handle, { backgroundColor: C.border }]} />
+      <Animated.View style={[styles.bottomPanel, { backgroundColor: colors.card, opacity: sheetFade, transform: [{ translateY: sheetAnim }] }]}>
+        <View style={[styles.handle, { backgroundColor: colors.border }]} />
 
         {/* Progress steps */}
         <View style={styles.stepsRow}>
           {steps.map((step, i) => (
             <View key={i} style={styles.stepItem}>
               <View style={[styles.stepCircle, activeStep > i && styles.stepCircleActive, activeStep === i + 1 && styles.stepCircleCurrent]}>
-                <Ionicons name={step.icon} size={14} color={activeStep > i ? '#FFF' : C.gray} />
+                <Ionicons name={step.icon} size={14} color={activeStep > i ? '#FFF' : colors.gray} />
               </View>
-              <Text style={[styles.stepLabel, activeStep >= i + 1 && styles.stepLabelActive, { color: activeStep >= i+1 ? C.primary : C.gray }]}>{step.label}</Text>
+              <Text style={[styles.stepLabel, activeStep >= i + 1 && styles.stepLabelActive, { color: activeStep >= i+1 ? colors.primary : colors.gray }]}>{step.label}</Text>
               {i < 2 && <View style={[styles.stepLine, activeStep > i + 1 && styles.stepLineActive]} />}
             </View>
           ))}
         </View>
 
         {/* Driver info */}
-        <View style={[styles.driverCard, { backgroundColor: C.surfaceSecondary }, isRTL && styles.rowReverse]}>
+        <View style={[styles.driverCard, { backgroundColor: colors.surfaceSecondary }, isRTL && styles.rowReverse]}>
           <View style={[styles.driverAvatar, { backgroundColor: colors.primaryFaded }]}>
-            <Ionicons name="person" size={24} color={C.primary} />
+            <Ionicons name="person" size={24} color={colors.primary} />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={[styles.driverName, { color: C.text }]}>{t('driverName')}</Text>
+            <Text style={[styles.driverName, { color: colors.text }]}>{t('driverName')}</Text>
             <View style={styles.driverMeta}>
               <Ionicons name="star" size={12} color="#FBBF24" />
-              <Text style={[styles.ratingText, { color: C.text }]}>4.8</Text>
-              <Text style={{ color: C.gray }}>|</Text>
-              <Text style={{ fontSize: 12, color: C.textSecondary }}>{t('plateNum')}: أ ب ج 1234</Text>
+              <Text style={[styles.ratingText, { color: colors.text }]}>4.8</Text>
+              <Text style={{ color: colors.gray }}>|</Text>
+              <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('plateNum')}: أ ب ج 1234</Text>
             </View>
           </View>
           <View style={[styles.etaChip, { backgroundColor: colors.primaryFaded }]}>
-            <Text style={[styles.etaChipNum, { color: C.primary }]}>{eta}</Text>
-            <Text style={{ fontSize: 10, color: C.textSecondary }}>{t('min')}</Text>
+            <Text style={[styles.etaChipNum, { color: colors.primary }]}>{eta}</Text>
+            <Text style={{ fontSize: 10, color: colors.textSecondary }}>{t('min')}</Text>
           </View>
         </View>
 
         {/* Action buttons */}
         <View style={styles.buttonRow}>
           <TouchableOpacity style={[styles.msgBtn, { backgroundColor: colors.primaryFaded }]} onPress={() => Alert.alert(t('messageDriver'), t('featureComingSoon'))}>
-            <Ionicons name="chatbubble-outline" size={20} color={C.primary} />
-            <Text style={{ color: C.primary, fontSize: 14, fontWeight: '600' }}>{t('messageDriver')}</Text>
+            <Ionicons name="chatbubble-outline" size={20} color={colors.primary} />
+            <Text style={{ color: colors.primary, fontSize: 14, fontWeight: '600' }}>{t('messageDriver')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.callBtn, { backgroundColor: C.primary }]} onPress={() => Linking.openURL('tel:+966500000000')}>
+          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary }]} onPress={() => Linking.openURL('tel:+966500000000')}>
             <Ionicons name="call" size={20} color="#FFF" />
             <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '600' }}>{t('callDriver')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.completeBtn, { backgroundColor: colors.primaryFaded, borderColor: C.border }]} onPress={handleComplete}>
-            <Ionicons name="checkmark" size={20} color={C.primary} />
+          <TouchableOpacity style={[styles.completeBtn, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]} onPress={handleComplete}>
+            <Ionicons name="checkmark" size={20} color={colors.primary} />
           </TouchableOpacity>
         </View>
       </Animated.View>

@@ -66,10 +66,10 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
-      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: C.headerBg, borderBottomColor: C.border }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={C.text} />
+          <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('chooseService')}</Text>
         <View style={{ width: 40 }} />
@@ -84,7 +84,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
             transform: [{ translateY: animations[index].interpolate({ inputRange: [0, 1], outputRange: [30, 0] }) }],
           }}>
             <TouchableOpacity
-              style={[styles.card, { backgroundColor: C.card, borderColor: C.cardBorder }, isRTL && styles.rowReverse, service.comingSoon && styles.cardComingSoon]}
+              style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }, isRTL && styles.rowReverse, service.comingSoon && styles.cardComingSoon]}
               onPress={() => handleSelect(service)}
               activeOpacity={0.7}
             >

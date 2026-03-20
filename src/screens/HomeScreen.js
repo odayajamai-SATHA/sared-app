@@ -61,14 +61,14 @@ export default function HomeScreen({ navigation: rawNav }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar style="dark" />
 
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         {/* Greeting */}
         <View style={styles.greetingSection}>
-          <Text style={[styles.greeting, { color: C.text }, isRTL && styles.textRight]}>{getGreeting()}</Text>
-          <Text style={[styles.greetingSub, { color: C.textSecondary }, isRTL && styles.textRight]}>
+          <Text style={[styles.greeting, { color: colors.text }, isRTL && styles.textRight]}>{getGreeting()}</Text>
+          <Text style={[styles.greetingSub, { color: colors.textSecondary }, isRTL && styles.textRight]}>
             {t('howCanWeHelp') || 'How can we help you today?'}
           </Text>
           <TouchableOpacity style={styles.helpLink}
@@ -83,7 +83,7 @@ export default function HomeScreen({ navigation: rawNav }) {
         {/* Search bar + notification */}
         <View style={styles.searchRow}>
           <TouchableOpacity
-            style={[styles.searchBar, { backgroundColor: C.surfaceSecondary }]}
+            style={[styles.searchBar, { backgroundColor: colors.surfaceSecondary }]}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Destination', { pickup })}
           >
@@ -91,7 +91,7 @@ export default function HomeScreen({ navigation: rawNav }) {
             <Text style={styles.searchPlaceholder}>{t('whereNeedSared')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.notifBtn, { backgroundColor: C.surfaceSecondary }]}
+            style={[styles.notifBtn, { backgroundColor: colors.surfaceSecondary }]}
             onPress={() => Alert.alert(t('notifications'), t('featureComingSoon'))}
           >
             <Ionicons name="notifications-outline" size={20} color={colors.text} />
@@ -119,7 +119,7 @@ export default function HomeScreen({ navigation: rawNav }) {
         </Animated.View>
 
         {/* Quick Actions 2x2 grid */}
-        <Text style={[styles.sectionTitle, { color: C.text }, isRTL && styles.textRight]}>
+        <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
           {t('quickServices') || 'Quick Services'}
         </Text>
         <View style={styles.quickGrid}>
@@ -148,7 +148,7 @@ export default function HomeScreen({ navigation: rawNav }) {
         </View>
 
         {/* Recent locations */}
-        <Text style={[styles.sectionTitle, { color: C.text }, isRTL && styles.textRight]}>{t('recentLocations')}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>{t('recentLocations')}</Text>
         {recentLocations.map((loc) => (
           <TouchableOpacity key={loc.id} style={[styles.recentRow, isRTL && styles.rowReverse]}
             onPress={() => navigation.navigate('Service', { pickup })}>

@@ -14,7 +14,7 @@ export default function DriverCompleteScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.topSection}>
         <View style={styles.checkCircle}>
           <Ionicons name="checkmark-circle" size={64} color={colors.white} />

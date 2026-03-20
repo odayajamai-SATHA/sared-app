@@ -68,7 +68,7 @@ export default function DriverJobScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: C.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>{t('jobInProgress')}</Text>
