@@ -93,11 +93,11 @@ export default function LoginScreen({ navigation: rawNav }) {
 
         <View style={styles.topRow}>
           <TouchableOpacity style={styles.topBtn} onPress={() => navigation.navigate('DriverLogin')}>
-            <Ionicons name="car-sport" size={14} color="#FFF" />
+            <Ionicons name="car-sport" size={13} color="#FFF" />
             <Text style={styles.topBtnText}>{t('switchToDriver')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.topBtn} onPress={() => navigation.navigate('ForBusiness')}>
-            <Ionicons name="briefcase" size={14} color="#FFF" />
+            <Ionicons name="briefcase" size={13} color="#FFF" />
             <Text style={styles.topBtnText}>{t('forBusiness')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.topBtn} onPress={toggleLang}>
@@ -107,15 +107,13 @@ export default function LoginScreen({ navigation: rawNav }) {
 
         <View style={styles.logoSection}>
           <Animated.View style={[styles.logoCircle, { opacity: fadeAnim, transform: [{ scale: iconScale }] }]}>
-            <Ionicons name="shield-checkmark" size={56} color="#FFF" />
+            <Ionicons name="shield-checkmark" size={36} color="#FFF" />
           </Animated.View>
 
           <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
             <Text style={styles.appName}>Sared</Text>
             <Text style={styles.appNameAr}>{'\u0633\u0627\u0631\u062F'}</Text>
-            <View style={styles.taglineContainer}>
-              <Text style={styles.tagline}>{t('tagline')}</Text>
-            </View>
+            <Text style={styles.tagline}>{t('tagline')}</Text>
           </Animated.View>
         </View>
 
@@ -170,30 +168,29 @@ export default function LoginScreen({ navigation: rawNav }) {
 
 const styles = StyleSheet.create({
   gradient: { flex: 1 },
-  container: { flex: 1 },
-  topRow: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 56, paddingHorizontal: 20 },
+  container: { flex: 1, justifyContent: 'space-between' },
+  topRow: { flexDirection: 'row', justifyContent: 'center', paddingTop: 52, paddingHorizontal: 16, gap: 8, flexWrap: 'wrap' },
   topBtn: {
     flexDirection: 'row', alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.12)', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20, gap: 6,
+    backgroundColor: 'rgba(255,255,255,0.12)', paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, gap: 5,
   },
-  topBtnText: { fontSize: 13, fontWeight: '600', color: 'rgba(255,255,255,0.9)' },
-  logoSection: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 20 },
+  topBtnText: { fontSize: 12, fontWeight: '600', color: 'rgba(255,255,255,0.9)' },
+  logoSection: { alignItems: 'center', paddingVertical: 16 },
   logoCircle: {
-    width: 120, height: 120, borderRadius: 60,
+    width: 80, height: 80, borderRadius: 40,
     backgroundColor: 'rgba(255,255,255,0.15)', justifyContent: 'center', alignItems: 'center',
-    marginBottom: 20, borderWidth: 2, borderColor: 'rgba(255,255,255,0.3)',
+    marginBottom: 12, borderWidth: 2, borderColor: 'rgba(255,255,255,0.3)',
   },
-  appName: { fontSize: 52, fontWeight: '800', color: '#FFF', textAlign: 'center', letterSpacing: 3 },
-  appNameAr: { fontSize: 28, fontWeight: '600', color: 'rgba(5,150,105,0.9)', textAlign: 'center', marginTop: 2 },
-  taglineContainer: { alignItems: 'center', marginTop: 12, gap: 4 },
-  tagline: { fontSize: 14, color: 'rgba(255,255,255,0.7)', textAlign: 'center' },
+  appName: { fontSize: 40, fontWeight: '800', color: '#FFF', textAlign: 'center', letterSpacing: 3 },
+  appNameAr: { fontSize: 22, fontWeight: '600', color: 'rgba(5,150,105,0.9)', textAlign: 'center', marginTop: 2 },
+  tagline: { fontSize: 13, color: 'rgba(255,255,255,0.7)', textAlign: 'center', marginTop: 6 },
   formCard: {
     backgroundColor: 'rgba(255,255,255,0.08)', borderTopLeftRadius: 32, borderTopRightRadius: 32,
-    paddingHorizontal: 24, paddingTop: 28, paddingBottom: 40,
+    paddingHorizontal: 24, paddingTop: 24, paddingBottom: 36,
     borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)',
   },
-  label: { fontSize: 15, fontWeight: '600', color: 'rgba(255,255,255,0.8)', marginBottom: 12 },
-  phoneRow: { flexDirection: 'row', gap: 10, marginBottom: 16 },
+  label: { fontSize: 15, fontWeight: '600', color: 'rgba(255,255,255,0.8)', marginBottom: 10 },
+  phoneRow: { flexDirection: 'row', gap: 10, marginBottom: 14 },
   rowReverse: { flexDirection: 'row-reverse' },
   countryCode: {
     flexDirection: 'row', alignItems: 'center',
@@ -204,17 +201,17 @@ const styles = StyleSheet.create({
   codeText: { fontSize: 16, color: '#FFF', fontWeight: '600' },
   phoneInput: {
     flex: 1, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 14,
-    paddingHorizontal: 16, paddingVertical: 14, fontSize: 18, color: '#FFF',
+    paddingHorizontal: 16, paddingVertical: 12, fontSize: 18, color: '#FFF',
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)', letterSpacing: 1,
   },
-  otpButton: { borderRadius: 14, overflow: 'hidden', marginBottom: 12 },
+  otpButton: { borderRadius: 14, overflow: 'hidden', marginBottom: 10 },
   otpButtonDisabled: { opacity: 0.5 },
   otpGradient: {
-    paddingVertical: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
+    paddingVertical: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
   },
-  otpButtonText: { color: '#FFF', fontSize: 18, fontWeight: '700' },
-  guestBtn: { alignItems: 'center', paddingVertical: 12, marginBottom: 8 },
-  guestBtnText: { fontSize: 15, color: 'rgba(255,255,255,0.6)', fontWeight: '500', textDecorationLine: 'underline' },
+  otpButtonText: { color: '#FFF', fontSize: 17, fontWeight: '700' },
+  guestBtn: { alignItems: 'center', paddingVertical: 8, marginBottom: 4 },
+  guestBtnText: { fontSize: 14, color: 'rgba(255,255,255,0.6)', fontWeight: '500', textDecorationLine: 'underline' },
   terms: { fontSize: 11, color: 'rgba(255,255,255,0.35)', textAlign: 'center', lineHeight: 16 },
   textRight: { textAlign: 'right' },
 });

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TouchableOpacity, ActivityIndicator,
-  ScrollView, Animated, Dimensions, Platform, Alert, Linking,
+  ScrollView, Animated, Platform, Alert, Linking, useWindowDimensions,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,11 +12,10 @@ import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
 import { createDebouncedNav } from '../utils/navigation';
 
-const { width } = Dimensions.get('window');
-
 export default function HomeScreen({ navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
   const { t, isRTL } = useI18n();
+  const { width } = useWindowDimensions();
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(true);
   const promoAnim = useRef(new Animated.Value(0)).current;
@@ -125,7 +124,7 @@ export default function HomeScreen({ navigation: rawNav }) {
           {quickActions.map((action) => (
             <TouchableOpacity
               key={action.id}
-              style={styles.quickCard}
+              style={[styles.quickCard, { width: (width - 52) / 2 }]}
               onPress={() => {
                 if (action.needsSize) {
                   navigation.navigate('Size', { service: action.label, serviceId: action.id, pickup });
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 24,
   },
   quickCard: {
-    width: (width - 52) / 2, backgroundColor: colors.white,
+    backgroundColor: colors.white,
     borderRadius: 16, padding: 16, marginBottom: 12,
     borderWidth: 1, borderColor: colors.border, alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,

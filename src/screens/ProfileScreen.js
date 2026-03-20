@@ -9,9 +9,24 @@ import { supabase } from '../utils/supabase';
 export default function ProfileScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
   const [stats, setStats] = useState({ trips: 0, rating: '--', vehicles: 0 });
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setStats({ trips: 0, rating: '--', vehicles: 0 });
+    (async () => {
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          setUser(authUser);
+          // Try to fetch ride count
+          const { count } = await supabase
+            .from('rides')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', authUser.id)
+            .eq('status', 'completed');
+          setStats(prev => ({ ...prev, trips: count || 0 }));
+        }
+      } catch {}
+    })();
   }, []);
 
   const showComingSoon = () => {
@@ -50,8 +65,8 @@ export default function ProfileScreen({ navigation }) {
             <Ionicons name="person" size={28} color="#FFF" />
           </View>
           <View style={[styles.profileInfo, isRTL && { alignItems: 'flex-end' }]}>
-            <Text style={styles.name}>User</Text>
-            <Text style={styles.phone}>+966 5X XXX XXXX</Text>
+            <Text style={styles.name}>{user?.user_metadata?.name || (lang === 'ar' ? 'مستخدم' : 'User')}</Text>
+            <Text style={styles.phone}>{user?.phone || (lang === 'ar' ? 'غير مسجل' : 'Not signed in')}</Text>
           </View>
           <Pressable
             style={({ pressed }) => [styles.editBtn, pressed && { opacity: 0.6 }]}

@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { updateRideStatus } from '../utils/supabase';
 
 export default function TrackingScreen({ route, navigation }) {
   const { service, size, price } = route.params || {};
@@ -206,7 +207,13 @@ export default function TrackingScreen({ route, navigation }) {
             <Text style={styles.callBtnText}>{t('callDriver')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.completeBtn}
-            onPress={() => navigation.navigate('TripComplete', { service, size, price })}>
+            onPress={async () => {
+              try {
+                const rideId = route.params?.rideId;
+                if (rideId) await updateRideStatus(rideId, 'completed');
+              } catch {}
+              navigation.navigate('TripComplete', { service, size, price });
+            }}>
             <Ionicons name="checkmark" size={20} color={colors.primary} />
           </TouchableOpacity>
         </View>

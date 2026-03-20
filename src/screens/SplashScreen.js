@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useI18n } from '../utils/i18n';
+import { supabase } from '../utils/supabase';
 
 export default function SplashScreen({ navigation }) {
   const { t } = useI18n();
@@ -18,11 +19,23 @@ export default function SplashScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace('Onboarding');
-    }, 2500);
-
-    return () => clearTimeout(timer);
+    const checkAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        // Wait minimum splash time
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        if (session) {
+          navigation.replace('Main');
+        } else {
+          navigation.replace('Onboarding');
+        }
+      } catch {
+        // On error, go to onboarding
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        navigation.replace('Onboarding');
+      }
+    };
+    checkAuth();
   }, [navigation]);
 
   return (

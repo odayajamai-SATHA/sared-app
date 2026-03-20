@@ -18,7 +18,7 @@ export default function DriverLoginScreen({ navigation }) {
   const [phone, setPhone] = useState('');
   const [driverId, setDriverId] = useState('');
   const [loading, setLoading] = useState(false);
-  const { t, toggleLang, isRTL } = useI18n();
+  const { t, toggleLang, isRTL, lang } = useI18n();
 
   const handleLogin = async () => {
     if (!phone || !driverId) return;
@@ -27,33 +27,51 @@ export default function DriverLoginScreen({ navigation }) {
     try {
       const { data, error } = await getDriverByPhone(`+966${phone}`);
       if (error || !data) {
-        // For demo, navigate anyway with mock data
-        navigation.replace('DriverDashboard', {
-          driver: {
-            id: 'demo-driver',
-            name: t('driverName'),
-            phone: `+966${phone}`,
-            vehicle_type: 'flatbed',
-            plate_number: 'ABC 1234',
-            rating: 4.8,
-            is_online: false,
-          },
-        });
-      } else {
-        navigation.replace('DriverDashboard', { driver: data });
+        setLoading(false);
+        Alert.alert(
+          t('error') || 'Error',
+          lang === 'ar'
+            ? 'لم يتم العثور على حساب سائق بهذا الرقم. يرجى التسجيل أولاً.'
+            : 'No driver account found with this number. Please register first.',
+          [
+            { text: t('cancel') || 'Cancel', style: 'cancel' },
+            {
+              text: lang === 'ar' ? 'وضع تجريبي' : 'Demo Mode',
+              onPress: () => {
+                navigation.replace('DriverDashboard', {
+                  driver: {
+                    id: 'demo-driver',
+                    name: t('driverName'),
+                    phone: `+966${phone}`,
+                    vehicle_type: 'flatbed',
+                    plate_number: 'ABC 1234',
+                    rating: 4.8,
+                    is_online: false,
+                    isDemo: true,
+                  },
+                });
+              },
+            },
+          ]
+        );
+        return;
       }
+      // Verify driver ID matches
+      if (data.driver_id && data.driver_id !== driverId) {
+        setLoading(false);
+        Alert.alert(
+          t('error') || 'Error',
+          lang === 'ar' ? 'رقم الهوية غير صحيح' : 'Driver ID does not match'
+        );
+        return;
+      }
+      navigation.replace('DriverDashboard', { driver: data });
     } catch {
-      navigation.replace('DriverDashboard', {
-        driver: {
-          id: 'demo-driver',
-          name: t('driverName'),
-          phone: `+966${phone}`,
-          vehicle_type: 'flatbed',
-          plate_number: 'ABC 1234',
-          rating: 4.8,
-          is_online: false,
-        },
-      });
+      setLoading(false);
+      Alert.alert(
+        t('error') || 'Error',
+        lang === 'ar' ? 'حدث خطأ في الاتصال' : 'Connection error. Please try again.'
+      );
     } finally {
       setLoading(false);
     }

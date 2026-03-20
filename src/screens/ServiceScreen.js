@@ -1,12 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions, Platform, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
 import { createDebouncedNav } from '../utils/navigation';
-
-const { width } = Dimensions.get('window');
 
 export default function ServiceScreen({ route, navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);

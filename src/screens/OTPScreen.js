@@ -124,7 +124,7 @@ export default function OTPScreen({ route, navigation }) {
 
         <View style={styles.content}>
           <View style={styles.iconCircle}>
-            <Ionicons name="shield-checkmark" size={48} color={colors.primary} />
+            <Ionicons name="shield-checkmark" size={36} color={colors.primary} />
           </View>
           <Text style={styles.title}>{t('verifyOTP')}</Text>
           <Text style={styles.subtitle}>{t('otpSentTo')} +966{phone}</Text>
@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
   },
   content: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 24 },
   iconCircle: {
-    width: 96, height: 96, borderRadius: 48,
+    width: 72, height: 72, borderRadius: 36,
     backgroundColor: 'rgba(5,150,105,0.15)',
-    justifyContent: 'center', alignItems: 'center', marginBottom: 24,
+    justifyContent: 'center', alignItems: 'center', marginBottom: 20,
     borderWidth: 2, borderColor: 'rgba(5,150,105,0.3)',
   },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#FFF', marginBottom: 8 },
-  subtitle: { fontSize: 14, color: 'rgba(255,255,255,0.6)', marginBottom: 32 },
+  title: { fontSize: 24, fontWeight: 'bold', color: '#FFF', marginBottom: 8 },
+  subtitle: { fontSize: 14, color: 'rgba(255,255,255,0.6)', marginBottom: 24 },
   otpRow: { flexDirection: 'row', gap: 10, marginBottom: 16 },
   rowReverse: { flexDirection: 'row-reverse' },
   otpInput: {
