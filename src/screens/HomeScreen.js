@@ -40,7 +40,7 @@ export default function HomeScreen({ navigation: rawNav }) {
   const pickup = location || defaultLocation;
 
   const quickActions = [
-    { id: 'tow', icon: 'car-sport', label: t('towService'), color: '#059669', price: getServicePriceWithVAT('tow') },
+    { id: 'tow', icon: 'car-sport', label: t('towService'), color: '#059669', price: getServicePriceWithVAT('tow'), needsSize: true },
     { id: 'flatTire', icon: 'disc-outline', label: t('flatTire'), color: '#3B82F6', price: getServicePriceWithVAT('flatTire') },
     { id: 'battery', icon: 'flash-outline', label: t('deadBattery'), color: '#F59E0B', price: getServicePriceWithVAT('battery') },
     { id: 'fuel', icon: 'water-outline', label: t('fuelDelivery'), color: '#EF4444', price: getServicePriceWithVAT('fuel') },
@@ -126,7 +126,16 @@ export default function HomeScreen({ navigation: rawNav }) {
             <TouchableOpacity
               key={action.id}
               style={styles.quickCard}
-              onPress={() => navigation.navigate('Service', { pickup, quickService: action.id })}
+              onPress={() => {
+                if (action.needsSize) {
+                  navigation.navigate('Size', { service: action.label, serviceId: action.id, pickup });
+                } else {
+                  navigation.navigate('PriceGuarantee', {
+                    service: action.label, serviceId: action.id, size: '—',
+                    price: `SAR ${action.price} (${t('inclVat')})`, pickup,
+                  });
+                }
+              }}
               activeOpacity={0.7}
             >
               <View style={[styles.quickIcon, { backgroundColor: action.color + '15' }]}>

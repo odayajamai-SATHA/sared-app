@@ -24,7 +24,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
     { id: 'fuel', icon: 'water-outline', title: t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: getServicePriceWithVAT('fuel'), color: '#EF4444' },
     { id: 'lockout', icon: 'key-outline', title: t('carLockout'), desc: t('carLockoutDesc'), price: getServicePriceWithVAT('lockout'), color: '#8B5CF6' },
     { id: 'emergency', icon: 'warning-outline', title: t('winchRecovery'), desc: t('winchRecoveryDesc'), price: getServicePriceWithVAT('emergency'), color: '#F97316' },
-    { id: 'transport', icon: 'cube-outline', title: t('transportItems'), desc: t('transportDesc'), price: getServicePriceWithVAT('transport'), color: '#06B6D4' },
+    { id: 'transport', icon: 'cube', title: t('transportItems'), desc: t('transportDesc'), price: getServicePriceWithVAT('transport'), color: '#06B6D4' },
     { id: 'heavyTow', icon: 'airplane-outline', title: t('intercityTransport'), desc: t('intercityDesc'), price: getServicePriceWithVAT('heavyTow'), color: '#6366F1' },
   ];
 
