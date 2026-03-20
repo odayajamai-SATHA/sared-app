@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Animated, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Animated, FlatList, Platform, useWindowDimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
-
-const { width, height: screenHeight } = Dimensions.get('window');
-const SLIDE_HEIGHT = screenHeight - 180; // leave room for dots + button
 
 function AnimatedIllustration({ icons, color, centerIcon }) {
   const bounce = useRef(new Animated.Value(0)).current;
@@ -14,10 +11,10 @@ function AnimatedIllustration({ icons, color, centerIcon }) {
 
   useEffect(() => {
     Animated.loop(Animated.sequence([
-      Animated.timing(bounce, { toValue: -12, duration: 1200, useNativeDriver: true }),
-      Animated.timing(bounce, { toValue: 0, duration: 1200, useNativeDriver: true }),
+      Animated.timing(bounce, { toValue: -12, duration: 1200, useNativeDriver: Platform.OS !== 'web' }),
+      Animated.timing(bounce, { toValue: 0, duration: 1200, useNativeDriver: Platform.OS !== 'web' }),
     ])).start();
-    Animated.loop(Animated.timing(spin, { toValue: 1, duration: 8000, useNativeDriver: true })).start();
+    Animated.loop(Animated.timing(spin, { toValue: 1, duration: 8000, useNativeDriver: Platform.OS !== 'web' })).start();
   }, []);
 
   const rotate = spin.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
@@ -64,6 +61,8 @@ const illStyles = StyleSheet.create({
 
 export default function OnboardingScreen({ navigation }) {
   const { t } = useI18n();
+  const { width, height: screenHeight } = useWindowDimensions();
+  const slideHeight = screenHeight - 180;
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef(null);
 
@@ -74,12 +73,12 @@ export default function OnboardingScreen({ navigation }) {
       title: t('onboard1Title'), sub: t('onboard1Sub'),
     },
     {
-      centerIcon: 'construct', color: '#3B82F6',
+      centerIcon: 'shield-checkmark', color: '#3B82F6',
       icons: ['car-sport', 'disc', 'flash', 'water', 'key', 'link'],
       title: t('onboard2Title'), sub: t('onboard2Sub'),
     },
     {
-      centerIcon: 'map', color: '#22C55E',
+      centerIcon: 'location', color: '#22C55E',
       icons: ['navigate', 'car-sport', 'checkmark-circle', 'pin'],
       title: t('onboard3Title'), sub: t('onboard3Sub'),
     },
@@ -96,7 +95,7 @@ export default function OnboardingScreen({ navigation }) {
   };
 
   const renderSlide = ({ item }) => (
-    <View style={styles.slide}>
+    <View style={[styles.slide, { width, height: slideHeight }]}>
       <View style={styles.illustrationArea}>
         <AnimatedIllustration icons={item.icons} color={item.color} centerIcon={item.centerIcon} />
       </View>
@@ -121,11 +120,13 @@ export default function OnboardingScreen({ navigation }) {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         keyExtractor={(_, i) => String(i)}
+        getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
         onMomentumScrollEnd={(e) => {
           const idx = Math.round(e.nativeEvent.contentOffset.x / width);
           setCurrentIndex(idx);
         }}
         style={styles.flatList}
+        extraData={width}
       />
 
       <View style={styles.bottomArea}>
@@ -155,8 +156,6 @@ const styles = StyleSheet.create({
   skipText: { fontSize: 15, color: 'rgba(255,255,255,0.6)', fontWeight: '500' },
   flatList: { flex: 1 },
   slide: {
-    width,
-    height: SLIDE_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 40,

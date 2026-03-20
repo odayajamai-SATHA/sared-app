@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Animated, Linking, Modal } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Animated, Linking, Modal, Platform } from 'react-native';
 import MapView, { Marker, Polyline } from '../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,8 +25,8 @@ export default function TrackingScreen({ route, navigation }) {
   useEffect(() => {
     // Sheet slide-up
     Animated.parallel([
-      Animated.spring(sheetAnim, { toValue: 0, tension: 50, friction: 10, useNativeDriver: true }),
-      Animated.timing(sheetFade, { toValue: 1, duration: 500, useNativeDriver: true }),
+      Animated.spring(sheetAnim, { toValue: 0, tension: 50, friction: 10, useNativeDriver: Platform.OS !== 'web' }),
+      Animated.timing(sheetFade, { toValue: 1, duration: 500, useNativeDriver: Platform.OS !== 'web' }),
     ]).start();
 
     (async () => {
@@ -143,7 +143,7 @@ export default function TrackingScreen({ route, navigation }) {
             )}
             <TouchableOpacity style={styles.sosCallBtn} onPress={() => { setShowSOS(false); Linking.openURL('tel:911'); }}>
               <Ionicons name="call" size={20} color="#FFF" />
-              <Text style={styles.sosCallText}>Call 911</Text>
+              <Text style={styles.sosCallText}>{t('callEmergency') || 'Call 911'}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.sosCancelBtn} onPress={() => setShowSOS(false)}>
               <Text style={styles.sosCancelText}>{t('cancelRide')}</Text>

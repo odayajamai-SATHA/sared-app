@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
-import { getSizePriceWithVAT, getPriceRange } from '../utils/pricing';
+import { getSizePriceWithVAT } from '../utils/pricing';
 import { createDebouncedNav } from '../utils/navigation';
 
 export default function SizeScreen({ route, navigation: rawNav }) {
@@ -51,7 +51,7 @@ export default function SizeScreen({ route, navigation: rawNav }) {
 
   const handleSelect = (size) => {
     navigation.navigate('PriceGuarantee', {
-      service, serviceId, size: size.title, price: `${size.price} (incl. VAT)`,
+      service, serviceId, size: size.title, price: `${size.price} (${t('inclVat')})`,
       pickup, destination, destinationName,
     });
   };

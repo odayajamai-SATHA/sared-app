@@ -2,8 +2,11 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useI18n } from '../utils/i18n';
 
 const MapView = forwardRef(function MapView({ style, children, ...props }, ref) {
+  const { t } = useI18n();
+
   useImperativeHandle(ref, () => ({
     animateToRegion: () => {},
     fitToCoordinates: () => {},
@@ -13,8 +16,8 @@ const MapView = forwardRef(function MapView({ style, children, ...props }, ref) 
     <View style={[styles.container, style]}>
       <View style={styles.mapPlaceholder}>
         <Ionicons name="location" size={48} color="#059669" />
-        <Text style={styles.text}>Map View</Text>
-        <Text style={styles.subtext}>Maps are available on mobile devices</Text>
+        <Text style={styles.text}>{t('mapView')}</Text>
+        <Text style={styles.subtext}>{t('mapsOnMobile')}</Text>
       </View>
       {children}
     </View>

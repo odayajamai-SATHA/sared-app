@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Dimensions, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
@@ -30,7 +30,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
 
   useEffect(() => {
     const stagger = services.map((_, i) =>
-      Animated.spring(animations[i], { toValue: 1, tension: 60, friction: 8, useNativeDriver: true, delay: i * 60 })
+      Animated.spring(animations[i], { toValue: 1, tension: 60, friction: 8, useNativeDriver: Platform.OS !== 'web', delay: i * 60 })
     );
     Animated.stagger(60, stagger).start();
   }, []);
@@ -43,7 +43,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
         service: service.title,
         serviceId: service.id,
         size: '—',
-        price: `SAR ${service.price} (incl. VAT)`,
+        price: `SAR ${service.price} (${t('inclVat')})`,
         pickup,
         destination,
         destinationName,

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, TextInput,
-  ScrollView, Animated, ActivityIndicator,
+  ScrollView, Animated, ActivityIndicator, Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -26,8 +26,8 @@ export default function DriverSignupScreen({ navigation }) {
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
-      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
+      Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: Platform.OS !== 'web' }),
+      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
     ]).start();
   }, []);
 
@@ -107,7 +107,7 @@ export default function DriverSignupScreen({ navigation }) {
           <View style={styles.phoneRow}>
             <View style={styles.codeBox}><Text style={styles.codeText}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
-              keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={10} />
+              keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={9} />
           </View>
 
           <Text style={styles.label}>{t('iqamaId')}</Text>

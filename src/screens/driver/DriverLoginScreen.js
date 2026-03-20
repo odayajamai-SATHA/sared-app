@@ -101,7 +101,7 @@ export default function DriverLoginScreen({ navigation }) {
             keyboardType="phone-pad"
             value={phone}
             onChangeText={setPhone}
-            maxLength={10}
+            maxLength={9}
           />
         </View>
 

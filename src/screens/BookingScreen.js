@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Animated } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Animated, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
@@ -33,12 +33,12 @@ export default function BookingScreen({ route, navigation }) {
     // Staggered animations
     Animated.sequence([
       Animated.parallel([
-        Animated.spring(cardAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
-        Animated.timing(cardFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+        Animated.spring(cardAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.timing(cardFade, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
       ]),
       Animated.parallel([
-        Animated.spring(priceAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
-        Animated.timing(priceFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+        Animated.spring(priceAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.timing(priceFade, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
       ]),
     ]).start();
   }, []);

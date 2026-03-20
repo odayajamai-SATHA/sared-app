@@ -23,6 +23,10 @@ const translations = {
     setLocation: 'Set your current location',
     requestSared: 'Request Sared',
     home: 'Home',
+    tabHome: 'Home',
+    tabServices: 'Services',
+    tabHistory: 'History',
+    tabProfile: 'Profile',
 
     // Service
     chooseService: 'Choose Service',
@@ -289,12 +293,12 @@ const translations = {
     platePlaceholder: 'e.g. ABC 1234',
 
     // Onboarding
-    onboard1Title: 'Stuck on the road?',
-    onboard1Sub: 'Help is minutes away. Request a flatbed tow truck instantly.',
-    onboard2Title: 'Choose your service',
-    onboard2Sub: 'Towing, tire change, battery jump, fuel delivery and more.',
-    onboard3Title: 'Track in real-time',
-    onboard3Sub: 'Watch your driver arrive on the map. Know exactly when help arrives.',
+    onboard1Title: 'Tow Truck at Your Fingertips',
+    onboard1Sub: 'Request a flatbed in seconds. Track your driver live.',
+    onboard2Title: 'Transparent Guaranteed Pricing',
+    onboard2Sub: 'Know the price upfront. No surprises or hidden fees.',
+    onboard3Title: 'Stuck on the Road?',
+    onboard3Sub: 'Help is minutes away. Request Sared now.',
     skip: 'Skip',
     getStarted: 'Get Started',
     next: 'Next',
@@ -395,11 +399,30 @@ const translations = {
     inquiryReview: 'Our business team will contact you within 24 hours.',
 
     // Emergency SOS
-    // Greetings
+    // Greetings (time-of-day based)
     goodMorning: 'Good Morning',
     goodAfternoon: 'Good Afternoon',
     goodEvening: 'Good Evening',
+    goodNight: 'Hello',
     howCanWeHelp: 'How can we help you today?',
+
+    // Prayer time awareness
+    duringPrayer: 'Response times may be longer during prayer times',
+
+    // Driver screen keys (simple English for expat drivers)
+    acceptRide: 'Accept',
+    declineRide: 'Decline',
+    arrivedAtPickup: 'Arrived at Pickup',
+    loadingVehicle: 'Loading Vehicle',
+    inTransit: 'In Transit',
+    delivered: 'Delivered',
+    yourEarnings: 'Your Earnings',
+    weekEarnings: 'This Week',
+
+    // Distance pricing
+    dispatchFee: 'Dispatch Fee',
+    distanceRate: 'Distance Rate',
+    emergencyPremium: 'Emergency Premium',
     quickServices: 'Quick Services',
     inclVat: 'incl. VAT',
     allPricesInclVat: 'All prices include 15% VAT',
@@ -411,6 +434,8 @@ const translations = {
     noVehiclesSaved: 'No vehicles saved',
     addVehicleForFaster: 'Add your vehicle for faster booking',
     comingSoon: 'Coming Soon',
+    featureComingSoon: 'This feature is coming soon',
+    mapsOnMobile: 'Maps are available on mobile devices',
     notifyMe: 'Notify Me',
     comingSoonPayments: 'Coming soon - payments launching April 2026',
     notifyMeAlert: "We'll notify you when memberships launch!",
@@ -424,16 +449,30 @@ const translations = {
     processing: 'Processing...',
 
     // Payment
-    payWithCash: 'Pay with Cash',
-    cashPaymentDesc: 'Pay your driver directly in cash when service is complete.',
+    payWithMada: 'Pay with Mada',
+    madaDesc: 'Debit card - most popular',
+    payWithCard: 'Visa / Mastercard',
+    cardDesc: 'Credit or debit card',
+    payWithCash: 'Pay Cash to Driver',
+    cashPaymentDesc: 'Pay the driver directly',
+    stcPay: 'STC Pay',
+    stcPayDesc: 'Pay via STC Pay',
     stcPayInstructions: 'Send {amount} to {number} via STC Pay. Tap "I Paid" after sending.',
     iPaid: 'I Paid',
     copyNumber: 'Copy',
     copied: 'Copied!',
-    madaApplePaySoon: 'Mada and Apple Pay coming soon',
+    applePay: 'Apple Pay',
+    applePaySoon: 'Coming soon',
+    selectPayment: 'Select Payment Method',
+    securePayment: 'Secure payment by Moyasar',
+    totalAmount: 'Total',
+    comingSoonAlert: 'Coming soon. Use STC Pay or Cash for now.',
     confirm: 'Confirm',
     cancel: 'Cancel',
+    resendIn: 'Resend in',
+    verificationFailed: 'Verification failed. Please try again.',
 
+    callEmergency: 'Call 911',
     emergencySOS: 'Emergency SOS',
     sosActivated: 'SOS Activated',
     sosDesc: 'Tap to request immediate emergency assistance',
@@ -442,21 +481,61 @@ const translations = {
     sosConfirm: 'Are you sure you want to activate Emergency SOS?',
     yes: 'Yes',
     no: 'No',
+
+    // Additional keys
+    login: 'Login',
+    phoneNumber: 'Phone Number',
+    enterOTP: 'Enter OTP',
+    standardTow: 'Standard Tow',
+    heavyTow: 'Heavy Tow',
+    emergencyTow: 'Emergency Tow',
+    carTransport: 'Car Transport',
+    lockout: 'Lockout',
+    small: 'Small',
+    medium: 'Medium',
+    large: 'Large',
+    vatAmount: 'VAT',
+    confirmRide: 'Confirm Ride',
+    findingDriver: 'Finding driver',
+    searchingNearby: 'Searching nearby...',
+    matchingDriver: 'Driver matched!',
+    fareBreakdown: 'Fare Breakdown',
+    apply: 'Apply',
+    driverAccepted: 'Driver accepted',
+    driverEnRoute: 'Driver en route',
+    driverArrived: 'Driver arrived',
+    rateYourExperience: 'Rate your experience',
+    shareReceipt: 'Share Receipt',
+    vehicles: 'Vehicles',
+    insurance: 'Insurance',
+    settings: 'Settings',
+    language: 'Language',
+    darkMode: 'Dark Mode',
+    madeInSaudi: 'Made in Saudi Arabia',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+    deleteAccount: 'Delete Account',
+    logout: 'Logout',
+    driveWithSared: 'Drive with Sared',
+    downloadPDF: 'Download PDF',
   },
   ar: {
     // Login
     appName: 'سارد',
     tagline: 'قصتك على الطريق، علينا',
     enterPhone: 'أدخل رقم جوالك',
-    phonePlaceholder: '5X XXX XXXX',
+    phonePlaceholder: '5XXXXXXXX',
     getOTP: 'إرسال رمز التحقق',
     terms: 'بالمتابعة، أنت توافق على شروط الخدمة وسياسة الخصوصية',
     langToggle: 'English',
     switchToDriver: 'وضع السائق',
     switchToUser: 'وضع المستخدم',
+    login: 'تسجيل الدخول',
+    phoneNumber: 'رقم الجوال',
+    enterOTP: 'أدخل رمز التحقق',
 
     // Home
-    hello: '!أهلاً',
+    hello: 'أهلاً!',
     whereNeedSared: 'وين تحتاج سارد؟',
     mapView: 'عرض الخريطة',
     locationAppear: 'موقعك سيظهر هنا',
@@ -464,6 +543,10 @@ const translations = {
     setLocation: 'حدد موقعك الحالي',
     requestSared: 'اطلب سارد',
     home: 'الرئيسية',
+    tabHome: 'الرئيسية',
+    tabServices: 'الخدمات',
+    tabHistory: 'السجل',
+    tabProfile: 'حسابي',
 
     // Service
     chooseService: 'اختر الخدمة',
@@ -476,19 +559,26 @@ const translations = {
     emergencyDesc: 'عطل، إطار مثقوب، أو حادث',
     vehicleRelocation: 'نقل مركبة',
     relocationDesc: 'انقل مركبتك إلى موقع آخر',
+    standardTow: 'سطحة عادية',
+    heavyTow: 'سطحة ثقيلة',
+    emergencyTow: 'سطحة طوارئ',
+    carTransport: 'نقل سيارة',
 
     // Size
-    selectSize: 'اختر الحجم',
+    selectSize: 'اختر حجم المركبة',
     chooseSize: 'اختر حجم السارد',
     smallSared: 'سارد صغيرة',
-    smallDesc: 'سيدان، سيارات صغيرة',
+    smallDesc: 'سيدان - كامري، أكسنت، النترا',
     mediumSared: 'سارد متوسطة',
-    mediumDesc: 'دفع رباعي، بيك أب',
+    mediumDesc: 'جيب - فورتشنر، باترول، تاهو',
     largeSared: 'سارد كبيرة',
-    largeDesc: 'دفع رباعي كبير، فانات، مركبات ثقيلة',
-    enclosed: 'مغلقة',
-    enclosedDesc: 'سيارات فاخرة وكلاسيكية، حماية كاملة',
+    largeDesc: 'شاحنة أو حافلة',
+    enclosed: 'مغلق',
+    enclosedDesc: 'سيارة فاخرة أو كلاسيكية',
     select: 'اختر',
+    small: 'صغير',
+    medium: 'متوسط',
+    large: 'كبير',
 
     // Booking
     bookingConfirmed: 'تم تأكيد الحجز!',
@@ -499,8 +589,9 @@ const translations = {
     eta: 'الوصول المتوقع',
     minutes: 'دقيقة',
     estimatedPrice: 'السعر المتوقع',
-    cancelRide: 'إلغاء الرحلة',
+    cancelRide: 'إلغاء الطلب',
     trackDriver: 'تتبع السائق',
+    confirmRide: 'تأكيد الطلب',
 
     // Tracking
     trackingDriver: 'تتبع السائق',
@@ -510,6 +601,9 @@ const translations = {
     callDriver: 'اتصل بالسائق',
     driverLocation: 'موقع السائق',
     movingToYou: 'في الطريق إليك',
+    driverAccepted: 'تم قبول الطلب',
+    driverEnRoute: 'السائق في الطريق',
+    driverArrived: 'السائق وصل',
 
     // Trip Complete
     tripComplete: 'اكتملت الرحلة!',
@@ -523,6 +617,7 @@ const translations = {
     tapToRate: 'اضغط على النجمة للتقييم',
     submitRating: 'إرسال التقييم',
     km: 'كم',
+    rateYourExperience: 'قيّم تجربتك',
 
     // History
     rideHistory: 'سجل الرحلات',
@@ -537,8 +632,16 @@ const translations = {
     helpSupport: 'المساعدة والدعم',
     termsConditions: 'الشروط والأحكام',
     logOut: 'تسجيل الخروج',
+    logout: 'تسجيل الخروج',
     rides: 'رحلات',
     saved: 'محفوظة',
+    settings: 'الإعدادات',
+    language: 'اللغة',
+    darkMode: 'الوضع الليلي',
+    privacyPolicy: 'سياسة الخصوصية',
+    termsOfService: 'شروط الاستخدام',
+    deleteAccount: 'حذف الحساب',
+    madeInSaudi: 'صنع في السعودية',
 
     // ---- Driver Translations ----
     driverMode: 'وضع السائق',
@@ -550,8 +653,8 @@ const translations = {
     helloDriver: 'أهلاً،',
     youAreOnline: 'أنت متصل',
     youAreOffline: 'أنت غير متصل',
-    goOnline: 'اتصل',
-    goOffline: 'قطع الاتصال',
+    goOnline: 'متصل',
+    goOffline: 'غير متصل',
     todayEarnings: 'أرباح اليوم',
     totalRidesToday: 'رحلات اليوم',
     avgResponseTime: 'متوسط الاستجابة',
@@ -612,7 +715,7 @@ const translations = {
     memberSince: 'عضو منذ',
 
     // OTP Screen
-    verifyOTP: 'تحقق من الرمز',
+    verifyOTP: 'تحقق',
     otpSentTo: 'تم إرسال الرمز إلى',
     verifyCode: 'تحقق',
     resendOTP: 'إعادة إرسال الرمز',
@@ -641,18 +744,21 @@ const translations = {
     // Pricing
     baseFare: 'الأجرة الأساسية',
     distanceCharge: 'المسافة',
-    nightSurcharge: 'رسوم ليلية (25%)',
+    nightSurcharge: 'رسوم الليل',
     subtotal: 'المجموع الفرعي',
     vat: 'ضريبة القيمة المضافة (15%)',
+    vatAmount: 'ضريبة القيمة المضافة',
     priceBreakdown: 'تفاصيل السعر',
+    fareBreakdown: 'تفاصيل الأجرة',
 
     // Promo
-    promoCode: 'كود خصم',
-    promoPlaceholder: 'أدخل كود الخصم',
+    promoCode: 'رمز الخصم',
+    promoPlaceholder: 'أدخل رمز الخصم',
     applyPromo: 'تطبيق',
+    apply: 'تطبيق',
     promoApplied: 'تم تطبيق الخصم!',
-    invalidCode: 'كود خصم غير صالح',
-    firstRideOnly: 'هذا الكود للرحلة الأولى فقط',
+    invalidCode: 'رمز خصم غير صالح',
+    firstRideOnly: 'هذا الرمز للرحلة الأولى فقط',
     discount: 'الخصم',
 
     // History
@@ -665,9 +771,10 @@ const translations = {
     sar: 'ر.س',
 
     // Guest & Login
-    continueAsGuest: 'متابعة كضيف',
+    continueAsGuest: 'الدخول كزائر',
     welcomeBack: 'أهلاً بعودتك',
     taglineAr: 'قصتك على الطريق، علينا',
+    driveWithSared: 'قُد مع سارد',
 
     // Quick Actions
     flatTire: 'إطار مثقوب',
@@ -677,11 +784,12 @@ const translations = {
     recentLocations: 'المواقع الأخيرة',
     promoOffer: 'الخدمة الأولى مجانية',
     useCode: 'استخدم كود SARED1',
+    lockout: 'فتح أقفال',
 
     // Expanded Services
     flatTireChange: 'تغيير إطار',
     flatTireDesc: 'تغيير إطار احترافي في موقعك',
-    batteryJump: 'شحن بطارية',
+    batteryJump: 'تشغيل بطارية',
     batteryJumpDesc: 'أعد تشغيل بطاريتك في دقائق',
     fuelDeliveryService: 'توصيل وقود',
     fuelDeliveryDesc: 'وقود طوارئ يوصلك أينما كنت',
@@ -713,6 +821,7 @@ const translations = {
 
     // Vehicles
     myVehicles: 'مركباتي',
+    vehicles: 'المركبات',
     addVehicle: 'إضافة مركبة',
     vehicleMake: 'الشركة المصنعة',
     vehicleModel: 'الموديل',
@@ -720,7 +829,7 @@ const translations = {
     vehicleColor: 'اللون',
     plateNumber: 'رقم اللوحة',
     saveVehicle: 'حفظ المركبة',
-    noVehicles: 'لا توجد مركبات',
+    noVehicles: 'لا توجد مركبات محفوظة',
     addVehicleHint: 'أضف مركبتك لخدمة أسرع',
     deleteVehicle: 'حذف',
     makePlaceholder: 'مثال: تويوتا',
@@ -729,20 +838,26 @@ const translations = {
     colorPlaceholder: 'مثال: أبيض',
     platePlaceholder: 'مثال: أ ب ج 1234',
 
+    // Insurance
+    insurance: 'التأمين',
+
     // Onboarding
-    onboard1Title: 'عالق على الطريق؟',
-    onboard1Sub: 'المساعدة على بعد دقائق. اطلب سارد نقل فوراً.',
-    onboard2Title: 'اختر خدمتك',
-    onboard2Sub: 'سحب، تغيير إطار، شحن بطارية، توصيل وقود والمزيد.',
-    onboard3Title: 'تتبع مباشر',
-    onboard3Sub: 'شاهد السائق يصل على الخريطة. اعرف بالضبط متى تصل المساعدة.',
+    onboard1Title: 'سطحة بضغطة زر',
+    onboard1Sub: 'اطلب سطحة في ثوانٍ. تتبع سائقك مباشرة.',
+    onboard2Title: 'أسعار واضحة ومضمونة',
+    onboard2Sub: 'اعرف السعر مقدماً. بدون مفاجآت أو رسوم مخفية.',
+    onboard3Title: 'عالق على الطريق؟',
+    onboard3Sub: 'المساعدة على بعد دقائق. اطلب سارد الآن.',
     skip: 'تخطي',
     getStarted: 'ابدأ الآن',
     next: 'التالي',
 
     // Driver Matching
     findingSared: 'جاري البحث عن سارد...',
+    findingDriver: 'جاري البحث عن سائق',
     matchingNearest: 'جاري مطابقتك مع أقرب سائق...',
+    searchingNearby: 'البحث عن أقرب سطحة...',
+    matchingDriver: 'تم إيجاد سطحة!',
     checkingAvail: 'جاري التحقق من التوفر...',
     driverFound: 'تم العثور على سائق!',
 
@@ -750,11 +865,11 @@ const translations = {
     driverAssigned: 'تم تعيين السائق',
     onTheWay: 'في الطريق',
     arriving: 'يصل قريباً',
-    messageDriver: 'رسالة',
+    messageDriver: 'راسل السائق',
     plateNum: 'اللوحة',
 
     // Receipt
-    receipt: 'إيصال',
+    receipt: 'الفاتورة',
     tripReceipt: 'إيصال الرحلة',
     tripDate: 'التاريخ',
     tripTime: 'الوقت',
@@ -764,7 +879,9 @@ const translations = {
     paymentMethod: 'الدفع',
     cashPayment: 'نقدي',
     downloadPdf: 'تحميل PDF',
+    downloadPDF: 'تحميل PDF',
     shareWhatsapp: 'مشاركة عبر واتساب',
+    shareReceipt: 'مشاركة الفاتورة',
     viewReceipt: 'عرض الإيصال',
 
     // Price Guarantee
@@ -773,10 +890,10 @@ const translations = {
     neverPayMore: 'لن تدفع أكثر من هذا المبلغ أبداً.',
     priceGuaranteeNote: 'السعر النهائي قد يكون أقل بناءً على المسافة الفعلية. السعر يشمل جميع الرسوم وضريبة القيمة المضافة.',
     confirmBooking: 'تأكيد الحجز',
-    estimatedDistance: 'المسافة المتوقعة',
+    estimatedDistance: 'المسافة المقدرة',
     maxPrice: 'الحد الأقصى للسعر',
 
-    // Insurance
+    // Insurance Details
     insuranceBenefits: 'مزايا التأمين',
     insuranceTitle: 'تغطية التأمين',
     insuranceSubtitle: 'تحقق إذا كان تأمينك يغطي المساعدة على الطريق عبر سارد',
@@ -817,7 +934,7 @@ const translations = {
     applicationReview: 'سنراجع طلبك ونتواصل معك خلال 48 ساعة.',
 
     // For Business
-    forBusiness: 'للشركات',
+    forBusiness: 'للأعمال',
     saredForBusiness: 'سارد للشركات',
     businessSubtitle: 'مساعدة على الطريق لأساطيل الشركات',
     companyName: 'اسم الشركة',
@@ -835,12 +952,30 @@ const translations = {
     inquirySubmitted: 'تم إرسال الاستفسار!',
     inquiryReview: 'سيتواصل معك فريق الأعمال خلال 24 ساعة.',
 
-    // Emergency SOS
-    // Greetings
+    // Greetings (time-of-day based)
     goodMorning: 'صباح الخير',
     goodAfternoon: 'مساء الخير',
-    goodEvening: 'مساء الخير',
+    goodEvening: 'مساء النور',
+    goodNight: 'أهلاً',
     howCanWeHelp: 'كيف نقدر نساعدك اليوم؟',
+
+    // Prayer time awareness
+    duringPrayer: 'قد تطول أوقات الاستجابة خلال أوقات الصلاة',
+
+    // Driver screen keys
+    acceptRide: 'قبول',
+    declineRide: 'رفض',
+    arrivedAtPickup: 'وصلت لموقع العميل',
+    loadingVehicle: 'تحميل المركبة',
+    inTransit: 'في الطريق',
+    delivered: 'تم التوصيل',
+    yourEarnings: 'أرباحك',
+    weekEarnings: 'هذا الأسبوع',
+
+    // Distance pricing
+    dispatchFee: 'رسوم التوصيل',
+    distanceRate: 'أجرة المسافة',
+    emergencyPremium: 'رسوم الطوارئ',
     quickServices: 'خدمات سريعة',
     inclVat: 'شامل الضريبة',
     allPricesInclVat: 'جميع الأسعار شاملة ضريبة القيمة المضافة 15%',
@@ -852,6 +987,8 @@ const translations = {
     noVehiclesSaved: 'لا توجد مركبات محفوظة',
     addVehicleForFaster: 'أضف مركبتك لحجز أسرع',
     comingSoon: 'قريباً',
+    featureComingSoon: 'هذه الميزة ستكون متاحة قريباً',
+    mapsOnMobile: 'الخرائط متاحة على الأجهزة المحمولة',
     notifyMe: 'أبلغني',
     comingSoonPayments: 'قريباً - الدفع ينطلق أبريل 2026',
     notifyMeAlert: 'سنبلغك عند إطلاق العضويات!',
@@ -865,16 +1002,31 @@ const translations = {
     processing: 'جاري المعالجة...',
 
     // Payment
-    payWithCash: 'الدفع نقداً',
-    cashPaymentDesc: 'ادفع للسائق مباشرة نقداً عند اكتمال الخدمة.',
-    stcPayInstructions: 'أرسل {amount} إلى {number} عبر STC Pay. اضغط "دفعت" بعد الإرسال.',
-    iPaid: 'دفعت',
-    copyNumber: 'نسخ',
+    payWithMada: 'الدفع بمدى',
+    madaDesc: 'بطاقة خصم - الأكثر استخداماً',
+    payWithCard: 'فيزا / ماستركارد',
+    cardDesc: 'بطاقة ائتمان أو خصم',
+    payWithCash: 'الدفع نقداً للسائق',
+    cashPaymentDesc: 'ادفع للسائق مباشرة',
+    stcPay: 'STC Pay',
+    stcPayDesc: 'الدفع عبر STC Pay',
+    stcPayInstructions: 'حوّل {amount} إلى رقم STC Pay: {number}',
+    iPaid: 'تم الدفع',
+    copyNumber: 'نسخ الرقم',
     copied: 'تم النسخ!',
-    madaApplePaySoon: 'مدى وApple Pay قريباً',
+    applePay: 'Apple Pay',
+    applePaySoon: 'قريباً',
+    selectPayment: 'اختر طريقة الدفع',
+    securePayment: 'دفع آمن عبر مُيَسَّر',
+    totalAmount: 'الإجمالي',
+    comingSoonAlert: 'قريباً. استخدم STC Pay أو نقد حالياً.',
     confirm: 'تأكيد',
     cancel: 'إلغاء',
+    resendIn: 'إعادة الإرسال خلال',
+    verificationFailed: 'فشل التحقق. يرجى المحاولة مرة أخرى.',
 
+    // Emergency SOS
+    callEmergency: 'اتصل 911',
     emergencySOS: 'طوارئ SOS',
     sosActivated: 'تم تفعيل SOS',
     sosDesc: 'اضغط لطلب مساعدة طوارئ فورية',
@@ -889,7 +1041,7 @@ const translations = {
 const I18nContext = createContext();
 
 export function I18nProvider({ children }) {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState('ar');
 
   const toggleLang = useCallback(() => {
     const newLang = lang === 'en' ? 'ar' : 'en';

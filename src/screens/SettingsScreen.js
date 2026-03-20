@@ -1,8 +1,9 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert, Animated, Linking } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert, Animated, Linking, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
+import { supabase } from '../utils/supabase';
 
 export default function SettingsScreen({ navigation }) {
   const { t, isRTL, lang, toggleLang } = useI18n();
@@ -11,8 +12,8 @@ export default function SettingsScreen({ navigation }) {
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(fadeAnim, { toValue: 1, duration: 400, useNativeDriver: true }),
-      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
+      Animated.timing(fadeAnim, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
+      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
     ]).start();
   }, []);
 
@@ -22,7 +23,14 @@ export default function SettingsScreen({ navigation }) {
       lang === 'ar' ? 'هل أنت متأكد؟ لا يمكن التراجع عن هذا الإجراء.' : 'Are you sure? This action cannot be undone.',
       [
         { text: t('no'), style: 'cancel' },
-        { text: t('yes'), style: 'destructive', onPress: () => Alert.alert(lang === 'ar' ? 'تم حذف الحساب' : 'Account deleted') },
+        {
+          text: t('yes'),
+          style: 'destructive',
+          onPress: async () => {
+            try { await supabase.auth.signOut(); } catch {}
+            navigation.replace('Login');
+          },
+        },
       ]
     );
   };

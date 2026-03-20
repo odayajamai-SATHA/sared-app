@@ -16,7 +16,7 @@ import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
 
 export default function OTPScreen({ route, navigation }) {
-  const { phone } = route.params;
+  const { phone } = route.params || {};
   const { t, isRTL } = useI18n();
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);

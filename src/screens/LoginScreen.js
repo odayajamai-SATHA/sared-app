@@ -29,13 +29,13 @@ export default function LoginScreen({ navigation: rawNav }) {
   useEffect(() => {
     Animated.sequence([
       Animated.parallel([
-        Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: true }),
-        Animated.spring(slideAnim, { toValue: 0, tension: 40, friction: 8, useNativeDriver: true }),
+        Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.spring(slideAnim, { toValue: 0, tension: 40, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
       ]),
-      Animated.spring(iconScale, { toValue: 1, tension: 50, friction: 7, useNativeDriver: true }),
+      Animated.spring(iconScale, { toValue: 1, tension: 50, friction: 7, useNativeDriver: Platform.OS !== 'web' }),
       Animated.parallel([
-        Animated.timing(formFade, { toValue: 1, duration: 400, useNativeDriver: true }),
-        Animated.spring(formSlide, { toValue: 0, tension: 60, friction: 10, useNativeDriver: true }),
+        Animated.timing(formFade, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.spring(formSlide, { toValue: 0, tension: 60, friction: 10, useNativeDriver: Platform.OS !== 'web' }),
       ]),
     ]).start();
   }, []);
@@ -92,7 +92,7 @@ export default function LoginScreen({ navigation: rawNav }) {
         <StatusBar style="light" />
 
         <View style={styles.topRow}>
-          <TouchableOpacity style={styles.topBtn} onPress={() => navigation.navigate('DriverSignup')}>
+          <TouchableOpacity style={styles.topBtn} onPress={() => navigation.navigate('DriverLogin')}>
             <Ionicons name="car-sport" size={14} color="#FFF" />
             <Text style={styles.topBtnText}>{t('switchToDriver')}</Text>
           </TouchableOpacity>
@@ -115,7 +115,6 @@ export default function LoginScreen({ navigation: rawNav }) {
             <Text style={styles.appNameAr}>{'\u0633\u0627\u0631\u062F'}</Text>
             <View style={styles.taglineContainer}>
               <Text style={styles.tagline}>{t('tagline')}</Text>
-              <Text style={styles.taglineAr}>{t('taglineAr')}</Text>
             </View>
           </Animated.View>
         </View>
@@ -133,7 +132,7 @@ export default function LoginScreen({ navigation: rawNav }) {
               keyboardType="phone-pad"
               value={phone}
               onChangeText={setPhone}
-              maxLength={10}
+              maxLength={9}
             />
           </View>
 
@@ -188,7 +187,6 @@ const styles = StyleSheet.create({
   appNameAr: { fontSize: 28, fontWeight: '600', color: 'rgba(5,150,105,0.9)', textAlign: 'center', marginTop: 2 },
   taglineContainer: { alignItems: 'center', marginTop: 12, gap: 4 },
   tagline: { fontSize: 14, color: 'rgba(255,255,255,0.7)', textAlign: 'center' },
-  taglineAr: { fontSize: 14, color: 'rgba(255,255,255,0.5)', textAlign: 'center' },
   formCard: {
     backgroundColor: 'rgba(255,255,255,0.08)', borderTopLeftRadius: 32, borderTopRightRadius: 32,
     paddingHorizontal: 24, paddingTop: 28, paddingBottom: 40,

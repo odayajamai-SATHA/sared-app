@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
@@ -28,13 +28,13 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
   useEffect(() => {
     Animated.sequence([
       Animated.parallel([
-        Animated.spring(scaleAnim, { toValue: 1, tension: 60, friction: 7, useNativeDriver: true }),
-        Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
+        Animated.spring(scaleAnim, { toValue: 1, tension: 60, friction: 7, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: Platform.OS !== 'web' }),
       ]),
-      Animated.spring(shieldScale, { toValue: 1, tension: 80, friction: 6, useNativeDriver: true }),
+      Animated.spring(shieldScale, { toValue: 1, tension: 80, friction: 6, useNativeDriver: Platform.OS !== 'web' }),
       Animated.parallel([
-        Animated.spring(detailSlide, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
-        Animated.timing(detailFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+        Animated.spring(detailSlide, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.timing(detailFade, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
       ]),
     ]).start();
   }, []);
@@ -95,11 +95,11 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
             </View>
           )}
           <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>{t('baseFare')}</Text>
+            <Text style={styles.breakdownLabel}>{t('dispatchFee')}</Text>
             <Text style={styles.breakdownValue}>SAR {fare.baseFare}</Text>
           </View>
           <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>{t('estimatedDistance')} (~{Math.round(distKm)} {t('km')})</Text>
+            <Text style={styles.breakdownLabel}>{t('distanceRate')} (~{Math.round(distKm)} {t('km')})</Text>
             <Text style={styles.breakdownValue}>SAR {fare.distanceCharge}</Text>
           </View>
           {fare.isNight && (

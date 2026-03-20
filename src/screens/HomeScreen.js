@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TouchableOpacity, ActivityIndicator,
-  ScrollView, Animated, Dimensions,
+  ScrollView, Animated, Dimensions, Platform, Alert,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -34,7 +34,7 @@ export default function HomeScreen({ navigation: rawNav }) {
       } catch {}
       setLoading(false);
     })();
-    Animated.spring(promoAnim, { toValue: 1, tension: 40, friction: 8, useNativeDriver: true, delay: 500 }).start();
+    Animated.spring(promoAnim, { toValue: 1, tension: 40, friction: 8, useNativeDriver: Platform.OS !== 'web', delay: 500 }).start();
   }, []);
 
   const pickup = location || defaultLocation;
@@ -53,9 +53,10 @@ export default function HomeScreen({ navigation: rawNav }) {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return t('goodMorning') || 'Good Morning';
-    if (hour < 18) return t('goodAfternoon') || 'Good Afternoon';
-    return t('goodEvening') || 'Good Evening';
+    if (hour >= 5 && hour < 12) return t('goodMorning');
+    if (hour >= 12 && hour < 17) return t('goodAfternoon');
+    if (hour >= 17 && hour < 22) return t('goodEvening');
+    return t('goodNight');
   };
 
   return (
@@ -71,22 +72,27 @@ export default function HomeScreen({ navigation: rawNav }) {
           </Text>
         </View>
 
-        {/* Search bar */}
-        <TouchableOpacity
-          style={styles.searchBar}
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate('Destination', { pickup })}
-        >
-          <Ionicons name="search" size={20} color={colors.gray} />
-          <Text style={styles.searchPlaceholder}>{t('whereNeedSared')}</Text>
-          <View style={styles.notifDot}>
+        {/* Search bar + notification */}
+        <View style={styles.searchRow}>
+          <TouchableOpacity
+            style={styles.searchBar}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('Destination', { pickup })}
+          >
+            <Ionicons name="search" size={20} color={colors.gray} />
+            <Text style={styles.searchPlaceholder}>{t('whereNeedSared')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.notifBtn}
+            onPress={() => Alert.alert(t('notifications'), t('featureComingSoon'))}
+          >
             <Ionicons name="notifications-outline" size={20} color={colors.text} />
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
 
         {/* Promo banner */}
         <Animated.View style={{ opacity: promoAnim, transform: [{ scale: promoAnim }] }}>
-          <TouchableOpacity activeOpacity={0.9}>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Service', { pickup })}>
             <LinearGradient colors={['#059669', '#047857']} style={styles.promoBanner}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <View style={styles.promoContent}>
@@ -155,15 +161,19 @@ const styles = StyleSheet.create({
   greetingSection: { paddingTop: 56, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800', color: colors.text },
   greetingSub: { fontSize: 15, color: colors.textSecondary, marginTop: 4 },
+  searchRow: {
+    flexDirection: 'row', alignItems: 'center', marginBottom: 20,
+  },
   searchBar: {
-    flexDirection: 'row', alignItems: 'center',
+    flex: 1, flexDirection: 'row', alignItems: 'center',
     backgroundColor: colors.lightGray, borderRadius: 16,
-    paddingHorizontal: 16, paddingVertical: 14, marginBottom: 20, gap: 10,
+    paddingHorizontal: 16, paddingVertical: 14, gap: 10,
   },
   searchPlaceholder: { flex: 1, fontSize: 15, color: colors.gray },
-  notifDot: {
-    width: 36, height: 36, borderRadius: 18,
-    backgroundColor: colors.white, justifyContent: 'center', alignItems: 'center',
+  notifBtn: {
+    width: 44, height: 44, borderRadius: 22,
+    backgroundColor: colors.lightGray, justifyContent: 'center', alignItems: 'center',
+    marginLeft: 8,
   },
   promoBanner: { borderRadius: 16, marginBottom: 24, overflow: 'hidden' },
   promoContent: { flexDirection: 'row', alignItems: 'center', padding: 16, gap: 12 },

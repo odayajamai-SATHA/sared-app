@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
@@ -17,21 +17,21 @@ export default function TripCompleteScreen({ route, navigation }) {
 
   useEffect(() => {
     Animated.sequence([
-      Animated.spring(checkScale, { toValue: 1, tension: 60, friction: 6, useNativeDriver: true }),
+      Animated.spring(checkScale, { toValue: 1, tension: 60, friction: 6, useNativeDriver: Platform.OS !== 'web' }),
       Animated.parallel([
-        Animated.spring(cardSlide, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
-        Animated.timing(cardFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+        Animated.spring(cardSlide, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.timing(cardFade, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
       ]),
       Animated.stagger(80, starAnims.map(a =>
-        Animated.spring(a, { toValue: 1, tension: 100, friction: 6, useNativeDriver: true })
+        Animated.spring(a, { toValue: 1, tension: 100, friction: 6, useNativeDriver: Platform.OS !== 'web' })
       )),
     ]).start();
   }, []);
 
   const handleRating = (star) => {
     setRating(star);
-    Animated.spring(starAnims[star - 1], { toValue: 1.3, tension: 200, friction: 5, useNativeDriver: true }).start(() => {
-      Animated.spring(starAnims[star - 1], { toValue: 1, tension: 100, friction: 6, useNativeDriver: true }).start();
+    Animated.spring(starAnims[star - 1], { toValue: 1.3, tension: 200, friction: 5, useNativeDriver: Platform.OS !== 'web' }).start(() => {
+      Animated.spring(starAnims[star - 1], { toValue: 1, tension: 100, friction: 6, useNativeDriver: Platform.OS !== 'web' }).start();
     });
   };
 

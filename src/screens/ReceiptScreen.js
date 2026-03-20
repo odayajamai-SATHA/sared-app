@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Share } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Share, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
@@ -12,8 +12,8 @@ export default function ReceiptScreen({ route, navigation }) {
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
-      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: true }),
+      Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: Platform.OS !== 'web' }),
+      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
     ]).start();
   }, []);
 
@@ -135,7 +135,7 @@ export default function ReceiptScreen({ route, navigation }) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.doneBtn} onPress={() => navigation.navigate('Main')}>
+      <TouchableOpacity style={styles.doneBtn} onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Main' }] })}>
         <Text style={styles.doneBtnText}>{t('done')}</Text>
       </TouchableOpacity>
     </ScrollView>

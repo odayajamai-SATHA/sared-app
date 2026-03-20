@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Animated, Easing } from 'react-native';
+import { StyleSheet, Text, View, Animated, Easing, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
@@ -23,16 +23,16 @@ export default function DriverMatchingScreen({ route, navigation }) {
   useEffect(() => {
     // Truck entrance
     Animated.parallel([
-      Animated.spring(truckScale, { toValue: 1, tension: 50, friction: 7, useNativeDriver: true }),
-      Animated.timing(truckOpacity, { toValue: 1, duration: 400, useNativeDriver: true }),
+      Animated.spring(truckScale, { toValue: 1, tension: 50, friction: 7, useNativeDriver: Platform.OS !== 'web' }),
+      Animated.timing(truckOpacity, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
     ]).start();
 
     // Pulsing rings
     const createPulse = (anim, delay) => {
       return Animated.loop(Animated.sequence([
         Animated.delay(delay),
-        Animated.timing(anim, { toValue: 1, duration: 1500, easing: Easing.out(Easing.ease), useNativeDriver: true }),
-        Animated.timing(anim, { toValue: 0, duration: 0, useNativeDriver: true }),
+        Animated.timing(anim, { toValue: 1, duration: 1500, easing: Easing.out(Easing.ease), useNativeDriver: Platform.OS !== 'web' }),
+        Animated.timing(anim, { toValue: 0, duration: 0, useNativeDriver: Platform.OS !== 'web' }),
       ]));
     };
     createPulse(pulse1, 0).start();
@@ -46,7 +46,7 @@ export default function DriverMatchingScreen({ route, navigation }) {
     const t1 = setTimeout(() => setStatusIndex(1), 1500);
     const t2 = setTimeout(() => {
       setStatusIndex(2);
-      Animated.spring(checkScale, { toValue: 1, tension: 60, friction: 6, useNativeDriver: true }).start();
+      Animated.spring(checkScale, { toValue: 1, tension: 60, friction: 6, useNativeDriver: Platform.OS !== 'web' }).start();
     }, 3000);
     const t3 = setTimeout(() => {
       navigation.replace('Booking', params);
@@ -103,6 +103,9 @@ export default function DriverMatchingScreen({ route, navigation }) {
             ))}
           </View>
         )}
+
+        {/* Prayer time note */}
+        <Text style={styles.prayerNote}>{t('duringPrayer')}</Text>
       </View>
     </LinearGradient>
   );
@@ -128,4 +131,8 @@ const styles = StyleSheet.create({
   statusFound: { color: '#4ADE80', fontWeight: '700' },
   dotsRow: { flexDirection: 'row', gap: 8 },
   searchDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.primary },
+  prayerNote: {
+    fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center',
+    marginTop: 24, paddingHorizontal: 32,
+  },
 });
