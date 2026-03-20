@@ -78,7 +78,7 @@ export default function ProfileScreen({ navigation: rawNav }) {
         { icon: 'person-outline', label: t('editProfile'), color: colors.darkGray },
         { icon: 'card-outline', label: t('paymentMethods'), color: colors.darkGray },
         { icon: 'notifications-outline', label: t('notifications'), color: colors.darkGray },
-        { icon: 'help-circle-outline', label: t('helpSupport'), color: colors.darkGray, action: 'help' },
+        { icon: 'help-circle-outline', label: t('helpSupport'), color: colors.darkGray, screen: 'HelpSupport' },
         { icon: 'document-text-outline', label: t('termsConditions'), color: colors.darkGray, action: 'terms' },
         { icon: 'settings-outline', label: t('settings'), color: colors.darkGray, screen: 'Settings' },
       ],

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet, Text, View, TouchableOpacity, ActivityIndicator,
-  ScrollView, Animated, Dimensions, Platform, Alert,
+  ScrollView, Animated, Dimensions, Platform, Alert, Linking,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -70,6 +70,13 @@ export default function HomeScreen({ navigation: rawNav }) {
           <Text style={[styles.greetingSub, isRTL && styles.textRight]}>
             {t('howCanWeHelp') || 'How can we help you today?'}
           </Text>
+          <TouchableOpacity style={styles.helpLink}
+            onPress={() => Linking.openURL('https://wa.me/966554404434')}>
+            <Ionicons name="logo-whatsapp" size={14} color="#25D366" />
+            <Text style={styles.helpLinkText}>
+              {isRTL ? 'تحتاج مساعدة؟' : 'Need help?'}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Search bar + notification */}
@@ -161,6 +168,8 @@ const styles = StyleSheet.create({
   greetingSection: { paddingTop: 56, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800', color: colors.text },
   greetingSub: { fontSize: 15, color: colors.textSecondary, marginTop: 4 },
+  helpLink: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },
+  helpLinkText: { fontSize: 13, color: '#25D366', fontWeight: '600' },
   searchRow: {
     flexDirection: 'row', alignItems: 'center', marginBottom: 20,
   },

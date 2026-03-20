@@ -36,6 +36,7 @@ import InsuranceScreen from './src/screens/InsuranceScreen';
 import DriverSignupScreen from './src/screens/DriverSignupScreen';
 import ForBusinessScreen from './src/screens/ForBusinessScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import HelpSupportScreen from './src/screens/HelpSupportScreen';
 
 // Driver screens
 import DriverLoginScreen from './src/screens/driver/DriverLoginScreen';
@@ -134,6 +135,7 @@ function AppContent() {
           <Stack.Screen name="Vehicles" component={VehiclesScreen} />
           <Stack.Screen name="Insurance" component={InsuranceScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="HelpSupport" component={HelpSupportScreen} />
 
           {/* Driver Flow */}
           <Stack.Screen name="DriverLogin" component={DriverLoginScreen} />
