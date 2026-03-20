@@ -7,7 +7,7 @@ import { notifyDriversNewRide } from '../utils/notifications';
 import { calculateFare, applyPromoCode, getDistanceKm } from '../utils/pricing';
 
 export default function BookingScreen({ route, navigation }) {
-  const { service, serviceId, size, pickup, destination, destinationName } = route.params || {};
+  const { service, serviceId, size, pickup, destination, destinationName, paymentMethod } = route.params || {};
   const { t, isRTL } = useI18n();
   const [promoCode, setPromoCode] = useState('');
   const [fare, setFare] = useState(null);
@@ -115,7 +115,7 @@ export default function BookingScreen({ route, navigation }) {
         <TouchableOpacity style={styles.cancelBtn} onPress={() => navigation.navigate('Main')}>
           <Text style={styles.cancelBtnText}>{t('cancelRide')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay })}>
+        <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay, fareBreakdown: fare, paymentMethod })}>
           <Ionicons name="navigate" size={18} color="#FFF" style={{ marginRight: 6 }} />
           <Text style={styles.trackBtnText}>{t('trackDriver')}</Text>
         </TouchableOpacity>

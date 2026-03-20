@@ -31,8 +31,8 @@ export default function ProfileScreen({ navigation }) {
 
   const showComingSoon = () => {
     Alert.alert(
-      lang === 'ar' ? 'قريباً' : 'Coming Soon',
-      lang === 'ar' ? 'هذه الميزة ستكون متاحة في التحديث القادم' : 'This feature will be available in the next update'
+      t('comingSoon'),
+      t('featureComingSoonDesc')
     );
   };
 
@@ -65,8 +65,8 @@ export default function ProfileScreen({ navigation }) {
             <Ionicons name="person" size={28} color="#FFF" />
           </View>
           <View style={[styles.profileInfo, isRTL && { alignItems: 'flex-end' }]}>
-            <Text style={styles.name}>{user?.user_metadata?.name || (lang === 'ar' ? 'مستخدم' : 'User')}</Text>
-            <Text style={styles.phone}>{user?.phone || (lang === 'ar' ? 'غير مسجل' : 'Not signed in')}</Text>
+            <Text style={styles.name}>{user?.user_metadata?.name || t('user')}</Text>
+            <Text style={styles.phone}>{user?.phone || t('notSignedIn')}</Text>
           </View>
           <Pressable
             style={({ pressed }) => [styles.editBtn, pressed && { opacity: 0.6 }]}
@@ -147,12 +147,12 @@ export default function ProfileScreen({ navigation }) {
           style={({ pressed }) => [styles.logoutBtn, pressed && { opacity: 0.6 }]}
           onPress={() => {
             Alert.alert(
-              lang === 'ar' ? 'تسجيل الخروج' : 'Log Out',
-              lang === 'ar' ? 'هل أنت متأكد من تسجيل الخروج؟' : 'Are you sure you want to log out?',
+              t('logOutTitle'),
+              t('logOutMessage'),
               [
-                { text: lang === 'ar' ? 'إلغاء' : 'Cancel', style: 'cancel' },
+                { text: t('cancel'), style: 'cancel' },
                 {
-                  text: lang === 'ar' ? 'تأكيد' : 'Confirm',
+                  text: t('confirm'),
                   style: 'destructive',
                   onPress: async () => {
                     try { await supabase.auth.signOut(); } catch {}

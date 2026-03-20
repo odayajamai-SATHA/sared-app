@@ -57,8 +57,10 @@ export default function LoginScreen({ navigation: rawNav }) {
     }, 1000);
   };
 
+  const isValidPhone = phone.length === 9 && phone.startsWith('5');
+
   const handleGetOTP = async () => {
-    if (!phone || cooldown > 0) return;
+    if (!isValidPhone || cooldown > 0) return;
     setLoading(true);
     try {
       const { error } = await supabase.auth.signInWithOtp({ phone: '+966' + phone });
@@ -135,9 +137,9 @@ export default function LoginScreen({ navigation: rawNav }) {
           </View>
 
           <TouchableOpacity
-            style={[styles.otpButton, (!phone || loading || cooldown > 0) && styles.otpButtonDisabled]}
+            style={[styles.otpButton, (!isValidPhone || loading || cooldown > 0) && styles.otpButtonDisabled]}
             onPress={handleGetOTP}
-            disabled={!phone || loading || cooldown > 0}
+            disabled={!isValidPhone || loading || cooldown > 0}
             activeOpacity={0.8}
           >
             <LinearGradient colors={['#059669', '#047857']} style={styles.otpGradient}

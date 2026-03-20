@@ -30,13 +30,11 @@ export default function DriverLoginScreen({ navigation }) {
         setLoading(false);
         Alert.alert(
           t('error') || 'Error',
-          lang === 'ar'
-            ? 'لم يتم العثور على حساب سائق بهذا الرقم. يرجى التسجيل أولاً.'
-            : 'No driver account found with this number. Please register first.',
+          t('noDriverAccount'),
           [
             { text: t('cancel') || 'Cancel', style: 'cancel' },
             {
-              text: lang === 'ar' ? 'وضع تجريبي' : 'Demo Mode',
+              text: t('demoMode'),
               onPress: () => {
                 navigation.replace('DriverDashboard', {
                   driver: {
@@ -61,7 +59,7 @@ export default function DriverLoginScreen({ navigation }) {
         setLoading(false);
         Alert.alert(
           t('error') || 'Error',
-          lang === 'ar' ? 'رقم الهوية غير صحيح' : 'Driver ID does not match'
+          t('driverIdMismatch')
         );
         return;
       }
@@ -70,7 +68,7 @@ export default function DriverLoginScreen({ navigation }) {
       setLoading(false);
       Alert.alert(
         t('error') || 'Error',
-        lang === 'ar' ? 'حدث خطأ في الاتصال' : 'Connection error. Please try again.'
+        t('connectionError')
       );
     } finally {
       setLoading(false);

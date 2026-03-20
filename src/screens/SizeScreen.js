@@ -48,6 +48,11 @@ export default function SizeScreen({ route, navigation }) {
 
   const handleSelect = (size) => {
     setSelectedId(size.id);
+  };
+
+  const handleConfirm = () => {
+    const size = sizes.find(s => s.id === selectedId);
+    if (!size) return;
     const sizeName = isAr ? size.nameAr : size.nameEn;
     navigation.navigate('PriceGuarantee', {
       service, serviceId,
@@ -112,6 +117,15 @@ export default function SizeScreen({ route, navigation }) {
         })}
         <View style={{ height: 120 }} />
       </ScrollView>
+
+      {selectedId && (
+        <View style={styles.bottomBar}>
+          <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm} activeOpacity={0.8}>
+            <Ionicons name="checkmark-circle" size={20} color="#FFF" />
+            <Text style={styles.confirmBtnText}>{t('confirmBooking') || (isAr ? 'تأكيد' : 'Confirm')}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }
@@ -159,4 +173,14 @@ const styles = StyleSheet.create({
   priceUnit: { fontSize: 11, color: colors.gray, marginTop: 2 },
   selectedCheck: { position: 'absolute', top: 12, right: 12 },
   textRight: { textAlign: 'right' },
+  bottomBar: {
+    position: 'absolute', bottom: 0, left: 0, right: 0,
+    padding: 16, paddingBottom: 32, backgroundColor: '#FFF',
+    borderTopWidth: 1, borderTopColor: colors.border,
+  },
+  confirmBtn: {
+    backgroundColor: colors.primary, borderRadius: 14, paddingVertical: 16,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
+  },
+  confirmBtnText: { color: '#FFF', fontSize: 17, fontWeight: '700' },
 });

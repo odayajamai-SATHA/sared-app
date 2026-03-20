@@ -19,8 +19,8 @@ export default function SettingsScreen({ navigation }) {
 
   const handleDeleteAccount = () => {
     Alert.alert(
-      lang === 'ar' ? 'حذف الحساب' : 'Delete Account',
-      lang === 'ar' ? 'هل أنت متأكد؟ لا يمكن التراجع عن هذا الإجراء.' : 'Are you sure? This action cannot be undone.',
+      t('deleteAccount'),
+      t('deleteAccountConfirm'),
       [
         { text: t('no'), style: 'cancel' },
         {
@@ -41,7 +41,7 @@ export default function SettingsScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{lang === 'ar' ? 'الإعدادات' : 'Settings'}</Text>
+        <Text style={styles.headerTitle}>{t('settings')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -50,7 +50,7 @@ export default function SettingsScreen({ navigation }) {
           {/* Language */}
           <View style={styles.card}>
             <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
-              {lang === 'ar' ? 'اللغة' : 'Language'}
+              {t('language')}
             </Text>
             <View style={styles.langRow}>
               <TouchableOpacity
@@ -83,20 +83,20 @@ export default function SettingsScreen({ navigation }) {
           {/* About */}
           <View style={styles.card}>
             <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
-              {lang === 'ar' ? 'حول التطبيق' : 'About'}
+              {t('aboutApp')}
             </Text>
             <View style={styles.aboutRow}>
-              <Text style={styles.aboutLabel}>{lang === 'ar' ? 'الإصدار' : 'Version'}</Text>
+              <Text style={styles.aboutLabel}>{t('version')}</Text>
               <Text style={styles.aboutValue}>1.0.0</Text>
             </View>
             <View style={styles.aboutRow}>
-              <Text style={styles.aboutLabel}>{lang === 'ar' ? 'صنع في' : 'Made in'}</Text>
-              <Text style={styles.aboutValue}>{lang === 'ar' ? 'الدمام، السعودية' : 'Dammam, Saudi Arabia'}</Text>
+              <Text style={styles.aboutLabel}>{t('madeInSaudi')}</Text>
+              <Text style={styles.aboutValue}>{t('madeInCity')}</Text>
             </View>
             <View style={[styles.madeWith, { marginTop: 12 }]}>
               <Ionicons name="flag" size={20} color="#16A34A" />
               <Text style={styles.madeWithLabel}>
-                {lang === 'ar' ? 'صنع بفخر في المملكة العربية السعودية' : 'Proudly made in Saudi Arabia'}
+                {t('proudlyMade')}
               </Text>
             </View>
           </View>
@@ -108,7 +108,7 @@ export default function SettingsScreen({ navigation }) {
                 <Ionicons name="star" size={20} color="#FBBF24" />
               </View>
               <Text style={[styles.actionText, isRTL && styles.textRight]}>
-                {lang === 'ar' ? 'قيّم التطبيق' : 'Rate the App'}
+                {t('rateApp')}
               </Text>
               <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
             </TouchableOpacity>
@@ -120,7 +120,7 @@ export default function SettingsScreen({ navigation }) {
                 <Ionicons name="shield-checkmark-outline" size={20} color="#059669" />
               </View>
               <Text style={[styles.actionText, isRTL && styles.textRight]}>
-                {lang === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}
+                {t('privacyPolicy')}
               </Text>
               <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
             </TouchableOpacity>
@@ -132,7 +132,7 @@ export default function SettingsScreen({ navigation }) {
                 <Ionicons name="document-text-outline" size={20} color="#3B82F6" />
               </View>
               <Text style={[styles.actionText, isRTL && styles.textRight]}>
-                {lang === 'ar' ? 'شروط الخدمة' : 'Terms of Service'}
+                {t('termsOfService')}
               </Text>
               <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
             </TouchableOpacity>
@@ -142,7 +142,7 @@ export default function SettingsScreen({ navigation }) {
           <TouchableOpacity style={styles.deleteBtn} onPress={handleDeleteAccount}>
             <Ionicons name="trash-outline" size={20} color="#EF4444" />
             <Text style={styles.deleteText}>
-              {lang === 'ar' ? 'حذف الحساب' : 'Delete Account'}
+              {t('deleteAccount')}
             </Text>
           </TouchableOpacity>
         </Animated.View>

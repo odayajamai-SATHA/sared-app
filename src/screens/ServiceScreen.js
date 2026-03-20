@@ -36,8 +36,8 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
   const handleSelect = (service) => {
     if (service.comingSoon) {
       Alert.alert(
-        lang === 'ar' ? 'قريباً' : 'Coming Soon',
-        lang === 'ar' ? 'هذه الخدمة ستكون متاحة قريباً' : 'This service will be available soon'
+        t('comingSoon'),
+        t('featureComingSoon')
       );
       return;
     }

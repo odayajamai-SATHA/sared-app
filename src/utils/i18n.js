@@ -231,6 +231,14 @@ const translations = {
     continueAsGuest: 'Continue as Guest',
     welcomeBack: 'Welcome back',
     taglineAr: 'قصتك على الطريق، علينا',
+    notSignedIn: 'Not signed in',
+    logOutTitle: 'Log Out',
+    logOutMessage: 'Are you sure you want to log out?',
+    demoMode: 'Demo Mode',
+    connectionError: 'Connection error. Please try again.',
+    driverIdMismatch: 'Driver ID does not match',
+    noDriverAccount: 'No driver account found with this number. Please register first.',
+    user: 'User',
 
     // Quick Actions
     flatTire: 'Flat Tire',
@@ -527,9 +535,15 @@ const translations = {
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
     deleteAccount: 'Delete Account',
+    deleteAccountConfirm: 'Are you sure? This action cannot be undone.',
     logout: 'Logout',
     driveWithSared: 'Drive with Sared',
     downloadPDF: 'Download PDF',
+    aboutApp: 'About',
+    version: 'Version',
+    madeInCity: 'Dammam, Saudi Arabia',
+    proudlyMade: 'Proudly made in Saudi Arabia',
+    rateApp: 'Rate the App',
   },
   ar: {
     // Login
@@ -653,7 +667,13 @@ const translations = {
     privacyPolicy: 'سياسة الخصوصية',
     termsOfService: 'شروط الاستخدام',
     deleteAccount: 'حذف الحساب',
+    deleteAccountConfirm: 'هل أنت متأكد؟ لا يمكن التراجع عن هذا الإجراء.',
     madeInSaudi: 'صنع في السعودية',
+    aboutApp: 'حول التطبيق',
+    version: 'الإصدار',
+    madeInCity: 'الدمام، السعودية',
+    proudlyMade: 'صنع بفخر في المملكة العربية السعودية',
+    rateApp: 'قيّم التطبيق',
 
     // ---- Driver Translations ----
     driverMode: 'وضع السائق',
@@ -786,6 +806,14 @@ const translations = {
     continueAsGuest: 'الدخول كزائر',
     welcomeBack: 'أهلاً بعودتك',
     taglineAr: 'قصتك على الطريق، علينا',
+    notSignedIn: 'غير مسجل',
+    logOutTitle: 'تسجيل الخروج',
+    logOutMessage: 'هل أنت متأكد من تسجيل الخروج؟',
+    demoMode: 'وضع تجريبي',
+    connectionError: 'حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.',
+    driverIdMismatch: 'رقم الهوية غير صحيح',
+    noDriverAccount: 'لم يتم العثور على حساب سائق بهذا الرقم. يرجى التسجيل أولاً.',
+    user: 'مستخدم',
     driveWithSared: 'قُد مع سارد',
 
     // Quick Actions

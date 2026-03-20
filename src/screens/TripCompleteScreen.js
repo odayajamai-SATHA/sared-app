@@ -6,7 +6,7 @@ import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 
 export default function TripCompleteScreen({ route, navigation }) {
-  const { service, size, price } = route.params || {};
+  const { service, size, price, fareBreakdown, paymentMethod } = route.params || {};
   const [rating, setRating] = useState(0);
   const { t, isRTL } = useI18n();
 
@@ -36,7 +36,7 @@ export default function TripCompleteScreen({ route, navigation }) {
   };
 
   const handleSubmit = () => {
-    navigation.navigate('Receipt', { service, size, price });
+    navigation.navigate('Receipt', { service, size, price, fareBreakdown, paymentMethod });
   };
 
   return (

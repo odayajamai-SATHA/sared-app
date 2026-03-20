@@ -5,8 +5,8 @@ import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 
 export default function ReceiptScreen({ route, navigation }) {
-  const { service, size, price } = route.params || {};
-  const { t, isRTL } = useI18n();
+  const { service, size, price, fareBreakdown, paymentMethod } = route.params || {};
+  const { t, isRTL, lang } = useI18n();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(40)).current;
 
@@ -18,17 +18,18 @@ export default function ReceiptScreen({ route, navigation }) {
   }, []);
 
   const now = new Date();
-  const dateStr = now.toLocaleDateString('en-SA', { year: 'numeric', month: 'short', day: 'numeric' });
-  const timeStr = now.toLocaleTimeString('en-SA', { hour: '2-digit', minute: '2-digit' });
+  const dateStr = now.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-SA', { year: 'numeric', month: 'short', day: 'numeric' });
+  const timeStr = now.toLocaleTimeString(lang === 'ar' ? 'ar-SA' : 'en-SA', { hour: '2-digit', minute: '2-digit' });
 
-  // Parse price (e.g. "SAR 230" -> 230)
-  const totalNum = parseInt((price || '').replace(/\D/g, '')) || 200;
-  const baseFare = Math.round(totalNum * 0.6);
-  const distFee = Math.round(totalNum * 0.2);
-  const serviceFee = 15;
-  const subtotal = baseFare + distFee + serviceFee;
-  const vat = Math.round(subtotal * 0.15);
-  const total = subtotal + vat;
+  // Use fare breakdown if passed, otherwise parse total from price string
+  const totalNum = fareBreakdown?.total || parseInt((price || '').replace(/\D/g, '')) || 0;
+  const baseFare = fareBreakdown?.baseFare || 50;
+  const distFee = fareBreakdown?.distanceCharge || Math.max(0, Math.round((totalNum / 1.15) - 50));
+  const nightSurcharge = fareBreakdown?.nightSurcharge || 0;
+  const subtotal = fareBreakdown?.subtotal || Math.round(totalNum / 1.15);
+  const vat = fareBreakdown?.vat || Math.round(subtotal * 0.15);
+  const total = fareBreakdown?.total || subtotal + vat;
+  const paymentDisplay = paymentMethod === 'stc_pay' ? 'STC Pay' : paymentMethod === 'cash' ? t('cashPayment') : t('cashPayment');
 
   const handleShareWhatsapp = async () => {
     const msg = `${t('tripReceipt')}\n${t('service')}: ${service}\n${t('totalPrice')}: SAR ${total}\n${t('tripDate')}: ${dateStr}\n\nSared App`;
@@ -85,17 +86,19 @@ export default function ReceiptScreen({ route, navigation }) {
         {/* Price breakdown */}
         <Text style={styles.sectionTitle}>{t('priceBreakdown')}</Text>
         <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>{t('baseFare')}</Text>
+          <Text style={styles.priceLabel}>{t('dispatchFee') || t('baseFare')}</Text>
           <Text style={styles.priceValue}>SAR {baseFare}</Text>
         </View>
         <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>{t('distance')}</Text>
+          <Text style={styles.priceLabel}>{t('distanceRate') || t('distance')}</Text>
           <Text style={styles.priceValue}>SAR {distFee}</Text>
         </View>
-        <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>{t('serviceFee')}</Text>
-          <Text style={styles.priceValue}>SAR {serviceFee}</Text>
-        </View>
+        {nightSurcharge > 0 && (
+          <View style={styles.priceRow}>
+            <Text style={[styles.priceLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text>
+            <Text style={[styles.priceValue, { color: '#8B5CF6' }]}>SAR {nightSurcharge}</Text>
+          </View>
+        )}
         <View style={styles.priceRow}>
           <Text style={styles.priceLabel}>{t('vat')}</Text>
           <Text style={styles.priceValue}>SAR {vat}</Text>
@@ -113,7 +116,7 @@ export default function ReceiptScreen({ route, navigation }) {
         <View style={styles.paymentRow}>
           <Ionicons name="cash-outline" size={20} color="#22C55E" />
           <Text style={styles.paymentLabel}>{t('paymentMethod')}</Text>
-          <Text style={styles.paymentValue}>{t('cashPayment')}</Text>
+          <Text style={styles.paymentValue}>{paymentDisplay}</Text>
         </View>
 
         {/* Dashed border (receipt tear) */}

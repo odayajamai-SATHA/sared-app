@@ -8,7 +8,7 @@ import { useI18n } from '../utils/i18n';
 import { updateRideStatus } from '../utils/supabase';
 
 export default function TrackingScreen({ route, navigation }) {
-  const { service, size, price } = route.params || {};
+  const { service, size, price, fareBreakdown, paymentMethod } = route.params || {};
   const { t, isRTL } = useI18n();
   const mapRef = useRef(null);
   const sheetAnim = useRef(new Animated.Value(100)).current;
@@ -212,7 +212,7 @@ export default function TrackingScreen({ route, navigation }) {
                 const rideId = route.params?.rideId;
                 if (rideId) await updateRideStatus(rideId, 'completed');
               } catch {}
-              navigation.navigate('TripComplete', { service, size, price });
+              navigation.navigate('TripComplete', { service, size, price, fareBreakdown, paymentMethod });
             }}>
             <Ionicons name="checkmark" size={20} color={colors.primary} />
           </TouchableOpacity>
