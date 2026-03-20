@@ -17,7 +17,7 @@
       "supportsTablet": true,
       "icon": "./assets/icon.png",
       "config": {
-        "googleMapsApiKey": "YOUR_GOOGLE_MAPS_IOS_KEY"
+        "googleMapsApiKey": "AIzaSyBh0Ku6WY_u6ZU9HeymND9hXBrZp5PTEf4"
       },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Sared needs your location to show nearby drivers and set your pickup location.",
@@ -63,7 +63,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR_GOOGLE_MAPS_ANDROID_KEY"
+          "apiKey": "AIzaSyBh0Ku6WY_u6ZU9HeymND9hXBrZp5PTEf4"
         }
       }
     },
