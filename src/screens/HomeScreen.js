@@ -7,7 +7,7 @@ import {
 import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
@@ -16,7 +16,7 @@ import { createDebouncedNav } from '../utils/navigation';
 export default function HomeScreen({ navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, paddingHorizontal: 20 },
   greetingSection: { paddingTop: 60, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800' },
-  greetingSub: { fontSize: 15, color: colors.textSecondary, marginTop: 4 },
+  greetingSub: { fontSize: 15, color: staticColors.textSecondary, marginTop: 4 },
   helpLink: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },
   helpLinkText: { fontSize: 13, color: '#25D366', fontWeight: '600' },
   searchRow: {
@@ -181,13 +181,13 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flex: 1, flexDirection: 'row', alignItems: 'center',
-    backgroundColor: colors.lightGray, borderRadius: 16,
+    backgroundColor: staticColors.lightGray, borderRadius: 16,
     paddingHorizontal: 16, paddingVertical: 14, gap: 10,
   },
-  searchPlaceholder: { flex: 1, fontSize: 15, color: colors.gray },
+  searchPlaceholder: { flex: 1, fontSize: 15, color: staticColors.gray },
   notifBtn: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: colors.lightGray, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: staticColors.lightGray, justifyContent: 'center', alignItems: 'center',
     marginStart: 8,
   },
   promoBanner: { borderRadius: 16, marginBottom: 24, overflow: 'hidden' },
@@ -200,33 +200,33 @@ const styles = StyleSheet.create({
   promoTitle: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   promoCode: { fontSize: 20, fontWeight: '900', color: '#FFF', marginTop: 2 },
   promoSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: colors.text, marginBottom: 14 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
   quickGrid: {
     flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 24,
   },
   quickCard: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 1, borderColor: colors.border, alignItems: 'center',
+    borderWidth: 1, borderColor: staticColors.border, alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,
   },
   quickIcon: {
     width: 56, height: 56, borderRadius: 16,
     justifyContent: 'center', alignItems: 'center', marginBottom: 10,
   },
-  quickLabel: { fontSize: 14, fontWeight: '700', color: colors.text, textAlign: 'center' },
+  quickLabel: { fontSize: 14, fontWeight: '700', color: staticColors.text, textAlign: 'center' },
   quickPrice: { fontSize: 16, fontWeight: '800', marginTop: 4, textAlign: 'center' },
-  quickVat: { fontSize: 11, color: colors.gray, marginTop: 2 },
+  quickVat: { fontSize: 11, color: staticColors.gray, marginTop: 2 },
   recentRow: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 12,
-    borderBottomWidth: 1, borderBottomColor: colors.lightGray,
+    borderBottomWidth: 1, borderBottomColor: staticColors.lightGray,
   },
   recentIcon: {
-    width: 36, height: 36, borderRadius: 18, backgroundColor: colors.lightGray,
+    width: 36, height: 36, borderRadius: 18, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  recentName: { fontSize: 15, fontWeight: '600', color: colors.text },
-  recentSub: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },
+  recentName: { fontSize: 15, fontWeight: '600', color: staticColors.text },
+  recentSub: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
   rowReverse: { flexDirection: 'row-reverse' },
   textRight: { textAlign: 'right' },
 });

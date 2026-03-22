@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function SizeScreen({ route, navigation }) {
   const { service, serviceId } = route.params || {};
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [selectedId, setSelectedId] = useState(null);
 
   const pickup = route.params?.pickup;
@@ -137,51 +137,51 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 44, height: 44, borderRadius: 22, backgroundColor: colors.lightGray,
+    width: 44, height: 44, borderRadius: 22, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   content: { flex: 1 },
   contentInner: { padding: 20 },
   serviceLabel: {
-    fontSize: 13, fontWeight: '600', color: colors.primary,
-    backgroundColor: colors.primaryFaded, alignSelf: 'flex-start',
+    fontSize: 13, fontWeight: '600', color: staticColors.primary,
+    backgroundColor: staticColors.primaryFaded, alignSelf: 'flex-start',
     paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8,
     overflow: 'hidden', marginBottom: 12,
   },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: colors.textSecondary, marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 16 },
   card: {
-    backgroundColor: colors.white, borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 2, borderColor: colors.border, position: 'relative',
+    backgroundColor: staticColors.white, borderRadius: 16, padding: 16, marginBottom: 12,
+    borderWidth: 2, borderColor: staticColors.border, position: 'relative',
   },
   cardSelected: {
-    borderColor: colors.primary, borderWidth: 3, backgroundColor: '#F0FDF4',
+    borderColor: staticColors.primary, borderWidth: 3, backgroundColor: '#F0FDF4',
   },
   cardRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
-    width: 52, height: 52, borderRadius: 14, backgroundColor: colors.lightGray,
+    width: 52, height: 52, borderRadius: 14, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
   cardContent: { flex: 1 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
-  cardDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },
-  cardSpec: { fontSize: 12, color: colors.gray, marginTop: 2 },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text },
+  cardDesc: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
+  cardSpec: { fontSize: 12, color: staticColors.gray, marginTop: 2 },
   priceCol: { alignItems: 'center', marginStart: 8 },
-  priceNum: { fontSize: 24, fontWeight: '800', color: colors.text },
-  priceUnit: { fontSize: 11, color: colors.gray, marginTop: 2 },
+  priceNum: { fontSize: 24, fontWeight: '800', color: staticColors.text },
+  priceUnit: { fontSize: 11, color: staticColors.gray, marginTop: 2 },
   selectedCheck: { position: 'absolute', top: 12, right: 12 },
   textRight: { textAlign: 'right' },
   bottomBar: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    padding: 16, paddingBottom: 44, backgroundColor: colors.card,
-    borderTopWidth: 1, borderTopColor: colors.border,
+    padding: 16, paddingBottom: 44, backgroundColor: staticColors.card,
+    borderTopWidth: 1, borderTopColor: staticColors.border,
   },
   confirmBtn: {
-    backgroundColor: colors.primary, borderRadius: 14, paddingVertical: 16,
+    backgroundColor: staticColors.primary, borderRadius: 14, paddingVertical: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
   },
   confirmBtnText: { color: '#FFF', fontSize: 17, fontWeight: '700' },

@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import {
@@ -22,7 +22,7 @@ import { notifyCustomerDriverAccepted } from '../../utils/notifications';
 export default function DriverDashboardScreen({ route, navigation }) {
   const driver = route.params?.driver;
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const [isOnline, setIsOnline] = useState(driver?.is_online || false);
   const [earnings, setEarnings] = useState(450);
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.white,
+    color: staticColors.white,
   },
   plateText: {
     fontSize: 13,
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   ratingText: {
-    color: colors.white,
+    color: staticColors.white,
     fontWeight: '700',
     fontSize: 14,
   },
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
   },
   toggleSection: {
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 16,
     padding: 24,
     marginBottom: 16,
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   statusLabel: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
     marginBottom: 16,
   },
   toggleBtn: {
@@ -385,9 +385,9 @@ const styles = StyleSheet.create({
     borderColor: '#22C55E',
   },
   toggleBtnOffline: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     borderWidth: 1.5,
-    borderColor: colors.border,
+    borderColor: staticColors.border,
   },
   toggleBtnText: {
     fontSize: 16,
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
@@ -413,16 +413,16 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: colors.text,
+    color: staticColors.text,
     marginTop: 8,
   },
   statLabel: {
     fontSize: 13,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 4,
   },
   quickStats: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 16,
     padding: 16,
     marginBottom: 100,
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
   },
   quickStatText: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
   },
   // Incoming ride overlay
   requestOverlay: {
@@ -455,7 +455,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   requestCard: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 20,
     padding: 24,
     marginHorizontal: 20,
@@ -472,7 +472,7 @@ const styles = StyleSheet.create({
     height: 72,
     borderRadius: 36,
     borderWidth: 3,
-    borderColor: colors.primary,
+    borderColor: staticColors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -480,16 +480,16 @@ const styles = StyleSheet.create({
   timerText: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: colors.primary,
+    color: staticColors.primary,
   },
   timerLabel: {
     fontSize: 10,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
   },
   requestTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
     marginBottom: 16,
   },
   requestDetails: {
@@ -502,11 +502,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     gap: 10,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightGray,
+    borderBottomColor: staticColors.lightGray,
   },
   requestText: {
     fontSize: 15,
-    color: colors.text,
+    color: staticColors.text,
     fontWeight: '500',
   },
   requestButtons: {
@@ -544,7 +544,7 @@ const styles = StyleSheet.create({
   acceptBtnText: {
     fontSize: 16,
     fontWeight: '700',
-    color: colors.white,
+    color: staticColors.white,
   },
   // Bottom nav
   bottomNav: {
@@ -553,9 +553,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: 'row',
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: staticColors.border,
     paddingBottom: 20,
     paddingTop: 10,
   },
@@ -565,7 +565,7 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     fontSize: 11,
-    color: colors.gray,
+    color: staticColors.gray,
     marginTop: 4,
   },
   rowReverse: {

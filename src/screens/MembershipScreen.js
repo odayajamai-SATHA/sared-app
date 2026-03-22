@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Alert, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function MembershipScreen({ navigation }) {
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [selected, setSelected] = useState(1);
   const scaleAnim = useRef(new Animated.Value(0.9)).current;
 
@@ -148,29 +148,29 @@ export default function MembershipScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   scrollContent: { padding: 20 },
-  subtitle: { fontSize: 15, color: colors.textSecondary, textAlign: 'center', marginBottom: 20 },
+  subtitle: { fontSize: 15, color: staticColors.textSecondary, textAlign: 'center', marginBottom: 20 },
   tabRow: { flexDirection: 'row', gap: 10, marginBottom: 20 },
   tab: {
-    flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: colors.white,
-    alignItems: 'center', borderWidth: 1, borderColor: colors.border,
+    flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: staticColors.white,
+    alignItems: 'center', borderWidth: 1, borderColor: staticColors.border,
   },
-  tabActive: { borderColor: colors.primary, backgroundColor: colors.primaryFaded },
-  tabText: { fontSize: 14, fontWeight: '600', color: colors.textSecondary },
-  tabTextActive: { color: colors.primary },
+  tabActive: { borderColor: staticColors.primary, backgroundColor: staticColors.primaryFaded },
+  tabText: { fontSize: 14, fontWeight: '600', color: staticColors.textSecondary },
+  tabTextActive: { color: staticColors.primary },
   popularBadge: {
-    position: 'absolute', top: -8, backgroundColor: colors.primary,
+    position: 'absolute', top: -8, backgroundColor: staticColors.primary,
     paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8,
   },
   popularText: { fontSize: 11, fontWeight: '700', color: '#FFF' },
@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
   subscribeBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   comingSoonNote: { fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center', marginBottom: 12 },
   comparisonCard: {
-    backgroundColor: colors.white, borderRadius: 16, padding: 16, overflow: 'hidden',
+    backgroundColor: staticColors.white, borderRadius: 16, padding: 16, overflow: 'hidden',
   },
-  comparisonTitle: { fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 12 },
+  comparisonTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 12 },
   compRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10 },
-  compRowAlt: { backgroundColor: colors.lightGray, marginHorizontal: -16, paddingHorizontal: 16 },
-  compLabel: { flex: 2, fontSize: 12, color: colors.textSecondary },
-  compHeader: { flex: 1, fontSize: 12, fontWeight: '700', color: colors.text, textAlign: 'center' },
+  compRowAlt: { backgroundColor: staticColors.lightGray, marginHorizontal: -16, paddingHorizontal: 16 },
+  compLabel: { flex: 2, fontSize: 12, color: staticColors.textSecondary },
+  compHeader: { flex: 1, fontSize: 12, fontWeight: '700', color: staticColors.text, textAlign: 'center' },
   compCell: { flex: 1, alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
 });

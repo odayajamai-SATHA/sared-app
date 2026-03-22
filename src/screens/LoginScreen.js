@@ -66,10 +66,14 @@ export default function LoginScreen({ navigation: rawNav }) {
       const { error } = await supabase.auth.signInWithOtp({ phone: '+966' + phone });
       setLoading(false);
       if (error) {
-        Alert.alert(t('error') || 'Error', error.message, [
-          { text: 'OK' },
-          { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
-        ]);
+        Alert.alert(
+          t('error') || 'Error',
+          'SMS service is being configured. Please continue as guest for now.',
+          [
+            { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
+            { text: 'Test OTP Screen', onPress: () => navigation.navigate('OTP', { phone }) },
+          ]
+        );
         return;
       }
       startCooldown();

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
@@ -10,7 +10,7 @@ import { createDebouncedNav } from '../utils/navigation';
 export default function ServiceScreen({ route, navigation: rawNav }) {
   const navigation = createDebouncedNav(rawNav);
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const pickup = route.params?.pickup;
   const destination = route.params?.destination;
   const destinationName = route.params?.destinationName;
@@ -122,20 +122,20 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   content: { flex: 1 },
   contentInner: { padding: 20 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: colors.textSecondary, marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 16 },
   card: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.white,
     borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 1, borderColor: colors.border,
+    borderWidth: 1, borderColor: staticColors.border,
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,
   },
   cardComingSoon: {
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   },
   cardContent: { flex: 1 },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
-  cardDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 3 },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text },
+  cardDesc: { fontSize: 13, color: staticColors.textSecondary, marginTop: 3 },
   cardPrice: { fontSize: 13, fontWeight: '700', marginTop: 4 },
   comingSoonBadge: {
     backgroundColor: '#F59E0B20', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6,

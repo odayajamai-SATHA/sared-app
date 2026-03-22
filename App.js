@@ -65,8 +65,8 @@ function MainTabs() {
         tabBarStyle: {
           height: 80, paddingBottom: 24, paddingTop: 8,
           borderTopColor: colors.tabBarBorder, backgroundColor: colors.tabBar,
-          shadowColor: colors.shadow, shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: isDark ? 0.3 : 0.06, shadowRadius: 8, elevation: 8,
+          shadowColor: colors.shadow,
+          shadowOpacity: isDark ? 0.3 : 0.06,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarIcon: ({ color, size }) => {

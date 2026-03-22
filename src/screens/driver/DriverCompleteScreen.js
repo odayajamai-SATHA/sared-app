@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
 export default function DriverCompleteScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const handleDone = () => {
     navigation.navigate('DriverDashboard', { driver });
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: colors.white,
+    color: staticColors.white,
   },
   subtitle: {
     fontSize: 15,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   card: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     marginTop: -20,
     borderRadius: 16,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
     marginBottom: 16,
   },
   summaryRow: {
@@ -116,16 +116,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightGray,
+    borderBottomColor: staticColors.lightGray,
   },
   summaryLabel: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
   },
   summaryValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.text,
+    color: staticColors.text,
   },
   totalRow: {
     flexDirection: 'row',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 16,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   totalValue: {
     fontSize: 20,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     color: '#22C55E',
   },
   ratingCard: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 16,
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
   ratingTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: colors.text,
+    color: staticColors.text,
     marginTop: 8,
   },
   ratingText: {
     fontSize: 13,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 4,
     textAlign: 'center',
   },
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   doneBtnText: {
-    color: colors.white,
+    color: staticColors.white,
     fontSize: 18,
     fontWeight: '700',
   },

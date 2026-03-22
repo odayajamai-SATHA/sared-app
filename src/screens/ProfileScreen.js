@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Share, ScrollView, Alert, Linking, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
 
 export default function ProfileScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [stats, setStats] = useState({ trips: 0, rating: '--', vehicles: 0 });
   const [user, setUser] = useState(null);
 
@@ -31,10 +31,11 @@ export default function ProfileScreen({ navigation }) {
     })();
   }, []);
 
-  const showComingSoon = () => {
+  const showComingSoon = (feature) => {
     Alert.alert(
       t('comingSoon'),
-      t('featureComingSoonDesc')
+      t('featureComingSoonDesc') || 'This feature will be available in the next update.',
+      [{ text: 'OK' }]
     );
   };
 
@@ -175,7 +176,7 @@ export default function ProfileScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 24 },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#FFF', marginBottom: 20 },
   profileCard: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
@@ -197,25 +198,25 @@ const styles = StyleSheet.create({
     borderRadius: 14, padding: 16,
   },
   statItem: { flex: 1, alignItems: 'center' },
-  statNumber: { fontSize: 20, fontWeight: '700', color: colors.primary },
+  statNumber: { fontSize: 20, fontWeight: '700', color: staticColors.primary },
   statLabel: { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4 },
   statDivider: { width: 1, backgroundColor: 'rgba(255,255,255,0.1)' },
   content: { padding: 16 },
   menuSection: {
-    backgroundColor: colors.white, borderRadius: 16, marginBottom: 12,
+    backgroundColor: staticColors.white, borderRadius: 16, marginBottom: 12,
   },
   menuItem: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16,
-    borderBottomWidth: 1, borderBottomColor: colors.border,
+    borderBottomWidth: 1, borderBottomColor: staticColors.border,
     cursor: 'pointer',
   },
   menuIcon: {
     width: 36, height: 36, borderRadius: 10,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  menuLabel: { fontSize: 15, color: colors.text, fontWeight: '500' },
+  menuLabel: { fontSize: 15, color: staticColors.text, fontWeight: '500' },
   shareRow: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.white,
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,
     cursor: 'pointer',
   },

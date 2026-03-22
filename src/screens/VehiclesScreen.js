@@ -4,13 +4,13 @@ import {
   TextInput, Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function VehiclesScreen({ navigation }) {
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [vehicles, setVehicles] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ make: '', model: '', year: '', color: '', plate: '' });
@@ -129,60 +129,60 @@ export default function VehiclesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   addBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primaryFaded,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.primaryFaded,
     justifyContent: 'center', alignItems: 'center',
   },
   scrollContent: { padding: 16 },
   formCard: {
-    backgroundColor: colors.white, borderRadius: 16, padding: 20, marginBottom: 16,
+    backgroundColor: staticColors.white, borderRadius: 16, padding: 20, marginBottom: 16,
   },
-  formTitle: { fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 16 },
+  formTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 16 },
   formRow: { flexDirection: 'row', gap: 12 },
   formField: { flex: 1, marginBottom: 12 },
-  fieldLabel: { fontSize: 12, fontWeight: '600', color: colors.textSecondary, marginBottom: 6 },
+  fieldLabel: { fontSize: 12, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 6 },
   input: {
-    backgroundColor: colors.lightGray, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
-    fontSize: 15, color: colors.text, borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.lightGray, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
+    fontSize: 15, color: staticColors.text, borderWidth: 1, borderColor: staticColors.border,
   },
   saveBtn: {
-    backgroundColor: colors.primary, paddingVertical: 14, borderRadius: 12,
+    backgroundColor: staticColors.primary, paddingVertical: 14, borderRadius: 12,
     alignItems: 'center', marginTop: 12,
   },
   saveBtnText: { color: '#FFF', fontSize: 16, fontWeight: '700' },
   emptyState: { alignItems: 'center', paddingTop: 60 },
   emptyIcon: {
-    width: 100, height: 100, borderRadius: 50, backgroundColor: colors.white,
+    width: 100, height: 100, borderRadius: 50, backgroundColor: staticColors.white,
     justifyContent: 'center', alignItems: 'center', marginBottom: 16,
   },
-  emptyTitle: { fontSize: 18, fontWeight: '700', color: colors.darkGray },
-  emptyHint: { fontSize: 14, color: colors.textSecondary, marginTop: 6, marginBottom: 24 },
+  emptyTitle: { fontSize: 18, fontWeight: '700', color: staticColors.darkGray },
+  emptyHint: { fontSize: 14, color: staticColors.textSecondary, marginTop: 6, marginBottom: 24 },
   emptyBtn: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.primary,
     paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, gap: 8,
   },
   emptyBtnText: { color: '#FFF', fontSize: 15, fontWeight: '600' },
   vehicleCard: {
-    backgroundColor: colors.white, borderRadius: 16, padding: 16, marginBottom: 12,
+    backgroundColor: staticColors.white, borderRadius: 16, padding: 16, marginBottom: 12,
   },
   vehicleRow: { flexDirection: 'row', alignItems: 'center' },
   vehicleColor: {
     width: 48, height: 48, borderRadius: 14,
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
-  vehicleName: { fontSize: 16, fontWeight: '700', color: colors.text },
-  vehicleDetails: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },
+  vehicleName: { fontSize: 16, fontWeight: '700', color: staticColors.text },
+  vehicleDetails: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
   deleteBtn: { padding: 8 },
   plateContainer: {
     backgroundColor: '#FEFCE8', borderRadius: 8, marginTop: 12,

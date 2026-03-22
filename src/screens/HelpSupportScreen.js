@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -12,7 +12,7 @@ const REPORT_URL = 'https://wa.me/966554404434?text=' + encodeURIComponent('مر
 
 export default function HelpSupportScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   const faqs = [
@@ -125,37 +125,37 @@ export default function HelpSupportScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   rowReverse: { flexDirection: 'row-reverse' },
   scrollContent: { padding: 16 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: colors.text, marginBottom: 12, marginTop: 8,
+    fontSize: 17, fontWeight: '700', color: staticColors.text, marginBottom: 12, marginTop: 8,
   },
   contactRow: { flexDirection: 'row', gap: 12, marginBottom: 24 },
   contactCard: {
     flex: 1, alignItems: 'center', paddingVertical: 20, borderRadius: 16,
     backgroundColor: '#FFF',
   },
-  contactLabel: { fontSize: 13, fontWeight: '600', color: colors.text, marginTop: 8 },
+  contactLabel: { fontSize: 13, fontWeight: '600', color: staticColors.text, marginTop: 8 },
   faqCard: {
     backgroundColor: '#FFF', borderRadius: 14, padding: 16, marginBottom: 8,
-    borderWidth: 1, borderColor: colors.border,
+    borderWidth: 1, borderColor: staticColors.border,
   },
   faqHeader: { flexDirection: 'row', alignItems: 'center' },
-  faqQuestion: { fontSize: 15, fontWeight: '600', color: colors.text },
+  faqQuestion: { fontSize: 15, fontWeight: '600', color: staticColors.text },
   faqAnswer: {
-    fontSize: 14, color: colors.textSecondary, lineHeight: 22, marginTop: 12,
-    paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.lightGray,
+    fontSize: 14, color: staticColors.textSecondary, lineHeight: 22, marginTop: 12,
+    paddingTop: 12, borderTopWidth: 1, borderTopColor: staticColors.lightGray,
   },
   reportBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
   availableRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
   },
-  availableText: { fontSize: 13, color: colors.gray },
+  availableText: { fontSize: 13, color: staticColors.gray },
   textRight: { textAlign: 'right' },
 });

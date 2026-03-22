@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native'
 import MapView, { Marker, Polyline } from '../../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { updateRideStatus } from '../../utils/supabase';
@@ -11,7 +11,7 @@ import { updateRideStatus } from '../../utils/supabase';
 export default function DriverNavigationScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const mapRef = useRef(null);
 
   const customerName = ride?.users?.name || 'Mohammed';
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   map: {
     flex: 1,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 110,
     right: 16,
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   },
   etaUnit: {
     fontSize: 11,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
   },
   distanceBadge: {
     position: 'absolute',
@@ -336,10 +336,10 @@ const styles = StyleSheet.create({
   distanceText: {
     fontSize: 12,
     fontWeight: '600',
-    color: colors.white,
+    color: staticColors.white,
   },
   bottomPanel: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingHorizontal: 20,
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: colors.border,
+    backgroundColor: staticColors.border,
     alignSelf: 'center',
     marginBottom: 16,
   },
@@ -382,11 +382,11 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 16,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   customerDetails: {
     fontSize: 13,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 2,
   },
   callBtn: {
@@ -411,12 +411,12 @@ const styles = StyleSheet.create({
   },
   addressLabel: {
     fontSize: 12,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
   },
   addressText: {
     fontSize: 14,
     fontWeight: '500',
-    color: colors.text,
+    color: staticColors.text,
     marginTop: 2,
   },
   arrivedBtn: {
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   arrivedBtnText: {
-    color: colors.white,
+    color: staticColors.white,
     fontSize: 18,
     fontWeight: '700',
   },

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -20,7 +20,7 @@ const PARTNER_INSURERS = [
 
 export default function InsuranceScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [company, setCompany] = useState('');
   const [policyNum, setPolicyNum] = useState('');
   const [saved, setSaved] = useState(false);
@@ -152,17 +152,17 @@ export default function InsuranceScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   rowReverse: { flexDirection: 'row-reverse' },
   scrollContent: { padding: 16 },
   heroCard: { borderRadius: 20, padding: 28, alignItems: 'center', marginBottom: 16 },
@@ -174,10 +174,10 @@ const styles = StyleSheet.create({
   heroTitle: { fontSize: 22, fontWeight: '800', color: '#FFF', marginBottom: 8, textAlign: 'center' },
   heroSub: { fontSize: 14, color: 'rgba(255,255,255,0.6)', textAlign: 'center', lineHeight: 20 },
   formCard: { backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginBottom: 16 },
-  formLabel: { fontSize: 13, fontWeight: '600', color: colors.textSecondary, marginBottom: 6, marginTop: 8 },
+  formLabel: { fontSize: 13, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 6, marginTop: 8 },
   input: {
-    backgroundColor: colors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12,
-    fontSize: 15, color: colors.text, borderWidth: 1, borderColor: colors.border, marginBottom: 4,
+    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12,
+    fontSize: 15, color: staticColors.text, borderWidth: 1, borderColor: staticColors.border, marginBottom: 4,
   },
   saveBtn: { borderRadius: 14, overflow: 'hidden', marginTop: 16 },
   saveBtnGradient: {
@@ -185,23 +185,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center', gap: 8,
   },
   saveBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
-  noteText: { fontSize: 12, color: colors.gray, marginTop: 14, lineHeight: 18 },
+  noteText: { fontSize: 12, color: staticColors.gray, marginTop: 14, lineHeight: 18 },
   coveredCard: { backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginBottom: 16 },
-  coveredTitle: { fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 14 },
+  coveredTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
   coveredRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 12 },
   coveredIcon: {
     width: 36, height: 36, borderRadius: 10, justifyContent: 'center', alignItems: 'center',
   },
-  coveredText: { flex: 1, fontSize: 14, fontWeight: '500', color: colors.text },
+  coveredText: { flex: 1, fontSize: 14, fontWeight: '500', color: staticColors.text },
   partnersCard: { backgroundColor: '#FFF', borderRadius: 20, padding: 20 },
-  partnersTitle: { fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 14 },
+  partnersTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
   partnersGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   partnerChip: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
-    backgroundColor: colors.lightGray, borderRadius: 12,
+    backgroundColor: staticColors.lightGray, borderRadius: 12,
     paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1.5, borderColor: 'transparent',
   },
-  partnerChipActive: { borderColor: colors.primary, backgroundColor: colors.primaryFaded },
-  partnerName: { fontSize: 13, fontWeight: '600', color: colors.text },
+  partnerChipActive: { borderColor: staticColors.primary, backgroundColor: staticColors.primaryFaded },
+  partnerName: { fontSize: 13, fontWeight: '600', color: staticColors.text },
   textRight: { textAlign: 'right' },
 });

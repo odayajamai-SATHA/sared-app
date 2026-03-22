@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { calculateFare, getDistanceKm } from '../utils/pricing';
@@ -10,7 +10,7 @@ import { calculateFare, getDistanceKm } from '../utils/pricing';
 export default function PriceGuaranteeScreen({ route, navigation }) {
   const { service, serviceId, size, price, pickup, destination, destinationName } = route.params || {};
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -142,17 +142,17 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: colors.card, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: staticColors.card, borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   rowReverse: { flexDirection: 'row-reverse' },
   content: { flex: 1, padding: 16 },
   priceSection: { alignItems: 'center', paddingVertical: 24 },
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
     shadowColor: '#22C55E', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3, shadowRadius: 12, elevation: 8,
   },
-  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: colors.textSecondary, marginBottom: 8 },
+  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 8 },
   priceBox: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 12 },
-  currency: { fontSize: 20, fontWeight: '600', color: colors.text, marginEnd: 6 },
-  priceAmount: { fontSize: 52, fontWeight: '800', color: colors.text },
+  currency: { fontSize: 20, fontWeight: '600', color: staticColors.text, marginEnd: 6 },
+  priceAmount: { fontSize: 52, fontWeight: '800', color: staticColors.text },
   neverPayBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
     backgroundColor: '#F0FDF4', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 8,
@@ -174,21 +174,21 @@ const styles = StyleSheet.create({
   },
   neverPayText: { fontSize: 13, fontWeight: '600', color: '#16A34A' },
   breakdownCard: {
-    backgroundColor: colors.card, borderRadius: 20, padding: 20,
+    backgroundColor: staticColors.card, borderRadius: 20, padding: 20,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  breakdownTitle: { fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 14 },
+  breakdownTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
   breakdownRow: {
     flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8,
   },
-  breakdownLabel: { fontSize: 14, color: colors.textSecondary },
-  breakdownValue: { fontSize: 14, fontWeight: '600', color: colors.text },
-  divider: { height: 1, backgroundColor: colors.primary, opacity: 0.2, marginVertical: 8 },
-  maxLabel: { fontSize: 16, fontWeight: '700', color: colors.text },
+  breakdownLabel: { fontSize: 14, color: staticColors.textSecondary },
+  breakdownValue: { fontSize: 14, fontWeight: '600', color: staticColors.text },
+  divider: { height: 1, backgroundColor: staticColors.primary, opacity: 0.2, marginVertical: 8 },
+  maxLabel: { fontSize: 16, fontWeight: '700', color: staticColors.text },
   maxValue: { fontSize: 20, fontWeight: '800', color: '#22C55E' },
-  noteText: { fontSize: 12, color: colors.gray, marginTop: 12, lineHeight: 18 },
-  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: colors.card, borderTopWidth: 1, borderTopColor: colors.border },
+  noteText: { fontSize: 12, color: staticColors.gray, marginTop: 12, lineHeight: 18 },
+  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: staticColors.card, borderTopWidth: 1, borderTopColor: staticColors.border },
   confirmBtn: { borderRadius: 16, overflow: 'hidden' },
   confirmGradient: {
     paddingVertical: 18, flexDirection: 'row', alignItems: 'center',

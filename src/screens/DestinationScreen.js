@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import MapView, { Marker } from '../components/MapView';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -30,7 +30,7 @@ const SUGGESTIONS = [
 export default function DestinationScreen({ route, navigation }) {
   const { pickup } = route.params || {};
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const mapRef = useRef(null);
   const [query, setQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -187,22 +187,22 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 16,
     paddingBottom: 12,
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: staticColors.border,
   },
   backBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
     margin: 16,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     borderRadius: 12,
     gap: 10,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: colors.text,
+    color: staticColors.text,
   },
   mapOption: {
     flexDirection: 'row',
@@ -225,14 +225,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 8,
     padding: 14,
-    backgroundColor: colors.primaryFaded,
+    backgroundColor: staticColors.primaryFaded,
     borderRadius: 12,
   },
   mapOptionIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 12,
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     fontWeight: '600',
-    color: colors.primary,
+    color: staticColors.primary,
   },
   list: {
     flex: 1,
@@ -252,13 +252,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightGray,
+    borderBottomColor: staticColors.lightGray,
   },
   suggestionIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 12,
@@ -266,11 +266,11 @@ const styles = StyleSheet.create({
   suggestionName: {
     fontSize: 15,
     fontWeight: '600',
-    color: colors.text,
+    color: staticColors.text,
   },
   suggestionSub: {
     fontSize: 13,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 2,
   },
   rowReverse: {
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     bottom: 32,
     left: 20,
     right: 20,
-    backgroundColor: colors.primary,
+    backgroundColor: staticColors.primary,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   confirmPinText: {
-    color: colors.white,
+    color: staticColors.white,
     fontSize: 16,
     fontWeight: '700',
   },

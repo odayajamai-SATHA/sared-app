@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
 
 export default function HistoryScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -123,36 +123,36 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: undefined },
   header: {
     paddingTop: 60, paddingHorizontal: 20, paddingBottom: 16,
-    borderBottomWidth: 1, borderBottomColor: colors.border,
+    borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
-  headerTitle: { fontSize: 22, fontWeight: 'bold', color: colors.text },
+  headerTitle: { fontSize: 22, fontWeight: 'bold', color: staticColors.text },
   empty: {
     flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 80, paddingHorizontal: 40,
   },
   emptyIconCircle: {
     width: 120, height: 120, borderRadius: 60,
-    backgroundColor: colors.lightGray, justifyContent: 'center', alignItems: 'center', marginBottom: 20,
+    backgroundColor: staticColors.lightGray, justifyContent: 'center', alignItems: 'center', marginBottom: 20,
   },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: colors.darkGray, marginTop: 8 },
-  emptyText: { fontSize: 14, color: colors.textSecondary, marginTop: 8, textAlign: 'center' },
+  emptyTitle: { fontSize: 20, fontWeight: '700', color: staticColors.darkGray, marginTop: 8 },
+  emptyText: { fontSize: 14, color: staticColors.textSecondary, marginTop: 8, textAlign: 'center' },
   bookBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
-    backgroundColor: colors.primary, paddingHorizontal: 28, paddingVertical: 14,
+    backgroundColor: staticColors.primary, paddingHorizontal: 28, paddingVertical: 14,
     borderRadius: 14, marginTop: 24,
   },
   bookBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   rideCard: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.white,
     borderRadius: 14, padding: 14, marginBottom: 10,
-    borderWidth: 1, borderColor: colors.border,
+    borderWidth: 1, borderColor: staticColors.border,
   },
   rowReverse: { flexDirection: 'row-reverse' },
   rideIcon: {
     width: 44, height: 44, borderRadius: 12,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  rideService: { fontSize: 15, fontWeight: '600', color: colors.text },
-  rideDate: { fontSize: 12, color: colors.textSecondary, marginTop: 2 },
+  rideService: { fontSize: 15, fontWeight: '600', color: staticColors.text },
+  rideDate: { fontSize: 12, color: staticColors.textSecondary, marginTop: 2 },
   ridePrice: { fontSize: 15, fontWeight: '700' },
   rideStatus: { fontSize: 11, fontWeight: '600', marginTop: 2, textTransform: 'capitalize' },
   textRight: { textAlign: 'right' },

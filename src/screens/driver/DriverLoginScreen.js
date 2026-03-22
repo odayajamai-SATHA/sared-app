@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { getDriverByPhone } from '../../utils/supabase';
@@ -20,7 +20,7 @@ export default function DriverLoginScreen({ navigation }) {
   const [driverId, setDriverId] = useState('');
   const [loading, setLoading] = useState(false);
   const { t, toggleLang, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const handleLogin = async () => {
     if (!phone || !driverId) return;
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     top: 52,
     right: 20,
     zIndex: 10,
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   langToggleText: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.primary,
+    color: staticColors.primary,
   },
   switchBtn: {
     position: 'absolute',
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.primaryFaded,
+    backgroundColor: staticColors.primaryFaded,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   switchBtnText: {
     fontSize: 13,
     fontWeight: '600',
-    color: colors.primary,
+    color: staticColors.primary,
   },
   logoContainer: {
     flex: 1,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: colors.primaryFaded,
+    backgroundColor: staticColors.primaryFaded,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -209,11 +209,11 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: colors.primary,
+    color: staticColors.primary,
   },
   tagline: {
     fontSize: 16,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 8,
     fontWeight: '600',
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: colors.text,
+    color: staticColors.text,
     marginBottom: 12,
   },
   phoneRow: {
@@ -236,38 +236,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
   },
   countryCode: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     borderRadius: 12,
     paddingHorizontal: 14,
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: staticColors.border,
   },
   countryCodeText: {
     fontSize: 16,
-    color: colors.text,
+    color: staticColors.text,
     fontWeight: '500',
   },
   phoneInput: {
     flex: 1,
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: colors.text,
+    color: staticColors.text,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: staticColors.border,
   },
   idInput: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: colors.text,
+    color: staticColors.text,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: staticColors.border,
     marginBottom: 20,
   },
   loginButton: {
@@ -281,13 +281,13 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   loginButtonText: {
-    color: colors.white,
+    color: staticColors.white,
     fontSize: 18,
     fontWeight: '700',
   },
   terms: {
     fontSize: 12,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     textAlign: 'center',
     lineHeight: 18,
   },

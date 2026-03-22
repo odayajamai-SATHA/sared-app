@@ -7,7 +7,7 @@ import {
   Linking,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { updateRideStatus } from '../../utils/supabase';
@@ -17,7 +17,7 @@ const STEPS = ['arrived', 'loading', 'in_transit', 'completed'];
 export default function DriverJobScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [currentStep, setCurrentStep] = useState(0); // 0=Arrived, 1=Loading, 2=In Transit, 3=Completed
 
   const customerName = ride?.users?.name || 'Mohammed';
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.white,
+    color: staticColors.white,
   },
   headerSub: {
     fontSize: 14,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   stepsContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     marginTop: -10,
     borderRadius: 16,
@@ -229,11 +229,11 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.lightGray,
+    backgroundColor: staticColors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: colors.border,
+    borderColor: staticColors.border,
   },
   stepCircleActive: {
     backgroundColor: '#1E3A5F',
@@ -245,17 +245,17 @@ const styles = StyleSheet.create({
   },
   stepLabel: {
     fontSize: 15,
-    color: colors.gray,
+    color: staticColors.gray,
     fontWeight: '500',
   },
   stepLabelActive: {
-    color: colors.text,
+    color: staticColors.text,
     fontWeight: '700',
   },
   stepLine: {
     width: 2,
     height: 20,
-    backgroundColor: colors.border,
+    backgroundColor: staticColors.border,
     marginStart: 17,
     marginVertical: 4,
   },
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#22C55E',
   },
   detailCard: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 16,
@@ -283,11 +283,11 @@ const styles = StyleSheet.create({
   detailTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   detailText: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     lineHeight: 22,
   },
   routeInfo: {
@@ -305,20 +305,20 @@ const styles = StyleSheet.create({
   },
   routeText: {
     fontSize: 14,
-    color: colors.text,
+    color: staticColors.text,
     fontWeight: '500',
   },
   routeConnector: {
     width: 2,
     height: 16,
-    backgroundColor: colors.border,
+    backgroundColor: staticColors.border,
     marginStart: 4,
     marginVertical: 4,
   },
   customerCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 14,
@@ -344,12 +344,12 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 15,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   customerPrice: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.primary,
+    color: staticColors.primary,
     marginTop: 2,
   },
   callBtn: {
@@ -367,9 +367,9 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 20,
     paddingBottom: 40,
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: staticColors.border,
   },
   nextBtn: {
     backgroundColor: '#1E3A5F',
@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   nextBtnText: {
-    color: colors.white,
+    color: staticColors.white,
     fontSize: 18,
     fontWeight: '700',
   },

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
@@ -16,7 +16,7 @@ const CITIES_AR = ['الرياض', 'جدة', 'الدمام', 'مكة', 'المد
 
 export default function DriverSignupScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [form, setForm] = useState({ name: '', phone: '', iqama: '', vehicleType: '', plate: '', city: '' });
   const [showVehicleMenu, setShowVehicleMenu] = useState(false);
   const [showCityMenu, setShowCityMenu] = useState(false);
@@ -176,7 +176,7 @@ export default function DriverSignupScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 24 },
   headerRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -201,30 +201,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginTop: -12,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  label: { fontSize: 13, fontWeight: '600', color: colors.textSecondary, marginBottom: 6, marginTop: 12 },
+  label: { fontSize: 13, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 6, marginTop: 12 },
   input: {
-    backgroundColor: colors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    fontSize: 15, color: colors.text, borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    fontSize: 15, color: staticColors.text, borderWidth: 1, borderColor: staticColors.border,
   },
   phoneRow: { flexDirection: 'row', gap: 10 },
   codeBox: {
-    backgroundColor: colors.lightGray, borderRadius: 12, paddingHorizontal: 14,
-    justifyContent: 'center', borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14,
+    justifyContent: 'center', borderWidth: 1, borderColor: staticColors.border,
   },
-  codeText: { fontSize: 15, color: colors.text, fontWeight: '500' },
+  codeText: { fontSize: 15, color: staticColors.text, fontWeight: '500' },
   dropdown: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: colors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    borderWidth: 1, borderColor: staticColors.border,
   },
-  dropdownValue: { fontSize: 15, color: colors.text },
-  dropdownPlaceholder: { fontSize: 15, color: colors.gray },
+  dropdownValue: { fontSize: 15, color: staticColors.text },
+  dropdownPlaceholder: { fontSize: 15, color: staticColors.gray },
   menuList: {
-    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: colors.border,
+    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: staticColors.border,
     marginTop: 4, overflow: 'hidden',
   },
-  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: colors.lightGray },
-  menuItemText: { fontSize: 15, color: colors.text },
+  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: staticColors.lightGray },
+  menuItemText: { fontSize: 15, color: staticColors.text },
   submitBtn: { borderRadius: 14, overflow: 'hidden', marginTop: 24 },
   submitGradient: {
     paddingVertical: 16, flexDirection: 'row', alignItems: 'center',
@@ -234,13 +234,13 @@ const styles = StyleSheet.create({
   // Success state
   successContainer: {
     flex: 1, justifyContent: 'center', alignItems: 'center',
-    backgroundColor: colors.white, paddingHorizontal: 40,
+    backgroundColor: staticColors.white, paddingHorizontal: 40,
   },
   successIconCircle: { marginBottom: 24 },
-  successTitle: { fontSize: 24, fontWeight: '800', color: colors.text, textAlign: 'center' },
-  successSub: { fontSize: 15, color: colors.textSecondary, textAlign: 'center', marginTop: 12 },
+  successTitle: { fontSize: 24, fontWeight: '800', color: staticColors.text, textAlign: 'center' },
+  successSub: { fontSize: 15, color: staticColors.textSecondary, textAlign: 'center', marginTop: 12 },
   successBtn: {
-    backgroundColor: colors.primary, paddingHorizontal: 40, paddingVertical: 16,
+    backgroundColor: staticColors.primary, paddingHorizontal: 40, paddingVertical: 16,
     borderRadius: 14, marginTop: 32,
   },
   successBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },

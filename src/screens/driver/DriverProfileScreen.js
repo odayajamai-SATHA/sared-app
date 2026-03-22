@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
 export default function DriverProfileScreen({ route, navigation }) {
   const driver = route.params?.driver;
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const menuItems = [
     { icon: 'car-outline', label: t('vehicleInfo') },
@@ -110,12 +110,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.white,
+    color: staticColors.white,
   },
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     margin: 16,
     padding: 16,
     borderRadius: 14,
@@ -140,11 +140,11 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
   },
   phone: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 2,
   },
   plate: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   statsRow: {
     flexDirection: 'row',
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     borderRadius: 14,
     padding: 16,
@@ -173,20 +173,20 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
     marginTop: 4,
   },
   statLabel: {
     fontSize: 11,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 2,
   },
   statDivider: {
     width: 1,
-    backgroundColor: colors.border,
+    backgroundColor: staticColors.border,
   },
   menu: {
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     marginHorizontal: 16,
     borderRadius: 14,
     overflow: 'hidden',
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightGray,
+    borderBottomColor: staticColors.lightGray,
   },
   menuLabel: {
     flex: 1,
     fontSize: 15,
-    color: colors.text,
+    color: staticColors.text,
     marginStart: 12,
   },
   logoutBtn: {

@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../utils/colors';
+import { colors as staticColors } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
 export default function DriverEarningsScreen({ route, navigation }) {
   const driver = route.params?.driver;
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const recentJobs = [
     { id: 1, customer: 'Mohammed', service: 'Tow', amount: 180, time: '2:30 PM' },
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.white,
+    color: staticColors.white,
   },
   earningsTotal: {
     alignItems: 'center',
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   earningsAmount: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: colors.white,
+    color: staticColors.white,
     marginTop: 4,
   },
   earningsStats: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   earningStatValue: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.white,
+    color: staticColors.white,
   },
   earningStatLabel: {
     fontSize: 11,
@@ -162,13 +162,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: colors.text,
+    color: staticColors.text,
     marginBottom: 14,
   },
   jobCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: staticColors.white,
     borderRadius: 14,
     padding: 14,
     marginBottom: 10,
@@ -193,11 +193,11 @@ const styles = StyleSheet.create({
   jobCustomer: {
     fontSize: 15,
     fontWeight: '600',
-    color: colors.text,
+    color: staticColors.text,
   },
   jobService: {
     fontSize: 13,
-    color: colors.textSecondary,
+    color: staticColors.textSecondary,
     marginTop: 2,
   },
   jobAmount: {

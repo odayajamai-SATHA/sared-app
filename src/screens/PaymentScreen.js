@@ -6,7 +6,7 @@ import {
 import * as Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -23,7 +23,7 @@ const PAYMENT_OPTIONS = [
 export default function PaymentScreen({ route, navigation }) {
   const { service, serviceId, size, price, pickup, destination, destinationName, fareTotal } = route.params || {};
   const { t, isRTL } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const [selected, setSelected] = useState(null);
   const [copied, setCopied] = useState(false);
   const copiedTimerRef = useRef(null);
@@ -194,40 +194,40 @@ export default function PaymentScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.lightGray },
+  container: { flex: 1, backgroundColor: staticColors.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: colors.card, borderBottomWidth: 1, borderBottomColor: colors.border,
+    backgroundColor: staticColors.card, borderBottomWidth: 1, borderBottomColor: staticColors.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
   rowReverse: { flexDirection: 'row-reverse' },
   scroll: { flex: 1 },
   scrollContent: { padding: 16 },
   totalCard: {
-    backgroundColor: colors.card, borderRadius: 20, padding: 24, alignItems: 'center',
+    backgroundColor: staticColors.card, borderRadius: 20, padding: 24, alignItems: 'center',
     marginBottom: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  totalLabel: { fontSize: 14, color: colors.textSecondary, marginBottom: 4 },
+  totalLabel: { fontSize: 14, color: staticColors.textSecondary, marginBottom: 4 },
   totalAmount: { fontSize: 36, fontWeight: '800', color: '#059669' },
-  vatNote: { fontSize: 12, color: colors.gray, marginTop: 4 },
+  vatNote: { fontSize: 12, color: staticColors.gray, marginTop: 4 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: colors.text,
+    fontSize: 17, fontWeight: '700', color: staticColors.text,
     marginBottom: 12, marginTop: 4,
   },
   optionCard: {
-    backgroundColor: colors.card, borderRadius: 16, padding: 16, marginBottom: 10,
-    borderWidth: 1.5, borderColor: colors.border,
+    backgroundColor: staticColors.card, borderRadius: 16, padding: 16, marginBottom: 10,
+    borderWidth: 1.5, borderColor: staticColors.border,
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04, shadowRadius: 8, elevation: 2,
   },
   optionCardSelected: {
-    borderColor: colors.primary, borderWidth: 2,
+    borderColor: staticColors.primary, borderWidth: 2,
   },
   optionCardDisabled: {
     opacity: 0.5,
@@ -242,27 +242,27 @@ const styles = StyleSheet.create({
   optionTextWrap: {
     flex: 1, marginHorizontal: 12,
   },
-  optionTitle: { fontSize: 16, fontWeight: '700', color: colors.text },
-  optionDesc: { fontSize: 13, color: colors.textSecondary, marginTop: 2 },
+  optionTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text },
+  optionDesc: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
   expandedContent: {
-    backgroundColor: colors.card, borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
-    borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.card, borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
+    borderWidth: 1, borderColor: staticColors.border,
   },
   stcInstructions: {
-    fontSize: 14, color: colors.textSecondary, lineHeight: 22, marginBottom: 14,
+    fontSize: 14, color: staticColors.textSecondary, lineHeight: 22, marginBottom: 14,
   },
   numberRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: colors.lightGray, borderRadius: 14, padding: 14, marginBottom: 14,
-    borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.lightGray, borderRadius: 14, padding: 14, marginBottom: 14,
+    borderWidth: 1, borderColor: staticColors.border,
   },
-  numberText: { fontSize: 22, fontWeight: '800', color: colors.text, letterSpacing: 2 },
+  numberText: { fontSize: 22, fontWeight: '800', color: staticColors.text, letterSpacing: 2 },
   copyBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: colors.card, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
-    borderWidth: 1, borderColor: colors.border,
+    backgroundColor: staticColors.card, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
+    borderWidth: 1, borderColor: staticColors.border,
   },
-  copyText: { fontSize: 13, fontWeight: '600', color: colors.primary },
+  copyText: { fontSize: 13, fontWeight: '600', color: staticColors.primary },
   actionBtn: { borderRadius: 14, overflow: 'hidden' },
   actionGradient: {
     paddingVertical: 16, flexDirection: 'row', alignItems: 'center',
@@ -273,6 +273,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 6, paddingVertical: 20,
   },
-  secureText: { fontSize: 13, color: colors.gray },
+  secureText: { fontSize: 13, color: staticColors.gray },
   textRight: { textAlign: 'right' },
 });

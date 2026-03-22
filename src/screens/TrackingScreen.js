@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Animated, Linking, Modal, Pla
 import MapView, { Marker, Polyline } from '../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../utils/colors';
+import { colors as staticColors } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase, updateRideStatus, subscribeToRideUpdates } from '../utils/supabase';
@@ -11,7 +11,7 @@ import { supabase, updateRideStatus, subscribeToRideUpdates } from '../utils/sup
 export default function TrackingScreen({ route, navigation }) {
   const { service, size, price, fareBreakdown, paymentMethod, rideId } = route.params || {};
   const { t, isRTL, lang } = useI18n();
-  const { colors: C, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const mapRef = useRef(null);
   const sheetAnim = useRef(new Animated.Value(100)).current;
   const sheetFade = useRef(new Animated.Value(0)).current;
@@ -326,9 +326,9 @@ const styles = StyleSheet.create({
   },
   userDot: { width: 16, height: 16, borderRadius: 8, backgroundColor: '#3B82F6', borderWidth: 3, borderColor: '#FFF' },
   driverMarker: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primary,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.primary,
     justifyContent: 'center', alignItems: 'center',
-    shadowColor: colors.primary, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 5,
+    shadowColor: staticColors.primary, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 5,
   },
   etaBubble: {
     position: 'absolute', top: 110, right: 16, borderRadius: 14,
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
   etaNumber: { fontSize: 22, fontWeight: 'bold' },
   etaUnit: { fontSize: 11 },
   distBubble: {
-    position: 'absolute', top: 168, right: 16, backgroundColor: colors.primary, borderRadius: 8,
+    position: 'absolute', top: 168, right: 16, backgroundColor: staticColors.primary, borderRadius: 8,
     paddingHorizontal: 10, paddingVertical: 4, zIndex: 5,
   },
   distText: { fontSize: 12, fontWeight: '600', color: '#FFF' },
@@ -354,15 +354,15 @@ const styles = StyleSheet.create({
     width: 28, height: 28, borderRadius: 14, backgroundColor: '#E5E7EB',
     justifyContent: 'center', alignItems: 'center', marginBottom: 4,
   },
-  stepCircleActive: { backgroundColor: colors.primary },
-  stepCircleCurrent: { backgroundColor: colors.primary, borderWidth: 3, borderColor: colors.primaryFaded },
+  stepCircleActive: { backgroundColor: staticColors.primary },
+  stepCircleCurrent: { backgroundColor: staticColors.primary, borderWidth: 3, borderColor: staticColors.primaryFaded },
   stepLabel: { fontSize: 10, textAlign: 'center' },
   stepLabelActive: { fontWeight: '600' },
   stepLine: {
     position: 'absolute', top: 13, left: '60%', right: '-40%', height: 2,
     backgroundColor: '#E5E7EB', zIndex: -1,
   },
-  stepLineActive: { backgroundColor: colors.primary },
+  stepLineActive: { backgroundColor: staticColors.primary },
   driverCard: { flexDirection: 'row', alignItems: 'center', borderRadius: 14, padding: 14, marginBottom: 14 },
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: { width: 48, height: 48, borderRadius: 24, justifyContent: 'center', alignItems: 'center', marginEnd: 12 },
