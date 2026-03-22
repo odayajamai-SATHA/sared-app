@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     borderWidth: 2, borderColor: colors.border, position: 'relative',
   },
   cardSelected: {
-    borderColor: colors.primary, backgroundColor: '#F0FDF4',
+    borderColor: colors.primary, borderWidth: 3, backgroundColor: '#F0FDF4',
   },
   cardRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   textRight: { textAlign: 'right' },
   bottomBar: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    padding: 16, paddingBottom: 40, backgroundColor: '#FFF',
+    padding: 16, paddingBottom: 44, backgroundColor: colors.card,
     borderTopWidth: 1, borderTopColor: colors.border,
   },
   confirmBtn: {

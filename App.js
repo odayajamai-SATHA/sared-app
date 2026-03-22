@@ -63,7 +63,7 @@ function MainTabs() {
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.gray,
         tabBarStyle: {
-          height: 64, paddingBottom: 10, paddingTop: 8,
+          height: 80, paddingBottom: 24, paddingTop: 8,
           borderTopColor: colors.tabBarBorder, backgroundColor: colors.tabBar,
           shadowColor: colors.shadow, shadowOffset: { width: 0, height: -2 },
           shadowOpacity: isDark ? 0.3 : 0.06, shadowRadius: 8, elevation: 8,

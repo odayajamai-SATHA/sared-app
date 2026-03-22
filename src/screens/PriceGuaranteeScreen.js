@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   maxLabel: { fontSize: 16, fontWeight: '700', color: colors.text },
   maxValue: { fontSize: 20, fontWeight: '800', color: '#22C55E' },
   noteText: { fontSize: 12, color: colors.gray, marginTop: 12, lineHeight: 18 },
-  bottomBar: { padding: 16, backgroundColor: colors.card, borderTopWidth: 1, borderTopColor: colors.border },
+  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: colors.card, borderTopWidth: 1, borderTopColor: colors.border },
   confirmBtn: { borderRadius: 16, overflow: 'hidden' },
   confirmGradient: {
     paddingVertical: 18, flexDirection: 'row', alignItems: 'center',

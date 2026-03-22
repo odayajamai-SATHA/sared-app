@@ -78,10 +78,11 @@ export default function LoginScreen({ navigation: rawNav }) {
       setLoading(false);
       Alert.alert(
         t('error') || 'Error',
-        'SMS verification not available yet. Continue as guest?',
+        'SMS verification not available yet.',
         [
           { text: t('cancel') || 'Cancel', style: 'cancel' },
           { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
+          { text: 'Test OTP', onPress: () => navigation.navigate('OTP', { phone }) },
         ]
       );
     }
@@ -131,7 +132,7 @@ export default function LoginScreen({ navigation: rawNav }) {
               placeholderTextColor="rgba(255,255,255,0.4)"
               keyboardType="phone-pad"
               value={phone}
-              onChangeText={setPhone}
+              onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, ""))}
               maxLength={9}
             />
           </View>
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)', letterSpacing: 1,
   },
   otpButton: { borderRadius: 14, overflow: 'hidden', marginBottom: 10 },
-  otpButtonDisabled: { opacity: 0.5 },
+  otpButtonDisabled: { opacity: 0.3 },
   otpGradient: {
     paddingVertical: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
   },

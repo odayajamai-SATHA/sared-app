@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated, FlatList, Platform, useWindowDimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -62,9 +62,11 @@ const illStyles = StyleSheet.create({
 export default function OnboardingScreen({ navigation }) {
   const { t } = useI18n();
   const { width, height: screenHeight } = useWindowDimensions();
-  const slideHeight = screenHeight - 180;
+  const slideHeight = screenHeight - 200;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndexRef = useRef(0);
   const flatListRef = useRef(null);
+  const isScrollingRef = useRef(false);
 
   const slides = [
     {
@@ -84,17 +86,32 @@ export default function OnboardingScreen({ navigation }) {
     },
   ];
 
-  const goToSlide = (index) => {
-    flatListRef.current?.scrollToIndex({ index, animated: true });
-    setCurrentIndex(index);
-  };
+  const handleNext = useCallback(() => {
+    const nextIndex = currentIndexRef.current + 1;
+    if (nextIndex <= 2) {
+      isScrollingRef.current = true;
+      currentIndexRef.current = nextIndex;
+      setCurrentIndex(nextIndex);
+      flatListRef.current?.scrollToOffset({ offset: nextIndex * width, animated: true });
+      // Reset scrolling flag after animation
+      setTimeout(() => { isScrollingRef.current = false; }, 500);
+    } else {
+      navigation.replace('Login');
+    }
+  }, [width, navigation]);
 
-  const handleNext = () => {
-    if (currentIndex < 2) goToSlide(currentIndex + 1);
-    else navigation.replace('Login');
-  };
+  const onScroll = useCallback((e) => {
+    // Only update from manual swipe, not from programmatic scroll
+    if (!isScrollingRef.current) {
+      const idx = Math.round(e.nativeEvent.contentOffset.x / width);
+      if (idx >= 0 && idx <= 2 && idx !== currentIndexRef.current) {
+        currentIndexRef.current = idx;
+        setCurrentIndex(idx);
+      }
+    }
+  }, [width]);
 
-  const renderSlide = ({ item }) => (
+  const renderSlide = useCallback(({ item }) => (
     <View style={[styles.slide, { width, height: slideHeight }]}>
       <View style={styles.illustrationArea}>
         <AnimatedIllustration icons={item.icons} color={item.color} centerIcon={item.centerIcon} />
@@ -104,7 +121,7 @@ export default function OnboardingScreen({ navigation }) {
         <Text style={styles.subtitle}>{item.sub}</Text>
       </View>
     </View>
-  );
+  ), [width, slideHeight]);
 
   return (
     <LinearGradient colors={['#022C22', '#064E3B', '#065F46']} style={styles.container}>
@@ -121,12 +138,10 @@ export default function OnboardingScreen({ navigation }) {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(_, i) => String(i)}
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
-        onMomentumScrollEnd={(e) => {
-          const idx = Math.round(e.nativeEvent.contentOffset.x / width);
-          setCurrentIndex(idx);
-        }}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         style={styles.flatList}
-        extraData={width}
+        bounces={false}
       />
 
       <View style={styles.bottomArea}>
@@ -183,7 +198,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
   },
-  bottomArea: { paddingBottom: 50, paddingHorizontal: 24, alignItems: 'center' },
+  bottomArea: { paddingBottom: 60, paddingHorizontal: 24, alignItems: 'center' },
   dots: { flexDirection: 'row', gap: 8, marginBottom: 24 },
   dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.2)' },
   dotActive: { width: 28, backgroundColor: colors.primary },

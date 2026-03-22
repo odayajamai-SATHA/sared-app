@@ -4,38 +4,45 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useI18n } from '../utils/i18n';
-import { supabase } from '../utils/supabase';
 
 export default function SplashScreen({ navigation }) {
   const { t } = useI18n();
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.5)).current;
+  const textFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: Platform.OS !== 'web',
-    }).start();
+    // Shield icon: fade + scale bounce
+    Animated.sequence([
+      Animated.parallel([
+        Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: Platform.OS !== 'web' }),
+        Animated.spring(scaleAnim, { toValue: 1, tension: 50, friction: 7, useNativeDriver: Platform.OS !== 'web' }),
+      ]),
+      // Text fade in after icon
+      Animated.timing(textFade, { toValue: 1, duration: 400, useNativeDriver: Platform.OS !== 'web' }),
+    ]).start();
   }, []);
 
   useEffect(() => {
-    const checkAuth = async () => {
+    // Always redirect after 2.5 seconds — don't depend on Supabase
+    const timer = setTimeout(() => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        // Wait minimum splash time
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        if (session) {
-          navigation.replace('Main');
-        } else {
+        // Try to check auth
+        const { supabase } = require('../utils/supabase');
+        supabase.auth.getSession().then(({ data }) => {
+          if (data?.session) {
+            navigation.replace('Main');
+          } else {
+            navigation.replace('Onboarding');
+          }
+        }).catch(() => {
           navigation.replace('Onboarding');
-        }
+        });
       } catch {
-        // On error, go to onboarding
-        await new Promise(resolve => setTimeout(resolve, 2000));
         navigation.replace('Onboarding');
       }
-    };
-    checkAuth();
+    }, 2500);
+    return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
@@ -47,49 +54,26 @@ export default function SplashScreen({ navigation }) {
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.container}>
-        <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
-          <View style={styles.iconCircle}>
+        <View style={styles.content}>
+          <Animated.View style={[styles.iconCircle, { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }]}>
             <Ionicons name="shield-checkmark" size={80} color="#FFF" />
-          </View>
-          <Text style={styles.appName}>SARED</Text>
-          <Text style={styles.appNameAr}>{'\u0633\u0627\u0631\u062F'}</Text>
-          <Text style={styles.tagline}>{t('tagline')}</Text>
-        </Animated.View>
+          </Animated.View>
+          <Animated.View style={{ opacity: textFade }}>
+            <Text style={styles.appName}>SARED</Text>
+            <Text style={styles.appNameAr}>{'\u0633\u0627\u0631\u062F'}</Text>
+            <Text style={styles.tagline}>{t('tagline')}</Text>
+          </Animated.View>
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    alignItems: 'center',
-  },
-  iconCircle: {
-    marginBottom: 24,
-  },
-  appName: {
-    fontSize: 48,
-    fontWeight: '800',
-    color: '#FFF',
-    textAlign: 'center',
-    letterSpacing: 3,
-  },
-  appNameAr: {
-    fontSize: 36,
-    fontWeight: '600',
-    color: '#FFF',
-    textAlign: 'center',
-    marginTop: 8,
-  },
-  tagline: {
-    fontSize: 16,
-    color: 'rgba(255,255,255,0.8)',
-    textAlign: 'center',
-    marginTop: 20,
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  content: { alignItems: 'center' },
+  iconCircle: { marginBottom: 24 },
+  appName: { fontSize: 48, fontWeight: '800', color: '#FFF', textAlign: 'center', letterSpacing: 3 },
+  appNameAr: { fontSize: 36, fontWeight: '600', color: '#FFF', textAlign: 'center', marginTop: 8 },
+  tagline: { fontSize: 16, color: 'rgba(255,255,255,0.8)', textAlign: 'center', marginTop: 20 },
 });
