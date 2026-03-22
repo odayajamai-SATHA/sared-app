@@ -68,20 +68,20 @@ export default function DriverJobScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t('jobInProgress')}</Text>
+      <View style={[styles.header, { color: colors.text }]}>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('jobInProgress')}</Text>
         <Text style={styles.headerSub}>
           {ride?.sared_size} • {ride?.service_type}
         </Text>
       </View>
 
       {/* Progress Steps */}
-      <View style={styles.stepsContainer}>
+      <View style={[styles.stepsContainer, { color: colors.text }]}>
         {stepLabels.map((label, index) => (
-          <View key={index} style={styles.stepWrapper}>
-            <View style={styles.stepRow}>
+          <View key={index} style={[styles.stepWrapper, { color: colors.text }]}>
+            <View style={[styles.stepRow, { color: colors.text }]}>
               <View
                 style={[
                   styles.stepCircle,
@@ -121,51 +121,51 @@ export default function DriverJobScreen({ route, navigation }) {
       </View>
 
       {/* Current Step Detail */}
-      <View style={styles.detailCard}>
-        <View style={styles.detailHeader}>
+      <View style={[styles.detailCard, { color: colors.text }]}>
+        <View style={[styles.detailHeader, { color: colors.text }]}>
           <Ionicons
             name={stepIcons[currentStep]}
             size={32}
             color="#1E3A5F"
           />
-          <Text style={styles.detailTitle}>{stepLabels[currentStep]}</Text>
+          <Text style={[styles.detailTitle, { color: colors.text }]}>{stepLabels[currentStep]}</Text>
         </View>
 
         {currentStep === 0 && (
-          <Text style={styles.detailText}>{t('arrivedInstruction')}</Text>
+          <Text style={[styles.detailText, { color: colors.textSecondary }]}>{t('arrivedInstruction')}</Text>
         )}
         {currentStep === 1 && (
-          <Text style={styles.detailText}>{t('loadingInstruction')}</Text>
+          <Text style={[styles.detailText, { color: colors.textSecondary }]}>{t('loadingInstruction')}</Text>
         )}
         {currentStep === 2 && (
           <View>
-            <Text style={styles.detailText}>{t('inTransitInstruction')}</Text>
-            <View style={styles.routeInfo}>
+            <Text style={[styles.detailText, { color: colors.textSecondary }]}>{t('inTransitInstruction')}</Text>
+            <View style={[styles.routeInfo, { color: colors.text }]}>
               <View style={[styles.routeRow, isRTL && styles.rowReverse]}>
                 <View style={[styles.routeDot, { backgroundColor: '#22C55E' }]} />
-                <Text style={styles.routeText}>{t('pickupLocation')}</Text>
+                <Text style={[styles.routeText, { color: colors.text }]}>{t('pickupLocation')}</Text>
               </View>
-              <View style={styles.routeConnector} />
+              <View style={[styles.routeConnector, { color: colors.text }]} />
               <View style={[styles.routeRow, isRTL && styles.rowReverse]}>
                 <View style={[styles.routeDot, { backgroundColor: '#EF4444' }]} />
-                <Text style={styles.routeText}>{t('dropoffLocation')}</Text>
+                <Text style={[styles.routeText, { color: colors.text }]}>{t('dropoffLocation')}</Text>
               </View>
             </View>
           </View>
         )}
         {currentStep === 3 && (
-          <Text style={styles.detailText}>{t('completedInstruction')}</Text>
+          <Text style={[styles.detailText, { color: colors.textSecondary }]}>{t('completedInstruction')}</Text>
         )}
       </View>
 
       {/* Customer Info */}
       <View style={[styles.customerCard, isRTL && styles.rowReverse]}>
-        <View style={styles.customerAvatar}>
+        <View style={[styles.customerAvatar, { color: colors.text }]}>
           <Ionicons name="person" size={22} color="#1E3A5F" />
         </View>
         <View style={[styles.customerInfo, isRTL && { alignItems: 'flex-end' }]}>
-          <Text style={styles.customerName}>{customerName}</Text>
-          <Text style={styles.customerPrice}>{ride?.price} SAR</Text>
+          <Text style={[styles.customerName, { color: colors.text }]}>{customerName}</Text>
+          <Text style={[styles.customerPrice, { color: colors.primary }]}>{ride?.price} SAR</Text>
         </View>
         <TouchableOpacity style={styles.callBtn} onPress={handleCall}>
           <Ionicons name="call" size={18} color="#1E3A5F" />
@@ -173,9 +173,9 @@ export default function DriverJobScreen({ route, navigation }) {
       </View>
 
       {/* Action Button */}
-      <View style={styles.bottomActions}>
+      <View style={[styles.bottomActions, { color: colors.text }]}>
         <TouchableOpacity style={styles.nextBtn} onPress={handleNextStep}>
-          <Text style={styles.nextBtnText}>{getNextButtonLabel()}</Text>
+          <Text style={[styles.nextBtnText, { color: colors.text }]}>{getNextButtonLabel()}</Text>
           <Ionicons name="arrow-forward" size={20} color={colors.white} />
         </TouchableOpacity>
       </View>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   stepsContainer: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginTop: -10,
     borderRadius: 16,
@@ -229,11 +229,11 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: theme.border,
+    borderColor: 'transparent',
   },
   stepCircleActive: {
     backgroundColor: '#1E3A5F',
@@ -245,11 +245,11 @@ const styles = StyleSheet.create({
   },
   stepLabel: {
     fontSize: 15,
-    color: theme.gray,
+    color: '#6B7280',
     fontWeight: '500',
   },
   stepLabelActive: {
-    color: theme.text,
+    color: '#1F2937',
     fontWeight: '700',
   },
   stepLine: {
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#22C55E',
   },
   detailCard: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 16,
@@ -283,11 +283,11 @@ const styles = StyleSheet.create({
   detailTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   detailText: {
     fontSize: 14,
-    color: theme.textSecondary,
+    color: '#6B7280',
     lineHeight: 22,
   },
   routeInfo: {
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   },
   routeText: {
     fontSize: 14,
-    color: theme.text,
+    color: '#1F2937',
     fontWeight: '500',
   },
   routeConnector: {
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
   customerCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 14,
@@ -344,12 +344,12 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 15,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   customerPrice: {
     fontSize: 14,
     fontWeight: '600',
-    color: theme.primary,
+    color: '#059669',
     marginTop: 2,
   },
   callBtn: {
@@ -367,9 +367,9 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 20,
     paddingBottom: 40,
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderTopWidth: 1,
-    borderTopColor: theme.border,
+    borderTopColor: 'transparent',
   },
   nextBtn: {
     backgroundColor: '#1E3A5F',

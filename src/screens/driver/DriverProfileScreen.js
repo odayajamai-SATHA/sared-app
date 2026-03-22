@@ -19,49 +19,49 @@ export default function DriverProfileScreen({ route, navigation }) {
   ];
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.header}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
+      <View style={[styles.header, { color: colors.text }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.white} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>{t('driverProfile')}</Text>
+          <Text style={[styles.headerTitle, { color: colors.text }]}>{t('driverProfile')}</Text>
           <View style={{ width: 40 }} />
         </View>
       </View>
 
       <View style={[styles.profileCard, isRTL && styles.rowReverse]}>
-        <View style={styles.avatar}>
+        <View style={[styles.avatar, { color: colors.text }]}>
           <Ionicons name="person" size={32} color="#1E3A5F" />
         </View>
         <View style={[styles.profileInfo, isRTL && { alignItems: 'flex-end' }]}>
-          <Text style={styles.name}>{driver?.name || t('driverName')}</Text>
-          <Text style={styles.phone}>{driver?.phone || '+966 5X XXX XXXX'}</Text>
-          <Text style={styles.plate}>{driver?.plate_number || 'ABC 1234'}</Text>
+          <Text style={[styles.name, { color: colors.text }]}>{driver?.name || t('driverName')}</Text>
+          <Text style={[styles.phone, { color: colors.textSecondary }]}>{driver?.phone || '+966 5X XXX XXXX'}</Text>
+          <Text style={[styles.plate, { color: colors.text }]}>{driver?.plate_number || 'ABC 1234'}</Text>
         </View>
       </View>
 
-      <View style={styles.statsRow}>
-        <View style={styles.statItem}>
+      <View style={[styles.statsRow, { color: colors.text }]}>
+        <View style={[styles.statItem, { color: colors.text }]}>
           <Ionicons name="star" size={18} color="#FBBF24" />
-          <Text style={styles.statNumber}>{driver?.rating || '4.8'}</Text>
-          <Text style={styles.statLabel}>{t('rating')}</Text>
+          <Text style={[styles.statNumber, { color: colors.text }]}>{driver?.rating || '4.8'}</Text>
+          <Text style={[styles.statLabel, { color: colors.textSecondary }]}>{t('rating')}</Text>
         </View>
-        <View style={styles.statDivider} />
-        <View style={styles.statItem}>
+        <View style={[styles.statDivider, { color: colors.text }]} />
+        <View style={[styles.statItem, { color: colors.text }]}>
           <Ionicons name="car-sport" size={18} color="#1E3A5F" />
-          <Text style={styles.statNumber}>156</Text>
-          <Text style={styles.statLabel}>{t('totalTrips')}</Text>
+          <Text style={[styles.statNumber, { color: colors.text }]}>156</Text>
+          <Text style={[styles.statLabel, { color: colors.textSecondary }]}>{t('totalTrips')}</Text>
         </View>
-        <View style={styles.statDivider} />
-        <View style={styles.statItem}>
+        <View style={[styles.statDivider, { color: colors.text }]} />
+        <View style={[styles.statItem, { color: colors.text }]}>
           <Ionicons name="time" size={18} color="#1E3A5F" />
-          <Text style={styles.statNumber}>3m</Text>
-          <Text style={styles.statLabel}>{t('memberSince')}</Text>
+          <Text style={[styles.statNumber, { color: colors.text }]}>3m</Text>
+          <Text style={[styles.statLabel, { color: colors.textSecondary }]}>{t('memberSince')}</Text>
         </View>
       </View>
 
-      <View style={styles.menu}>
+      <View style={[styles.menu, { color: colors.text }]}>
         {menuItems.map((item, index) => (
           <TouchableOpacity key={index} style={[styles.menuItem, isRTL && styles.rowReverse]}
             onPress={() => Alert.alert(item.label, t('featureComingSoon'))}>
@@ -73,7 +73,7 @@ export default function DriverProfileScreen({ route, navigation }) {
       </View>
 
       <TouchableOpacity
-        style={styles.logoutBtn}
+        style={[styles.logoutBtn, { color: colors.text }]}
         onPress={() => navigation.replace('DriverLogin')}
       >
         <Ionicons name="log-out-outline" size={22} color="#EF4444" />
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     margin: 16,
     padding: 16,
     borderRadius: 14,
@@ -140,11 +140,11 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   phone: {
     fontSize: 14,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 2,
   },
   plate: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   statsRow: {
     flexDirection: 'row',
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     borderRadius: 14,
     padding: 16,
@@ -173,12 +173,12 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
     marginTop: 4,
   },
   statLabel: {
     fontSize: 11,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 2,
   },
   statDivider: {
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.border,
   },
   menu: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     borderRadius: 14,
     overflow: 'hidden',
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: theme.lightGray,
+    borderBottomColor: 'transparent',
   },
   menuLabel: {
     flex: 1,
     fontSize: 15,
-    color: theme.text,
+    color: '#1F2937',
     marginStart: 12,
   },
   logoutBtn: {

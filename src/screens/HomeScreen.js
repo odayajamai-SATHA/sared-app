@@ -61,37 +61,37 @@ export default function HomeScreen({ navigation: rawNav }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <StatusBar style="dark" />
 
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         {/* Greeting */}
-        <View style={styles.greetingSection}>
+        <View style={[styles.greetingSection, { color: colors.text }]}>
           <Text style={[styles.greeting, { color: colors.text }, isRTL && styles.textRight]}>{getGreeting()}</Text>
           <Text style={[styles.greetingSub, { color: colors.textSecondary }, isRTL && styles.textRight]}>
             {t('howCanWeHelp') || 'How can we help you today?'}
           </Text>
-          <TouchableOpacity style={styles.helpLink}
+          <TouchableOpacity style={[styles.helpLink, { color: colors.text }]}
             onPress={() => { try { Linking.openURL('https://wa.me/966554404434'); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={14} color="#25D366" />
-            <Text style={styles.helpLinkText}>
+            <Text style={[styles.helpLinkText, { color: colors.text }]}>
               {isRTL ? 'تحتاج مساعدة؟' : 'Need help?'}
             </Text>
           </TouchableOpacity>
         </View>
 
         {/* Search bar + notification */}
-        <View style={styles.searchRow}>
+        <View style={[styles.searchRow, { color: colors.text }]}>
           <TouchableOpacity
-            style={[styles.searchBar, { backgroundColor: colors.surfaceSecondary }]}
+            style={[styles.searchBar, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Destination', { pickup })}
           >
             <Ionicons name="search" size={20} color={colors.gray} />
-            <Text style={styles.searchPlaceholder}>{t('whereNeedSared')}</Text>
+            <Text style={[styles.searchPlaceholder, { color: colors.textSecondary }]}>{t('whereNeedSared')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.notifBtn, { backgroundColor: colors.surfaceSecondary }]}
+            style={[styles.notifBtn, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]}
             onPress={() => Alert.alert(t('notifications'), t('featureComingSoon'))}
           >
             <Ionicons name="notifications-outline" size={20} color={colors.text} />
@@ -103,8 +103,8 @@ export default function HomeScreen({ navigation: rawNav }) {
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Service', { pickup })}>
             <LinearGradient colors={['#059669', '#047857']} style={styles.promoBanner}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-              <View style={styles.promoContent}>
-                <View style={styles.promoBadge}>
+              <View style={[styles.promoContent, { color: colors.text }]}>
+                <View style={[styles.promoBadge, { color: colors.text }]}>
                   <Text style={styles.promoBadgeText}>50%</Text>
                 </View>
                 <View style={{ flex: 1 }}>
@@ -122,7 +122,7 @@ export default function HomeScreen({ navigation: rawNav }) {
         <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
           {t('quickServices') || 'Quick Services'}
         </Text>
-        <View style={styles.quickGrid}>
+        <View style={[styles.quickGrid, { color: colors.text }]}>
           {quickActions.map((action) => (
             <TouchableOpacity
               key={action.id}
@@ -152,7 +152,7 @@ export default function HomeScreen({ navigation: rawNav }) {
         {recentLocations.map((loc) => (
           <TouchableOpacity key={loc.id} style={[styles.recentRow, isRTL && styles.rowReverse]}
             onPress={() => navigation.navigate('Service', { pickup })}>
-            <View style={styles.recentIcon}>
+            <View style={[styles.recentIcon, { color: colors.text }]}>
               <Ionicons name="time-outline" size={18} color={colors.textSecondary} />
             </View>
             <View style={{ flex: 1 }}>
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, paddingHorizontal: 20 },
   greetingSection: { paddingTop: 60, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800' },
-  greetingSub: { fontSize: 15, color: theme.textSecondary, marginTop: 4 },
+  greetingSub: { fontSize: 15, color: '#6B7280', marginTop: 4 },
   helpLink: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },
   helpLinkText: { fontSize: 13, color: '#25D366', fontWeight: '600' },
   searchRow: {
@@ -181,13 +181,13 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flex: 1, flexDirection: 'row', alignItems: 'center',
-    backgroundColor: theme.lightGray, borderRadius: 16,
+    backgroundColor: 'transparent', borderRadius: 16,
     paddingHorizontal: 16, paddingVertical: 14, gap: 10,
   },
-  searchPlaceholder: { flex: 1, fontSize: 15, color: theme.gray },
+  searchPlaceholder: { flex: 1, fontSize: 15, color: '#6B7280' },
   notifBtn: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: theme.lightGray, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center',
     marginStart: 8,
   },
   promoBanner: { borderRadius: 16, marginBottom: 24, overflow: 'hidden' },
@@ -200,33 +200,33 @@ const styles = StyleSheet.create({
   promoTitle: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   promoCode: { fontSize: 20, fontWeight: '900', color: '#FFF', marginTop: 2 },
   promoSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: theme.text, marginBottom: 14 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
   quickGrid: {
     flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 24,
   },
   quickCard: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 1, borderColor: theme.border, alignItems: 'center',
+    borderWidth: 1, borderColor: 'transparent', alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,
   },
   quickIcon: {
     width: 56, height: 56, borderRadius: 16,
     justifyContent: 'center', alignItems: 'center', marginBottom: 10,
   },
-  quickLabel: { fontSize: 14, fontWeight: '700', color: theme.text, textAlign: 'center' },
+  quickLabel: { fontSize: 14, fontWeight: '700', color: '#1F2937', textAlign: 'center' },
   quickPrice: { fontSize: 16, fontWeight: '800', marginTop: 4, textAlign: 'center' },
-  quickVat: { fontSize: 11, color: theme.gray, marginTop: 2 },
+  quickVat: { fontSize: 11, color: '#6B7280', marginTop: 2 },
   recentRow: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 12,
-    borderBottomWidth: 1, borderBottomColor: theme.lightGray,
+    borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   recentIcon: {
-    width: 36, height: 36, borderRadius: 18, backgroundColor: theme.lightGray,
+    width: 36, height: 36, borderRadius: 18, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  recentName: { fontSize: 15, fontWeight: '600', color: theme.text },
-  recentSub: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
+  recentName: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
+  recentSub: { fontSize: 13, color: '#6B7280', marginTop: 2 },
   rowReverse: { flexDirection: 'row-reverse' },
   textRight: { textAlign: 'right' },
 });

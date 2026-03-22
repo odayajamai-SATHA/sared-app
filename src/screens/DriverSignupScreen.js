@@ -62,13 +62,13 @@ export default function DriverSignupScreen({ navigation }) {
 
   if (submitted) {
     return (
-      <View style={styles.successContainer}>
-        <View style={styles.successIconCircle}>
+      <View style={[styles.successContainer, { color: colors.text }]}>
+        <View style={[styles.successIconCircle, { color: colors.text }]}>
           <Ionicons name="checkmark-circle" size={72} color="#22C55E" />
         </View>
-        <Text style={styles.successTitle}>{t('applicationSubmittedSuccess')}</Text>
-        <Text style={styles.successSub}>{t('contactWithin48')}</Text>
-        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
+        <Text style={[styles.successTitle, { color: colors.text }]}>{t('applicationSubmittedSuccess')}</Text>
+        <Text style={[styles.successSub, { color: colors.textSecondary }]}>{t('contactWithin48')}</Text>
+        <TouchableOpacity style={[styles.successBtn, { color: colors.text }]} onPress={() => navigation.goBack()}>
           <Text style={styles.successBtnText}>{t('done')}</Text>
         </TouchableOpacity>
       </View>
@@ -76,8 +76,8 @@ export default function DriverSignupScreen({ navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <LinearGradient colors={['#022C22', '#065F46']} style={styles.headerGradient}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
+      <LinearGradient colors={['#022C22', '#065F46']} style={[styles.headerGradient, { color: colors.text }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
@@ -87,9 +87,9 @@ export default function DriverSignupScreen({ navigation }) {
         </View>
         <Text style={styles.headerSub}>{t('driverSignupSub')}</Text>
 
-        <View style={styles.benefitsRow}>
+        <View style={[styles.benefitsRow, { color: colors.text }]}>
           {benefits.map((b, i) => (
-            <View key={i} style={styles.benefitItem}>
+            <View key={i} style={[styles.benefitItem, { color: colors.text }]}>
               <View style={[styles.benefitIcon, { backgroundColor: b.color + '20' }]}>
                 <Ionicons name={b.icon} size={18} color={b.color} />
               </View>
@@ -101,56 +101,56 @@ export default function DriverSignupScreen({ navigation }) {
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Animated.View style={[styles.formCard, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
-          <Text style={styles.label}>{t('fullName')}</Text>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('fullName')}</Text>
           <TextInput style={styles.input} placeholder={t('fullNamePlaceholder')} placeholderTextColor={colors.gray}
             value={form.name} onChangeText={(v) => update('name', v)} />
 
-          <Text style={styles.label}>{t('enterPhone')}</Text>
-          <View style={styles.phoneRow}>
-            <View style={styles.codeBox}><Text style={styles.codeText}>+966</Text></View>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('enterPhone')}</Text>
+          <View style={[styles.phoneRow, { color: colors.text }]}>
+            <View style={[styles.codeBox, { color: colors.text }]}><Text style={[styles.codeText, { color: colors.text }]}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={9} />
           </View>
 
-          <Text style={styles.label}>{t('iqamaId')}</Text>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('iqamaId')}</Text>
           <TextInput style={styles.input} placeholder={t('iqamaPlaceholder')} placeholderTextColor={colors.gray}
             keyboardType="number-pad" value={form.iqama} onChangeText={(v) => update('iqama', v)} maxLength={10} />
 
-          <Text style={styles.label}>{t('vehicleType')}</Text>
-          <TouchableOpacity style={styles.dropdown} onPress={() => setShowVehicleMenu(!showVehicleMenu)}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('vehicleType')}</Text>
+          <TouchableOpacity style={[styles.dropdown, { color: colors.text }]} onPress={() => setShowVehicleMenu(!showVehicleMenu)}>
             <Text style={form.vehicleType ? styles.dropdownValue : styles.dropdownPlaceholder}>
               {form.vehicleType ? t(form.vehicleType) : t('selectVehicleType')}
             </Text>
             <Ionicons name="chevron-down" size={18} color={colors.gray} />
           </TouchableOpacity>
           {showVehicleMenu && (
-            <View style={styles.menuList}>
+            <View style={[styles.menuList, { color: colors.text }]}>
               {VEHICLE_TYPES.map((vt) => (
-                <TouchableOpacity key={vt} style={styles.menuItem}
+                <TouchableOpacity key={vt} style={[styles.menuItem, { color: colors.text }]}
                   onPress={() => { update('vehicleType', vt); setShowVehicleMenu(false); }}>
-                  <Text style={styles.menuItemText}>{t(vt)}</Text>
+                  <Text style={[styles.menuItemText, { color: colors.text }]}>{t(vt)}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           )}
 
-          <Text style={styles.label}>{t('plateNumber')}</Text>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('plateNumber')}</Text>
           <TextInput style={styles.input} placeholder={t('platePlaceholder')} placeholderTextColor={colors.gray}
             autoCapitalize="characters" value={form.plate} onChangeText={(v) => update('plate', v)} />
 
-          <Text style={styles.label}>{t('city')}</Text>
-          <TouchableOpacity style={styles.dropdown} onPress={() => setShowCityMenu(!showCityMenu)}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('city')}</Text>
+          <TouchableOpacity style={[styles.dropdown, { color: colors.text }]} onPress={() => setShowCityMenu(!showCityMenu)}>
             <Text style={form.city ? styles.dropdownValue : styles.dropdownPlaceholder}>
               {form.city || t('selectCity')}
             </Text>
             <Ionicons name="chevron-down" size={18} color={colors.gray} />
           </TouchableOpacity>
           {showCityMenu && (
-            <View style={styles.menuList}>
+            <View style={[styles.menuList, { color: colors.text }]}>
               {cityList.map((c) => (
-                <TouchableOpacity key={c} style={styles.menuItem}
+                <TouchableOpacity key={c} style={[styles.menuItem, { color: colors.text }]}
                   onPress={() => { update('city', c); setShowCityMenu(false); }}>
-                  <Text style={styles.menuItemText}>{c}</Text>
+                  <Text style={[styles.menuItemText, { color: colors.text }]}>{c}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -158,7 +158,7 @@ export default function DriverSignupScreen({ navigation }) {
 
           <TouchableOpacity style={[styles.submitBtn, (!isValid || submitting) && { opacity: 0.5 }]}
             onPress={handleSubmit} disabled={!isValid || submitting}>
-            <LinearGradient colors={['#059669', '#047857']} style={styles.submitGradient}>
+            <LinearGradient colors={['#059669', '#047857']} style={[styles.submitGradient, { color: colors.text }]}>
               {submitting ? (
                 <ActivityIndicator size="small" color="#FFF" />
               ) : (
@@ -176,7 +176,7 @@ export default function DriverSignupScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 24 },
   headerRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -201,30 +201,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginTop: -12,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  label: { fontSize: 13, fontWeight: '600', color: theme.textSecondary, marginBottom: 6, marginTop: 12 },
+  label: { fontSize: 13, fontWeight: '600', color: '#6B7280', marginBottom: 6, marginTop: 12 },
   input: {
-    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    fontSize: 15, color: theme.text, borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent',
   },
   phoneRow: { flexDirection: 'row', gap: 10 },
   codeBox: {
-    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14,
-    justifyContent: 'center', borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14,
+    justifyContent: 'center', borderWidth: 1, borderColor: 'transparent',
   },
-  codeText: { fontSize: 15, color: theme.text, fontWeight: '500' },
+  codeText: { fontSize: 15, color: '#1F2937', fontWeight: '500' },
   dropdown: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    borderWidth: 1, borderColor: 'transparent',
   },
-  dropdownValue: { fontSize: 15, color: theme.text },
-  dropdownPlaceholder: { fontSize: 15, color: theme.gray },
+  dropdownValue: { fontSize: 15, color: '#1F2937' },
+  dropdownPlaceholder: { fontSize: 15, color: '#6B7280' },
   menuList: {
-    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: theme.border,
+    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: 'transparent',
     marginTop: 4, overflow: 'hidden',
   },
-  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: theme.lightGray },
-  menuItemText: { fontSize: 15, color: theme.text },
+  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: 'transparent' },
+  menuItemText: { fontSize: 15, color: '#1F2937' },
   submitBtn: { borderRadius: 14, overflow: 'hidden', marginTop: 24 },
   submitGradient: {
     paddingVertical: 16, flexDirection: 'row', alignItems: 'center',
@@ -234,11 +234,11 @@ const styles = StyleSheet.create({
   // Success state
   successContainer: {
     flex: 1, justifyContent: 'center', alignItems: 'center',
-    backgroundColor: theme.white, paddingHorizontal: 40,
+    backgroundColor: 'transparent', paddingHorizontal: 40,
   },
   successIconCircle: { marginBottom: 24 },
-  successTitle: { fontSize: 24, fontWeight: '800', color: theme.text, textAlign: 'center' },
-  successSub: { fontSize: 15, color: theme.textSecondary, textAlign: 'center', marginTop: 12 },
+  successTitle: { fontSize: 24, fontWeight: '800', color: '#1F2937', textAlign: 'center' },
+  successSub: { fontSize: 15, color: '#6B7280', textAlign: 'center', marginTop: 12 },
   successBtn: {
     backgroundColor: theme.primary, paddingHorizontal: 40, paddingVertical: 16,
     borderRadius: 14, marginTop: 32,

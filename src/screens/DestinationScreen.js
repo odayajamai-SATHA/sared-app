@@ -74,7 +74,7 @@ export default function DestinationScreen({ route, navigation }) {
 
   if (showMap) {
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
         <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
           <TouchableOpacity onPress={() => setShowMap(false)} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -91,7 +91,7 @@ export default function DestinationScreen({ route, navigation }) {
         >
           {selectedLocation && (
             <Marker coordinate={selectedLocation} title={t('dropoffLocation')}>
-              <View style={styles.pinMarker}>
+              <View style={[styles.pinMarker, { color: colors.text }]}>
                 <Ionicons name="location" size={24} color={colors.white} />
               </View>
             </Marker>
@@ -99,14 +99,14 @@ export default function DestinationScreen({ route, navigation }) {
         </MapView>
 
         {/* Center crosshair hint */}
-        <View style={styles.crosshairContainer} pointerEvents="none">
+        <View style={[styles.crosshairContainer, { color: colors.text }]} pointerEvents="none">
           <Ionicons name="add" size={32} color={colors.primary} />
         </View>
 
         {selectedLocation && (
           <TouchableOpacity style={styles.confirmPinBtn} onPress={handleConfirmPin}>
             <Ionicons name="checkmark" size={20} color={colors.white} />
-            <Text style={styles.confirmPinText}>{t('confirmLocation')}</Text>
+            <Text style={[styles.confirmPinText, { color: colors.text }]}>{t('confirmLocation')}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -114,7 +114,7 @@ export default function DestinationScreen({ route, navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -123,7 +123,7 @@ export default function DestinationScreen({ route, navigation }) {
         <View style={{ width: 40 }} />
       </View>
 
-      <View style={styles.searchContainer}>
+      <View style={[styles.searchContainer, { color: colors.text }]}>
         <Ionicons name="search" size={20} color={colors.gray} />
         <TextInput
           style={[styles.searchInput, isRTL && styles.textRight]}
@@ -141,7 +141,7 @@ export default function DestinationScreen({ route, navigation }) {
       </View>
 
       <TouchableOpacity style={[styles.mapOption, isRTL && styles.rowReverse]} onPress={() => setShowMap(true)}>
-        <View style={styles.mapOptionIcon}>
+        <View style={[styles.mapOptionIcon, { color: colors.text }]}>
           <Ionicons name="map-outline" size={20} color={colors.primary} />
         </View>
         <Text style={[styles.mapOptionText, isRTL && styles.textRight]}>{t('dropPin')}</Text>
@@ -157,7 +157,7 @@ export default function DestinationScreen({ route, navigation }) {
             style={[styles.suggestionRow, isRTL && styles.rowReverse]}
             onPress={() => handleSelectSuggestion(item)}
           >
-            <View style={styles.suggestionIcon}>
+            <View style={[styles.suggestionIcon, { color: colors.text }]}>
               <Ionicons name="location-outline" size={18} color={colors.textSecondary} />
             </View>
             <View style={{ flex: 1 }}>
@@ -187,22 +187,22 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 16,
     paddingBottom: 12,
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderBottomWidth: 1,
-    borderBottomColor: theme.border,
+    borderBottomColor: 'transparent',
   },
   backBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
     margin: 16,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     borderRadius: 12,
     gap: 10,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: theme.text,
+    color: '#1F2937',
   },
   mapOption: {
     flexDirection: 'row',
@@ -225,14 +225,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 8,
     padding: 14,
-    backgroundColor: theme.primaryFaded,
+    backgroundColor: 'rgba(5,150,105,0.1)',
     borderRadius: 12,
   },
   mapOptionIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 12,
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     fontWeight: '600',
-    color: theme.primary,
+    color: '#059669',
   },
   list: {
     flex: 1,
@@ -252,13 +252,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: theme.lightGray,
+    borderBottomColor: 'transparent',
   },
   suggestionIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 12,
@@ -266,11 +266,11 @@ const styles = StyleSheet.create({
   suggestionName: {
     fontSize: 15,
     fontWeight: '600',
-    color: theme.text,
+    color: '#1F2937',
   },
   suggestionSub: {
     fontSize: 13,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 2,
   },
   rowReverse: {

@@ -42,17 +42,17 @@ export default function TripCompleteScreen({ route, navigation }) {
   };
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.contentContainer}>
-      <LinearGradient colors={['#059669', '#047857']} style={styles.topSection}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]} contentContainerStyle={styles.contentContainer}>
+      <LinearGradient colors={['#059669', '#047857']} style={[styles.topSection, { color: colors.text }]}>
         <Animated.View style={{ transform: [{ scale: checkScale }] }}>
-          <View style={styles.checkCircle}>
+          <View style={[styles.checkCircle, { color: colors.text }]}>
             <Ionicons name="checkmark" size={48} color="#FFF" />
           </View>
         </Animated.View>
         <Text style={styles.title}>{t('tripComplete')}</Text>
       </LinearGradient>
 
-      <Animated.View style={[styles.card, { backgroundColor: colors.card }, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
+      <Animated.View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
         <Text style={[styles.cardTitle, isRTL && styles.textRight]}>{t('tripSummary')}</Text>
         {[
           [t('service'), service],
@@ -60,29 +60,29 @@ export default function TripCompleteScreen({ route, navigation }) {
           [t('distance'), '12.4 ' + t('km')],
           [t('duration'), '28 ' + t('minutes')],
         ].map(([label, value], i) => (
-          <View key={i} style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>{label}</Text>
-            <Text style={styles.summaryValue}>{value}</Text>
+          <View key={i} style={[styles.summaryRow, { color: colors.text }]}>
+            <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{label}</Text>
+            <Text style={[styles.summaryValue, { color: colors.text }]}>{value}</Text>
           </View>
         ))}
-        <View style={styles.totalRow}>
-          <Text style={styles.totalLabel}>{t('totalPrice')}</Text>
-          <Text style={styles.totalValue}>{price}</Text>
+        <View style={[styles.totalRow, { color: colors.text }]}>
+          <Text style={[styles.totalLabel, { color: colors.text }]}>{t('totalPrice')}</Text>
+          <Text style={[styles.totalValue, { color: colors.primary }]}>{price}</Text>
         </View>
       </Animated.View>
 
-      <Animated.View style={[styles.ratingCard, { backgroundColor: colors.card }, { opacity: cardFade }]}>
-        <Text style={styles.rateTitle}>{t('rateDriver')}</Text>
+      <Animated.View style={[styles.ratingCard, { backgroundColor: colors.card, borderColor: colors.border }, { opacity: cardFade }]}>
+        <Text style={[styles.rateTitle, { color: colors.text }]}>{t('rateDriver')}</Text>
         <View style={[styles.driverRow, isRTL && styles.rowReverse]}>
-          <View style={styles.driverAvatar}>
+          <View style={[styles.driverAvatar, { color: colors.text }]}>
             <Ionicons name="person" size={24} color={colors.primary} />
           </View>
           <Text style={styles.driverName} numberOfLines={1}>{t('driverName')}</Text>
         </View>
 
-        <View style={styles.starsRow}>
+        <View style={[styles.starsRow, { color: colors.text }]}>
           {[1, 2, 3, 4, 5].map((star) => (
-            <TouchableOpacity key={star} onPress={() => handleRating(star)} style={styles.starBtn}>
+            <TouchableOpacity key={star} onPress={() => handleRating(star)} style={[styles.starBtn, { color: colors.text }]}>
               <Animated.View style={{ transform: [{ scale: starAnims[star - 1] }] }}>
                 <Ionicons
                   name={star <= rating ? 'star' : 'star-outline'}
@@ -94,14 +94,14 @@ export default function TripCompleteScreen({ route, navigation }) {
           ))}
         </View>
 
-        <Text style={styles.tapHint}>{rating > 0 ? `${rating}/5` : t('tapToRate')}</Text>
+        <Text style={[styles.tapHint, { color: colors.textSecondary }]}>{rating > 0 ? `${rating}/5` : t('tapToRate')}</Text>
 
         <TouchableOpacity
           style={[styles.submitBtn, !rating && styles.submitBtnDisabled]}
           onPress={handleSubmit}
           disabled={!rating}
         >
-          <LinearGradient colors={rating ? ['#059669', '#047857'] : ['#D1D5DB', '#D1D5DB']} style={styles.submitGradient}>
+          <LinearGradient colors={rating ? ['#059669', '#047857'] : ['#D1D5DB', '#D1D5DB']} style={[styles.submitGradient, { color: colors.text }]}>
             <Ionicons name="receipt-outline" size={18} color="#FFF" />
             <Text style={styles.submitBtnText}>{t('viewReceipt')}</Text>
           </LinearGradient>
@@ -112,7 +112,7 @@ export default function TripCompleteScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   contentContainer: { paddingBottom: 40 },
   topSection: { alignItems: 'center', paddingTop: 80, paddingBottom: 50 },
   checkCircle: {
@@ -121,35 +121,35 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 26, fontWeight: 'bold', color: '#FFF' },
   card: {
-    backgroundColor: theme.card, marginHorizontal: 16, marginTop: -24, borderRadius: 20,
+    backgroundColor: 'transparent', marginHorizontal: 16, marginTop: -24, borderRadius: 20,
     padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08, shadowRadius: 16, elevation: 6,
   },
-  cardTitle: { fontSize: 18, fontWeight: '700', color: theme.text, marginBottom: 16 },
+  cardTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 16 },
   summaryRow: {
     flexDirection: 'row', justifyContent: 'space-between',
-    paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: theme.lightGray,
+    paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
-  summaryLabel: { fontSize: 14, color: theme.textSecondary },
-  summaryValue: { fontSize: 14, fontWeight: '600', color: theme.text },
+  summaryLabel: { fontSize: 14, color: '#6B7280' },
+  summaryValue: { fontSize: 14, fontWeight: '600', color: '#1F2937' },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 14, marginTop: 4 },
-  totalLabel: { fontSize: 16, fontWeight: '700', color: theme.text },
-  totalValue: { fontSize: 18, fontWeight: 'bold', color: theme.primary },
+  totalLabel: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
+  totalValue: { fontSize: 18, fontWeight: 'bold', color: '#059669' },
   ratingCard: {
-    backgroundColor: theme.card, marginHorizontal: 16, marginTop: 16, borderRadius: 20,
+    backgroundColor: 'transparent', marginHorizontal: 16, marginTop: 16, borderRadius: 20,
     padding: 24, alignItems: 'center',
   },
-  rateTitle: { fontSize: 18, fontWeight: '700', color: theme.text, marginBottom: 16 },
+  rateTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 16 },
   driverRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: {
-    width: 48, height: 48, borderRadius: 24, backgroundColor: theme.primaryFaded,
+    width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(5,150,105,0.1)',
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  driverName: { fontSize: 16, fontWeight: '600', color: theme.text },
+  driverName: { fontSize: 16, fontWeight: '600', color: '#1F2937' },
   starsRow: { flexDirection: 'row', gap: 8, marginBottom: 8 },
   starBtn: { padding: 4 },
-  tapHint: { fontSize: 14, color: theme.textSecondary, marginBottom: 20 },
+  tapHint: { fontSize: 14, color: '#6B7280', marginBottom: 20 },
   submitBtn: { width: '100%', borderRadius: 14, overflow: 'hidden' },
   submitBtnDisabled: { opacity: 0.5 },
   submitGradient: {

@@ -138,13 +138,13 @@ export default function DriverNavigationScreen({ route, navigation }) {
     : { ...defaultCoord, latitudeDelta: 0.04, longitudeDelta: 0.04 };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('navigateToCustomer')}</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>{t('navigateToCustomer')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -159,7 +159,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
         {/* Driver marker */}
         {driverLocation && (
           <Marker coordinate={driverLocation} title={driver?.name || t('driverName')}>
-            <View style={styles.driverMarker}>
+            <View style={[styles.driverMarker, { color: colors.text }]}>
               <Ionicons name="car-sport" size={20} color={colors.white} />
             </View>
           </Marker>
@@ -168,7 +168,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
         {/* Customer marker */}
         {customerLocation && (
           <Marker coordinate={customerLocation} title={customerName}>
-            <View style={styles.customerMarker}>
+            <View style={[styles.customerMarker, { color: colors.text }]}>
               <Ionicons name="location" size={18} color={colors.white} />
             </View>
           </Marker>
@@ -186,27 +186,27 @@ export default function DriverNavigationScreen({ route, navigation }) {
       </MapView>
 
       {/* Floating badges */}
-      <View style={styles.etaBadge}>
-        <Text style={styles.etaNumber}>{eta}</Text>
-        <Text style={styles.etaUnit}>{t('min')}</Text>
+      <View style={[styles.etaBadge, { color: colors.text }]}>
+        <Text style={[styles.etaNumber, { color: colors.text }]}>{eta}</Text>
+        <Text style={[styles.etaUnit, { color: colors.textSecondary }]}>{t('min')}</Text>
       </View>
 
-      <View style={styles.distanceBadge}>
-        <Text style={styles.distanceText}>{distanceKm.toFixed(1)} {t('km')}</Text>
+      <View style={[styles.distanceBadge, { color: colors.text }]}>
+        <Text style={[styles.distanceText, { color: colors.text }]}>{distanceKm.toFixed(1)} {t('km')}</Text>
       </View>
 
       {/* Bottom Panel */}
-      <View style={styles.bottomPanel}>
-        <View style={styles.handle} />
+      <View style={[styles.bottomPanel, { color: colors.text }]}>
+        <View style={[styles.handle, { color: colors.text }]} />
 
         {/* Customer Info */}
         <View style={[styles.customerCard, isRTL && styles.rowReverse]}>
-          <View style={styles.customerAvatar}>
+          <View style={[styles.customerAvatar, { color: colors.text }]}>
             <Ionicons name="person" size={24} color="#1E3A5F" />
           </View>
           <View style={[styles.customerInfo, isRTL && { alignItems: 'flex-end' }]}>
-            <Text style={styles.customerName}>{customerName}</Text>
-            <Text style={styles.customerDetails}>
+            <Text style={[styles.customerName, { color: colors.text }]}>{customerName}</Text>
+            <Text style={[styles.customerDetails, { color: colors.textSecondary }]}>
               {ride?.sared_size} | {ride?.service_type} | {ride?.price} SAR
             </Text>
           </View>
@@ -217,7 +217,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
 
         {/* Pickup Address */}
         <View style={[styles.addressRow, isRTL && styles.rowReverse]}>
-          <View style={styles.addressDot} />
+          <View style={[styles.addressDot, { color: colors.text }]} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.addressLabel, isRTL && styles.textRight]}>
               {t('pickupLocation')}
@@ -231,7 +231,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
         {/* Arrived Button */}
         <TouchableOpacity style={styles.arrivedBtn} onPress={handleArrived}>
           <Ionicons name="flag" size={20} color={colors.white} />
-          <Text style={styles.arrivedBtnText}>{t('iHaveArrived')}</Text>
+          <Text style={[styles.arrivedBtnText, { color: colors.text }]}>{t('iHaveArrived')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   map: {
     flex: 1,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 110,
     right: 16,
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   },
   etaUnit: {
     fontSize: 11,
-    color: theme.textSecondary,
+    color: '#6B7280',
   },
   distanceBadge: {
     position: 'absolute',
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     color: theme.white,
   },
   bottomPanel: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingHorizontal: 20,
@@ -382,11 +382,11 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 16,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   customerDetails: {
     fontSize: 13,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 2,
   },
   callBtn: {
@@ -411,12 +411,12 @@ const styles = StyleSheet.create({
   },
   addressLabel: {
     fontSize: 12,
-    color: theme.textSecondary,
+    color: '#6B7280',
   },
   addressText: {
     fontSize: 14,
     fontWeight: '500',
-    color: theme.text,
+    color: '#1F2937',
     marginTop: 2,
   },
   arrivedBtn: {

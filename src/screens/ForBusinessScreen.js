@@ -44,11 +44,11 @@ export default function ForBusinessScreen({ navigation }) {
 
   if (submitted) {
     return (
-      <View style={styles.successContainer}>
+      <View style={[styles.successContainer, { color: colors.text }]}>
         <Ionicons name="checkmark-circle" size={64} color="#22C55E" />
-        <Text style={styles.successTitle}>{t('requestSubmitted')}</Text>
-        <Text style={styles.successSub}>{t('contactWithin24')}</Text>
-        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
+        <Text style={[styles.successTitle, { color: colors.text }]}>{t('requestSubmitted')}</Text>
+        <Text style={[styles.successSub, { color: colors.textSecondary }]}>{t('contactWithin24')}</Text>
+        <TouchableOpacity style={[styles.successBtn, { color: colors.text }]} onPress={() => navigation.goBack()}>
           <Text style={styles.successBtnText}>{t('done')}</Text>
         </TouchableOpacity>
       </View>
@@ -56,8 +56,8 @@ export default function ForBusinessScreen({ navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <LinearGradient colors={['#065F46', '#022C22']} style={styles.headerGradient}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
+      <LinearGradient colors={['#065F46', '#022C22']} style={[styles.headerGradient, { color: colors.text }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
@@ -66,7 +66,7 @@ export default function ForBusinessScreen({ navigation }) {
           <View style={{ width: 40 }} />
         </View>
 
-        <View style={styles.heroIcon}>
+        <View style={[styles.heroIcon, { color: colors.text }]}>
           <Ionicons name="briefcase" size={36} color="#FFF" />
         </View>
         <Text style={styles.headerSub}>{t('businessSubtitle')}</Text>
@@ -85,46 +85,46 @@ export default function ForBusinessScreen({ navigation }) {
         </Animated.View>
 
         <Animated.View style={[styles.formCard, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
-          <Text style={styles.label}>{t('companyName')}</Text>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('companyName')}</Text>
           <TextInput style={styles.input} placeholder={t('companyPlaceholderBiz')} placeholderTextColor={colors.gray}
             value={form.company} onChangeText={(v) => update('company', v)} />
 
-          <Text style={styles.label}>{t('fleetSize')}</Text>
-          <TouchableOpacity style={styles.dropdown} onPress={() => setShowFleetMenu(!showFleetMenu)}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('fleetSize')}</Text>
+          <TouchableOpacity style={[styles.dropdown, { color: colors.text }]} onPress={() => setShowFleetMenu(!showFleetMenu)}>
             <Text style={form.fleetSize ? styles.dropdownValue : styles.dropdownPlaceholder}>
               {form.fleetSize || t('fleetSize')}
             </Text>
             <Ionicons name="chevron-down" size={18} color={colors.gray} />
           </TouchableOpacity>
           {showFleetMenu && (
-            <View style={styles.menuList}>
+            <View style={[styles.menuList, { color: colors.text }]}>
               {FLEET_SIZES.map((fs) => (
-                <TouchableOpacity key={fs} style={styles.menuItem}
+                <TouchableOpacity key={fs} style={[styles.menuItem, { color: colors.text }]}
                   onPress={() => { update('fleetSize', fs); setShowFleetMenu(false); }}>
-                  <Text style={styles.menuItemText}>{fs}</Text>
+                  <Text style={[styles.menuItemText, { color: colors.text }]}>{fs}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           )}
 
-          <Text style={styles.label}>{t('contactPerson')}</Text>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('contactPerson')}</Text>
           <TextInput style={styles.input} placeholder={t('contactPlaceholder')} placeholderTextColor={colors.gray}
             value={form.contact} onChangeText={(v) => update('contact', v)} />
 
-          <Text style={styles.label}>{t('emailAddress')}</Text>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('emailAddress')}</Text>
           <TextInput style={styles.input} placeholder={t('emailPlaceholder')} placeholderTextColor={colors.gray}
             keyboardType="email-address" autoCapitalize="none" value={form.email} onChangeText={(v) => update('email', v)} />
 
-          <Text style={styles.label}>{t('enterPhone')}</Text>
-          <View style={styles.phoneRow}>
-            <View style={styles.codeBox}><Text style={styles.codeText}>+966</Text></View>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>{t('enterPhone')}</Text>
+          <View style={[styles.phoneRow, { color: colors.text }]}>
+            <View style={[styles.codeBox, { color: colors.text }]}><Text style={[styles.codeText, { color: colors.text }]}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={9} />
           </View>
 
           <TouchableOpacity style={[styles.submitBtn, !isValid && { opacity: 0.5 }]}
             onPress={handleSubmit} disabled={!isValid}>
-            <LinearGradient colors={['#065F46', '#022C22']} style={styles.submitGradient}>
+            <LinearGradient colors={['#065F46', '#022C22']} style={[styles.submitGradient, { color: colors.text }]}>
               <Ionicons name="send" size={18} color="#FFF" />
               <Text style={styles.submitText}>{t('submitInquiry')}</Text>
             </LinearGradient>
@@ -137,7 +137,7 @@ export default function ForBusinessScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 28, alignItems: 'center' },
   headerRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -161,35 +161,35 @@ const styles = StyleSheet.create({
   },
   benefitRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 12 },
   benefitIcon: { width: 36, height: 36, borderRadius: 10, justifyContent: 'center', alignItems: 'center' },
-  benefitText: { flex: 1, fontSize: 14, fontWeight: '600', color: theme.text },
+  benefitText: { flex: 1, fontSize: 14, fontWeight: '600', color: '#1F2937' },
   formCard: {
     backgroundColor: '#FFF', borderRadius: 20, padding: 20,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  label: { fontSize: 13, fontWeight: '600', color: theme.textSecondary, marginBottom: 6, marginTop: 12 },
+  label: { fontSize: 13, fontWeight: '600', color: '#6B7280', marginBottom: 6, marginTop: 12 },
   input: {
-    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    fontSize: 15, color: theme.text, borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent',
   },
   phoneRow: { flexDirection: 'row', gap: 10 },
   codeBox: {
-    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14,
-    justifyContent: 'center', borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14,
+    justifyContent: 'center', borderWidth: 1, borderColor: 'transparent',
   },
-  codeText: { fontSize: 15, color: theme.text, fontWeight: '500' },
+  codeText: { fontSize: 15, color: '#1F2937', fontWeight: '500' },
   dropdown: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    borderWidth: 1, borderColor: 'transparent',
   },
-  dropdownValue: { fontSize: 15, color: theme.text },
-  dropdownPlaceholder: { fontSize: 15, color: theme.gray },
+  dropdownValue: { fontSize: 15, color: '#1F2937' },
+  dropdownPlaceholder: { fontSize: 15, color: '#6B7280' },
   menuList: {
-    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: theme.border,
+    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: 'transparent',
     marginTop: 4, overflow: 'hidden',
   },
-  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: theme.lightGray },
-  menuItemText: { fontSize: 15, color: theme.text },
+  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: 'transparent' },
+  menuItemText: { fontSize: 15, color: '#1F2937' },
   submitBtn: { borderRadius: 14, overflow: 'hidden', marginTop: 24 },
   submitGradient: {
     paddingVertical: 16, flexDirection: 'row', alignItems: 'center',
@@ -200,10 +200,10 @@ const styles = StyleSheet.create({
   // Success state
   successContainer: {
     flex: 1, justifyContent: 'center', alignItems: 'center',
-    backgroundColor: theme.white, paddingHorizontal: 40,
+    backgroundColor: 'transparent', paddingHorizontal: 40,
   },
-  successTitle: { fontSize: 24, fontWeight: '800', color: theme.text, marginTop: 20, textAlign: 'center' },
-  successSub: { fontSize: 15, color: theme.textSecondary, marginTop: 12, textAlign: 'center' },
+  successTitle: { fontSize: 24, fontWeight: '800', color: '#1F2937', marginTop: 20, textAlign: 'center' },
+  successSub: { fontSize: 15, color: '#6B7280', marginTop: 12, textAlign: 'center' },
   successBtn: {
     backgroundColor: theme.primary, paddingHorizontal: 40, paddingVertical: 16,
     borderRadius: 14, marginTop: 32,

@@ -74,11 +74,11 @@ export default function HistoryScreen({ navigation }) {
 
   if (loading) {
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
         <View style={[styles.header, { borderBottomColor: colors.border }]}>
           <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
         </View>
-        <View style={styles.empty}>
+        <View style={[styles.empty, { color: colors.text }]}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       </View>
@@ -86,19 +86,19 @@ export default function HistoryScreen({ navigation }) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
         <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
       </View>
       {rides.length === 0 ? (
-        <View style={styles.empty}>
-          <View style={styles.emptyIconCircle}>
+        <View style={[styles.empty, { color: colors.text }]}>
+          <View style={[styles.emptyIconCircle, { color: colors.text }]}>
             <Ionicons name="time-outline" size={64} color={colors.border} />
           </View>
-          <Text style={styles.emptyTitle}>{t('noTripsYet')}</Text>
-          <Text style={styles.emptyText}>{t('tripsWillAppear')}</Text>
+          <Text style={[styles.emptyTitle, { color: colors.textSecondary }]}>{t('noTripsYet')}</Text>
+          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>{t('tripsWillAppear')}</Text>
           <TouchableOpacity
-            style={styles.bookBtn}
+            style={[styles.bookBtn, { color: colors.text }]}
             onPress={() => navigation.navigate('Services')}
             activeOpacity={0.8}
           >
@@ -123,18 +123,18 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: undefined },
   header: {
     paddingTop: 60, paddingHorizontal: 20, paddingBottom: 16,
-    borderBottomWidth: 1, borderBottomColor: theme.border,
+    borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
-  headerTitle: { fontSize: 22, fontWeight: 'bold', color: theme.text },
+  headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#1F2937' },
   empty: {
     flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 80, paddingHorizontal: 40,
   },
   emptyIconCircle: {
     width: 120, height: 120, borderRadius: 60,
-    backgroundColor: theme.lightGray, justifyContent: 'center', alignItems: 'center', marginBottom: 20,
+    backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 20,
   },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: theme.darkGray, marginTop: 8 },
-  emptyText: { fontSize: 14, color: theme.textSecondary, marginTop: 8, textAlign: 'center' },
+  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#374151', marginTop: 8 },
+  emptyText: { fontSize: 14, color: '#6B7280', marginTop: 8, textAlign: 'center' },
   bookBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
     backgroundColor: theme.primary, paddingHorizontal: 28, paddingVertical: 14,
@@ -142,17 +142,17 @@ const styles = StyleSheet.create({
   },
   bookBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   rideCard: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: theme.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent',
     borderRadius: 14, padding: 14, marginBottom: 10,
-    borderWidth: 1, borderColor: theme.border,
+    borderWidth: 1, borderColor: 'transparent',
   },
   rowReverse: { flexDirection: 'row-reverse' },
   rideIcon: {
     width: 44, height: 44, borderRadius: 12,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  rideService: { fontSize: 15, fontWeight: '600', color: theme.text },
-  rideDate: { fontSize: 12, color: theme.textSecondary, marginTop: 2 },
+  rideService: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
+  rideDate: { fontSize: 12, color: '#6B7280', marginTop: 2 },
   ridePrice: { fontSize: 15, fontWeight: '700' },
   rideStatus: { fontSize: 11, fontWeight: '600', marginTop: 2, textTransform: 'capitalize' },
   textRight: { textAlign: 'right' },

@@ -154,7 +154,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
   const quickAmounts = [100, 250, 500];
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, { backgroundColor: '#1E3A5F' }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
@@ -164,7 +164,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           <View style={{ width: 40 }} />
         </View>
 
-        <View style={styles.balanceCard}>
+        <View style={[styles.balanceCard, { color: colors.text }]}>
           <Text style={styles.balanceLabel}>{lang === 'ar' ? 'الرصيد المتاح' : 'Available Balance'}</Text>
           <Text style={styles.balanceAmount}>{balance} SAR</Text>
         </View>
@@ -188,7 +188,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                 onChangeText={setAmount}
               />
             </View>
-            <View style={styles.quickRow}>
+            <View style={[styles.quickRow, { color: colors.text }]}>
               {quickAmounts.map((a) => (
                 <TouchableOpacity
                   key={a}
@@ -199,7 +199,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                 </TouchableOpacity>
               ))}
               <TouchableOpacity
-                style={[styles.quickChip, { backgroundColor: colors.primaryFaded }]}
+                style={[styles.quickChip, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]}
                 onPress={() => setAmount(String(balance))}
               >
                 <Text style={[styles.quickText, { color: colors.primary }]}>{lang === 'ar' ? 'الكل' : 'All'}</Text>
@@ -241,7 +241,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
 
             {/* Bank details */}
             {method === 'bank' && (
-              <View style={styles.detailsSection}>
+              <View style={[styles.detailsSection, { color: colors.text }]}>
                 <TextInput
                   style={[styles.detailInput, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder, color: colors.text }]}
                   placeholder={lang === 'ar' ? 'اسم البنك' : 'Bank Name'}
@@ -263,7 +263,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
 
             {/* STC Pay details */}
             {method === 'stc_pay' && (
-              <View style={styles.detailsSection}>
+              <View style={[styles.detailsSection, { color: colors.text }]}>
                 <TextInput
                   style={[styles.detailInput, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder, color: colors.text }]}
                   placeholder={lang === 'ar' ? 'رقم STC Pay' : 'STC Pay Number'}
@@ -322,7 +322,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           )}
 
           {/* Info note */}
-          <View style={[styles.infoCard, { backgroundColor: colors.warningFaded }]}>
+          <View style={[styles.infoCard, { backgroundColor: colors.warningFaded, borderColor: colors.border }]}>
             <Ionicons name="information-circle" size={20} color={colors.warning} />
             <Text style={[styles.infoText, { color: colors.textSecondary }]}>
               {lang === 'ar'

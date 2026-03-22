@@ -65,7 +65,7 @@ export default function SizeScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -102,15 +102,15 @@ export default function SizeScreen({ route, navigation }) {
                     {isAr ? size.specAr : size.specEn}
                   </Text>
                 </View>
-                <View style={styles.priceCol}>
+                <View style={[styles.priceCol, { color: colors.text }]}>
                   <Text style={[styles.priceNum, isSelected && { color: colors.primary }]}>
                     {size.pricePerKm}
                   </Text>
-                  <Text style={styles.priceUnit}>{isAr ? 'ر.س/كم' : 'SAR/km'}</Text>
+                  <Text style={[styles.priceUnit, { color: colors.textSecondary }]}>{isAr ? 'ر.س/كم' : 'SAR/km'}</Text>
                 </View>
               </View>
               {isSelected && (
-                <View style={styles.selectedCheck}>
+                <View style={[styles.selectedCheck, { color: colors.text }]}>
                   <Ionicons name="checkmark-circle" size={20} color={colors.primary} />
                 </View>
               )}
@@ -121,7 +121,7 @@ export default function SizeScreen({ route, navigation }) {
       </ScrollView>
 
       {selectedId && (
-        <View style={styles.bottomBar}>
+        <View style={[styles.bottomBar, { color: colors.text }]}>
           <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm} activeOpacity={0.8}>
             <Ionicons name="checkmark-circle" size={20} color="#FFF" />
             <Text style={styles.confirmBtnText}>{t('confirmBooking') || (isAr ? 'تأكيد' : 'Confirm')}</Text>
@@ -137,25 +137,25 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: theme.white, borderBottomWidth: 1, borderBottomColor: theme.border,
+    backgroundColor: 'transparent', borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
-    width: 44, height: 44, borderRadius: 22, backgroundColor: theme.lightGray,
+    width: 44, height: 44, borderRadius: 22, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
   content: { flex: 1 },
   contentInner: { padding: 20 },
   serviceLabel: {
-    fontSize: 13, fontWeight: '600', color: theme.primary,
-    backgroundColor: theme.primaryFaded, alignSelf: 'flex-start',
+    fontSize: 13, fontWeight: '600', color: '#059669',
+    backgroundColor: 'rgba(5,150,105,0.1)', alignSelf: 'flex-start',
     paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8,
     overflow: 'hidden', marginBottom: 12,
   },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: theme.textSecondary, marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: '#6B7280', marginBottom: 16 },
   card: {
-    backgroundColor: theme.white, borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 2, borderColor: theme.border, position: 'relative',
+    backgroundColor: 'transparent', borderRadius: 16, padding: 16, marginBottom: 12,
+    borderWidth: 2, borderColor: 'transparent', position: 'relative',
   },
   cardSelected: {
     borderColor: theme.primary, borderWidth: 3, backgroundColor: '#F0FDF4',
@@ -163,22 +163,22 @@ const styles = StyleSheet.create({
   cardRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
-    width: 52, height: 52, borderRadius: 14, backgroundColor: theme.lightGray,
+    width: 52, height: 52, borderRadius: 14, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
   cardContent: { flex: 1 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: theme.text },
-  cardDesc: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
-  cardSpec: { fontSize: 12, color: theme.gray, marginTop: 2 },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
+  cardDesc: { fontSize: 13, color: '#6B7280', marginTop: 2 },
+  cardSpec: { fontSize: 12, color: '#6B7280', marginTop: 2 },
   priceCol: { alignItems: 'center', marginStart: 8 },
-  priceNum: { fontSize: 24, fontWeight: '800', color: theme.text },
-  priceUnit: { fontSize: 11, color: theme.gray, marginTop: 2 },
+  priceNum: { fontSize: 24, fontWeight: '800', color: '#1F2937' },
+  priceUnit: { fontSize: 11, color: '#6B7280', marginTop: 2 },
   selectedCheck: { position: 'absolute', top: 12, right: 12 },
   textRight: { textAlign: 'right' },
   bottomBar: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    padding: 16, paddingBottom: 44, backgroundColor: theme.card,
-    borderTopWidth: 1, borderTopColor: theme.border,
+    padding: 16, paddingBottom: 44, backgroundColor: 'transparent',
+    borderTopWidth: 1, borderTopColor: 'transparent',
   },
   confirmBtn: {
     backgroundColor: theme.primary, borderRadius: 14, paddingVertical: 16,

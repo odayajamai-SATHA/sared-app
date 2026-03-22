@@ -16,34 +16,34 @@ export default function DriverEarningsScreen({ route, navigation }) {
   ];
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.header}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
+      <View style={[styles.header, { color: colors.text }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.white} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>{t('driverEarnings')}</Text>
+          <Text style={[styles.headerTitle, { color: colors.text }]}>{t('driverEarnings')}</Text>
           <View style={{ width: 40 }} />
         </View>
 
-        <View style={styles.earningsTotal}>
+        <View style={[styles.earningsTotal, { color: colors.text }]}>
           <Text style={styles.earningsLabel}>{t('todayEarnings')}</Text>
-          <Text style={styles.earningsAmount}>450 SAR</Text>
+          <Text style={[styles.earningsAmount, { color: colors.text }]}>450 SAR</Text>
         </View>
 
-        <View style={styles.earningsStats}>
-          <View style={styles.earningStat}>
-            <Text style={styles.earningStatValue}>12</Text>
+        <View style={[styles.earningsStats, { color: colors.text }]}>
+          <View style={[styles.earningStat, { color: colors.text }]}>
+            <Text style={[styles.earningStatValue, { color: colors.text }]}>12</Text>
             <Text style={styles.earningStatLabel}>{t('tripsCompleted')}</Text>
           </View>
-          <View style={styles.earningDivider} />
-          <View style={styles.earningStat}>
-            <Text style={styles.earningStatValue}>6.2h</Text>
+          <View style={[styles.earningDivider, { color: colors.text }]} />
+          <View style={[styles.earningStat, { color: colors.text }]}>
+            <Text style={[styles.earningStatValue, { color: colors.text }]}>6.2h</Text>
             <Text style={styles.earningStatLabel}>{t('onlineHours')}</Text>
           </View>
-          <View style={styles.earningDivider} />
-          <View style={styles.earningStat}>
-            <Text style={styles.earningStatValue}>37.5</Text>
+          <View style={[styles.earningDivider, { color: colors.text }]} />
+          <View style={[styles.earningStat, { color: colors.text }]}>
+            <Text style={[styles.earningStatValue, { color: colors.text }]}>37.5</Text>
             <Text style={styles.earningStatLabel}>SAR/{t('tripAvg')}</Text>
           </View>
         </View>
@@ -52,7 +52,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Withdraw button */}
         <TouchableOpacity
-          style={styles.withdrawBtn}
+          style={[styles.withdrawBtn, { color: colors.text }]}
           onPress={() => navigation.navigate('DriverWithdrawal', { driver })}
           activeOpacity={0.8}
         >
@@ -67,16 +67,16 @@ export default function DriverEarningsScreen({ route, navigation }) {
 
         {recentJobs.map((job) => (
           <View key={job.id} style={[styles.jobCard, isRTL && styles.rowReverse]}>
-            <View style={styles.jobIcon}>
+            <View style={[styles.jobIcon, { color: colors.text }]}>
               <Ionicons name="car-sport" size={20} color="#1E3A5F" />
             </View>
             <View style={[styles.jobInfo, isRTL && { alignItems: 'flex-end' }]}>
-              <Text style={styles.jobCustomer}>{job.customer}</Text>
-              <Text style={styles.jobService}>
+              <Text style={[styles.jobCustomer, { color: colors.text }]}>{job.customer}</Text>
+              <Text style={[styles.jobService, { color: colors.textSecondary }]}>
                 {job.service} • {job.time}
               </Text>
             </View>
-            <Text style={styles.jobAmount}>+{job.amount} SAR</Text>
+            <Text style={[styles.jobAmount, { color: colors.primary }]}>+{job.amount} SAR</Text>
           </View>
         ))}
 
@@ -162,13 +162,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
     marginBottom: 14,
   },
   jobCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 14,
     padding: 14,
     marginBottom: 10,
@@ -193,11 +193,11 @@ const styles = StyleSheet.create({
   jobCustomer: {
     fontSize: 15,
     fontWeight: '600',
-    color: theme.text,
+    color: '#1F2937',
   },
   jobService: {
     fontSize: 13,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 2,
   },
   jobAmount: {

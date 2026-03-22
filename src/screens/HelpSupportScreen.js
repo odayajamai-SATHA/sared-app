@@ -49,7 +49,7 @@ export default function HelpSupportScreen({ navigation }) {
   ];
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -63,21 +63,21 @@ export default function HelpSupportScreen({ navigation }) {
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}
         </Text>
-        <View style={styles.contactRow}>
+        <View style={[styles.contactRow, { color: colors.text }]}>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#25D36615' }]}
             onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={28} color="#25D366" />
-            <Text style={styles.contactLabel}>{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</Text>
+            <Text style={[styles.contactLabel, { color: colors.text }]}>{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#3B82F615' }]}
             onPress={() => { try { Linking.openURL(PHONE_URL); } catch {} }}>
             <Ionicons name="call" size={28} color="#3B82F6" />
-            <Text style={styles.contactLabel}>{lang === 'ar' ? 'اتصال' : 'Call'}</Text>
+            <Text style={[styles.contactLabel, { color: colors.text }]}>{lang === 'ar' ? 'اتصال' : 'Call'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#EF444415' }]}
             onPress={() => { try { Linking.openURL(EMAIL_URL); } catch {} }}>
             <Ionicons name="mail" size={28} color="#EF4444" />
-            <Text style={styles.contactLabel}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
+            <Text style={[styles.contactLabel, { color: colors.text }]}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -86,7 +86,7 @@ export default function HelpSupportScreen({ navigation }) {
           {lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
         </Text>
         {faqs.map((faq, i) => (
-          <TouchableOpacity key={i} style={styles.faqCard}
+          <TouchableOpacity key={i} style={[styles.faqCard, { color: colors.text }]}
             onPress={() => setExpandedFaq(expandedFaq === i ? null : i)}
             activeOpacity={0.7}>
             <View style={[styles.faqHeader, isRTL && styles.rowReverse]}>
@@ -103,7 +103,7 @@ export default function HelpSupportScreen({ navigation }) {
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {lang === 'ar' ? 'الإبلاغ عن مشكلة' : 'Report a Problem'}
         </Text>
-        <TouchableOpacity style={styles.reportBtn} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
+        <TouchableOpacity style={[styles.reportBtn, { color: colors.text }]} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
           <Ionicons name="logo-whatsapp" size={20} color="#FFF" />
           <Text style={styles.reportBtnText}>
             {lang === 'ar' ? 'أبلغ عبر واتساب' : 'Report via WhatsApp'}
@@ -111,9 +111,9 @@ export default function HelpSupportScreen({ navigation }) {
         </TouchableOpacity>
 
         {/* Available 24/7 */}
-        <View style={styles.availableRow}>
+        <View style={[styles.availableRow, { color: colors.text }]}>
           <Ionicons name="time-outline" size={16} color={colors.gray} />
-          <Text style={styles.availableText}>
+          <Text style={[styles.availableText, { color: colors.textSecondary }]}>
             {lang === 'ar' ? 'متاح على مدار الساعة' : 'Available 24/7'}
           </Text>
         </View>
@@ -125,36 +125,36 @@ export default function HelpSupportScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: theme.border,
+    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
   rowReverse: { flexDirection: 'row-reverse' },
   scrollContent: { padding: 16 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: theme.text, marginBottom: 12, marginTop: 8,
+    fontSize: 17, fontWeight: '700', color: '#1F2937', marginBottom: 12, marginTop: 8,
   },
   contactRow: { flexDirection: 'row', gap: 12, marginBottom: 24 },
   contactCard: {
     flex: 1, alignItems: 'center', paddingVertical: 20, borderRadius: 16,
     backgroundColor: '#FFF',
   },
-  contactLabel: { fontSize: 13, fontWeight: '600', color: theme.text, marginTop: 8 },
+  contactLabel: { fontSize: 13, fontWeight: '600', color: '#1F2937', marginTop: 8 },
   faqCard: {
     backgroundColor: '#FFF', borderRadius: 14, padding: 16, marginBottom: 8,
-    borderWidth: 1, borderColor: theme.border,
+    borderWidth: 1, borderColor: 'transparent',
   },
   faqHeader: { flexDirection: 'row', alignItems: 'center' },
-  faqQuestion: { fontSize: 15, fontWeight: '600', color: theme.text },
+  faqQuestion: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
   faqAnswer: {
-    fontSize: 14, color: theme.textSecondary, lineHeight: 22, marginTop: 12,
+    fontSize: 14, color: '#6B7280', lineHeight: 22, marginTop: 12,
     paddingTop: 12, borderTopWidth: 1, borderTopColor: theme.lightGray,
   },
   reportBtn: {
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
   availableRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
   },
-  availableText: { fontSize: 13, color: theme.gray },
+  availableText: { fontSize: 13, color: '#6B7280' },
   textRight: { textAlign: 'right' },
 });

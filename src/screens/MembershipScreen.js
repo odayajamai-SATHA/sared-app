@@ -57,7 +57,7 @@ export default function MembershipScreen({ navigation }) {
   ];
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -67,17 +67,17 @@ export default function MembershipScreen({ navigation }) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.subtitle}>{t('membershipSubtitle')}</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>{t('membershipSubtitle')}</Text>
 
         {/* Plan selector tabs */}
-        <View style={styles.tabRow}>
+        <View style={[styles.tabRow, { color: colors.text }]}>
           {plans.map((plan) => (
             <TouchableOpacity
               key={plan.id}
               style={[styles.tab, selected === plan.id && styles.tabActive]}
               onPress={() => setSelected(plan.id)}
             >
-              {plan.popular && <View style={styles.popularBadge}><Text style={styles.popularText}>{t('mostPopular')}</Text></View>}
+              {plan.popular && <View style={[styles.popularBadge, { color: colors.text }]}><Text style={styles.popularText}>{t('mostPopular')}</Text></View>}
               <Text style={[styles.tabText, selected === plan.id && styles.tabTextActive]}>{plan.name}</Text>
             </TouchableOpacity>
           ))}
@@ -88,15 +88,15 @@ export default function MembershipScreen({ navigation }) {
           <LinearGradient colors={plans[selected].gradient} style={styles.planCard}
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
             <Text style={styles.planName}>{plans[selected].name}</Text>
-            <View style={styles.priceRow}>
+            <View style={[styles.priceRow, { color: colors.text }]}>
               <Text style={styles.planCurrency}>SAR</Text>
               <Text style={styles.planPrice}>{plans[selected].price}</Text>
               <Text style={styles.planPeriod}>{t('perYear')}</Text>
             </View>
 
-            <View style={styles.featuresContainer}>
+            <View style={[styles.featuresContainer, { color: colors.text }]}>
               {plans[selected].features.map((feat, i) => (
-                <View key={i} style={styles.featureRow}>
+                <View key={i} style={[styles.featureRow, { color: colors.text }]}>
                   <Ionicons
                     name={feat.included ? 'checkmark-circle' : 'close-circle'}
                     size={20}
@@ -118,19 +118,19 @@ export default function MembershipScreen({ navigation }) {
         </Animated.View>
 
         {/* Comparison table */}
-        <View style={styles.comparisonCard}>
-          <Text style={styles.comparisonTitle}>{t('choosePlan')}</Text>
-          <View style={styles.compRow}>
-            <Text style={styles.compLabel} />
+        <View style={[styles.comparisonCard, { color: colors.text }]}>
+          <Text style={[styles.comparisonTitle, { color: colors.text }]}>{t('choosePlan')}</Text>
+          <View style={[styles.compRow, { color: colors.text }]}>
+            <Text style={[styles.compLabel, { color: colors.textSecondary }]} />
             {plans.map((p) => (
-              <Text key={p.id} style={styles.compHeader}>{p.name}</Text>
+              <Text key={p.id} style={[styles.compHeader, { color: colors.text }]}>{p.name}</Text>
             ))}
           </View>
           {[t('freeTows'), t('priorityResponse'), t('coveredFlatbed'), t('dedicatedSupport')].map((feat, fi) => (
             <View key={fi} style={[styles.compRow, fi % 2 === 0 && styles.compRowAlt]}>
-              <Text style={styles.compLabel}>{feat}</Text>
+              <Text style={[styles.compLabel, { color: colors.textSecondary }]}>{feat}</Text>
               {plans.map((p) => (
-                <View key={p.id} style={styles.compCell}>
+                <View key={p.id} style={[styles.compCell, { color: colors.text }]}>
                   <Ionicons
                     name={p.features[fi]?.included ? 'checkmark' : 'close'}
                     size={16}
@@ -148,27 +148,27 @@ export default function MembershipScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: theme.white, borderBottomWidth: 1, borderBottomColor: theme.border,
+    backgroundColor: 'transparent', borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
   scrollContent: { padding: 20 },
-  subtitle: { fontSize: 15, color: theme.textSecondary, textAlign: 'center', marginBottom: 20 },
+  subtitle: { fontSize: 15, color: '#6B7280', textAlign: 'center', marginBottom: 20 },
   tabRow: { flexDirection: 'row', gap: 10, marginBottom: 20 },
   tab: {
-    flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: theme.white,
-    alignItems: 'center', borderWidth: 1, borderColor: theme.border,
+    flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: 'transparent',
+    alignItems: 'center', borderWidth: 1, borderColor: 'transparent',
   },
-  tabActive: { borderColor: theme.primary, backgroundColor: theme.primaryFaded },
-  tabText: { fontSize: 14, fontWeight: '600', color: theme.textSecondary },
-  tabTextActive: { color: theme.primary },
+  tabActive: { borderColor: theme.primary, backgroundColor: 'rgba(5,150,105,0.1)' },
+  tabText: { fontSize: 14, fontWeight: '600', color: '#6B7280' },
+  tabTextActive: { color: '#059669' },
   popularBadge: {
     position: 'absolute', top: -8, backgroundColor: theme.primary,
     paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8,
@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
   subscribeBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   comingSoonNote: { fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center', marginBottom: 12 },
   comparisonCard: {
-    backgroundColor: theme.white, borderRadius: 16, padding: 16, overflow: 'hidden',
+    backgroundColor: 'transparent', borderRadius: 16, padding: 16, overflow: 'hidden',
   },
-  comparisonTitle: { fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 12 },
+  comparisonTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 12 },
   compRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10 },
-  compRowAlt: { backgroundColor: theme.lightGray, marginHorizontal: -16, paddingHorizontal: 16 },
-  compLabel: { flex: 2, fontSize: 12, color: theme.textSecondary },
-  compHeader: { flex: 1, fontSize: 12, fontWeight: '700', color: theme.text, textAlign: 'center' },
+  compRowAlt: { backgroundColor: 'transparent', marginHorizontal: -16, paddingHorizontal: 16 },
+  compLabel: { flex: 2, fontSize: 12, color: '#6B7280' },
+  compHeader: { flex: 1, fontSize: 12, fontWeight: '700', color: '#1F2937', textAlign: 'center' },
   compCell: { flex: 1, alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
 });

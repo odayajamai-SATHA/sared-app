@@ -57,14 +57,14 @@ export default function ProfileScreen({ navigation }) {
   const allMenuGroups = [menuGroup1, menuGroup2];
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} showsVerticalScrollIndicator={false}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]} showsVerticalScrollIndicator={false}>
       <LinearGradient colors={['#022C22', '#065F46']} style={styles.headerGradient}
         start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
         <View style={{ height: 56 }} />
         <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('profile')}</Text>
 
         <View style={[styles.profileCard, isRTL && styles.rowReverse]}>
-          <View style={styles.avatar}>
+          <View style={[styles.avatar, { color: colors.text }]}>
             <Ionicons name="person" size={28} color="#FFF" />
           </View>
           <View style={[styles.profileInfo, isRTL && { alignItems: 'flex-end' }]}>
@@ -79,27 +79,27 @@ export default function ProfileScreen({ navigation }) {
           </Pressable>
         </View>
 
-        <View style={styles.statsRow}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{stats.trips}</Text>
+        <View style={[styles.statsRow, { color: colors.text }]}>
+          <View style={[styles.statItem, { color: colors.text }]}>
+            <Text style={[styles.statNumber, { color: colors.primary }]}>{stats.trips}</Text>
             <Text style={styles.statLabel}>{t('rides')}</Text>
           </View>
-          <View style={styles.statDivider} />
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{stats.rating}</Text>
+          <View style={[styles.statDivider, { color: colors.text }]} />
+          <View style={[styles.statItem, { color: colors.text }]}>
+            <Text style={[styles.statNumber, { color: colors.primary }]}>{stats.rating}</Text>
             <Text style={styles.statLabel}>{t('rating')}</Text>
           </View>
-          <View style={styles.statDivider} />
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{stats.vehicles}</Text>
+          <View style={[styles.statDivider, { color: colors.text }]} />
+          <View style={[styles.statItem, { color: colors.text }]}>
+            <Text style={[styles.statNumber, { color: colors.primary }]}>{stats.vehicles}</Text>
             <Text style={styles.statLabel}>{t('saved')}</Text>
           </View>
         </View>
       </LinearGradient>
 
-      <View style={styles.content}>
+      <View style={[styles.content, { color: colors.text }]}>
         {allMenuGroups.map((group, gi) => (
-          <View key={gi} style={[styles.menuSection, { backgroundColor: colors.card }]}>
+          <View key={gi} style={[styles.menuSection, { backgroundColor: colors.card, borderColor: colors.border }]}>
             {group.map((item, i) => (
               <Pressable
                 key={i}
@@ -176,7 +176,7 @@ export default function ProfileScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 24 },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#FFF', marginBottom: 20 },
   profileCard: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
@@ -198,25 +198,25 @@ const styles = StyleSheet.create({
     borderRadius: 14, padding: 16,
   },
   statItem: { flex: 1, alignItems: 'center' },
-  statNumber: { fontSize: 20, fontWeight: '700', color: theme.primary },
+  statNumber: { fontSize: 20, fontWeight: '700', color: '#059669' },
   statLabel: { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4 },
   statDivider: { width: 1, backgroundColor: 'rgba(255,255,255,0.1)' },
   content: { padding: 16 },
   menuSection: {
-    backgroundColor: theme.white, borderRadius: 16, marginBottom: 12,
+    backgroundColor: 'transparent', borderRadius: 16, marginBottom: 12,
   },
   menuItem: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16,
-    borderBottomWidth: 1, borderBottomColor: theme.border,
+    borderBottomWidth: 1, borderBottomColor: 'transparent',
     cursor: 'pointer',
   },
   menuIcon: {
     width: 36, height: 36, borderRadius: 10,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  menuLabel: { fontSize: 15, color: theme.text, fontWeight: '500' },
+  menuLabel: { fontSize: 15, color: '#1F2937', fontWeight: '500' },
   shareRow: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: theme.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent',
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,
     cursor: 'pointer',
   },

@@ -37,9 +37,9 @@ export default function SettingsScreen({ navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.surfaceSecondary }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('settings')}</Text>
@@ -53,7 +53,7 @@ export default function SettingsScreen({ navigation }) {
             <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
               {t('language')}
             </Text>
-            <View style={styles.langRow}>
+            <View style={[styles.langRow, { color: colors.text }]}>
               <TouchableOpacity
                 style={[styles.langOption, { backgroundColor: colors.surfaceSecondary, borderColor: lang === 'en' ? colors.primary : 'transparent' }]}
                 onPress={() => { if (lang !== 'en') toggleLang(); }}
@@ -111,7 +111,7 @@ export default function SettingsScreen({ navigation }) {
               <Text style={[styles.aboutLabel, { color: colors.textSecondary }]}>{t('madeInSaudi')}</Text>
               <Text style={[styles.aboutValue, { color: colors.text }]}>{t('madeInCity')}</Text>
             </View>
-            <View style={[styles.madeWith, { backgroundColor: colors.successFaded }]}>
+            <View style={[styles.madeWith, { backgroundColor: colors.successFaded, borderColor: colors.border }]}>
               <Ionicons name="flag" size={20} color={colors.success} />
               <Text style={[styles.madeWithLabel, { color: colors.success }]}>
                 {t('proudlyMade')}
@@ -122,7 +122,7 @@ export default function SettingsScreen({ navigation }) {
           {/* Actions */}
           <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
             <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('https://sared.app'); } catch {} }}>
-              <View style={[styles.actionIcon, { backgroundColor: colors.warningFaded }]}>
+              <View style={[styles.actionIcon, { backgroundColor: colors.warningFaded, borderColor: colors.border }]}>
                 <Ionicons name="star" size={20} color={colors.warning} />
               </View>
               <Text style={[styles.actionText, { color: colors.text }, isRTL && styles.textRight]}>
@@ -134,7 +134,7 @@ export default function SettingsScreen({ navigation }) {
             <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 4 }} />
 
             <TouchableOpacity style={[styles.actionRow, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('https://sared.app/privacy'); } catch {} }}>
-              <View style={[styles.actionIcon, { backgroundColor: colors.primaryFaded }]}>
+              <View style={[styles.actionIcon, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]}>
                 <Ionicons name="shield-checkmark-outline" size={20} color={colors.primary} />
               </View>
               <Text style={[styles.actionText, { color: colors.text }, isRTL && styles.textRight]}>

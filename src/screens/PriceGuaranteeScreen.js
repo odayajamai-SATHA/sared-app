@@ -50,7 +50,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
@@ -60,74 +60,74 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
         <View style={{ width: 40 }} />
       </View>
 
-      <View style={styles.content}>
+      <View style={[styles.content, { color: colors.text }]}>
         {/* Shield + guaranteed price */}
         <Animated.View style={[styles.priceSection, { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }]}>
           <Animated.View style={[styles.shieldContainer, { transform: [{ scale: shieldScale }] }]}>
-            <LinearGradient colors={['#22C55E', '#16A34A']} style={styles.shieldCircle}>
+            <LinearGradient colors={['#22C55E', '#16A34A']} style={[styles.shieldCircle, { color: colors.text }]}>
               <Ionicons name="shield-checkmark" size={40} color="#FFF" />
             </LinearGradient>
           </Animated.View>
 
-          <Text style={styles.guaranteeLabel}>{t('guaranteedNotToExceed')}</Text>
+          <Text style={[styles.guaranteeLabel, { color: colors.textSecondary }]}>{t('guaranteedNotToExceed')}</Text>
 
-          <View style={styles.priceBox}>
-            <Text style={styles.currency}>SAR</Text>
-            <Text style={styles.priceAmount}>{maxPrice}</Text>
+          <View style={[styles.priceBox, { color: colors.text }]}>
+            <Text style={[styles.currency, { color: colors.text }]}>SAR</Text>
+            <Text style={[styles.priceAmount, { color: colors.text }]}>{maxPrice}</Text>
           </View>
 
-          <View style={styles.neverPayBadge}>
+          <View style={[styles.neverPayBadge, { color: colors.text }]}>
             <Ionicons name="checkmark-circle" size={16} color="#22C55E" />
-            <Text style={styles.neverPayText}>{t('neverPayMore')}</Text>
+            <Text style={[styles.neverPayText, { color: colors.text }]}>{t('neverPayMore')}</Text>
           </View>
         </Animated.View>
 
         {/* Price breakdown */}
-        <Animated.View style={[styles.breakdownCard, { backgroundColor: colors.card }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
+        <Animated.View style={[styles.breakdownCard, { backgroundColor: colors.card, borderColor: colors.border }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
           <Text style={[styles.breakdownTitle, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
 
-          <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>{t('service')}</Text>
-            <Text style={styles.breakdownValue}>{service}</Text>
+          <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('service')}</Text>
+            <Text style={[styles.breakdownValue, { color: colors.text }]}>{service}</Text>
           </View>
           {size !== '—' && (
-            <View style={styles.breakdownRow}>
-              <Text style={styles.breakdownLabel}>{t('saredType')}</Text>
-              <Text style={styles.breakdownValue}>{size}</Text>
+            <View style={[styles.breakdownRow, { color: colors.text }]}>
+              <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('saredType')}</Text>
+              <Text style={[styles.breakdownValue, { color: colors.text }]}>{size}</Text>
             </View>
           )}
-          <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>{t('dispatchFee')}</Text>
-            <Text style={styles.breakdownValue}>SAR {fare.baseFare}</Text>
+          <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('dispatchFee')}</Text>
+            <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.baseFare}</Text>
           </View>
-          <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>{t('distanceRate')} (~{Math.round(distKm)} {t('km')})</Text>
-            <Text style={styles.breakdownValue}>SAR {fare.distanceCharge}</Text>
+          <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('distanceRate')} (~{Math.round(distKm)} {t('km')})</Text>
+            <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.distanceCharge}</Text>
           </View>
           {fare.isNight && (
-            <View style={styles.breakdownRow}>
+            <View style={[styles.breakdownRow, { color: colors.text }]}>
               <Text style={[styles.breakdownLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text>
               <Text style={[styles.breakdownValue, { color: '#8B5CF6' }]}>SAR {fare.nightSurcharge}</Text>
             </View>
           )}
-          <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>{t('vat')}</Text>
-            <Text style={styles.breakdownValue}>SAR {fare.vat}</Text>
+          <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('vat')}</Text>
+            <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.vat}</Text>
           </View>
 
-          <View style={styles.divider} />
+          <View style={[styles.divider, { color: colors.text }]} />
 
-          <View style={styles.breakdownRow}>
-            <Text style={styles.maxLabel}>{t('maxPrice')}</Text>
-            <Text style={styles.maxValue}>SAR {maxPrice}</Text>
+          <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <Text style={[styles.maxLabel, { color: colors.text }]}>{t('maxPrice')}</Text>
+            <Text style={[styles.maxValue, { color: colors.primary }]}>SAR {maxPrice}</Text>
           </View>
 
-          <Text style={styles.noteText}>{t('priceGuaranteeNote')}</Text>
+          <Text style={[styles.noteText, { color: colors.textSecondary }]}>{t('priceGuaranteeNote')}</Text>
         </Animated.View>
       </View>
 
       {/* Confirm button */}
-      <View style={styles.bottomBar}>
+      <View style={[styles.bottomBar, { color: colors.text }]}>
         <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm} activeOpacity={0.8}>
           <LinearGradient colors={['#059669', '#047857']} style={styles.confirmGradient}
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
@@ -142,17 +142,17 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: theme.card, borderBottomWidth: 1, borderBottomColor: theme.border,
+    backgroundColor: 'transparent', borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
   rowReverse: { flexDirection: 'row-reverse' },
   content: { flex: 1, padding: 16 },
   priceSection: { alignItems: 'center', paddingVertical: 24 },
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
     shadowColor: '#22C55E', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3, shadowRadius: 12, elevation: 8,
   },
-  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: theme.textSecondary, marginBottom: 8 },
+  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: '#6B7280', marginBottom: 8 },
   priceBox: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 12 },
-  currency: { fontSize: 20, fontWeight: '600', color: theme.text, marginEnd: 6 },
-  priceAmount: { fontSize: 52, fontWeight: '800', color: theme.text },
+  currency: { fontSize: 20, fontWeight: '600', color: '#1F2937', marginEnd: 6 },
+  priceAmount: { fontSize: 52, fontWeight: '800', color: '#1F2937' },
   neverPayBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
     backgroundColor: '#F0FDF4', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 8,
@@ -174,21 +174,21 @@ const styles = StyleSheet.create({
   },
   neverPayText: { fontSize: 13, fontWeight: '600', color: '#16A34A' },
   breakdownCard: {
-    backgroundColor: theme.card, borderRadius: 20, padding: 20,
+    backgroundColor: 'transparent', borderRadius: 20, padding: 20,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  breakdownTitle: { fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 14 },
+  breakdownTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
   breakdownRow: {
     flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8,
   },
-  breakdownLabel: { fontSize: 14, color: theme.textSecondary },
-  breakdownValue: { fontSize: 14, fontWeight: '600', color: theme.text },
+  breakdownLabel: { fontSize: 14, color: '#6B7280' },
+  breakdownValue: { fontSize: 14, fontWeight: '600', color: '#1F2937' },
   divider: { height: 1, backgroundColor: theme.primary, opacity: 0.2, marginVertical: 8 },
-  maxLabel: { fontSize: 16, fontWeight: '700', color: theme.text },
+  maxLabel: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
   maxValue: { fontSize: 20, fontWeight: '800', color: '#22C55E' },
-  noteText: { fontSize: 12, color: theme.gray, marginTop: 12, lineHeight: 18 },
-  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: theme.card, borderTopWidth: 1, borderTopColor: theme.border },
+  noteText: { fontSize: 12, color: '#6B7280', marginTop: 12, lineHeight: 18 },
+  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: 'transparent' },
   confirmBtn: { borderRadius: 16, overflow: 'hidden' },
   confirmGradient: {
     paddingVertical: 18, flexDirection: 'row', alignItems: 'center',

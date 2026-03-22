@@ -79,12 +79,12 @@ export default function PaymentScreen({ route, navigation }) {
   const renderExpanded = (optionId) => {
     if (optionId === 'stc_pay') {
       return (
-        <View style={styles.expandedContent}>
+        <View style={[styles.expandedContent, { color: colors.text }]}>
           <Text style={[styles.stcInstructions, isRTL && styles.textRight]}>
             {t('stcPayInstructions').replace('{amount}', displayTotal).replace('{number}', STC_PAY_NUMBER)}
           </Text>
-          <View style={styles.numberRow}>
-            <Text style={styles.numberText}>{STC_PAY_NUMBER}</Text>
+          <View style={[styles.numberRow, { color: colors.text }]}>
+            <Text style={[styles.numberText, { color: colors.text }]}>{STC_PAY_NUMBER}</Text>
             <TouchableOpacity style={styles.copyBtn} onPress={handleCopyNumber}>
               <Ionicons name={copied ? 'checkmark' : 'copy-outline'} size={18} color={copied ? '#22C55E' : colors.primary} />
               <Text style={[styles.copyText, copied && { color: '#22C55E' }]}>
@@ -92,7 +92,7 @@ export default function PaymentScreen({ route, navigation }) {
               </Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => handleNavigate('stc_pay')} activeOpacity={0.8}>
+          <TouchableOpacity style={[styles.actionBtn, { color: colors.text }]} onPress={() => handleNavigate('stc_pay')} activeOpacity={0.8}>
             <LinearGradient colors={['#5F259F', '#7C3AED']} style={styles.actionGradient}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <Ionicons name="checkmark-circle" size={20} color="#FFF" />
@@ -104,8 +104,8 @@ export default function PaymentScreen({ route, navigation }) {
     }
     if (optionId === 'cash') {
       return (
-        <View style={styles.expandedContent}>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => handleNavigate('cash')} activeOpacity={0.8}>
+        <View style={[styles.expandedContent, { color: colors.text }]}>
+          <TouchableOpacity style={[styles.actionBtn, { color: colors.text }]} onPress={() => handleNavigate('cash')} activeOpacity={0.8}>
             <LinearGradient colors={['#059669', '#047857']} style={styles.actionGradient}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <Ionicons name="cash" size={20} color="#FFF" />
@@ -119,7 +119,7 @@ export default function PaymentScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
@@ -131,10 +131,10 @@ export default function PaymentScreen({ route, navigation }) {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
           {/* Total amount */}
-          <View style={styles.totalCard}>
-            <Text style={styles.totalLabel}>{t('totalAmount') || t('totalPrice')}</Text>
-            <Text style={styles.totalAmount}>{displayTotal}</Text>
-            <Text style={styles.vatNote}>{t('inclVat')}</Text>
+          <View style={[styles.totalCard, { color: colors.text }]}>
+            <Text style={[styles.totalLabel, { color: colors.textSecondary }]}>{t('totalAmount') || t('totalPrice')}</Text>
+            <Text style={[styles.totalAmount, { color: colors.primary }]}>{displayTotal}</Text>
+            <Text style={[styles.vatNote, { color: colors.textSecondary }]}>{t('inclVat')}</Text>
           </View>
 
           {/* Select Payment heading */}
@@ -182,9 +182,9 @@ export default function PaymentScreen({ route, navigation }) {
           })}
 
           {/* Secure payment footer */}
-          <View style={styles.secureRow}>
+          <View style={[styles.secureRow, { color: colors.text }]}>
             <Ionicons name="lock-closed" size={16} color={colors.gray} />
-            <Text style={styles.secureText}>{t('securePayment')}</Text>
+            <Text style={[styles.secureText, { color: colors.textSecondary }]}>{t('securePayment')}</Text>
           </View>
         </Animated.View>
         <View style={{ height: 120 }} />
@@ -194,35 +194,35 @@ export default function PaymentScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: theme.card, borderBottomWidth: 1, borderBottomColor: theme.border,
+    backgroundColor: 'transparent', borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
   rowReverse: { flexDirection: 'row-reverse' },
   scroll: { flex: 1 },
   scrollContent: { padding: 16 },
   totalCard: {
-    backgroundColor: theme.card, borderRadius: 20, padding: 24, alignItems: 'center',
+    backgroundColor: 'transparent', borderRadius: 20, padding: 24, alignItems: 'center',
     marginBottom: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  totalLabel: { fontSize: 14, color: theme.textSecondary, marginBottom: 4 },
+  totalLabel: { fontSize: 14, color: '#6B7280', marginBottom: 4 },
   totalAmount: { fontSize: 36, fontWeight: '800', color: '#059669' },
-  vatNote: { fontSize: 12, color: theme.gray, marginTop: 4 },
+  vatNote: { fontSize: 12, color: '#6B7280', marginTop: 4 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: theme.text,
+    fontSize: 17, fontWeight: '700', color: '#1F2937',
     marginBottom: 12, marginTop: 4,
   },
   optionCard: {
-    backgroundColor: theme.card, borderRadius: 16, padding: 16, marginBottom: 10,
-    borderWidth: 1.5, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 16, padding: 16, marginBottom: 10,
+    borderWidth: 1.5, borderColor: 'transparent',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04, shadowRadius: 8, elevation: 2,
   },
@@ -242,27 +242,27 @@ const styles = StyleSheet.create({
   optionTextWrap: {
     flex: 1, marginHorizontal: 12,
   },
-  optionTitle: { fontSize: 16, fontWeight: '700', color: theme.text },
-  optionDesc: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
+  optionTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
+  optionDesc: { fontSize: 13, color: '#6B7280', marginTop: 2 },
   expandedContent: {
-    backgroundColor: theme.card, borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
-    borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
+    borderWidth: 1, borderColor: 'transparent',
   },
   stcInstructions: {
-    fontSize: 14, color: theme.textSecondary, lineHeight: 22, marginBottom: 14,
+    fontSize: 14, color: '#6B7280', lineHeight: 22, marginBottom: 14,
   },
   numberRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: theme.lightGray, borderRadius: 14, padding: 14, marginBottom: 14,
-    borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 14, padding: 14, marginBottom: 14,
+    borderWidth: 1, borderColor: 'transparent',
   },
-  numberText: { fontSize: 22, fontWeight: '800', color: theme.text, letterSpacing: 2 },
+  numberText: { fontSize: 22, fontWeight: '800', color: '#1F2937', letterSpacing: 2 },
   copyBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
-    backgroundColor: theme.card, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
-    borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
+    borderWidth: 1, borderColor: 'transparent',
   },
-  copyText: { fontSize: 13, fontWeight: '600', color: theme.primary },
+  copyText: { fontSize: 13, fontWeight: '600', color: '#059669' },
   actionBtn: { borderRadius: 14, overflow: 'hidden' },
   actionGradient: {
     paddingVertical: 16, flexDirection: 'row', alignItems: 'center',
@@ -273,6 +273,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 6, paddingVertical: 20,
   },
-  secureText: { fontSize: 13, color: theme.gray },
+  secureText: { fontSize: 13, color: '#6B7280' },
   textRight: { textAlign: 'right' },
 });

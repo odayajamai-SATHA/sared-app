@@ -32,13 +32,13 @@ export default function VehiclesScreen({ navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('myVehicles')}</Text>
-        <TouchableOpacity onPress={() => setShowForm(!showForm)} style={styles.addBtn}>
+        <TouchableOpacity onPress={() => setShowForm(!showForm)} style={[styles.addBtn, { color: colors.text }]}>
           <Ionicons name={showForm ? 'close' : 'add'} size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
@@ -46,33 +46,33 @@ export default function VehiclesScreen({ navigation }) {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Add vehicle form */}
         {showForm && (
-          <View style={styles.formCard}>
+          <View style={[styles.formCard, { color: colors.text }]}>
             <Text style={[styles.formTitle, isRTL && styles.textRight]}>{t('addVehicle')}</Text>
-            <View style={styles.formRow}>
-              <View style={styles.formField}>
-                <Text style={styles.fieldLabel}>{t('vehicleMake')}</Text>
+            <View style={[styles.formRow, { color: colors.text }]}>
+              <View style={[styles.formField, { color: colors.text }]}>
+                <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleMake')}</Text>
                 <TextInput style={styles.input} placeholder={t('makePlaceholder')} placeholderTextColor={colors.gray}
                   value={form.make} onChangeText={(v) => setForm({ ...form, make: v })} />
               </View>
-              <View style={styles.formField}>
-                <Text style={styles.fieldLabel}>{t('vehicleModel')}</Text>
+              <View style={[styles.formField, { color: colors.text }]}>
+                <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleModel')}</Text>
                 <TextInput style={styles.input} placeholder={t('modelPlaceholder')} placeholderTextColor={colors.gray}
                   value={form.model} onChangeText={(v) => setForm({ ...form, model: v })} />
               </View>
             </View>
-            <View style={styles.formRow}>
-              <View style={styles.formField}>
-                <Text style={styles.fieldLabel}>{t('vehicleYear')}</Text>
+            <View style={[styles.formRow, { color: colors.text }]}>
+              <View style={[styles.formField, { color: colors.text }]}>
+                <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleYear')}</Text>
                 <TextInput style={styles.input} placeholder={t('yearPlaceholder')} placeholderTextColor={colors.gray}
                   keyboardType="number-pad" value={form.year} onChangeText={(v) => setForm({ ...form, year: v })} />
               </View>
-              <View style={styles.formField}>
-                <Text style={styles.fieldLabel}>{t('vehicleColor')}</Text>
+              <View style={[styles.formField, { color: colors.text }]}>
+                <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleColor')}</Text>
                 <TextInput style={styles.input} placeholder={t('colorPlaceholder')} placeholderTextColor={colors.gray}
                   value={form.color} onChangeText={(v) => setForm({ ...form, color: v })} />
               </View>
             </View>
-            <Text style={styles.fieldLabel}>{t('plateNumber')}</Text>
+            <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('plateNumber')}</Text>
             <TextInput style={styles.input} placeholder={t('platePlaceholder')} placeholderTextColor={colors.gray}
               autoCapitalize="characters" value={form.plate} onChangeText={(v) => setForm({ ...form, plate: v })} />
 
@@ -88,13 +88,13 @@ export default function VehiclesScreen({ navigation }) {
 
         {/* Vehicle list */}
         {vehicles.length === 0 && !showForm && (
-          <View style={styles.emptyState}>
-            <View style={styles.emptyIcon}>
+          <View style={[styles.emptyState, { color: colors.text }]}>
+            <View style={[styles.emptyIcon, { color: colors.text }]}>
               <Ionicons name="car-outline" size={64} color={colors.border} />
             </View>
-            <Text style={styles.emptyTitle}>{t('noVehiclesSaved')}</Text>
-            <Text style={styles.emptyHint}>{t('addVehicleForFaster')}</Text>
-            <TouchableOpacity style={styles.emptyBtn} onPress={() => setShowForm(true)}>
+            <Text style={[styles.emptyTitle, { color: colors.textSecondary }]}>{t('noVehiclesSaved')}</Text>
+            <Text style={[styles.emptyHint, { color: colors.textSecondary }]}>{t('addVehicleForFaster')}</Text>
+            <TouchableOpacity style={[styles.emptyBtn, { color: colors.text }]} onPress={() => setShowForm(true)}>
               <Ionicons name="add" size={20} color={colors.white} />
               <Text style={styles.emptyBtnText}>{t('addVehicle')}</Text>
             </TouchableOpacity>
@@ -102,7 +102,7 @@ export default function VehiclesScreen({ navigation }) {
         )}
 
         {vehicles.map((v) => (
-          <View key={v.id} style={styles.vehicleCard}>
+          <View key={v.id} style={[styles.vehicleCard, { color: colors.text }]}>
             <View style={[styles.vehicleRow, isRTL && styles.rowReverse]}>
               <View style={[styles.vehicleColor, { backgroundColor: colorForCar(v.color) }]}>
                 <Ionicons name="car-sport" size={24} color={v.color?.toLowerCase() === 'white' ? colors.text : '#FFF'} />
@@ -113,12 +113,12 @@ export default function VehiclesScreen({ navigation }) {
                   {v.year} {v.color ? `• ${v.color}` : ''}
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => handleDelete(v.id)} style={styles.deleteBtn}>
+              <TouchableOpacity onPress={() => handleDelete(v.id)} style={[styles.deleteBtn, { color: colors.text }]}>
                 <Ionicons name="trash-outline" size={18} color="#EF4444" />
               </TouchableOpacity>
             </View>
-            <View style={styles.plateContainer}>
-              <Text style={styles.plateText}>{v.plate}</Text>
+            <View style={[styles.plateContainer, { color: colors.text }]}>
+              <Text style={[styles.plateText, { color: colors.text }]}>{v.plate}</Text>
             </View>
           </View>
         ))}
@@ -129,32 +129,32 @@ export default function VehiclesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.lightGray },
+  container: { flex: 1, backgroundColor: 'transparent' },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: theme.white, borderBottomWidth: 1, borderBottomColor: theme.border,
+    backgroundColor: 'transparent', borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
   addBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.primaryFaded,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(5,150,105,0.1)',
     justifyContent: 'center', alignItems: 'center',
   },
   scrollContent: { padding: 16 },
   formCard: {
-    backgroundColor: theme.white, borderRadius: 16, padding: 20, marginBottom: 16,
+    backgroundColor: 'transparent', borderRadius: 16, padding: 20, marginBottom: 16,
   },
-  formTitle: { fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 16 },
+  formTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 16 },
   formRow: { flexDirection: 'row', gap: 12 },
   formField: { flex: 1, marginBottom: 12 },
-  fieldLabel: { fontSize: 12, fontWeight: '600', color: theme.textSecondary, marginBottom: 6 },
+  fieldLabel: { fontSize: 12, fontWeight: '600', color: '#6B7280', marginBottom: 6 },
   input: {
-    backgroundColor: theme.lightGray, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
-    fontSize: 15, color: theme.text, borderWidth: 1, borderColor: theme.border,
+    backgroundColor: 'transparent', borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
+    fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent',
   },
   saveBtn: {
     backgroundColor: theme.primary, paddingVertical: 14, borderRadius: 12,
@@ -163,26 +163,26 @@ const styles = StyleSheet.create({
   saveBtnText: { color: '#FFF', fontSize: 16, fontWeight: '700' },
   emptyState: { alignItems: 'center', paddingTop: 60 },
   emptyIcon: {
-    width: 100, height: 100, borderRadius: 50, backgroundColor: theme.white,
+    width: 100, height: 100, borderRadius: 50, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center', marginBottom: 16,
   },
-  emptyTitle: { fontSize: 18, fontWeight: '700', color: theme.darkGray },
-  emptyHint: { fontSize: 14, color: theme.textSecondary, marginTop: 6, marginBottom: 24 },
+  emptyTitle: { fontSize: 18, fontWeight: '700', color: '#374151' },
+  emptyHint: { fontSize: 14, color: '#6B7280', marginTop: 6, marginBottom: 24 },
   emptyBtn: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: theme.primary,
     paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, gap: 8,
   },
   emptyBtnText: { color: '#FFF', fontSize: 15, fontWeight: '600' },
   vehicleCard: {
-    backgroundColor: theme.white, borderRadius: 16, padding: 16, marginBottom: 12,
+    backgroundColor: 'transparent', borderRadius: 16, padding: 16, marginBottom: 12,
   },
   vehicleRow: { flexDirection: 'row', alignItems: 'center' },
   vehicleColor: {
     width: 48, height: 48, borderRadius: 14,
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
-  vehicleName: { fontSize: 16, fontWeight: '700', color: theme.text },
-  vehicleDetails: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
+  vehicleName: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
+  vehicleDetails: { fontSize: 13, color: '#6B7280', marginTop: 2 },
   deleteBtn: { padding: 8 },
   plateContainer: {
     backgroundColor: '#FEFCE8', borderRadius: 8, marginTop: 12,

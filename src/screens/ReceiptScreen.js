@@ -109,9 +109,9 @@ export default function ReceiptScreen({ route, navigation }) {
   };
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={{ paddingBottom: 40 }}>
-      <View style={[styles.topBar, { backgroundColor: colors.headerBg }]}>
-        <TouchableOpacity onPress={() => navigation.navigate('Main')} style={[styles.closeBtn, { backgroundColor: colors.surfaceSecondary }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]} contentContainerStyle={{ paddingBottom: 40 }}>
+      <View style={[styles.topBar, { backgroundColor: colors.headerBg, borderColor: colors.border }]}>
+        <TouchableOpacity onPress={() => navigation.navigate('Main')} style={[styles.closeBtn, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name="close" size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.topTitle, { color: colors.text }]}>{t('receipt')}</Text>
@@ -120,13 +120,13 @@ export default function ReceiptScreen({ route, navigation }) {
 
       <Animated.View style={[styles.receiptCard, { backgroundColor: colors.card, opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
         {/* Logo */}
-        <View style={styles.logoSection}>
+        <View style={[styles.logoSection, { color: colors.text }]}>
           <Ionicons name="shield-checkmark" size={36} color={colors.primary} />
           <Text style={[styles.logoName, { color: colors.primary }]}>Sared</Text>
           <Text style={[styles.logoNameAr, { color: colors.textSecondary }]}>سارد</Text>
         </View>
 
-        <View style={[styles.divider, { backgroundColor: colors.border }]} />
+        <View style={[styles.divider, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Trip info */}
         <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('tripReceipt')}</Text>
@@ -136,46 +136,46 @@ export default function ReceiptScreen({ route, navigation }) {
           ['locate-outline', t('pickup'), lang === 'ar' ? 'طريق الملك فهد، الرياض' : 'King Fahd Rd, Riyadh'],
           ['location-outline', t('dropoff'), lang === 'ar' ? 'شارع العليا، الرياض' : 'Olaya St, Riyadh'],
         ].map(([icon, label, value], i) => (
-          <View key={i} style={styles.infoRow}>
+          <View key={i} style={[styles.infoRow, { color: colors.text }]}>
             <Ionicons name={icon} size={16} color={i < 2 ? colors.textSecondary : i === 2 ? colors.success : colors.danger} />
             <Text style={[styles.infoLabel, { color: colors.textSecondary }]}>{label}</Text>
             <Text style={[styles.infoValue, { color: colors.text }]}>{value}</Text>
           </View>
         ))}
 
-        <View style={[styles.divider, { backgroundColor: colors.border }]} />
+        <View style={[styles.divider, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Price breakdown */}
         <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('priceBreakdown')}</Text>
-        <View style={styles.priceRow}>
+        <View style={[styles.priceRow, { color: colors.text }]}>
           <Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('dispatchFee') || t('baseFare')}</Text>
           <Text style={[styles.priceValue, { color: colors.text }]}>SAR {baseFare}</Text>
         </View>
-        <View style={styles.priceRow}>
+        <View style={[styles.priceRow, { color: colors.text }]}>
           <Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('distanceRate') || t('distance')}</Text>
           <Text style={[styles.priceValue, { color: colors.text }]}>SAR {distFee}</Text>
         </View>
         {nightSurcharge > 0 && (
-          <View style={styles.priceRow}>
+          <View style={[styles.priceRow, { color: colors.text }]}>
             <Text style={[styles.priceLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text>
             <Text style={[styles.priceValue, { color: '#8B5CF6' }]}>SAR {nightSurcharge}</Text>
           </View>
         )}
-        <View style={styles.priceRow}>
+        <View style={[styles.priceRow, { color: colors.text }]}>
           <Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('vat')}</Text>
           <Text style={[styles.priceValue, { color: colors.text }]}>SAR {vat}</Text>
         </View>
 
-        <View style={[styles.totalDivider, { backgroundColor: colors.primary }]} />
-        <View style={styles.priceRow}>
+        <View style={[styles.totalDivider, { backgroundColor: colors.primary, borderColor: colors.border }]} />
+        <View style={[styles.priceRow, { color: colors.text }]}>
           <Text style={[styles.totalLabel, { color: colors.text }]}>{t('totalPrice')}</Text>
           <Text style={[styles.totalValue, { color: colors.primary }]}>SAR {total}</Text>
         </View>
 
-        <View style={[styles.divider, { backgroundColor: colors.border }]} />
+        <View style={[styles.divider, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Payment */}
-        <View style={styles.paymentRow}>
+        <View style={[styles.paymentRow, { color: colors.text }]}>
           <Ionicons name="cash-outline" size={20} color={colors.success} />
           <Text style={[styles.paymentLabel, { color: colors.textSecondary }]}>{t('paymentMethod')}</Text>
           <Text style={[styles.paymentValue, { color: colors.success }]}>{paymentDisplay}</Text>
@@ -189,11 +189,11 @@ export default function ReceiptScreen({ route, navigation }) {
       </Animated.View>
 
       {/* Share action buttons */}
-      <View style={styles.shareSection}>
+      <View style={[styles.shareSection, { color: colors.text }]}>
         <Text style={[styles.shareTitle, { color: colors.text }]}>
           {lang === 'ar' ? 'مشاركة الإيصال' : 'Share Receipt'}
         </Text>
-        <View style={styles.shareRow}>
+        <View style={[styles.shareRow, { color: colors.text }]}>
           <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }]} onPress={handleShareWhatsApp}>
             <Ionicons name="logo-whatsapp" size={22} color="#FFF" />
             <Text style={styles.shareBtnText}>WhatsApp</Text>
@@ -202,7 +202,7 @@ export default function ReceiptScreen({ route, navigation }) {
             <Ionicons name="mail" size={22} color="#FFF" />
             <Text style={styles.shareBtnText}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: colors.primary }]} onPress={handleManualShare}>
+          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: colors.primary, borderColor: colors.border }]} onPress={handleManualShare}>
             <Ionicons name="share-social" size={22} color="#FFF" />
             <Text style={styles.shareBtnText}>{lang === 'ar' ? 'أخرى' : 'Other'}</Text>
           </TouchableOpacity>
@@ -210,7 +210,7 @@ export default function ReceiptScreen({ route, navigation }) {
       </View>
 
       <TouchableOpacity
-        style={[styles.doneBtn, { backgroundColor: colors.primary }]}
+        style={[styles.doneBtn, { backgroundColor: colors.primary, borderColor: colors.border }]}
         onPress={() => navigation.reset({ index: 0, routes: [{ name: 'Main' }] })}
       >
         <Text style={styles.doneBtnText}>{t('done')}</Text>

@@ -15,54 +15,54 @@ export default function DriverCompleteScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.topSection}>
-        <View style={styles.checkCircle}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
+      <View style={[styles.topSection, { color: colors.text }]}>
+        <View style={[styles.checkCircle, { color: colors.text }]}>
           <Ionicons name="checkmark-circle" size={64} color={colors.white} />
         </View>
-        <Text style={styles.title}>{t('jobCompleted')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('jobCompleted')}</Text>
         <Text style={styles.subtitle}>{t('jobCompletedSub')}</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={[styles.card, { color: colors.text }]}>
         <Text style={[styles.cardTitle, isRTL && styles.textRight]}>
           {t('tripSummary')}
         </Text>
 
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>{t('customerLabel')}</Text>
-          <Text style={styles.summaryValue}>
+        <View style={[styles.summaryRow, { color: colors.text }]}>
+          <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('customerLabel')}</Text>
+          <Text style={[styles.summaryValue, { color: colors.text }]}>
             {ride?.users?.name || 'Mohammed'}
           </Text>
         </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>{t('service')}</Text>
-          <Text style={styles.summaryValue}>{ride?.service_type || 'Tow'}</Text>
+        <View style={[styles.summaryRow, { color: colors.text }]}>
+          <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('service')}</Text>
+          <Text style={[styles.summaryValue, { color: colors.text }]}>{ride?.service_type || 'Tow'}</Text>
         </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>{t('vehicleSize')}</Text>
-          <Text style={styles.summaryValue}>{ride?.sared_size || 'Medium'}</Text>
+        <View style={[styles.summaryRow, { color: colors.text }]}>
+          <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('vehicleSize')}</Text>
+          <Text style={[styles.summaryValue, { color: colors.text }]}>{ride?.sared_size || 'Medium'}</Text>
         </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>{t('distance')}</Text>
-          <Text style={styles.summaryValue}>3.2 {t('km')}</Text>
+        <View style={[styles.summaryRow, { color: colors.text }]}>
+          <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('distance')}</Text>
+          <Text style={[styles.summaryValue, { color: colors.text }]}>3.2 {t('km')}</Text>
         </View>
 
-        <View style={styles.totalRow}>
-          <Text style={styles.totalLabel}>{t('youEarned')}</Text>
-          <Text style={styles.totalValue}>{ride?.price || 180} SAR</Text>
+        <View style={[styles.totalRow, { color: colors.text }]}>
+          <Text style={[styles.totalLabel, { color: colors.text }]}>{t('youEarned')}</Text>
+          <Text style={[styles.totalValue, { color: colors.primary }]}>{ride?.price || 180} SAR</Text>
         </View>
       </View>
 
-      <View style={styles.ratingCard}>
+      <View style={[styles.ratingCard, { color: colors.text }]}>
         <Ionicons name="star" size={24} color="#FBBF24" />
-        <Text style={styles.ratingTitle}>{t('waitingForRating')}</Text>
-        <Text style={styles.ratingText}>{t('ratingNotice')}</Text>
+        <Text style={[styles.ratingTitle, { color: colors.text }]}>{t('waitingForRating')}</Text>
+        <Text style={[styles.ratingText, { color: colors.textSecondary }]}>{t('ratingNotice')}</Text>
       </View>
 
-      <View style={styles.bottomActions}>
+      <View style={[styles.bottomActions, { color: colors.text }]}>
         <TouchableOpacity style={styles.doneBtn} onPress={handleDone}>
-          <Text style={styles.doneBtnText}>{t('backToDashboard')}</Text>
+          <Text style={[styles.doneBtnText, { color: colors.text }]}>{t('backToDashboard')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   card: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginTop: -20,
     borderRadius: 16,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
     marginBottom: 16,
   },
   summaryRow: {
@@ -116,16 +116,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: theme.lightGray,
+    borderBottomColor: 'transparent',
   },
   summaryLabel: {
     fontSize: 14,
-    color: theme.textSecondary,
+    color: '#6B7280',
   },
   summaryValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: theme.text,
+    color: '#1F2937',
   },
   totalRow: {
     flexDirection: 'row',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 16,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
   },
   totalValue: {
     fontSize: 20,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     color: '#22C55E',
   },
   ratingCard: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 16,
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
   ratingTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.text,
+    color: '#1F2937',
     marginTop: 8,
   },
   ratingText: {
     fontSize: 13,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 4,
     textAlign: 'center',
   },

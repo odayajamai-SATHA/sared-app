@@ -171,7 +171,7 @@ export default function TrackingScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: isDark ? '#1a1a2e' : '#E8E4DE' }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card, borderColor: colors.border }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('trackingDriver')}</Text>
@@ -188,12 +188,12 @@ export default function TrackingScreen({ route, navigation }) {
       >
         {userLocation && (
           <Marker coordinate={userLocation} title={t('pickupLocation')}>
-            <View style={styles.userMarkerOuter}><View style={styles.userDot} /></View>
+            <View style={[styles.userMarkerOuter, { color: colors.text }]}><View style={[styles.userDot, { color: colors.text }]} /></View>
           </Marker>
         )}
         {driverLocation && (
           <Marker coordinate={driverLocation} title={t('driverName')}>
-            <View style={styles.driverMarker}><Ionicons name="car-sport" size={20} color="#FFF" /></View>
+            <View style={[styles.driverMarker, { color: colors.text }]}><Ionicons name="car-sport" size={20} color="#FFF" /></View>
           </Marker>
         )}
         {routeCoords.length > 0 && (
@@ -202,28 +202,28 @@ export default function TrackingScreen({ route, navigation }) {
       </MapView>
 
       {/* SOS */}
-      <TouchableOpacity style={styles.sosBtn} onPress={() => setShowSOS(true)} activeOpacity={0.7}>
+      <TouchableOpacity style={[styles.sosBtn, { color: colors.text }]} onPress={() => setShowSOS(true)} activeOpacity={0.7}>
         <Text style={styles.sosBtnText}>SOS</Text>
       </TouchableOpacity>
 
       {/* SOS Modal */}
       <Modal visible={showSOS} transparent animationType="fade" statusBarTranslucent>
-        <View style={styles.sosOverlay}>
-          <View style={styles.sosModal}>
-            <View style={styles.sosIconCircle}><Ionicons name="warning" size={40} color="#FFF" /></View>
+        <View style={[styles.sosOverlay, { color: colors.text }]}>
+          <View style={[styles.sosModal, { color: colors.text }]}>
+            <View style={[styles.sosIconCircle, { color: colors.text }]}><Ionicons name="warning" size={40} color="#FFF" /></View>
             <Text style={styles.sosTitle}>{t('emergencySOS')}</Text>
             <Text style={styles.sosDesc}>{t('sosDesc')}</Text>
             {userLocation && (
-              <View style={styles.sosCoords}>
+              <View style={[styles.sosCoords, { color: colors.text }]}>
                 <Ionicons name="location" size={14} color="rgba(255,255,255,0.7)" />
                 <Text style={styles.sosCoordsText}>{userLocation.latitude.toFixed(5)}, {userLocation.longitude.toFixed(5)}</Text>
               </View>
             )}
-            <TouchableOpacity style={styles.sosCallBtn} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch {} }}>
+            <TouchableOpacity style={[styles.sosCallBtn, { color: colors.text }]} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch {} }}>
               <Ionicons name="call" size={20} color="#DC2626" />
-              <Text style={styles.sosCallText}>{t('callEmergency') || 'Call 911'}</Text>
+              <Text style={[styles.sosCallText, { color: colors.text }]}>{t('callEmergency') || 'Call 911'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.sosCancelBtn} onPress={() => setShowSOS(false)}>
+            <TouchableOpacity style={[styles.sosCancelBtn, { color: colors.text }]} onPress={() => setShowSOS(false)}>
               <Text style={styles.sosCancelText}>{t('cancel')}</Text>
             </TouchableOpacity>
           </View>
@@ -231,22 +231,22 @@ export default function TrackingScreen({ route, navigation }) {
       </Modal>
 
       {/* ETA + Distance badges */}
-      <View style={[styles.etaBubble, { backgroundColor: colors.card }]}>
+      <View style={[styles.etaBubble, { backgroundColor: colors.card, borderColor: colors.border }]}>
         <Text style={[styles.etaNumber, { color: colors.primary }]}>{eta}</Text>
         <Text style={[styles.etaUnit, { color: colors.textSecondary }]}>{t('min')}</Text>
       </View>
-      <View style={styles.distBubble}>
+      <View style={[styles.distBubble, { color: colors.text }]}>
         <Text style={styles.distText}>{getDistance()} {t('km')}</Text>
       </View>
 
       {/* Bottom sheet */}
       <Animated.View style={[styles.bottomPanel, { backgroundColor: colors.card, opacity: sheetFade, transform: [{ translateY: sheetAnim }] }]}>
-        <View style={[styles.handle, { backgroundColor: colors.border }]} />
+        <View style={[styles.handle, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Progress steps */}
-        <View style={styles.stepsRow}>
+        <View style={[styles.stepsRow, { color: colors.text }]}>
           {steps.map((step, i) => (
-            <View key={i} style={styles.stepItem}>
+            <View key={i} style={[styles.stepItem, { color: colors.text }]}>
               <View style={[styles.stepCircle, activeStep > i && styles.stepCircleActive, activeStep === i + 1 && styles.stepCircleCurrent]}>
                 <Ionicons name={step.icon} size={14} color={activeStep > i ? '#FFF' : colors.gray} />
               </View>
@@ -257,32 +257,32 @@ export default function TrackingScreen({ route, navigation }) {
         </View>
 
         {/* Driver info */}
-        <View style={[styles.driverCard, { backgroundColor: colors.surfaceSecondary }, isRTL && styles.rowReverse]}>
-          <View style={[styles.driverAvatar, { backgroundColor: colors.primaryFaded }]}>
+        <View style={[styles.driverCard, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }, isRTL && styles.rowReverse]}>
+          <View style={[styles.driverAvatar, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]}>
             <Ionicons name="person" size={24} color={colors.primary} />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={[styles.driverName, { color: colors.text }]}>{t('driverName')}</Text>
-            <View style={styles.driverMeta}>
+            <View style={[styles.driverMeta, { color: colors.text }]}>
               <Ionicons name="star" size={12} color="#FBBF24" />
               <Text style={[styles.ratingText, { color: colors.text }]}>4.8</Text>
               <Text style={{ color: colors.gray }}>|</Text>
               <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('plateNum')}: أ ب ج 1234</Text>
             </View>
           </View>
-          <View style={[styles.etaChip, { backgroundColor: colors.primaryFaded }]}>
+          <View style={[styles.etaChip, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]}>
             <Text style={[styles.etaChipNum, { color: colors.primary }]}>{eta}</Text>
             <Text style={{ fontSize: 10, color: colors.textSecondary }}>{t('min')}</Text>
           </View>
         </View>
 
         {/* Action buttons */}
-        <View style={styles.buttonRow}>
-          <TouchableOpacity style={[styles.msgBtn, { backgroundColor: colors.primaryFaded }]} onPress={() => Alert.alert(t('messageDriver'), t('featureComingSoon'))}>
+        <View style={[styles.buttonRow, { color: colors.text }]}>
+          <TouchableOpacity style={[styles.msgBtn, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]} onPress={() => Alert.alert(t('messageDriver'), t('featureComingSoon'))}>
             <Ionicons name="chatbubble-outline" size={20} color={colors.primary} />
             <Text style={{ color: colors.primary, fontSize: 14, fontWeight: '600' }}>{t('messageDriver')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary }]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch {} }}>
+          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary, borderColor: colors.border }]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch {} }}>
             <Ionicons name="call" size={20} color="#FFF" />
             <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '600' }}>{t('callDriver')}</Text>
           </TouchableOpacity>

@@ -142,9 +142,9 @@ export default function DriverDashboardScreen({ route, navigation }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { color: colors.text }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
           <View>
             <Text style={[styles.greeting, isRTL && styles.textRight]}>
@@ -156,14 +156,14 @@ export default function DriverDashboardScreen({ route, navigation }) {
           </View>
           <View style={[styles.ratingBadge, isRTL && styles.rowReverse]}>
             <Ionicons name="star" size={14} color="#FBBF24" />
-            <Text style={styles.ratingText}>{driver?.rating || '4.8'}</Text>
+            <Text style={[styles.ratingText, { color: colors.text }]}>{driver?.rating || '4.8'}</Text>
           </View>
         </View>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Online/Offline Toggle */}
-        <View style={styles.toggleSection}>
+        <View style={[styles.toggleSection, { color: colors.text }]}>
           <Animated.View
             style={[
               styles.statusDot,
@@ -171,7 +171,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
               { transform: [{ scale: isOnline ? pulseAnim : 1 }] },
             ]}
           />
-          <Text style={styles.statusLabel}>
+          <Text style={[styles.statusLabel, { color: colors.text }]}>
             {isOnline ? t('youAreOnline') : t('youAreOffline')}
           </Text>
           <TouchableOpacity
@@ -198,79 +198,79 @@ export default function DriverDashboardScreen({ route, navigation }) {
         </View>
 
         {/* Stats Cards */}
-        <View style={styles.statsRow}>
-          <View style={styles.statCard}>
+        <View style={[styles.statsRow, { color: colors.text }]}>
+          <View style={[styles.statCard, { color: colors.text }]}>
             <Ionicons name="cash-outline" size={28} color={colors.primary} />
-            <Text style={styles.statValue}>{earnings} SAR</Text>
-            <Text style={styles.statLabel}>{t('todayEarnings')}</Text>
+            <Text style={[styles.statValue, { color: colors.text }]}>{earnings} SAR</Text>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>{t('todayEarnings')}</Text>
           </View>
-          <View style={styles.statCard}>
+          <View style={[styles.statCard, { color: colors.text }]}>
             <Ionicons name="car-sport-outline" size={28} color={colors.primary} />
-            <Text style={styles.statValue}>{totalRides}</Text>
-            <Text style={styles.statLabel}>{t('totalRidesToday')}</Text>
+            <Text style={[styles.statValue, { color: colors.text }]}>{totalRides}</Text>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>{t('totalRidesToday')}</Text>
           </View>
         </View>
 
         {/* Quick Stats */}
-        <View style={styles.quickStats}>
+        <View style={[styles.quickStats, { color: colors.text }]}>
           <View style={[styles.quickStatItem, isRTL && styles.rowReverse]}>
             <Ionicons name="time-outline" size={20} color={colors.textSecondary} />
-            <Text style={styles.quickStatText}>{t('avgResponseTime')}: 2.3 {t('min')}</Text>
+            <Text style={[styles.quickStatText, { color: colors.textSecondary }]}>{t('avgResponseTime')}: 2.3 {t('min')}</Text>
           </View>
           <View style={[styles.quickStatItem, isRTL && styles.rowReverse]}>
             <Ionicons name="checkmark-circle-outline" size={20} color="#22C55E" />
-            <Text style={styles.quickStatText}>{t('acceptanceRate')}: 94%</Text>
+            <Text style={[styles.quickStatText, { color: colors.textSecondary }]}>{t('acceptanceRate')}: 94%</Text>
           </View>
         </View>
       </ScrollView>
 
       {/* Incoming Ride Request Overlay */}
       {incomingRide && (
-        <View style={styles.requestOverlay}>
-          <View style={styles.requestCard}>
+        <View style={[styles.requestOverlay, { color: colors.text }]}>
+          <View style={[styles.requestCard, { color: colors.text }]}>
             {/* Timer Circle */}
-            <View style={styles.timerCircle}>
-              <Text style={styles.timerText}>{timer}</Text>
-              <Text style={styles.timerLabel}>{t('seconds')}</Text>
+            <View style={[styles.timerCircle, { color: colors.text }]}>
+              <Text style={[styles.timerText, { color: colors.primary }]}>{timer}</Text>
+              <Text style={[styles.timerLabel, { color: colors.textSecondary }]}>{t('seconds')}</Text>
             </View>
 
-            <Text style={styles.requestTitle}>{t('newRideRequest')}</Text>
+            <Text style={[styles.requestTitle, { color: colors.text }]}>{t('newRideRequest')}</Text>
 
             {/* Ride Details */}
-            <View style={styles.requestDetails}>
+            <View style={[styles.requestDetails, { color: colors.text }]}>
               <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
                 <Ionicons name="person" size={18} color={colors.primary} />
-                <Text style={styles.requestText}>
+                <Text style={[styles.requestText, { color: colors.text }]}>
                   {incomingRide.users?.name || 'Mohammed'}
                 </Text>
               </View>
               <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
                 <Ionicons name="car-sport" size={18} color={colors.primary} />
-                <Text style={styles.requestText}>
+                <Text style={[styles.requestText, { color: colors.text }]}>
                   {incomingRide.sared_size} • {incomingRide.service_type}
                 </Text>
               </View>
               <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
                 <Ionicons name="cash" size={18} color={colors.primary} />
-                <Text style={styles.requestText}>
+                <Text style={[styles.requestText, { color: colors.text }]}>
                   {incomingRide.price} SAR
                 </Text>
               </View>
               <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
                 <Ionicons name="navigate" size={18} color={colors.primary} />
-                <Text style={styles.requestText}>3.2 {t('km')} {t('away')}</Text>
+                <Text style={[styles.requestText, { color: colors.text }]}>3.2 {t('km')} {t('away')}</Text>
               </View>
             </View>
 
             {/* Accept / Decline */}
-            <View style={styles.requestButtons}>
+            <View style={[styles.requestButtons, { color: colors.text }]}>
               <TouchableOpacity style={styles.declineBtn} onPress={handleDecline}>
                 <Ionicons name="close" size={24} color="#EF4444" />
                 <Text style={styles.declineBtnText}>{t('decline')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.acceptBtn} onPress={handleAccept}>
                 <Ionicons name="checkmark" size={24} color={colors.white} />
-                <Text style={styles.acceptBtnText}>{t('accept')}</Text>
+                <Text style={[styles.acceptBtnText, { color: colors.text }]}>{t('accept')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -278,24 +278,24 @@ export default function DriverDashboardScreen({ route, navigation }) {
       )}
 
       {/* Bottom Nav */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} onPress={() => {}}>
+      <View style={[styles.bottomNav, { color: colors.text }]}>
+        <TouchableOpacity style={[styles.navItem, { color: colors.text }]} onPress={() => {}}>
           <Ionicons name="home" size={22} color={colors.primary} />
           <Text style={[styles.navLabel, { color: colors.primary }]}>{t('home')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.navItem}
+          style={[styles.navItem, { color: colors.text }]}
           onPress={() => navigation.navigate('DriverEarnings', { driver })}
         >
           <Ionicons name="wallet-outline" size={22} color={colors.gray} />
-          <Text style={styles.navLabel}>{t('driverEarnings')}</Text>
+          <Text style={[styles.navLabel, { color: colors.textSecondary }]}>{t('driverEarnings')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.navItem}
+          style={[styles.navItem, { color: colors.text }]}
           onPress={() => navigation.navigate('DriverProfile', { driver })}
         >
           <Ionicons name="person-outline" size={22} color={colors.gray} />
-          <Text style={styles.navLabel}>{t('profile')}</Text>
+          <Text style={[styles.navLabel, { color: colors.textSecondary }]}>{t('profile')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
   },
   toggleSection: {
     alignItems: 'center',
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 16,
     padding: 24,
     marginBottom: 16,
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   statusLabel: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
     marginBottom: 16,
   },
   toggleBtn: {
@@ -385,9 +385,9 @@ const styles = StyleSheet.create({
     borderColor: '#22C55E',
   },
   toggleBtnOffline: {
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: theme.border,
+    borderColor: 'transparent',
   },
   toggleBtnText: {
     fontSize: 16,
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
@@ -413,16 +413,16 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: theme.text,
+    color: '#1F2937',
     marginTop: 8,
   },
   statLabel: {
     fontSize: 13,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 4,
   },
   quickStats: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 16,
     padding: 16,
     marginBottom: 100,
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
   },
   quickStatText: {
     fontSize: 14,
-    color: theme.textSecondary,
+    color: '#6B7280',
   },
   // Incoming ride overlay
   requestOverlay: {
@@ -455,7 +455,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   requestCard: {
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderRadius: 20,
     padding: 24,
     marginHorizontal: 20,
@@ -480,16 +480,16 @@ const styles = StyleSheet.create({
   timerText: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: theme.primary,
+    color: '#059669',
   },
   timerLabel: {
     fontSize: 10,
-    color: theme.textSecondary,
+    color: '#6B7280',
   },
   requestTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: theme.text,
+    color: '#1F2937',
     marginBottom: 16,
   },
   requestDetails: {
@@ -502,11 +502,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     gap: 10,
     borderBottomWidth: 1,
-    borderBottomColor: theme.lightGray,
+    borderBottomColor: 'transparent',
   },
   requestText: {
     fontSize: 15,
-    color: theme.text,
+    color: '#1F2937',
     fontWeight: '500',
   },
   requestButtons: {
@@ -553,9 +553,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: 'row',
-    backgroundColor: theme.white,
+    backgroundColor: 'transparent',
     borderTopWidth: 1,
-    borderTopColor: theme.border,
+    borderTopColor: 'transparent',
     paddingBottom: 20,
     paddingTop: 10,
   },
@@ -565,7 +565,7 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     fontSize: 11,
-    color: theme.gray,
+    color: '#6B7280',
     marginTop: 4,
   },
   rowReverse: {

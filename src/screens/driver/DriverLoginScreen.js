@@ -79,38 +79,38 @@ export default function DriverLoginScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      style={[styles.container, { backgroundColor: colors.background }]}
+      style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <StatusBar style="dark" />
 
       <TouchableOpacity style={styles.langToggle} onPress={toggleLang}>
-        <Text style={styles.langToggleText}>{t('langToggle')}</Text>
+        <Text style={[styles.langToggleText, { color: colors.primary }]}>{t('langToggle')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.switchBtn}
+        style={[styles.switchBtn, { color: colors.text }]}
         onPress={() => navigation.replace('Login')}
       >
         <Ionicons name="swap-horizontal" size={16} color={colors.primary} />
-        <Text style={styles.switchBtnText}>{t('switchToUser')}</Text>
+        <Text style={[styles.switchBtnText, { color: colors.primary }]}>{t('switchToUser')}</Text>
       </TouchableOpacity>
 
-      <View style={styles.logoContainer}>
-        <View style={styles.logoCircle}>
+      <View style={[styles.logoContainer, { color: colors.text }]}>
+        <View style={[styles.logoCircle, { color: colors.text }]}>
           <Ionicons name="car-sport" size={48} color={colors.primary} />
         </View>
-        <Text style={styles.logoText}>{t('appName')}</Text>
-        <Text style={styles.tagline}>{t('driverMode')}</Text>
+        <Text style={[styles.logoText, { color: colors.primary }]}>{t('appName')}</Text>
+        <Text style={[styles.tagline, { color: colors.textSecondary }]}>{t('driverMode')}</Text>
       </View>
 
-      <View style={styles.formContainer}>
+      <View style={[styles.formContainer, { color: colors.text }]}>
         <Text style={[styles.label, isRTL && styles.textRight]}>
           {t('enterPhone')}
         </Text>
         <View style={[styles.phoneRow, isRTL && styles.rowReverse]}>
-          <View style={styles.countryCode}>
-            <Text style={styles.countryCodeText}>+966</Text>
+          <View style={[styles.countryCode, { color: colors.text }]}>
+            <Text style={[styles.countryCodeText, { color: colors.text }]}>+966</Text>
           </View>
           <TextInput
             style={[styles.phoneInput, isRTL && styles.textRight]}
@@ -141,9 +141,9 @@ export default function DriverLoginScreen({ navigation }) {
           disabled={!phone || !driverId || loading}
         >
           {loading ? (
-            <Text style={styles.loginButtonText}>...</Text>
+            <Text style={[styles.loginButtonText, { color: colors.text }]}>...</Text>
           ) : (
-            <Text style={styles.loginButtonText}>{t('driverLogin')}</Text>
+            <Text style={[styles.loginButtonText, { color: colors.text }]}>{t('driverLogin')}</Text>
           )}
         </TouchableOpacity>
 
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     top: 52,
     right: 20,
     zIndex: 10,
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   langToggleText: {
     fontSize: 14,
     fontWeight: '600',
-    color: theme.primary,
+    color: '#059669',
   },
   switchBtn: {
     position: 'absolute',
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.primaryFaded,
+    backgroundColor: 'rgba(5,150,105,0.1)',
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   switchBtnText: {
     fontSize: 13,
     fontWeight: '600',
-    color: theme.primary,
+    color: '#059669',
   },
   logoContainer: {
     flex: 1,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: theme.primaryFaded,
+    backgroundColor: 'rgba(5,150,105,0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -209,11 +209,11 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: theme.primary,
+    color: '#059669',
   },
   tagline: {
     fontSize: 16,
-    color: theme.textSecondary,
+    color: '#6B7280',
     marginTop: 8,
     fontWeight: '600',
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.text,
+    color: '#1F2937',
     marginBottom: 12,
   },
   phoneRow: {
@@ -236,38 +236,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
   },
   countryCode: {
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     borderRadius: 12,
     paddingHorizontal: 14,
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: theme.border,
+    borderColor: 'transparent',
   },
   countryCodeText: {
     fontSize: 16,
-    color: theme.text,
+    color: '#1F2937',
     fontWeight: '500',
   },
   phoneInput: {
     flex: 1,
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: theme.text,
+    color: '#1F2937',
     borderWidth: 1,
-    borderColor: theme.border,
+    borderColor: 'transparent',
   },
   idInput: {
-    backgroundColor: theme.lightGray,
+    backgroundColor: 'transparent',
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: theme.text,
+    color: '#1F2937',
     borderWidth: 1,
-    borderColor: theme.border,
+    borderColor: 'transparent',
     marginBottom: 20,
   },
   loginButton: {
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   },
   terms: {
     fontSize: 12,
-    color: theme.textSecondary,
+    color: '#6B7280',
     textAlign: 'center',
     lineHeight: 18,
   },
