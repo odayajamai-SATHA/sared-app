@@ -103,7 +103,7 @@ const translations = {
     rides: 'Rides',
     saved: 'Saved',
 
-    // ---- Driver Translations ----
+    // Driver
     driverMode: 'Driver Mode',
     driverLogin: 'Login as Driver',
     driverIdLabel: 'Driver ID / Iqama Number',
@@ -675,7 +675,7 @@ const translations = {
     proudlyMade: 'صنع بفخر في المملكة العربية السعودية',
     rateApp: 'قيّم التطبيق',
 
-    // ---- Driver Translations ----
+    // Driver
     driverMode: 'وضع السائق',
     driverLogin: 'دخول كسائق',
     driverIdLabel: 'رقم هوية السائق / الإقامة',
