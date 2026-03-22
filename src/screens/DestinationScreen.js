@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import MapView, { Marker } from '../components/MapView';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -116,7 +116,7 @@ export default function DestinationScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('setDropoff')}</Text>
@@ -187,22 +187,22 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 16,
     paddingBottom: 12,
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     borderBottomWidth: 1,
-    borderBottomColor: staticColors.border,
+    borderBottomColor: theme.border,
   },
   backBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
     margin: 16,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     borderRadius: 12,
     gap: 10,
   },
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: staticColors.text,
+    color: theme.text,
   },
   mapOption: {
     flexDirection: 'row',
@@ -225,14 +225,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 8,
     padding: 14,
-    backgroundColor: staticColors.primaryFaded,
+    backgroundColor: theme.primaryFaded,
     borderRadius: 12,
   },
   mapOptionIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 12,
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     fontWeight: '600',
-    color: staticColors.primary,
+    color: theme.primary,
   },
   list: {
     flex: 1,
@@ -252,13 +252,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: staticColors.lightGray,
+    borderBottomColor: theme.lightGray,
   },
   suggestionIcon: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 12,
@@ -266,11 +266,11 @@ const styles = StyleSheet.create({
   suggestionName: {
     fontSize: 15,
     fontWeight: '600',
-    color: staticColors.text,
+    color: theme.text,
   },
   suggestionSub: {
     fontSize: 13,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 2,
   },
   rowReverse: {
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     bottom: 32,
     left: 20,
     right: 20,
-    backgroundColor: staticColors.primary,
+    backgroundColor: theme.primary,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   confirmPinText: {
-    color: staticColors.white,
+    color: theme.white,
     fontSize: 16,
     fontWeight: '700',
   },

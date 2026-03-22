@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -112,7 +112,7 @@ export default function TripCompleteScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
+  container: { flex: 1, backgroundColor: theme.lightGray },
   contentContainer: { paddingBottom: 40 },
   topSection: { alignItems: 'center', paddingTop: 80, paddingBottom: 50 },
   checkCircle: {
@@ -121,35 +121,35 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 26, fontWeight: 'bold', color: '#FFF' },
   card: {
-    backgroundColor: staticColors.card, marginHorizontal: 16, marginTop: -24, borderRadius: 20,
+    backgroundColor: theme.card, marginHorizontal: 16, marginTop: -24, borderRadius: 20,
     padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08, shadowRadius: 16, elevation: 6,
   },
-  cardTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text, marginBottom: 16 },
+  cardTitle: { fontSize: 18, fontWeight: '700', color: theme.text, marginBottom: 16 },
   summaryRow: {
     flexDirection: 'row', justifyContent: 'space-between',
-    paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: staticColors.lightGray,
+    paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: theme.lightGray,
   },
-  summaryLabel: { fontSize: 14, color: staticColors.textSecondary },
-  summaryValue: { fontSize: 14, fontWeight: '600', color: staticColors.text },
+  summaryLabel: { fontSize: 14, color: theme.textSecondary },
+  summaryValue: { fontSize: 14, fontWeight: '600', color: theme.text },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 14, marginTop: 4 },
-  totalLabel: { fontSize: 16, fontWeight: '700', color: staticColors.text },
-  totalValue: { fontSize: 18, fontWeight: 'bold', color: staticColors.primary },
+  totalLabel: { fontSize: 16, fontWeight: '700', color: theme.text },
+  totalValue: { fontSize: 18, fontWeight: 'bold', color: theme.primary },
   ratingCard: {
-    backgroundColor: staticColors.card, marginHorizontal: 16, marginTop: 16, borderRadius: 20,
+    backgroundColor: theme.card, marginHorizontal: 16, marginTop: 16, borderRadius: 20,
     padding: 24, alignItems: 'center',
   },
-  rateTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text, marginBottom: 16 },
+  rateTitle: { fontSize: 18, fontWeight: '700', color: theme.text, marginBottom: 16 },
   driverRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: {
-    width: 48, height: 48, borderRadius: 24, backgroundColor: staticColors.primaryFaded,
+    width: 48, height: 48, borderRadius: 24, backgroundColor: theme.primaryFaded,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  driverName: { fontSize: 16, fontWeight: '600', color: staticColors.text },
+  driverName: { fontSize: 16, fontWeight: '600', color: theme.text },
   starsRow: { flexDirection: 'row', gap: 8, marginBottom: 8 },
   starBtn: { padding: 4 },
-  tapHint: { fontSize: 14, color: staticColors.textSecondary, marginBottom: 20 },
+  tapHint: { fontSize: 14, color: theme.textSecondary, marginBottom: 20 },
   submitBtn: { width: '100%', borderRadius: 14, overflow: 'hidden' },
   submitBtnDisabled: { opacity: 0.5 },
   submitGradient: {

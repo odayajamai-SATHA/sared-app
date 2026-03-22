@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../../utils/colors';
+import { colors as theme } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { getDriverByPhone } from '../../utils/supabase';
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     top: 52,
     right: 20,
     zIndex: 10,
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   langToggleText: {
     fontSize: 14,
     fontWeight: '600',
-    color: staticColors.primary,
+    color: theme.primary,
   },
   switchBtn: {
     position: 'absolute',
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: staticColors.primaryFaded,
+    backgroundColor: theme.primaryFaded,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   switchBtnText: {
     fontSize: 13,
     fontWeight: '600',
-    color: staticColors.primary,
+    color: theme.primary,
   },
   logoContainer: {
     flex: 1,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: staticColors.primaryFaded,
+    backgroundColor: theme.primaryFaded,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -209,11 +209,11 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: staticColors.primary,
+    color: theme.primary,
   },
   tagline: {
     fontSize: 16,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 8,
     fontWeight: '600',
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: staticColors.text,
+    color: theme.text,
     marginBottom: 12,
   },
   phoneRow: {
@@ -236,38 +236,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
   },
   countryCode: {
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     borderRadius: 12,
     paddingHorizontal: 14,
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: staticColors.border,
+    borderColor: theme.border,
   },
   countryCodeText: {
     fontSize: 16,
-    color: staticColors.text,
+    color: theme.text,
     fontWeight: '500',
   },
   phoneInput: {
     flex: 1,
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: staticColors.text,
+    color: theme.text,
     borderWidth: 1,
-    borderColor: staticColors.border,
+    borderColor: theme.border,
   },
   idInput: {
-    backgroundColor: staticColors.lightGray,
+    backgroundColor: theme.lightGray,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: staticColors.text,
+    color: theme.text,
     borderWidth: 1,
-    borderColor: staticColors.border,
+    borderColor: theme.border,
     marginBottom: 20,
   },
   loginButton: {
@@ -281,13 +281,13 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   loginButtonText: {
-    color: staticColors.white,
+    color: theme.white,
     fontSize: 18,
     fontWeight: '700',
   },
   terms: {
     fontSize: 12,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     textAlign: 'center',
     lineHeight: 18,
   },

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors as staticColors } from '../../utils/colors';
+import { colors as theme } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: staticColors.white,
+    color: theme.white,
   },
   subtitle: {
     fontSize: 15,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   card: {
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     marginHorizontal: 16,
     marginTop: -20,
     borderRadius: 16,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
     marginBottom: 16,
   },
   summaryRow: {
@@ -116,16 +116,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: staticColors.lightGray,
+    borderBottomColor: theme.lightGray,
   },
   summaryLabel: {
     fontSize: 14,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
   },
   summaryValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: staticColors.text,
+    color: theme.text,
   },
   totalRow: {
     flexDirection: 'row',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 16,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
   },
   totalValue: {
     fontSize: 20,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     color: '#22C55E',
   },
   ratingCard: {
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 16,
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
   ratingTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: staticColors.text,
+    color: theme.text,
     marginTop: 8,
   },
   ratingText: {
     fontSize: 13,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 4,
     textAlign: 'center',
   },
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   doneBtnText: {
-    color: staticColors.white,
+    color: theme.white,
     fontSize: 18,
     fontWeight: '700',
   },

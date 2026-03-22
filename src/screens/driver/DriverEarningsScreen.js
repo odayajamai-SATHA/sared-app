@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../../utils/colors';
+import { colors as theme } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
@@ -19,7 +19,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.header}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.white} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('driverEarnings')}</Text>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.white,
+    color: theme.white,
   },
   earningsTotal: {
     alignItems: 'center',
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   earningsAmount: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: staticColors.white,
+    color: theme.white,
     marginTop: 4,
   },
   earningsStats: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   earningStatValue: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.white,
+    color: theme.white,
   },
   earningStatLabel: {
     fontSize: 11,
@@ -162,13 +162,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
     marginBottom: 14,
   },
   jobCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     borderRadius: 14,
     padding: 14,
     marginBottom: 10,
@@ -193,11 +193,11 @@ const styles = StyleSheet.create({
   jobCustomer: {
     fontSize: 15,
     fontWeight: '600',
-    color: staticColors.text,
+    color: theme.text,
   },
   jobService: {
     fontSize: 13,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 2,
   },
   jobAmount: {

@@ -85,7 +85,7 @@ export default function ReceiptScreen({ route, navigation }) {
     const msg = buildReceiptMessage();
     try {
       await Share.share({ message: msg, title: lang === 'ar' ? 'إيصال سارد' : 'Sared Receipt' });
-    } catch { /* silent */ }
+    } catch {}
   };
 
   const handleShareWhatsApp = async () => {

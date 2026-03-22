@@ -4,7 +4,7 @@ import {
   TextInput, Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -34,7 +34,7 @@ export default function VehiclesScreen({ navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('myVehicles')}</Text>
@@ -129,60 +129,60 @@ export default function VehiclesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
+  container: { flex: 1, backgroundColor: theme.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
+    backgroundColor: theme.white, borderBottomWidth: 1, borderBottomColor: theme.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
   addBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.primaryFaded,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.primaryFaded,
     justifyContent: 'center', alignItems: 'center',
   },
   scrollContent: { padding: 16 },
   formCard: {
-    backgroundColor: staticColors.white, borderRadius: 16, padding: 20, marginBottom: 16,
+    backgroundColor: theme.white, borderRadius: 16, padding: 20, marginBottom: 16,
   },
-  formTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 16 },
+  formTitle: { fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 16 },
   formRow: { flexDirection: 'row', gap: 12 },
   formField: { flex: 1, marginBottom: 12 },
-  fieldLabel: { fontSize: 12, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 6 },
+  fieldLabel: { fontSize: 12, fontWeight: '600', color: theme.textSecondary, marginBottom: 6 },
   input: {
-    backgroundColor: staticColors.lightGray, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
-    fontSize: 15, color: staticColors.text, borderWidth: 1, borderColor: staticColors.border,
+    backgroundColor: theme.lightGray, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
+    fontSize: 15, color: theme.text, borderWidth: 1, borderColor: theme.border,
   },
   saveBtn: {
-    backgroundColor: staticColors.primary, paddingVertical: 14, borderRadius: 12,
+    backgroundColor: theme.primary, paddingVertical: 14, borderRadius: 12,
     alignItems: 'center', marginTop: 12,
   },
   saveBtnText: { color: '#FFF', fontSize: 16, fontWeight: '700' },
   emptyState: { alignItems: 'center', paddingTop: 60 },
   emptyIcon: {
-    width: 100, height: 100, borderRadius: 50, backgroundColor: staticColors.white,
+    width: 100, height: 100, borderRadius: 50, backgroundColor: theme.white,
     justifyContent: 'center', alignItems: 'center', marginBottom: 16,
   },
-  emptyTitle: { fontSize: 18, fontWeight: '700', color: staticColors.darkGray },
-  emptyHint: { fontSize: 14, color: staticColors.textSecondary, marginTop: 6, marginBottom: 24 },
+  emptyTitle: { fontSize: 18, fontWeight: '700', color: theme.darkGray },
+  emptyHint: { fontSize: 14, color: theme.textSecondary, marginTop: 6, marginBottom: 24 },
   emptyBtn: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.primary,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: theme.primary,
     paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, gap: 8,
   },
   emptyBtnText: { color: '#FFF', fontSize: 15, fontWeight: '600' },
   vehicleCard: {
-    backgroundColor: staticColors.white, borderRadius: 16, padding: 16, marginBottom: 12,
+    backgroundColor: theme.white, borderRadius: 16, padding: 16, marginBottom: 12,
   },
   vehicleRow: { flexDirection: 'row', alignItems: 'center' },
   vehicleColor: {
     width: 48, height: 48, borderRadius: 14,
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
-  vehicleName: { fontSize: 16, fontWeight: '700', color: staticColors.text },
-  vehicleDetails: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
+  vehicleName: { fontSize: 16, fontWeight: '700', color: theme.text },
+  vehicleDetails: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
   deleteBtn: { padding: 8 },
   plateContainer: {
     backgroundColor: '#FEFCE8', borderRadius: 8, marginTop: 12,

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
@@ -68,7 +68,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('chooseService')}</Text>
@@ -122,20 +122,20 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
+    backgroundColor: theme.white, borderBottomWidth: 1, borderBottomColor: theme.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
   content: { flex: 1 },
   contentInner: { padding: 20 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: theme.textSecondary, marginBottom: 16 },
   card: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: theme.white,
     borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 1, borderColor: staticColors.border,
+    borderWidth: 1, borderColor: theme.border,
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,
   },
   cardComingSoon: {
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   },
   cardContent: { flex: 1 },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text },
-  cardDesc: { fontSize: 13, color: staticColors.textSecondary, marginTop: 3 },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: theme.text },
+  cardDesc: { fontSize: 13, color: theme.textSecondary, marginTop: 3 },
   cardPrice: { fontSize: 13, fontWeight: '700', marginTop: 4 },
   comingSoonBadge: {
     backgroundColor: '#F59E0B20', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6,

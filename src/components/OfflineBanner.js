@@ -18,17 +18,16 @@ function useNetworkStatus() {
         window.removeEventListener('online', handleOnline);
       };
     } else {
-      // Lazy load NetInfo - never at module level
-      let unsubscribe = () => {};
+            let unsubscribe = () => {};
       try {
         const NetInfo = require('@react-native-community/netinfo').default;
         unsubscribe = NetInfo.addEventListener((state) => {
           setIsOffline(!state.isConnected);
         });
       } catch (e) {
-        console.warn('[Sared] NetInfo not available:', e.message);
+        console.warn('NetInfo not available:', e.message);
       }
-      return () => { try { unsubscribe(); } catch { /* silent */ } };
+      return () => { try { unsubscribe(); } catch {} };
     }
   }, []);
 

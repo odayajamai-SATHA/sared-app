@@ -7,7 +7,7 @@ import {
 import * as Location from 'expo-location';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { getServicePriceWithVAT } from '../utils/pricing';
@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation: rawNav }) {
           const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
           setLocation({ latitude: loc.coords.latitude, longitude: loc.coords.longitude });
         }
-      } catch { /* silent */ }
+      } catch {}
       setLoading(false);
     })();
     Animated.spring(promoAnim, { toValue: 1, tension: 40, friction: 8, useNativeDriver: Platform.OS !== 'web', delay: 500 }).start();
@@ -72,7 +72,7 @@ export default function HomeScreen({ navigation: rawNav }) {
             {t('howCanWeHelp') || 'How can we help you today?'}
           </Text>
           <TouchableOpacity style={styles.helpLink}
-            onPress={() => { try { Linking.openURL('https://wa.me/966554404434'); } catch { /* silent */ } }}>
+            onPress={() => { try { Linking.openURL('https://wa.me/966554404434'); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={14} color="#25D366" />
             <Text style={styles.helpLinkText}>
               {isRTL ? 'تحتاج مساعدة؟' : 'Need help?'}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, paddingHorizontal: 20 },
   greetingSection: { paddingTop: 60, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800' },
-  greetingSub: { fontSize: 15, color: staticColors.textSecondary, marginTop: 4 },
+  greetingSub: { fontSize: 15, color: theme.textSecondary, marginTop: 4 },
   helpLink: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },
   helpLinkText: { fontSize: 13, color: '#25D366', fontWeight: '600' },
   searchRow: {
@@ -181,13 +181,13 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flex: 1, flexDirection: 'row', alignItems: 'center',
-    backgroundColor: staticColors.lightGray, borderRadius: 16,
+    backgroundColor: theme.lightGray, borderRadius: 16,
     paddingHorizontal: 16, paddingVertical: 14, gap: 10,
   },
-  searchPlaceholder: { flex: 1, fontSize: 15, color: staticColors.gray },
+  searchPlaceholder: { flex: 1, fontSize: 15, color: theme.gray },
   notifBtn: {
     width: 44, height: 44, borderRadius: 22,
-    backgroundColor: staticColors.lightGray, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: theme.lightGray, justifyContent: 'center', alignItems: 'center',
     marginStart: 8,
   },
   promoBanner: { borderRadius: 16, marginBottom: 24, overflow: 'hidden' },
@@ -200,33 +200,33 @@ const styles = StyleSheet.create({
   promoTitle: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   promoCode: { fontSize: 20, fontWeight: '900', color: '#FFF', marginTop: 2 },
   promoSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: theme.text, marginBottom: 14 },
   quickGrid: {
     flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 24,
   },
   quickCard: {
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 1, borderColor: staticColors.border, alignItems: 'center',
+    borderWidth: 1, borderColor: theme.border, alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1,
   },
   quickIcon: {
     width: 56, height: 56, borderRadius: 16,
     justifyContent: 'center', alignItems: 'center', marginBottom: 10,
   },
-  quickLabel: { fontSize: 14, fontWeight: '700', color: staticColors.text, textAlign: 'center' },
+  quickLabel: { fontSize: 14, fontWeight: '700', color: theme.text, textAlign: 'center' },
   quickPrice: { fontSize: 16, fontWeight: '800', marginTop: 4, textAlign: 'center' },
-  quickVat: { fontSize: 11, color: staticColors.gray, marginTop: 2 },
+  quickVat: { fontSize: 11, color: theme.gray, marginTop: 2 },
   recentRow: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 12,
-    borderBottomWidth: 1, borderBottomColor: staticColors.lightGray,
+    borderBottomWidth: 1, borderBottomColor: theme.lightGray,
   },
   recentIcon: {
-    width: 36, height: 36, borderRadius: 18, backgroundColor: staticColors.lightGray,
+    width: 36, height: 36, borderRadius: 18, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  recentName: { fontSize: 15, fontWeight: '600', color: staticColors.text },
-  recentSub: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
+  recentName: { fontSize: 15, fontWeight: '600', color: theme.text },
+  recentSub: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
   rowReverse: { flexDirection: 'row-reverse' },
   textRight: { textAlign: 'right' },
 });

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -67,7 +67,7 @@ export default function SizeScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('selectSize')}</Text>
@@ -137,51 +137,51 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: staticColors.white, borderBottomWidth: 1, borderBottomColor: staticColors.border,
+    backgroundColor: theme.white, borderBottomWidth: 1, borderBottomColor: theme.border,
   },
   backBtn: {
-    width: 44, height: 44, borderRadius: 22, backgroundColor: staticColors.lightGray,
+    width: 44, height: 44, borderRadius: 22, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
   content: { flex: 1 },
   contentInner: { padding: 20 },
   serviceLabel: {
-    fontSize: 13, fontWeight: '600', color: staticColors.primary,
-    backgroundColor: staticColors.primaryFaded, alignSelf: 'flex-start',
+    fontSize: 13, fontWeight: '600', color: theme.primary,
+    backgroundColor: theme.primaryFaded, alignSelf: 'flex-start',
     paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8,
     overflow: 'hidden', marginBottom: 12,
   },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', color: theme.textSecondary, marginBottom: 16 },
   card: {
-    backgroundColor: staticColors.white, borderRadius: 16, padding: 16, marginBottom: 12,
-    borderWidth: 2, borderColor: staticColors.border, position: 'relative',
+    backgroundColor: theme.white, borderRadius: 16, padding: 16, marginBottom: 12,
+    borderWidth: 2, borderColor: theme.border, position: 'relative',
   },
   cardSelected: {
-    borderColor: staticColors.primary, borderWidth: 3, backgroundColor: '#F0FDF4',
+    borderColor: theme.primary, borderWidth: 3, backgroundColor: '#F0FDF4',
   },
   cardRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
   iconContainer: {
-    width: 52, height: 52, borderRadius: 14, backgroundColor: staticColors.lightGray,
+    width: 52, height: 52, borderRadius: 14, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
   cardContent: { flex: 1 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text },
-  cardDesc: { fontSize: 13, color: staticColors.textSecondary, marginTop: 2 },
-  cardSpec: { fontSize: 12, color: staticColors.gray, marginTop: 2 },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: theme.text },
+  cardDesc: { fontSize: 13, color: theme.textSecondary, marginTop: 2 },
+  cardSpec: { fontSize: 12, color: theme.gray, marginTop: 2 },
   priceCol: { alignItems: 'center', marginStart: 8 },
-  priceNum: { fontSize: 24, fontWeight: '800', color: staticColors.text },
-  priceUnit: { fontSize: 11, color: staticColors.gray, marginTop: 2 },
+  priceNum: { fontSize: 24, fontWeight: '800', color: theme.text },
+  priceUnit: { fontSize: 11, color: theme.gray, marginTop: 2 },
   selectedCheck: { position: 'absolute', top: 12, right: 12 },
   textRight: { textAlign: 'right' },
   bottomBar: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    padding: 16, paddingBottom: 44, backgroundColor: staticColors.card,
-    borderTopWidth: 1, borderTopColor: staticColors.border,
+    padding: 16, paddingBottom: 44, backgroundColor: theme.card,
+    borderTopWidth: 1, borderTopColor: theme.border,
   },
   confirmBtn: {
-    backgroundColor: staticColors.primary, borderRadius: 14, paddingVertical: 16,
+    backgroundColor: theme.primary, borderRadius: 14, paddingVertical: 16,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
   },
   confirmBtnText: { color: '#FFF', fontSize: 17, fontWeight: '700' },

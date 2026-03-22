@@ -8,12 +8,11 @@ import { I18nProvider, useI18n } from './src/utils/i18n';
 import { ThemeProvider, useTheme } from './src/utils/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-// Lazy imports for native modules - these are only called inside components, never at module level
 let supabase = null;
 try {
   supabase = require('./src/utils/supabase').supabase;
 } catch (e) {
-  console.warn('[Sared] Supabase init failed:', e.message);
+  console.warn('Supabase init failed:', e.message);
 }
 
 // Screen imports
@@ -91,8 +90,7 @@ function AppContent() {
   const { isRTL } = useI18n();
   const { colors, isDark } = useTheme();
 
-  // Lazy init notifications - inside useEffect, never at module level
-  useEffect(() => {
+    useEffect(() => {
     (async () => {
       try {
         const { registerForPushNotifications, addNotificationListeners } = require('./src/utils/notifications');
@@ -100,7 +98,7 @@ function AppContent() {
         const cleanup = addNotificationListeners(() => {}, () => {});
         return cleanup;
       } catch (e) {
-        console.warn('[Sared] Notifications setup failed:', e.message);
+        console.warn('Notifications setup failed:', e.message);
       }
     })();
   }, []);
@@ -111,11 +109,10 @@ function AppContent() {
       try {
         if (state === 'active') supabase.auth.startAutoRefresh();
         else supabase.auth.stopAutoRefresh();
-      } catch { /* silent */ }
+      } catch {}
     });
     return () => subscription.remove();
   }, []);
-
 
   const linking = {
     prefixes: ['sared://', 'https://sared.app'],
@@ -182,8 +179,6 @@ function AppContent() {
   );
 }
 
-// Top-level error boundary as a class component
-
 class CrashGuard extends Component {
   state = { crashed: false, error: null };
 
@@ -192,14 +187,14 @@ class CrashGuard extends Component {
   }
 
   componentDidCatch(error, info) {
-    console.error('[Sared] App crashed:', error, info);
+    console.error('App crashed:', error, info);
   }
 
   render() {
     if (this.state.crashed) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#022C22', padding: 32 }}>
-          <Text style={{ fontSize: 24, fontWeight: "bold", color: "#FFF", marginBottom: 12 }} accessibilityRole="header">Sared</Text>
+          <Text style={{ fontSize: 24, fontWeight: "bold", color: "#FFF", marginBottom: 12 }}>Sared</Text>
           <Text style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', textAlign: 'center' }}>
             Something went wrong. Please restart the app.
           </Text>

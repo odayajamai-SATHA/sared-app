@@ -75,7 +75,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           { id: '2', amount: 300, status: 'pending', method: 'stc_pay', created_at: new Date(Date.now() - 86400000).toISOString() },
         ]);
       }
-    } catch { /* silent */ }
+    } catch {}
   };
 
   const handleWithdraw = async () => {
@@ -157,7 +157,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, { backgroundColor: '#1E3A5F' }]}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{lang === 'ar' ? 'سحب الأرباح' : 'Withdraw Earnings'}</Text>

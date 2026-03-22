@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { calculateFare, getDistanceKm } from '../utils/pricing';
@@ -53,7 +53,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('priceGuarantee')}</Text>
@@ -142,17 +142,17 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
+  container: { flex: 1, backgroundColor: theme.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: staticColors.card, borderBottomWidth: 1, borderBottomColor: staticColors.border,
+    backgroundColor: theme.card, borderBottomWidth: 1, borderBottomColor: theme.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
   rowReverse: { flexDirection: 'row-reverse' },
   content: { flex: 1, padding: 16 },
   priceSection: { alignItems: 'center', paddingVertical: 24 },
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
     shadowColor: '#22C55E', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3, shadowRadius: 12, elevation: 8,
   },
-  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 8 },
+  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: theme.textSecondary, marginBottom: 8 },
   priceBox: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 12 },
-  currency: { fontSize: 20, fontWeight: '600', color: staticColors.text, marginEnd: 6 },
-  priceAmount: { fontSize: 52, fontWeight: '800', color: staticColors.text },
+  currency: { fontSize: 20, fontWeight: '600', color: theme.text, marginEnd: 6 },
+  priceAmount: { fontSize: 52, fontWeight: '800', color: theme.text },
   neverPayBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
     backgroundColor: '#F0FDF4', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 8,
@@ -174,21 +174,21 @@ const styles = StyleSheet.create({
   },
   neverPayText: { fontSize: 13, fontWeight: '600', color: '#16A34A' },
   breakdownCard: {
-    backgroundColor: staticColors.card, borderRadius: 20, padding: 20,
+    backgroundColor: theme.card, borderRadius: 20, padding: 20,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  breakdownTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
+  breakdownTitle: { fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 14 },
   breakdownRow: {
     flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8,
   },
-  breakdownLabel: { fontSize: 14, color: staticColors.textSecondary },
-  breakdownValue: { fontSize: 14, fontWeight: '600', color: staticColors.text },
-  divider: { height: 1, backgroundColor: staticColors.primary, opacity: 0.2, marginVertical: 8 },
-  maxLabel: { fontSize: 16, fontWeight: '700', color: staticColors.text },
+  breakdownLabel: { fontSize: 14, color: theme.textSecondary },
+  breakdownValue: { fontSize: 14, fontWeight: '600', color: theme.text },
+  divider: { height: 1, backgroundColor: theme.primary, opacity: 0.2, marginVertical: 8 },
+  maxLabel: { fontSize: 16, fontWeight: '700', color: theme.text },
   maxValue: { fontSize: 20, fontWeight: '800', color: '#22C55E' },
-  noteText: { fontSize: 12, color: staticColors.gray, marginTop: 12, lineHeight: 18 },
-  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: staticColors.card, borderTopWidth: 1, borderTopColor: staticColors.border },
+  noteText: { fontSize: 12, color: theme.gray, marginTop: 12, lineHeight: 18 },
+  bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: theme.card, borderTopWidth: 1, borderTopColor: theme.border },
   confirmBtn: { borderRadius: 16, overflow: 'hidden' },
   confirmGradient: {
     paddingVertical: 18, flexDirection: 'row', alignItems: 'center',

@@ -1,11 +1,5 @@
-// TOKEN STORAGE: Supabase JS client stores auth tokens internally using
-// AsyncStorage (via @react-native-async-storage). For a v2 security upgrade,
-// integrate expo-secure-store as the custom storage adapter.
 import { createClient } from '@supabase/supabase-js';
 
-// SECURITY NOTE: Supabase anon key is designed to be public (client-side).
-// RLS policies enforce data access. Hardcoded fallback ensures EAS builds work.
-// Hardcoded for production builds - env vars may not be available in EAS builds
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://pgvjkgscvsgnbzwgbtqp.supabase.co';
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_IG7nCK4sizomSC7ufsutdg_tPLFVJ9N';
 
@@ -17,7 +11,6 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   },
 });
 
-// ---- Auth helpers ----
 
 export async function signInWithPhone(phone) {
   const { data, error } = await supabase.auth.signInWithOtp({ phone });
@@ -33,7 +26,6 @@ export async function verifyOTP(phone, token) {
   return { data, error };
 }
 
-// ---- User helpers ----
 
 export async function upsertUser(phone, name, lang) {
   const { data, error } = await supabase
@@ -44,7 +36,6 @@ export async function upsertUser(phone, name, lang) {
   return { data, error };
 }
 
-// ---- Driver helpers ----
 
 export async function getDriverByPhone(phone) {
   const { data, error } = await supabase
@@ -75,7 +66,6 @@ export async function updateDriverLocation(driverId, lat, lng) {
   return { data, error };
 }
 
-// ---- Ride helpers ----
 
 export async function createRide(rideData) {
   const { data, error } = await supabase
@@ -129,7 +119,6 @@ export async function getPendingRides() {
   return { data, error };
 }
 
-// ---- Rating helpers ----
 
 export async function submitRating(ratingData) {
   const { data, error } = await supabase
@@ -140,7 +129,6 @@ export async function submitRating(ratingData) {
   return { data, error };
 }
 
-// ---- Realtime subscriptions ----
 
 export function subscribeToNewRides(callback) {
   return supabase

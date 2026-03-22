@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
@@ -51,7 +51,7 @@ export default function HelpSupportScreen({ navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, isRTL && styles.rowReverse, { backgroundColor: colors.headerBg, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('helpSupport')}</Text>
@@ -65,17 +65,17 @@ export default function HelpSupportScreen({ navigation }) {
         </Text>
         <View style={styles.contactRow}>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#25D36615' }]}
-            onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch { /* silent */ } }}>
+            onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={28} color="#25D366" />
             <Text style={styles.contactLabel}>{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#3B82F615' }]}
-            onPress={() => { try { Linking.openURL(PHONE_URL); } catch { /* silent */ } }}>
+            onPress={() => { try { Linking.openURL(PHONE_URL); } catch {} }}>
             <Ionicons name="call" size={28} color="#3B82F6" />
             <Text style={styles.contactLabel}>{lang === 'ar' ? 'اتصال' : 'Call'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#EF444415' }]}
-            onPress={() => { try { Linking.openURL(EMAIL_URL); } catch { /* silent */ } }}>
+            onPress={() => { try { Linking.openURL(EMAIL_URL); } catch {} }}>
             <Ionicons name="mail" size={28} color="#EF4444" />
             <Text style={styles.contactLabel}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
           </TouchableOpacity>
@@ -103,7 +103,7 @@ export default function HelpSupportScreen({ navigation }) {
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {lang === 'ar' ? 'الإبلاغ عن مشكلة' : 'Report a Problem'}
         </Text>
-        <TouchableOpacity style={styles.reportBtn} onPress={() => { try { Linking.openURL(REPORT_URL); } catch { /* silent */ } }}>
+        <TouchableOpacity style={styles.reportBtn} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
           <Ionicons name="logo-whatsapp" size={20} color="#FFF" />
           <Text style={styles.reportBtnText}>
             {lang === 'ar' ? 'أبلغ عبر واتساب' : 'Report via WhatsApp'}
@@ -125,37 +125,37 @@ export default function HelpSupportScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
+  container: { flex: 1, backgroundColor: theme.lightGray },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: staticColors.border,
+    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: theme.border,
   },
   backBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.lightGray,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.lightGray,
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: staticColors.text },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: theme.text },
   rowReverse: { flexDirection: 'row-reverse' },
   scrollContent: { padding: 16 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: staticColors.text, marginBottom: 12, marginTop: 8,
+    fontSize: 17, fontWeight: '700', color: theme.text, marginBottom: 12, marginTop: 8,
   },
   contactRow: { flexDirection: 'row', gap: 12, marginBottom: 24 },
   contactCard: {
     flex: 1, alignItems: 'center', paddingVertical: 20, borderRadius: 16,
     backgroundColor: '#FFF',
   },
-  contactLabel: { fontSize: 13, fontWeight: '600', color: staticColors.text, marginTop: 8 },
+  contactLabel: { fontSize: 13, fontWeight: '600', color: theme.text, marginTop: 8 },
   faqCard: {
     backgroundColor: '#FFF', borderRadius: 14, padding: 16, marginBottom: 8,
-    borderWidth: 1, borderColor: staticColors.border,
+    borderWidth: 1, borderColor: theme.border,
   },
   faqHeader: { flexDirection: 'row', alignItems: 'center' },
-  faqQuestion: { fontSize: 15, fontWeight: '600', color: staticColors.text },
+  faqQuestion: { fontSize: 15, fontWeight: '600', color: theme.text },
   faqAnswer: {
-    fontSize: 14, color: staticColors.textSecondary, lineHeight: 22, marginTop: 12,
-    paddingTop: 12, borderTopWidth: 1, borderTopColor: staticColors.lightGray,
+    fontSize: 14, color: theme.textSecondary, lineHeight: 22, marginTop: 12,
+    paddingTop: 12, borderTopWidth: 1, borderTopColor: theme.lightGray,
   },
   reportBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
   availableRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
   },
-  availableText: { fontSize: 13, color: staticColors.gray },
+  availableText: { fontSize: 13, color: theme.gray },
   textRight: { textAlign: 'right' },
 });

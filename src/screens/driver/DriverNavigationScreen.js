@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native'
 import MapView, { Marker, Polyline } from '../../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../../utils/colors';
+import { colors as theme } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 import { updateRideStatus } from '../../utils/supabase';
@@ -78,7 +78,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
             }
           );
         }
-      } catch { /* silent */ }
+      } catch {}
     })();
     return () => {
       if (subscription) subscription.remove();
@@ -107,12 +107,12 @@ export default function DriverNavigationScreen({ route, navigation }) {
   const handleArrived = async () => {
     try {
       await updateRideStatus(ride?.id, 'arrived');
-    } catch { /* silent */ }
+    } catch {}
     navigation.navigate('DriverJob', { ride, driver });
   };
 
   const handleCall = () => {
-    try { Linking.openURL(`tel:${customerPhone}`); } catch { /* silent */ }
+    try { Linking.openURL(`tel:${customerPhone}`); } catch {}
   };
 
   // Build simple route waypoints (straight line with midpoint offset for curve effect)
@@ -141,7 +141,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Header */}
       <View style={[styles.header, isRTL && styles.rowReverse]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('navigateToCustomer')}</Text>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
   },
   map: {
     flex: 1,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 110,
     right: 16,
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   },
   etaUnit: {
     fontSize: 11,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
   },
   distanceBadge: {
     position: 'absolute',
@@ -336,10 +336,10 @@ const styles = StyleSheet.create({
   distanceText: {
     fontSize: 12,
     fontWeight: '600',
-    color: staticColors.white,
+    color: theme.white,
   },
   bottomPanel: {
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingHorizontal: 20,
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: staticColors.border,
+    backgroundColor: theme.border,
     alignSelf: 'center',
     marginBottom: 16,
   },
@@ -382,11 +382,11 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 16,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
   },
   customerDetails: {
     fontSize: 13,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 2,
   },
   callBtn: {
@@ -411,12 +411,12 @@ const styles = StyleSheet.create({
   },
   addressLabel: {
     fontSize: 12,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
   },
   addressText: {
     fontSize: 14,
     fontWeight: '500',
-    color: staticColors.text,
+    color: theme.text,
     marginTop: 2,
   },
   arrivedBtn: {
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   arrivedBtnText: {
-    color: staticColors.white,
+    color: theme.white,
     fontSize: 18,
     fontWeight: '700',
   },

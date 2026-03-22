@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Share, ScrollView, Alert, Linking, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
@@ -27,7 +27,7 @@ export default function ProfileScreen({ navigation }) {
             .eq('status', 'completed');
           setStats(prev => ({ ...prev, trips: count || 0 }));
         }
-      } catch { /* silent */ }
+      } catch {}
     })();
   }, []);
 
@@ -113,9 +113,9 @@ export default function ProfileScreen({ navigation }) {
                   if (item.screen) {
                     navigation.navigate(item.screen);
                   } else if (item.action === 'terms') {
-                    try { Linking.openURL('https://sared.app/terms'); } catch { /* silent */ }
+                    try { Linking.openURL('https://sared.app/terms'); } catch {}
                   } else if (item.action === 'help') {
-                    try { Linking.openURL('https://wa.me/966554404434'); } catch { /* silent */ }
+                    try { Linking.openURL('https://wa.me/966554404434'); } catch {}
                   } else {
                     showComingSoon();
                   }
@@ -136,7 +136,7 @@ export default function ProfileScreen({ navigation }) {
           onPress={async () => {
             try {
               await Share.share({ message: 'Download Sared - Saudi tow truck app: https://sared.app', title: 'Sared' });
-            } catch { /* silent */ }
+            } catch {}
           }}
         >
           <View style={[styles.menuIcon, { backgroundColor: '#22C55E15' }]}>
@@ -158,7 +158,7 @@ export default function ProfileScreen({ navigation }) {
                   text: t('confirm'),
                   style: 'destructive',
                   onPress: async () => {
-                    try { await supabase.auth.signOut(); } catch { /* silent */ }
+                    try { await supabase.auth.signOut(); } catch {}
                     navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
                   },
                 },
@@ -176,7 +176,7 @@ export default function ProfileScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
+  container: { flex: 1, backgroundColor: theme.lightGray },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 24 },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#FFF', marginBottom: 20 },
   profileCard: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
@@ -198,25 +198,25 @@ const styles = StyleSheet.create({
     borderRadius: 14, padding: 16,
   },
   statItem: { flex: 1, alignItems: 'center' },
-  statNumber: { fontSize: 20, fontWeight: '700', color: staticColors.primary },
+  statNumber: { fontSize: 20, fontWeight: '700', color: theme.primary },
   statLabel: { fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 4 },
   statDivider: { width: 1, backgroundColor: 'rgba(255,255,255,0.1)' },
   content: { padding: 16 },
   menuSection: {
-    backgroundColor: staticColors.white, borderRadius: 16, marginBottom: 12,
+    backgroundColor: theme.white, borderRadius: 16, marginBottom: 12,
   },
   menuItem: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16,
-    borderBottomWidth: 1, borderBottomColor: staticColors.border,
+    borderBottomWidth: 1, borderBottomColor: theme.border,
     cursor: 'pointer',
   },
   menuIcon: {
     width: 36, height: 36, borderRadius: 10,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  menuLabel: { fontSize: 15, color: staticColors.text, fontWeight: '500' },
+  menuLabel: { fontSize: 15, color: theme.text, fontWeight: '500' },
   shareRow: {
-    flexDirection: 'row', alignItems: 'center', backgroundColor: staticColors.white,
+    flexDirection: 'row', alignItems: 'center', backgroundColor: theme.white,
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,
     cursor: 'pointer',
   },

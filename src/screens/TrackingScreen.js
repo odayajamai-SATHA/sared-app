@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Animated, Linking, Modal, Pla
 import MapView, { Marker, Polyline } from '../components/MapView';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase, updateRideStatus, subscribeToRideUpdates } from '../utils/supabase';
@@ -114,7 +114,7 @@ export default function TrackingScreen({ route, navigation }) {
         mapRef.current.fitToCoordinates([userLocation, driverLocation], {
           edgePadding: { top: 120, right: 60, bottom: 340, left: 60 }, animated: true,
         });
-      } catch { /* silent */ }
+      } catch {}
     }
   }, [userLocation, driverLocation]);
 
@@ -160,7 +160,7 @@ export default function TrackingScreen({ route, navigation }) {
         {
           text: t('confirm'),
           onPress: async () => {
-            try { if (rideId) await updateRideStatus(rideId, 'completed'); } catch { /* silent */ }
+            try { if (rideId) await updateRideStatus(rideId, 'completed'); } catch {}
             navigation.navigate('TripComplete', { service, size, price, fareBreakdown, paymentMethod });
           },
         },
@@ -171,7 +171,7 @@ export default function TrackingScreen({ route, navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: isDark ? '#1a1a2e' : '#E8E4DE' }]}>
       <View style={[styles.header, isRTL && styles.rowReverse]}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backBtn, { backgroundColor: colors.card }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.text }]}>{t('trackingDriver')}</Text>
@@ -219,7 +219,7 @@ export default function TrackingScreen({ route, navigation }) {
                 <Text style={styles.sosCoordsText}>{userLocation.latitude.toFixed(5)}, {userLocation.longitude.toFixed(5)}</Text>
               </View>
             )}
-            <TouchableOpacity style={styles.sosCallBtn} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch (e) { /* silent */ } }}>
+            <TouchableOpacity style={styles.sosCallBtn} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch {} }}>
               <Ionicons name="call" size={20} color="#DC2626" />
               <Text style={styles.sosCallText}>{t('callEmergency') || 'Call 911'}</Text>
             </TouchableOpacity>
@@ -282,7 +282,7 @@ export default function TrackingScreen({ route, navigation }) {
             <Ionicons name="chatbubble-outline" size={20} color={colors.primary} />
             <Text style={{ color: colors.primary, fontSize: 14, fontWeight: '600' }}>{t('messageDriver')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary }]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch { /* silent */ } }}>
+          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary }]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch {} }}>
             <Ionicons name="call" size={20} color="#FFF" />
             <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '600' }}>{t('callDriver')}</Text>
           </TouchableOpacity>
@@ -326,9 +326,9 @@ const styles = StyleSheet.create({
   },
   userDot: { width: 16, height: 16, borderRadius: 8, backgroundColor: '#3B82F6', borderWidth: 3, borderColor: '#FFF' },
   driverMarker: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: staticColors.primary,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: theme.primary,
     justifyContent: 'center', alignItems: 'center',
-    shadowColor: staticColors.primary, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 5,
+    shadowColor: theme.primary, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 5,
   },
   etaBubble: {
     position: 'absolute', top: 110, right: 16, borderRadius: 14,
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
   etaNumber: { fontSize: 22, fontWeight: 'bold' },
   etaUnit: { fontSize: 11 },
   distBubble: {
-    position: 'absolute', top: 168, right: 16, backgroundColor: staticColors.primary, borderRadius: 8,
+    position: 'absolute', top: 168, right: 16, backgroundColor: theme.primary, borderRadius: 8,
     paddingHorizontal: 10, paddingVertical: 4, zIndex: 5,
   },
   distText: { fontSize: 12, fontWeight: '600', color: '#FFF' },
@@ -354,15 +354,15 @@ const styles = StyleSheet.create({
     width: 28, height: 28, borderRadius: 14, backgroundColor: '#E5E7EB',
     justifyContent: 'center', alignItems: 'center', marginBottom: 4,
   },
-  stepCircleActive: { backgroundColor: staticColors.primary },
-  stepCircleCurrent: { backgroundColor: staticColors.primary, borderWidth: 3, borderColor: staticColors.primaryFaded },
+  stepCircleActive: { backgroundColor: theme.primary },
+  stepCircleCurrent: { backgroundColor: theme.primary, borderWidth: 3, borderColor: theme.primaryFaded },
   stepLabel: { fontSize: 10, textAlign: 'center' },
   stepLabelActive: { fontWeight: '600' },
   stepLine: {
     position: 'absolute', top: 13, left: '60%', right: '-40%', height: 2,
     backgroundColor: '#E5E7EB', zIndex: -1,
   },
-  stepLineActive: { backgroundColor: staticColors.primary },
+  stepLineActive: { backgroundColor: theme.primary },
   driverCard: { flexDirection: 'row', alignItems: 'center', borderRadius: 14, padding: 14, marginBottom: 14 },
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: { width: 48, height: 48, borderRadius: 24, justifyContent: 'center', alignItems: 'center', marginEnd: 12 },

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
@@ -47,7 +47,7 @@ export default function DriverSignupScreen({ navigation }) {
         city: form.city,
         status: 'pending',
       });
-    } catch { /* silent */ }
+    } catch {}
     setSubmitting(false);
     setSubmitted(true);
   };
@@ -68,7 +68,7 @@ export default function DriverSignupScreen({ navigation }) {
         </View>
         <Text style={styles.successTitle}>{t('applicationSubmittedSuccess')}</Text>
         <Text style={styles.successSub}>{t('contactWithin48')}</Text>
-        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()} accessibilityRole="button" accessibilityLabel="Go back">
+        <TouchableOpacity style={styles.successBtn} onPress={() => navigation.goBack()}>
           <Text style={styles.successBtnText}>{t('done')}</Text>
         </TouchableOpacity>
       </View>
@@ -79,7 +79,7 @@ export default function DriverSignupScreen({ navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <LinearGradient colors={['#022C22', '#065F46']} style={styles.headerGradient}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('driverSignup')}</Text>
@@ -176,7 +176,7 @@ export default function DriverSignupScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
+  container: { flex: 1, backgroundColor: theme.lightGray },
   headerGradient: { paddingHorizontal: 20, paddingBottom: 24 },
   headerRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -201,30 +201,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginTop: -12,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  label: { fontSize: 13, fontWeight: '600', color: staticColors.textSecondary, marginBottom: 6, marginTop: 12 },
+  label: { fontSize: 13, fontWeight: '600', color: theme.textSecondary, marginBottom: 6, marginTop: 12 },
   input: {
-    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    fontSize: 15, color: staticColors.text, borderWidth: 1, borderColor: staticColors.border,
+    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    fontSize: 15, color: theme.text, borderWidth: 1, borderColor: theme.border,
   },
   phoneRow: { flexDirection: 'row', gap: 10 },
   codeBox: {
-    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14,
-    justifyContent: 'center', borderWidth: 1, borderColor: staticColors.border,
+    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14,
+    justifyContent: 'center', borderWidth: 1, borderColor: theme.border,
   },
-  codeText: { fontSize: 15, color: staticColors.text, fontWeight: '500' },
+  codeText: { fontSize: 15, color: theme.text, fontWeight: '500' },
   dropdown: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
-    borderWidth: 1, borderColor: staticColors.border,
+    backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
+    borderWidth: 1, borderColor: theme.border,
   },
-  dropdownValue: { fontSize: 15, color: staticColors.text },
-  dropdownPlaceholder: { fontSize: 15, color: staticColors.gray },
+  dropdownValue: { fontSize: 15, color: theme.text },
+  dropdownPlaceholder: { fontSize: 15, color: theme.gray },
   menuList: {
-    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: staticColors.border,
+    backgroundColor: '#FFF', borderRadius: 12, borderWidth: 1, borderColor: theme.border,
     marginTop: 4, overflow: 'hidden',
   },
-  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: staticColors.lightGray },
-  menuItemText: { fontSize: 15, color: staticColors.text },
+  menuItem: { paddingVertical: 12, paddingHorizontal: 14, borderBottomWidth: 1, borderBottomColor: theme.lightGray },
+  menuItemText: { fontSize: 15, color: theme.text },
   submitBtn: { borderRadius: 14, overflow: 'hidden', marginTop: 24 },
   submitGradient: {
     paddingVertical: 16, flexDirection: 'row', alignItems: 'center',
@@ -234,13 +234,13 @@ const styles = StyleSheet.create({
   // Success state
   successContainer: {
     flex: 1, justifyContent: 'center', alignItems: 'center',
-    backgroundColor: staticColors.white, paddingHorizontal: 40,
+    backgroundColor: theme.white, paddingHorizontal: 40,
   },
   successIconCircle: { marginBottom: 24 },
-  successTitle: { fontSize: 24, fontWeight: '800', color: staticColors.text, textAlign: 'center' },
-  successSub: { fontSize: 15, color: staticColors.textSecondary, textAlign: 'center', marginTop: 12 },
+  successTitle: { fontSize: 24, fontWeight: '800', color: theme.text, textAlign: 'center' },
+  successSub: { fontSize: 15, color: theme.textSecondary, textAlign: 'center', marginTop: 12 },
   successBtn: {
-    backgroundColor: staticColors.primary, paddingHorizontal: 40, paddingVertical: 16,
+    backgroundColor: theme.primary, paddingHorizontal: 40, paddingVertical: 16,
     borderRadius: 14, marginTop: 32,
   },
   successBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },

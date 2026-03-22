@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors as staticColors } from '../../utils/colors';
+import { colors as theme } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
 
@@ -22,7 +22,7 @@ export default function DriverProfileScreen({ route, navigation }) {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.header}>
         <View style={[styles.headerRow, isRTL && styles.rowReverse]}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityRole="button" accessibilityLabel="Go back">
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color={colors.white} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>{t('driverProfile')}</Text>
@@ -110,12 +110,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.white,
+    color: theme.white,
   },
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     margin: 16,
     padding: 16,
     borderRadius: 14,
@@ -140,11 +140,11 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
   },
   phone: {
     fontSize: 14,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 2,
   },
   plate: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   statsRow: {
     flexDirection: 'row',
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     marginHorizontal: 16,
     borderRadius: 14,
     padding: 16,
@@ -173,20 +173,20 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 18,
     fontWeight: '700',
-    color: staticColors.text,
+    color: theme.text,
     marginTop: 4,
   },
   statLabel: {
     fontSize: 11,
-    color: staticColors.textSecondary,
+    color: theme.textSecondary,
     marginTop: 2,
   },
   statDivider: {
     width: 1,
-    backgroundColor: staticColors.border,
+    backgroundColor: theme.border,
   },
   menu: {
-    backgroundColor: staticColors.white,
+    backgroundColor: theme.white,
     marginHorizontal: 16,
     borderRadius: 14,
     overflow: 'hidden',
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: staticColors.lightGray,
+    borderBottomColor: theme.lightGray,
   },
   menuLabel: {
     flex: 1,
     fontSize: 15,
-    color: staticColors.text,
+    color: theme.text,
     marginStart: 12,
   },
   logoutBtn: {

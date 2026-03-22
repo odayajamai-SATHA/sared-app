@@ -10,7 +10,7 @@ function getNotifications() {
     try {
       Notifications = require('expo-notifications');
     } catch (e) {
-      console.warn('[Sared] expo-notifications not available:', e.message);
+      console.warn('expo-notifications not available:', e.message);
       return null;
     }
   }
@@ -25,7 +25,7 @@ function getNotifications() {
       });
       isSetup = true;
     } catch (e) {
-      console.warn('[Sared] setNotificationHandler failed:', e.message);
+      console.warn('setNotificationHandler failed:', e.message);
     }
   }
   return Notifications;
@@ -36,8 +36,7 @@ export async function registerForPushNotifications() {
   if (!N) return null;
 
   try {
-    // Device check: getExpoPushTokenAsync will throw on simulator/web
-  const { status: existingStatus } = await N.getPermissionsAsync();
+      const { status: existingStatus } = await N.getPermissionsAsync();
     let finalStatus = existingStatus;
 
     if (existingStatus !== 'granted') {
@@ -59,7 +58,7 @@ export async function registerForPushNotifications() {
     const tokenData = await N.getExpoPushTokenAsync();
     return tokenData.data;
   } catch (e) {
-    console.warn('[Sared] Push registration failed:', e.message);
+    console.warn('Push registration failed:', e.message);
     return null;
   }
 }
@@ -72,7 +71,7 @@ async function sendPushNotification(expoPushToken, title, body, data = {}) {
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ to: expoPushToken, sound: 'default', title, body, data }),
     });
-  } catch { /* silent */ }
+  } catch {}
 }
 
 export async function notifyDriversNewRide(driverTokens, rideDetails) {

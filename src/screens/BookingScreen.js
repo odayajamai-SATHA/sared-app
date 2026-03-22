@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Animated, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors as staticColors } from '../utils/colors';
+import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { notifyDriversNewRide } from '../utils/notifications';
@@ -49,7 +49,7 @@ export default function BookingScreen({ route, navigation }) {
           });
           if (ride) setRideId(ride.id);
         }
-      } catch { /* silent */ }
+      } catch {}
     })();
 
     const nearbyDriverTokens = route.params?.driverTokens || [];
@@ -154,46 +154,46 @@ export default function BookingScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: staticColors.lightGray },
-  topSection: { backgroundColor: staticColors.primary, alignItems: 'center', paddingTop: 70, paddingBottom: 40 },
+  container: { flex: 1, backgroundColor: theme.lightGray },
+  topSection: { backgroundColor: theme.primary, alignItems: 'center', paddingTop: 70, paddingBottom: 40 },
   checkCircle: { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.25)', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
   confirmedTitle: { fontSize: 24, fontWeight: 'bold', color: '#FFF' },
   confirmedSub: { fontSize: 15, color: 'rgba(255,255,255,0.85)', marginTop: 6 },
-  card: { backgroundColor: staticColors.card, marginHorizontal: 16, marginTop: -20, borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 6 },
+  card: { backgroundColor: theme.card, marginHorizontal: 16, marginTop: -20, borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 6 },
   driverRow: { flexDirection: 'row', alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
-  driverAvatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: staticColors.primaryFaded, justifyContent: 'center', alignItems: 'center', marginEnd: 14 },
+  driverAvatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: theme.primaryFaded, justifyContent: 'center', alignItems: 'center', marginEnd: 14 },
   driverInfo: { flex: 1 },
-  driverName: { fontSize: 18, fontWeight: '700', color: staticColors.text },
+  driverName: { fontSize: 18, fontWeight: '700', color: theme.text },
   ratingRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4, gap: 4 },
-  ratingText: { fontSize: 14, fontWeight: '600', color: staticColors.darkGray },
-  callBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: staticColors.primaryFaded, justifyContent: 'center', alignItems: 'center' },
-  divider: { height: 1, backgroundColor: staticColors.border, marginVertical: 16 },
+  ratingText: { fontSize: 14, fontWeight: '600', color: theme.darkGray },
+  callBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: theme.primaryFaded, justifyContent: 'center', alignItems: 'center' },
+  divider: { height: 1, backgroundColor: theme.border, marginVertical: 16 },
   detailsGrid: { flexDirection: 'row', flexWrap: 'wrap' },
   detailItem: { width: '50%', marginBottom: 14 },
-  detailLabel: { fontSize: 12, color: staticColors.textSecondary, marginBottom: 4 },
-  detailValue: { fontSize: 15, fontWeight: '600', color: staticColors.text },
-  priceCard: { backgroundColor: staticColors.card, marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
-  priceCardTitle: { fontSize: 16, fontWeight: '700', color: staticColors.text, marginBottom: 14 },
+  detailLabel: { fontSize: 12, color: theme.textSecondary, marginBottom: 4 },
+  detailValue: { fontSize: 15, fontWeight: '600', color: theme.text },
+  priceCard: { backgroundColor: theme.card, marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
+  priceCardTitle: { fontSize: 16, fontWeight: '700', color: theme.text, marginBottom: 14 },
   priceRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 },
-  priceLabel: { fontSize: 14, color: staticColors.textSecondary },
-  priceValue: { fontSize: 14, fontWeight: '500', color: staticColors.text },
-  priceDivider: { height: 1, backgroundColor: staticColors.border, marginVertical: 8 },
-  totalLabel: { fontSize: 16, fontWeight: '700', color: staticColors.text },
-  totalValue: { fontSize: 18, fontWeight: 'bold', color: staticColors.primary },
-  promoCard: { backgroundColor: staticColors.card, marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
-  promoTitle: { fontSize: 15, fontWeight: '600', color: staticColors.text, marginBottom: 10 },
+  priceLabel: { fontSize: 14, color: theme.textSecondary },
+  priceValue: { fontSize: 14, fontWeight: '500', color: theme.text },
+  priceDivider: { height: 1, backgroundColor: theme.border, marginVertical: 8 },
+  totalLabel: { fontSize: 16, fontWeight: '700', color: theme.text },
+  totalValue: { fontSize: 18, fontWeight: 'bold', color: theme.primary },
+  promoCard: { backgroundColor: theme.card, marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
+  promoTitle: { fontSize: 15, fontWeight: '600', color: theme.text, marginBottom: 10 },
   promoRow: { flexDirection: 'row', gap: 10 },
-  promoInput: { flex: 1, backgroundColor: staticColors.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15, color: staticColors.text, borderWidth: 1, borderColor: staticColors.border },
-  promoBtn: { backgroundColor: staticColors.primary, paddingHorizontal: 18, borderRadius: 12, justifyContent: 'center' },
+  promoInput: { flex: 1, backgroundColor: theme.lightGray, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15, color: theme.text, borderWidth: 1, borderColor: theme.border },
+  promoBtn: { backgroundColor: theme.primary, paddingHorizontal: 18, borderRadius: 12, justifyContent: 'center' },
   promoBtnText: { color: '#FFF', fontSize: 14, fontWeight: '600' },
   promoSuccess: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 10 },
   promoSuccessText: { fontSize: 13, color: '#22C55E', fontWeight: '600' },
   promoError: { fontSize: 13, color: '#EF4444', marginTop: 8 },
   buttonRow: { flexDirection: 'row', paddingHorizontal: 16, gap: 12, marginTop: 20 },
-  cancelBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5, borderColor: staticColors.border, backgroundColor: staticColors.card, alignItems: 'center' },
-  cancelBtnText: { fontSize: 15, fontWeight: '600', color: staticColors.darkGray },
-  trackBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, backgroundColor: staticColors.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+  cancelBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5, borderColor: theme.border, backgroundColor: theme.card, alignItems: 'center' },
+  cancelBtnText: { fontSize: 15, fontWeight: '600', color: theme.darkGray },
+  trackBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, backgroundColor: theme.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
   trackBtnText: { fontSize: 15, fontWeight: '600', color: '#FFF' },
   textRight: { textAlign: 'right' },
 });
