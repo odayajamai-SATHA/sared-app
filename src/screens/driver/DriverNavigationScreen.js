@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: theme.border,
+    backgroundColor: '#E5E7EB',
     alignSelf: 'center',
     marginBottom: 16,
   },

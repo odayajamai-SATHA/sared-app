@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   faqQuestion: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
   faqAnswer: {
     fontSize: 14, color: '#6B7280', lineHeight: 22, marginTop: 12,
-    paddingTop: 12, borderTopWidth: 1, borderTopColor: theme.lightGray,
+    paddingTop: 12, borderTopWidth: 1, borderTopColor: '#E5E7EB',
   },
   reportBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,

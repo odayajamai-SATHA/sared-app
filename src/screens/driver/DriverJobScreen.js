@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   stepLine: {
     width: 2,
     height: 20,
-    backgroundColor: theme.border,
+    backgroundColor: '#E5E7EB',
     marginStart: 17,
     marginVertical: 4,
   },
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   routeConnector: {
     width: 2,
     height: 16,
-    backgroundColor: theme.border,
+    backgroundColor: '#E5E7EB',
     marginStart: 4,
     marginVertical: 4,
   },

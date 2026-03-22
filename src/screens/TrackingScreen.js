@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', alignItems: 'center', marginBottom: 4,
   },
   stepCircleActive: { backgroundColor: theme.primary },
-  stepCircleCurrent: { backgroundColor: theme.primary, borderWidth: 3, borderColor: theme.primaryFaded },
+  stepCircleCurrent: { backgroundColor: theme.primary, borderWidth: 3, borderColor: 'rgba(5,150,105,0.2)' },
   stepLabel: { fontSize: 10, textAlign: 'center' },
   stepLabelActive: { fontWeight: '600' },
   stepLine: {

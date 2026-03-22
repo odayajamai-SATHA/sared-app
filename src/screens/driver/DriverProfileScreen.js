@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   statDivider: {
     width: 1,
-    backgroundColor: theme.border,
+    backgroundColor: '#E5E7EB',
   },
   menu: {
     backgroundColor: 'transparent',
