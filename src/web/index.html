@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sared - Your road story, handled</title>
+  <meta name="description" content="Sared - On-demand roadside assistance service in Saudi Arabia. Request a sared in minutes. سارد - خدمة مساعدة على الطريق عند الطلب في السعودية" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #059669;
+      --orange-dark: #047857;
+      --orange-light: #FFF7ED;
+      --text: #1F2937;
+      --text-secondary: #6B7280;
+      --bg: #FFFFFF;
+      --bg-alt: #F9FAFB;
+      --border: #E5E7EB;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--orange);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .nav-brand span { font-size: 28px; }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--orange-dark); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 140px 24px 80px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--orange-light) 0%, #FFF 50%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange-light);
+      border: 1px solid #FED7AA;
+      color: var(--orange-dark);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .hero h1 .highlight { color: var(--orange); }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+    .btn svg { width: 20px; height: 20px; }
+
+    .hero-image {
+      margin-top: 48px;
+      max-width: 380px;
+      width: 100%;
+      height: 280px;
+      margin-left: auto;
+      margin-right: auto;
+      background: linear-gradient(145deg, var(--orange) 0%, var(--orange-dark) 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 100px;
+      box-shadow: 0 20px 60px rgba(249,115,22,0.3);
+    }
+
+    /* ---- HOW IT WORKS ---- */
+    .how-it-works {
+      padding: 100px 24px;
+      background: var(--bg-alt);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .step {
+      text-align: center;
+      padding: 36px 24px;
+      background: var(--bg);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.2s;
+    }
+
+    .step:hover { transform: translateY(-4px); }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .step h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 15px; color: var(--text-secondary); }
+
+    /* ---- FEATURES ---- */
+    .features {
+      padding: 100px 24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .feature {
+      display: flex;
+      gap: 16px;
+      padding: 28px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .feature:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(249,115,22,0.08);
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--orange-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .feature h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .feature p { font-size: 14px; color: var(--text-secondary); }
+
+    /* ---- DOWNLOAD ---- */
+    .download {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      text-align: center;
+      color: #fff;
+    }
+
+    .download h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .download p {
+      font-size: 17px;
+      opacity: 0.85;
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .store-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .store-btn:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    .store-btn svg { width: 28px; height: 28px; fill: #fff; }
+
+    .store-btn-text { text-align: left; }
+    .store-btn-text small { display: block; font-size: 11px; font-weight: 400; opacity: 0.8; }
+    .store-btn-text span { display: block; font-size: 17px; font-weight: 700; }
+
+    /* ---- WAITLIST ---- */
+    .waitlist {
+      padding: 100px 24px;
+      background: var(--bg-alt);
+      text-align: center;
+    }
+
+    .waitlist-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 36px auto 0;
+    }
+
+    .waitlist-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      background: var(--bg);
+    }
+
+    .waitlist-form input:focus { border-color: var(--orange); }
+
+    .waitlist-form button {
+      padding: 14px 28px;
+      border-radius: 12px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .waitlist-form button:hover { background: var(--orange-dark); }
+
+    .waitlist-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 12px;
+    }
+
+    .waitlist-success {
+      display: none;
+      padding: 16px 24px;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 12px;
+      color: #166534;
+      font-weight: 600;
+      max-width: 480px;
+      margin: 24px auto 0;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 48px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-brand {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 24px;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .nav-toggle { display: block; }
+
+      .steps { grid-template-columns: 1fr; max-width: 400px; }
+
+      .features-grid { grid-template-columns: 1fr; }
+
+      .feature { flex-direction: column; text-align: center; }
+
+      .waitlist-form { flex-direction: column; }
+
+      .store-buttons { flex-direction: column; align-items: center; }
+      .store-btn { width: 100%; max-width: 280px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <span>🛡️</span> Sared
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#waitlist" class="nav-cta">Join Waitlist</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">قريبًا في المنطقة الشرقية | Coming Soon to Eastern Province</div>
+    <h1>
+      Flatbed Tow Trucks<br />
+      <span class="highlight">On Demand</span>
+    </h1>
+    <p>Need a sared? Get roadside assistance to your location in minutes. Vehicle recovery, transport, and roadside assistance — all from your phone.</p>
+    <p style="color:rgba(255,255,255,0.7);margin-top:8px;font-size:17px;direction:rtl;">سطحة فورية؟ احصل على مساعدة على الطريق خلال دقائق. سحب المركبات والنقل والمساعدة — كل شيء من هاتفك.</p>
+    <div class="hero-buttons">
+      <a href="#download" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download App
+      </a>
+      <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+    </div>
+    <div class="hero-image" aria-label="Sared app preview">🛡️</div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Get a Sared in 3 Easy Steps</h2>
+      <p class="section-subtitle">From request to arrival, we've made the entire process seamless.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Request</h3>
+        <p>Open the app, set your pickup location, choose your service type and sared size.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Match</h3>
+        <p>We instantly connect you with the nearest available driver. Track them in real-time.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Done</h3>
+        <p>Your driver arrives, loads your vehicle, and delivers it safely. Pay seamlessly in-app.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Why Choose Sared?</h2>
+      <p class="section-subtitle">Built for Saudi Arabia, designed for reliability.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div>
+          <h3>Fast Response</h3>
+          <p>Average pickup time under 15 minutes. We prioritize getting to you quickly.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📍</div>
+        <div>
+          <h3>Real-Time Tracking</h3>
+          <p>Track your driver's location live on the map from the moment they accept.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <div>
+          <h3>Verified Drivers</h3>
+          <p>All drivers are background-checked and licensed. Your vehicle is in safe hands.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💰</div>
+        <div>
+          <h3>Transparent Pricing</h3>
+          <p>Know the price before you confirm. No hidden fees, no surprises.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <div>
+          <h3>Multiple Sizes</h3>
+          <p>From small sedans to large SUVs — we have the right flatbed for every vehicle.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌐</div>
+        <div>
+          <h3>Arabic &amp; English</h3>
+          <p>Full RTL Arabic support. Switch between languages with a single tap.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES & PRICING -->
+  <section class="features" id="services" style="background:var(--bg);">
+    <div class="section-header">
+      <div class="section-label">الخدمات | Services</div>
+      <h2 class="section-title">Our Services & Pricing</h2>
+      <p class="section-subtitle">خدماتنا وأسعارنا — شفافة وبدون رسوم مخفية</p>
+    </div>
+    <div class="features-grid" style="max-width:900px;margin:0 auto;">
+      <div class="feature" style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:16px;padding:20px;">
+        <div class="feature-icon">🚗</div>
+        <div>
+          <h3>سطحة عادية | Standard Tow</h3>
+          <p>Sedan vehicles up to 3 tons. SAR 50 dispatch + SAR 5/km</p>
+          <p style="color:#059669;font-weight:700;">Starting from SAR 115 | ابتداءً من ١١٥ ريال</p>
+        </div>
+      </div>
+      <div class="feature" style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:16px;padding:20px;">
+        <div class="feature-icon">🚙</div>
+        <div>
+          <h3>سطحة هيدروليك | Hydraulic Tow</h3>
+          <p>SUVs and vehicles up to 5 tons. SAR 50 dispatch + SAR 7/km</p>
+          <p style="color:#059669;font-weight:700;">Starting from SAR 135 | ابتداءً من ١٣٥ ريال</p>
+        </div>
+      </div>
+      <div class="feature" style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:16px;padding:20px;">
+        <div class="feature-icon">🔧</div>
+        <div>
+          <h3>بنشر | Flat Tire</h3>
+          <p>Tire change or repair at your location.</p>
+          <p style="color:#059669;font-weight:700;">From SAR 92 | ابتداءً من ٩٢ ريال</p>
+        </div>
+      </div>
+      <div class="feature" style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:16px;padding:20px;">
+        <div class="feature-icon">🔋</div>
+        <div>
+          <h3>بطارية | Battery Jump</h3>
+          <p>Jump-start or battery replacement on site.</p>
+          <p style="color:#059669;font-weight:700;">From SAR 115 | ابتداءً من ١١٥ ريال</p>
+        </div>
+      </div>
+      <div class="feature" style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:16px;padding:20px;">
+        <div class="feature-icon">⛽</div>
+        <div>
+          <h3>وقود | Fuel Delivery</h3>
+          <p>Emergency fuel delivered to your location.</p>
+          <p style="color:#059669;font-weight:700;">From SAR 81 | ابتداءً من ٨١ ريال</p>
+        </div>
+      </div>
+      <div class="feature" style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:16px;padding:20px;">
+        <div class="feature-icon">📋</div>
+        <div>
+          <h3>ملاحظة | Note</h3>
+          <p>All prices include 15% VAT. Night surcharge (10 PM - 6 AM): +25%. Guaranteed maximum price shown before booking.</p>
+          <p style="color:#6B7280;font-size:13px;">جميع الأسعار شاملة ضريبة القيمة المضافة ١٥٪</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="download" id="download">
+    <h2>Download Sared Today</h2>
+    <p>Available on iOS and Android. Get started in under a minute.</p>
+    <div class="store-buttons">
+      <a href="#" class="store-btn" aria-label="Download on App Store">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.56 2.93 11.3 4.7 7.72C5.57 5.94 7.36 4.86 9.28 4.84C10.56 4.81 11.78 5.7 12.57 5.7C13.36 5.7 14.85 4.62 16.43 4.8C17.09 4.83 18.94 5.09 20.13 6.82C20.04 6.88 17.71 8.27 17.73 11.11C17.76 14.51 20.68 15.6 20.71 15.62C20.69 15.68 20.24 17.24 19.14 18.85L18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+        <div class="store-btn-text">
+          <small>Download on the</small>
+          <span>App Store</span>
+        </div>
+      </a>
+      <a href="#" class="store-btn" aria-label="Get it on Google Play">
+        <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.092 12l2.606-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z"/></svg>
+        <div class="store-btn-text">
+          <small>Get it on</small>
+          <span>Google Play</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section class="waitlist" id="waitlist">
+    <div class="section-header">
+      <div class="section-label">Early Access</div>
+      <h2 class="section-title">Join the Waitlist</h2>
+      <p class="section-subtitle">Be the first to know when Sared launches in your city.</p>
+    </div>
+    <form class="waitlist-form" id="waitlistForm" action="https://formspree.io/f/xpzvqjdl" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required aria-label="Email address" />
+      <button type="submit">Join Waitlist</button>
+    </form>
+    <p class="waitlist-note">No spam, ever. We'll only email you about launch updates.</p>
+    <div class="waitlist-success" id="waitlistSuccess">
+      &#10003; You're on the list! We'll notify you when Sared launches.
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">🛡️ Sared سارد</div>
+    <p style="margin-bottom:12px;">
+      <a href="privacy.html" style="color:#059669;text-decoration:none;font-weight:600;">Privacy Policy | سياسة الخصوصية</a>
+      &nbsp;&nbsp;•&nbsp;&nbsp;
+      <a href="terms.html" style="color:#059669;text-decoration:none;font-weight:600;">Terms of Service | الشروط والأحكام</a>
+    </p>
+    <p>&copy; 2026 Sared (سارد). All rights reserved. Made with &#10084; in Saudi Arabia.</p>
+    <p style="margin-top:8px;font-size:12px;color:#9CA3AF;">الدمام، المنطقة الشرقية، المملكة العربية السعودية</p>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    document.getElementById('navToggle').addEventListener('click', function () {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Close nav on link click
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // Waitlist form - Formspree AJAX submission
+    document.getElementById('waitlistForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var form = this;
+      var data = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' },
+      })
+        .then(function (response) {
+          if (response.ok) {
+            form.style.display = 'none';
+            document.getElementById('waitlistSuccess').style.display = 'block';
+          }
+        })
+        .catch(function () {
+          // Silently fail - form will still work as a normal POST
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
