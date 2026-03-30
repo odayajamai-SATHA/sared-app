@@ -1,72 +1,33 @@
-// Universal MapView - works on all platforms without native maps dependency
-// Uses expo-location for GPS, renders a styled placeholder with coordinates
-import { forwardRef, useImperativeHandle } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+﻿import RNMapView, { Marker as RNMarker, Polyline as RNPolyline, PROVIDER_GOOGLE as RN_PROVIDER_GOOGLE } from 'react-native-maps';
+import { forwardRef } from 'react';
+import { Platform } from 'react-native';
 
 const MapView = forwardRef(function MapView({ style, children, initialRegion, ...props }, ref) {
-  useImperativeHandle(ref, () => ({
-    animateToRegion: () => {},
-    fitToCoordinates: () => {},
-  }));
+  const defaultRegion = initialRegion || {
+    latitude: 26.4207,
+    longitude: 50.0888,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  };
 
   return (
-    <View style={[styles.container, style]}>
-      <View style={styles.mapPlaceholder}>
-        <Ionicons name="location" size={48} color="#059669" />
-        <Text style={styles.text}>Live Map</Text>
-        <Text style={styles.subtext}>
-          {initialRegion ? `${initialRegion.latitude.toFixed(4)}, ${initialRegion.longitude.toFixed(4)}` : 'Loading location...'}
-        </Text>
-      </View>
+    <RNMapView
+      ref={ref}
+      style={[{ flex: 1 }, style]}
+      provider={Platform.OS === 'android' ? RN_PROVIDER_GOOGLE : undefined}
+      initialRegion={defaultRegion}
+      showsUserLocation={true}
+      showsMyLocationButton={true}
+      {...props}
+    >
       {children}
-    </View>
+    </RNMapView>
   );
 });
 
 MapView.displayName = 'MapView';
 export default MapView;
 
-export function Marker({ children, coordinate, title }) {
-  if (!children) return null;
-  return (
-    <View style={styles.markerContainer} title={title}>
-      {children}
-    </View>
-  );
-}
-
-export function Polyline() {
-  return null;
-}
-
-export const PROVIDER_GOOGLE = 'google';
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#E8F5E9',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  mapPlaceholder: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#374151',
-    marginTop: 8,
-  },
-  subtext: {
-    fontSize: 13,
-    color: '#6B7280',
-    marginTop: 4,
-  },
-  markerContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-  },
-});
+export const Marker = RNMarker;
+export const Polyline = RNPolyline;
+export const PROVIDER_GOOGLE = RN_PROVIDER_GOOGLE;
