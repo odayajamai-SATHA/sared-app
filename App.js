@@ -1,3 +1,4 @@
+import './src/utils/sentry';
 import { useEffect, Component } from 'react';
 import { AppState, StatusBar, View, Text, Linking } from 'react-native';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
