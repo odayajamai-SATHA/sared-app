@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
-import { supabase, updateRideStatus, subscribeToRideUpdates } from '../utils/supabase';
+import { supabase, updateRideStatus, subscribeToRideUpdates, subscribeToDriverLocation } from '../utils/supabase';
 
 export default function TrackingScreen({ route, navigation }) {
   const { service, size, price, fareBreakdown, paymentMethod, rideId } = route.params || {};
@@ -24,7 +24,7 @@ export default function TrackingScreen({ route, navigation }) {
   const [activeStep, setActiveStep] = useState(1);
   const [rideStatus, setRideStatus] = useState('accepted');
 
-  const defaultCoord = { latitude: 24.7136, longitude: 46.6753 };
+  const defaultCoord = { latitude: 26.4207, longitude: 50.0888 };
 
   // Subscribe to realtime ride updates from Supabase
   useEffect(() => {

@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors as theme } from '../../utils/colors';
 import { useTheme } from '../../utils/theme';
 import { useI18n } from '../../utils/i18n';
-import { updateRideStatus } from '../../utils/supabase';
+import { updateRideStatus, broadcastDriverLocation } from '../../utils/supabase';
 
 export default function DriverNavigationScreen({ route, navigation }) {
   const { ride, driver } = route.params || {};
@@ -24,7 +24,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
   const [eta, setEta] = useState(8);
   const [distanceKm, setDistanceKm] = useState(3.2);
 
-  const defaultCoord = { latitude: 24.7136, longitude: 46.6753 };
+  const defaultCoord = { latitude: 26.4207, longitude: 50.0888 };
 
   useEffect(() => {
     (async () => {
