@@ -106,3 +106,12 @@ export function broadcastDriverLocation(rideId, lat, lng) {
   });
   return channel;
 }
+
+export async function updateRideLifecycle(rideId, newStatus, driverId = null) {
+  const { data, error } = await supabase.rpc('update_ride_status', {
+    p_ride_id: rideId,
+    p_new_status: newStatus,
+    p_driver_id: driverId,
+  });
+  return { data, error };
+}
