@@ -1,101 +1,34 @@
+﻿import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { registerPushToken } from './supabase';
 
-// LAZY LOAD - never require native modules at module level
-let Notifications = null;
-let isSetup = false;
-
-function getNotifications() {
-  if (Platform.OS === 'web') return null;
-  if (!Notifications) {
-    try {
-      Notifications = require('expo-notifications');
-    } catch (e) {
-      console.warn('expo-notifications not available:', e.message);
-      return null;
-    }
-  }
-  if (!isSetup && Notifications) {
-    try {
-      Notifications.setNotificationHandler({
-        handleNotification: async () => ({
-          shouldShowAlert: true,
-          shouldPlaySound: true,
-          shouldSetBadge: false,
-        }),
-      });
-      isSetup = true;
-    } catch (e) {
-      console.warn('setNotificationHandler failed:', e.message);
-    }
-  }
-  return Notifications;
-}
-
-export async function registerForPushNotifications() {
-  const N = getNotifications();
-  if (!N) return null;
-
+export async function setupPushNotifications(userId = null, driverId = null) {
   try {
-      const { status: existingStatus } = await N.getPermissionsAsync();
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== 'granted') {
-      const { status } = await N.requestPermissionsAsync();
+    const { status: existing } = await Notifications.getPermissionsAsync();
+    let finalStatus = existing;
+    if (existing !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
-
-    if (finalStatus !== 'granted') return null;
-
+    if (finalStatus !== 'granted') {
+      console.log('Push notification permission not granted');
+      return null;
+    }
+    const tokenData = await Notifications.getExpoPushTokenAsync({ projectId: '70f882d3-12b5-418a-9167-1d06dc836669' });
+    const token = tokenData.data;
+    const platform = Platform.OS;
+    await registerPushToken(token, platform, userId, driverId);
     if (Platform.OS === 'android') {
-      await N.setNotificationChannelAsync('default', {
-        name: 'Default',
-        importance: N.AndroidImportance.MAX,
+      Notifications.setNotificationChannelAsync('rides', {
+        name: 'Ride Requests',
+        importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#059669',
+        sound: 'default',
       });
     }
-
-    const tokenData = await N.getExpoPushTokenAsync();
-    return tokenData.data;
-  } catch (e) {
-    console.warn('Push registration failed:', e.message);
+    return token;
+  } catch (err) {
+    console.error('Push notification setup failed:', err);
     return null;
-  }
-}
-
-async function sendPushNotification(expoPushToken, title, body, data = {}) {
-  if (!expoPushToken) return;
-  try {
-    await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ to: expoPushToken, sound: 'default', title, body, data }),
-    });
-  } catch {}
-}
-
-export async function notifyDriversNewRide(driverTokens, rideDetails) {
-  const { service, size, price } = rideDetails;
-  const promises = driverTokens.map((token) =>
-    sendPushNotification(token, 'New Ride Request!', `${service} • ${size} • ${price} SAR`, { type: 'new_ride', ...rideDetails })
-  );
-  await Promise.allSettled(promises);
-}
-
-export async function notifyCustomerDriverAccepted(customerToken, driverDetails) {
-  const { name, plate, eta } = driverDetails;
-  await sendPushNotification(customerToken, 'Driver Accepted!', `${name} (${plate}) is on the way • ETA: ${eta} min`, { type: 'driver_accepted', ...driverDetails });
-}
-
-export function addNotificationListeners(onNotification, onNotificationResponse) {
-  const N = getNotifications();
-  if (!N) return () => {};
-
-  try {
-    const notifSub = N.addNotificationReceivedListener(onNotification);
-    const responseSub = N.addNotificationResponseReceivedListener(onNotificationResponse);
-    return () => { notifSub.remove(); responseSub.remove(); };
-  } catch {
-    return () => {};
   }
 }

@@ -115,3 +115,12 @@ export async function updateRideLifecycle(rideId, newStatus, driverId = null) {
   });
   return { data, error };
 }
+
+export async function registerPushToken(token, platform, userId = null, driverId = null) {
+  const { data, error } = await supabase
+    .from('push_tokens')
+    .upsert({ token, platform, user_id: userId, driver_id: driverId, updated_at: new Date().toISOString() }, { onConflict: 'token' })
+    .select()
+    .single();
+  return { data, error };
+}
