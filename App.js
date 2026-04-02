@@ -1,4 +1,5 @@
-
+import './src/utils/sentry';
+import { wrap as sentryWrap } from './src/utils/sentry';
 import { useEffect, Component } from 'react';
 import { AppState, StatusBar, View, Text, Linking } from 'react-native';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -189,6 +190,10 @@ class CrashGuard extends Component {
 
   componentDidCatch(error, info) {
     console.error('App crashed:', error, info);
+    try {
+      const Sentry = require('./src/utils/sentry').default;
+      Sentry.captureException(error, { extra: { componentStack: info?.componentStack } });
+    } catch {}
   }
 
   render() {
@@ -209,7 +214,7 @@ class CrashGuard extends Component {
   }
 }
 
-export default function App() {
+function App() {
   return (
     <CrashGuard>
       <SafeAreaProvider>
@@ -222,3 +227,5 @@ export default function App() {
     </CrashGuard>
   );
 }
+
+export default sentryWrap(App);

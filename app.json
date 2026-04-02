@@ -68,7 +68,13 @@
         }
       ],
       "expo-font",
-      "@sentry/react-native"
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "sared",
+          "project": "sared-app"
+        }
+      ]
     ],
     "android": {
       "package": "app.sared.mobile",
