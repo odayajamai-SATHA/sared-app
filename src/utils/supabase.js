@@ -84,3 +84,25 @@ export function subscribeToNewRides(callback) {
 export function subscribeToRideUpdates(rideId, callback) {
   return supabase.channel('ride-' + rideId).on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rides', filter: 'id=eq.' + rideId }, (payload) => callback(payload.new)).subscribe();
 }
+
+export function subscribeToDriverLocation(rideId, callback) {
+  const channel = supabase.channel('ride-gps-' + rideId);
+  channel.on('broadcast', { event: 'driver-location' }, (payload) => {
+    callback(payload.payload);
+  }).subscribe();
+  return channel;
+}
+
+export function broadcastDriverLocation(rideId, lat, lng) {
+  const channel = supabase.channel('ride-gps-' + rideId);
+  channel.subscribe((status) => {
+    if (status === 'SUBSCRIBED') {
+      channel.send({
+        type: 'broadcast',
+        event: 'driver-location',
+        payload: { lat, lng, timestamp: new Date().toISOString() },
+      });
+    }
+  });
+  return channel;
+}
