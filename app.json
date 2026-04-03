@@ -106,8 +106,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "owner": "sared",
-    "privacy": "unlisted",
     "extra": {
       "eas": {
         "projectId": "70f882d3-12b5-418a-9167-1d06dc836669"
