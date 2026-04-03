@@ -2,300 +2,290 @@ const sharp = require('sharp');
 const path = require('path');
 
 const BRAND_GREEN = '#059669';
+const LIGHT_GREEN = '#10B981';
 const DARK_BG = '#022C22';
+const DARK_MID = '#033D2E';
 const WHITE = '#FFFFFF';
 
-// Flatbed tow truck SVG path - clean silhouette design
-function createTruckSVG(size, fgColor = WHITE) {
-  const s = size;
-  const cx = s / 2;
-  const cy = s / 2;
-  // Scale factor relative to 1024
-  const f = s / 1024;
+// Shield with road/path and 4 service dots — represents all roadside services
+// No text. Clean, bold, reads at 48px.
 
+function shieldIcon() {
+  // Shield path: wide rounded top, pointed bottom
+  // Centered at 512,512 in a 1024x1024 viewBox
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}">
-      <g transform="translate(${cx - 320 * f}, ${cy - 140 * f}) scale(${f})">
-        <!-- Flatbed truck body -->
-        <!-- Cab -->
-        <rect x="460" y="60" width="160" height="180" rx="20" fill="${fgColor}"/>
-        <!-- Cab window -->
-        <rect x="480" y="80" width="120" height="70" rx="10" fill="${fgColor}" opacity="0.3"/>
-        <!-- Flatbed -->
-        <rect x="20" y="140" width="460" height="30" rx="6" fill="${fgColor}"/>
-        <!-- Flatbed ramp lines -->
-        <rect x="40" y="130" width="80" height="10" rx="3" fill="${fgColor}" opacity="0.5"/>
-        <!-- Chassis -->
-        <rect x="60" y="170" width="540" height="40" rx="8" fill="${fgColor}"/>
-        <!-- Hydraulic arm -->
-        <path d="M 420 140 L 460 80" stroke="${fgColor}" stroke-width="12" stroke-linecap="round" fill="none"/>
-        <path d="M 380 140 L 420 100" stroke="${fgColor}" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <!-- Front wheel -->
-        <circle cx="520" cy="230" r="42" fill="${fgColor}"/>
-        <circle cx="520" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="520" cy="230" r="8" fill="${fgColor}" opacity="0.5"/>
-        <!-- Rear wheel -->
-        <circle cx="160" cy="230" r="42" fill="${fgColor}"/>
-        <circle cx="160" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="160" cy="230" r="8" fill="${fgColor}" opacity="0.5"/>
-        <!-- Bumper / front detail -->
-        <rect x="600" y="160" width="30" height="50" rx="6" fill="${fgColor}" opacity="0.7"/>
-        <!-- Headlight -->
-        <circle cx="620" cy="145" r="10" fill="#FCD34D" opacity="0.9"/>
-        <!-- Hook -->
-        <path d="M 30 130 Q 10 130 10 145 Q 10 160 30 160" stroke="${fgColor}" stroke-width="8" stroke-linecap="round" fill="none"/>
-      </g>
-    </svg>`;
+    <!-- Shield outline -->
+    <path d="
+      M 512 130
+      C 620 130 740 150 800 180
+      Q 830 195 830 230
+      L 830 480
+      Q 830 620 740 720
+      L 512 910
+      L 284 720
+      Q 194 620 194 480
+      L 194 230
+      Q 194 195 224 180
+      C 284 150 404 130 512 130
+      Z
+    " fill="url(#shieldGrad)" stroke="${LIGHT_GREEN}" stroke-width="6"/>
+
+    <!-- Inner shield bevel -->
+    <path d="
+      M 512 178
+      C 604 178 706 194 756 218
+      Q 780 230 780 258
+      L 780 472
+      Q 780 594 700 682
+      L 512 852
+      L 324 682
+      Q 244 594 244 472
+      L 244 258
+      Q 244 230 268 218
+      C 318 194 420 178 512 178
+      Z
+    " fill="url(#innerGrad)" opacity="0.5"/>`;
 }
 
-// Full app icon: rounded square with truck + text
-function createAppIconSVG(size) {
-  const s = size;
-  const f = s / 1024;
-
+function roadPath() {
+  // Vertical road/path element inside shield — dashed center line
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 1024 1024">
-      <defs>
-        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#033D2E;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:${DARK_BG};stop-opacity:1" />
-        </linearGradient>
-        <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:${BRAND_GREEN};stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
-        </linearGradient>
-      </defs>
+    <!-- Road surface -->
+    <path d="
+      M 462 350 L 462 720 Q 462 740 482 756 L 512 780 L 542 756 Q 562 740 562 720 L 562 350
+      Q 562 320 512 310 Q 462 320 462 350 Z
+    " fill="${DARK_BG}" opacity="0.35"/>
 
-      <!-- Background -->
-      <rect width="1024" height="1024" rx="220" fill="url(#bg)"/>
-
-      <!-- Subtle grid pattern -->
-      <g opacity="0.03">
-        <line x1="0" y1="256" x2="1024" y2="256" stroke="${WHITE}" stroke-width="1"/>
-        <line x1="0" y1="512" x2="1024" y2="512" stroke="${WHITE}" stroke-width="1"/>
-        <line x1="0" y1="768" x2="1024" y2="768" stroke="${WHITE}" stroke-width="1"/>
-        <line x1="256" y1="0" x2="256" y2="1024" stroke="${WHITE}" stroke-width="1"/>
-        <line x1="512" y1="0" x2="512" y2="1024" stroke="${WHITE}" stroke-width="1"/>
-        <line x1="768" y1="0" x2="768" y2="1024" stroke="${WHITE}" stroke-width="1"/>
-      </g>
-
-      <!-- Green accent line at top -->
-      <rect x="200" y="100" width="624" height="6" rx="3" fill="url(#accent)" opacity="0.6"/>
-
-      <!-- Truck icon centered -->
-      <g transform="translate(172, 220) scale(1.05)">
-        <!-- Flatbed truck body -->
-        <rect x="460" y="60" width="160" height="180" rx="20" fill="${WHITE}"/>
-        <rect x="480" y="80" width="120" height="70" rx="10" fill="${DARK_BG}" opacity="0.2"/>
-        <rect x="20" y="140" width="460" height="30" rx="6" fill="${WHITE}"/>
-        <rect x="40" y="130" width="80" height="10" rx="3" fill="${WHITE}" opacity="0.5"/>
-        <rect x="60" y="170" width="540" height="40" rx="8" fill="${WHITE}"/>
-        <path d="M 420 140 L 460 80" stroke="${WHITE}" stroke-width="12" stroke-linecap="round" fill="none"/>
-        <path d="M 380 140 L 420 100" stroke="${WHITE}" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <circle cx="520" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="520" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="520" cy="230" r="8" fill="${WHITE}" opacity="0.5"/>
-        <circle cx="160" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="160" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="160" cy="230" r="8" fill="${WHITE}" opacity="0.5"/>
-        <rect x="600" y="160" width="30" height="50" rx="6" fill="${WHITE}" opacity="0.7"/>
-        <circle cx="620" cy="145" r="10" fill="#FCD34D" opacity="0.9"/>
-        <path d="M 30 130 Q 10 130 10 145 Q 10 160 30 160" stroke="${WHITE}" stroke-width="8" stroke-linecap="round" fill="none"/>
-      </g>
-
-      <!-- Arabic text: سارد -->
-      <text x="512" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="140" fill="${WHITE}" letter-spacing="8">سارد</text>
-
-      <!-- English text -->
-      <text x="512" y="770" text-anchor="middle" font-family="Arial, sans-serif" font-weight="600" font-size="64" fill="${BRAND_GREEN}" letter-spacing="16">SARED</text>
-
-      <!-- Tagline -->
-      <text x="512" y="840" text-anchor="middle" font-family="Arial, sans-serif" font-weight="400" font-size="32" fill="${WHITE}" opacity="0.5" letter-spacing="4">YOUR ROAD STORY</text>
-
-      <!-- Bottom accent -->
-      <rect x="200" y="900" width="624" height="6" rx="3" fill="url(#accent)" opacity="0.3"/>
-    </svg>`;
+    <!-- Road dashed center line -->
+    <line x1="512" y1="340" x2="512" y2="400" stroke="${LIGHT_GREEN}" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+    <line x1="512" y1="430" x2="512" y2="490" stroke="${LIGHT_GREEN}" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+    <line x1="512" y1="520" x2="512" y2="580" stroke="${LIGHT_GREEN}" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+    <line x1="512" y1="610" x2="512" y2="670" stroke="${LIGHT_GREEN}" stroke-width="6" stroke-linecap="round" opacity="0.8"/>`;
 }
 
-// Splash icon: larger, more prominent with glow effects
-function createSplashIconSVG(size) {
+function serviceIcons() {
+  // 4 service symbols arranged around the road — tow hook, tire, battery, fuel
+  const iconR = 52;
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 512 512">
-      <defs>
-        <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:${BRAND_GREEN};stop-opacity:0" />
-          <stop offset="50%" style="stop-color:${BRAND_GREEN};stop-opacity:0.15" />
-          <stop offset="100%" style="stop-color:${BRAND_GREEN};stop-opacity:0" />
-        </linearGradient>
-      </defs>
+    <!-- Tow hook — top left -->
+    <g transform="translate(360, 400)">
+      <circle r="${iconR}" fill="${DARK_BG}" opacity="0.4"/>
+      <circle r="${iconR - 4}" fill="none" stroke="${WHITE}" stroke-width="3" opacity="0.3"/>
+      <path d="M -14 -18 L -14 8 Q -14 22 0 22 Q 14 22 14 8 L 14 -4" stroke="${WHITE}" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <line x1="14" y1="-4" x2="14" y2="-20" stroke="${WHITE}" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-18" x2="-14" y2="-24" stroke="${WHITE}" stroke-width="5" stroke-linecap="round"/>
+    </g>
 
-      <!-- Glow behind truck -->
-      <ellipse cx="256" cy="230" rx="200" ry="80" fill="url(#glow)"/>
+    <!-- Tire — bottom left -->
+    <g transform="translate(370, 560)">
+      <circle r="${iconR}" fill="${DARK_BG}" opacity="0.4"/>
+      <circle r="${iconR - 4}" fill="none" stroke="${WHITE}" stroke-width="3" opacity="0.3"/>
+      <circle r="20" fill="none" stroke="${WHITE}" stroke-width="6"/>
+      <circle r="6" fill="${WHITE}"/>
+      <!-- Tire treads -->
+      <line x1="-20" y1="0" x2="-12" y2="0" stroke="${WHITE}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="12" y1="0" x2="20" y2="0" stroke="${WHITE}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="-20" x2="0" y2="-12" stroke="${WHITE}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="0" y1="12" x2="0" y2="20" stroke="${WHITE}" stroke-width="3" stroke-linecap="round"/>
+    </g>
 
-      <!-- Truck scaled for splash -->
-      <g transform="translate(56, 120) scale(0.62)">
-        <rect x="460" y="60" width="160" height="180" rx="20" fill="${WHITE}"/>
-        <rect x="480" y="80" width="120" height="70" rx="10" fill="${DARK_BG}" opacity="0.15"/>
-        <rect x="20" y="140" width="460" height="30" rx="6" fill="${WHITE}"/>
-        <rect x="40" y="130" width="80" height="10" rx="3" fill="${WHITE}" opacity="0.5"/>
-        <rect x="60" y="170" width="540" height="40" rx="8" fill="${WHITE}"/>
-        <path d="M 420 140 L 460 80" stroke="${WHITE}" stroke-width="12" stroke-linecap="round" fill="none"/>
-        <path d="M 380 140 L 420 100" stroke="${WHITE}" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <circle cx="520" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="520" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="520" cy="230" r="8" fill="${WHITE}" opacity="0.5"/>
-        <circle cx="160" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="160" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="160" cy="230" r="8" fill="${WHITE}" opacity="0.5"/>
-        <rect x="600" y="160" width="30" height="50" rx="6" fill="${WHITE}" opacity="0.7"/>
-        <circle cx="620" cy="145" r="10" fill="#FCD34D" opacity="0.9"/>
-        <path d="M 30 130 Q 10 130 10 145 Q 10 160 30 160" stroke="${WHITE}" stroke-width="8" stroke-linecap="round" fill="none"/>
-      </g>
+    <!-- Battery — top right -->
+    <g transform="translate(664, 400)">
+      <circle r="${iconR}" fill="${DARK_BG}" opacity="0.4"/>
+      <circle r="${iconR - 4}" fill="none" stroke="${WHITE}" stroke-width="3" opacity="0.3"/>
+      <!-- Battery body -->
+      <rect x="-16" y="-12" width="32" height="28" rx="4" fill="none" stroke="${WHITE}" stroke-width="5"/>
+      <!-- Battery terminals -->
+      <rect x="-8" y="-18" width="6" height="8" rx="2" fill="${WHITE}"/>
+      <rect x="2" y="-18" width="6" height="8" rx="2" fill="${WHITE}"/>
+      <!-- + sign -->
+      <line x1="-6" y1="4" x2="6" y2="4" stroke="${LIGHT_GREEN}" stroke-width="4" stroke-linecap="round"/>
+      <line x1="0" y1="-2" x2="0" y2="10" stroke="${LIGHT_GREEN}" stroke-width="4" stroke-linecap="round"/>
+    </g>
 
-      <!-- Arabic text -->
-      <text x="256" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="${WHITE}" letter-spacing="4">سارد</text>
-
-      <!-- English subtitle -->
-      <text x="256" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-weight="600" font-size="28" fill="${BRAND_GREEN}" letter-spacing="10">SARED</text>
-
-      <!-- Tagline -->
-      <text x="256" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-weight="400" font-size="16" fill="${WHITE}" opacity="0.4" letter-spacing="3">YOUR ROAD STORY, HANDLED</text>
-    </svg>`;
+    <!-- Fuel drop — bottom right -->
+    <g transform="translate(654, 560)">
+      <circle r="${iconR}" fill="${DARK_BG}" opacity="0.4"/>
+      <circle r="${iconR - 4}" fill="none" stroke="${WHITE}" stroke-width="3" opacity="0.3"/>
+      <!-- Fuel drop -->
+      <path d="M 0 -22 Q -18 4 -18 12 Q -18 24 0 24 Q 18 24 18 12 Q 18 4 0 -22 Z" fill="none" stroke="${WHITE}" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="0" cy="10" r="4" fill="${LIGHT_GREEN}"/>
+    </g>`;
 }
 
-// Android adaptive foreground (only the icon, no background)
-function createAdaptiveForegroundSVG(size) {
-  // Adaptive icons have a safe zone - content should be within 66% of the center
-  const s = size;
-  return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 1024 1024">
-      <!-- Truck centered in safe zone -->
-      <g transform="translate(212, 260) scale(0.92)">
-        <rect x="460" y="60" width="160" height="180" rx="20" fill="${WHITE}"/>
-        <rect x="480" y="80" width="120" height="70" rx="10" fill="${DARK_BG}" opacity="0.15"/>
-        <rect x="20" y="140" width="460" height="30" rx="6" fill="${WHITE}"/>
-        <rect x="40" y="130" width="80" height="10" rx="3" fill="${WHITE}" opacity="0.5"/>
-        <rect x="60" y="170" width="540" height="40" rx="8" fill="${WHITE}"/>
-        <path d="M 420 140 L 460 80" stroke="${WHITE}" stroke-width="12" stroke-linecap="round" fill="none"/>
-        <path d="M 380 140 L 420 100" stroke="${WHITE}" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <circle cx="520" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="520" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="520" cy="230" r="8" fill="${WHITE}" opacity="0.5"/>
-        <circle cx="160" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="160" cy="230" r="22" fill="${DARK_BG}"/>
-        <circle cx="160" cy="230" r="8" fill="${WHITE}" opacity="0.5"/>
-        <rect x="600" y="160" width="30" height="50" rx="6" fill="${WHITE}" opacity="0.7"/>
-        <circle cx="620" cy="145" r="10" fill="#FCD34D" opacity="0.9"/>
-        <path d="M 30 130 Q 10 130 10 145 Q 10 160 30 160" stroke="${WHITE}" stroke-width="8" stroke-linecap="round" fill="none"/>
-      </g>
+// --- Icon SVG generators ---
 
-      <!-- Brand name below truck -->
-      <text x="512" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="100" fill="${WHITE}" letter-spacing="6">سارد</text>
-    </svg>`;
+function createAppIconSVG() {
+  return `
+  <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${DARK_MID}"/>
+        <stop offset="100%" stop-color="${DARK_BG}"/>
+      </linearGradient>
+      <linearGradient id="shieldGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="${LIGHT_GREEN}" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="${BRAND_GREEN}" stop-opacity="0.08"/>
+      </linearGradient>
+      <linearGradient id="innerGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="${WHITE}" stop-opacity="0.06"/>
+        <stop offset="100%" stop-color="${WHITE}" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Background rounded square -->
+    <rect width="1024" height="1024" rx="220" fill="url(#bgGrad)"/>
+
+    <!-- Subtle radial glow -->
+    <circle cx="512" cy="480" r="360" fill="${BRAND_GREEN}" opacity="0.04"/>
+
+    ${shieldIcon()}
+    ${roadPath()}
+    ${serviceIcons()}
+  </svg>`;
 }
 
-// Android adaptive background (solid gradient)
-function createAdaptiveBackgroundSVG(size) {
+function createSplashIconSVG() {
+  // Splash: shield on transparent background (shows on #022C22 splash bg)
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 1024 1024">
-      <defs>
-        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#033D2E"/>
-          <stop offset="100%" style="stop-color:${DARK_BG}"/>
-        </linearGradient>
-      </defs>
-      <rect width="1024" height="1024" fill="url(#bgGrad)"/>
-      <!-- Subtle pattern -->
-      <g opacity="0.04">
-        <circle cx="200" cy="200" r="300" fill="${BRAND_GREEN}"/>
-        <circle cx="800" cy="800" r="300" fill="${BRAND_GREEN}"/>
-      </g>
-    </svg>`;
+  <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 1024 1024">
+    <defs>
+      <linearGradient id="shieldGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="${LIGHT_GREEN}" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="${BRAND_GREEN}" stop-opacity="0.1"/>
+      </linearGradient>
+      <linearGradient id="innerGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="${WHITE}" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="${WHITE}" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Subtle glow behind shield -->
+    <ellipse cx="512" cy="500" rx="300" ry="280" fill="${BRAND_GREEN}" opacity="0.06"/>
+
+    ${shieldIcon()}
+    ${roadPath()}
+    ${serviceIcons()}
+  </svg>`;
 }
 
-// Monochrome icon (single color, simple silhouette)
-function createMonochromeSVG(size) {
+function createAdaptiveForegroundSVG() {
+  // Android adaptive: content within 66% safe zone (72dp in 108dp)
+  // Scale shield to fit ~680px centered in 1024px
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 1024 1024">
-      <g transform="translate(212, 280) scale(0.92)">
-        <rect x="460" y="60" width="160" height="180" rx="20" fill="${WHITE}"/>
-        <rect x="20" y="140" width="460" height="30" rx="6" fill="${WHITE}"/>
-        <rect x="60" y="170" width="540" height="40" rx="8" fill="${WHITE}"/>
-        <path d="M 420 140 L 460 80" stroke="${WHITE}" stroke-width="14" stroke-linecap="round" fill="none"/>
-        <circle cx="520" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="520" cy="230" r="18" fill="black"/>
-        <circle cx="160" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="160" cy="230" r="18" fill="black"/>
-        <rect x="600" y="160" width="30" height="50" rx="6" fill="${WHITE}"/>
-        <path d="M 30 130 Q 10 130 10 145 Q 10 160 30 160" stroke="${WHITE}" stroke-width="10" stroke-linecap="round" fill="none"/>
-      </g>
-      <text x="512" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="100" fill="${WHITE}">سارد</text>
-    </svg>`;
+  <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+    <defs>
+      <linearGradient id="shieldGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="${LIGHT_GREEN}" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="${BRAND_GREEN}" stop-opacity="0.1"/>
+      </linearGradient>
+      <linearGradient id="innerGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="${WHITE}" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="${WHITE}" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    ${shieldIcon()}
+    ${roadPath()}
+    ${serviceIcons()}
+  </svg>`;
 }
 
-// Favicon
-function createFaviconSVG(size) {
+function createAdaptiveBackgroundSVG() {
   return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 48 48">
-      <defs>
-        <linearGradient id="fbg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#033D2E"/>
-          <stop offset="100%" style="stop-color:${DARK_BG}"/>
-        </linearGradient>
-      </defs>
-      <rect width="48" height="48" rx="10" fill="url(#fbg)"/>
-      <!-- Simplified truck for small size -->
-      <g transform="translate(6, 12) scale(0.055)">
-        <rect x="460" y="60" width="160" height="180" rx="20" fill="${WHITE}"/>
-        <rect x="20" y="140" width="460" height="30" rx="6" fill="${WHITE}"/>
-        <rect x="60" y="170" width="540" height="40" rx="8" fill="${WHITE}"/>
-        <circle cx="520" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="520" cy="230" r="20" fill="${DARK_BG}"/>
-        <circle cx="160" cy="230" r="42" fill="${WHITE}"/>
-        <circle cx="160" cy="230" r="20" fill="${DARK_BG}"/>
-      </g>
-    </svg>`;
+  <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+    <defs>
+      <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${DARK_MID}"/>
+        <stop offset="100%" stop-color="${DARK_BG}"/>
+      </linearGradient>
+    </defs>
+    <rect width="1024" height="1024" fill="url(#bgG)"/>
+    <circle cx="512" cy="480" r="400" fill="${BRAND_GREEN}" opacity="0.035"/>
+  </svg>`;
 }
+
+function createMonochromeSVG() {
+  // Simplified shield silhouette — must be single color on transparent
+  return `
+  <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+    <!-- Shield silhouette -->
+    <path d="
+      M 512 130
+      C 620 130 740 150 800 180
+      Q 830 195 830 230
+      L 830 480
+      Q 830 620 740 720
+      L 512 910
+      L 284 720
+      Q 194 620 194 480
+      L 194 230
+      Q 194 195 224 180
+      C 284 150 404 130 512 130
+      Z
+    " fill="${WHITE}"/>
+
+    <!-- Road cutout -->
+    <path d="
+      M 480 320 L 480 700 Q 480 730 512 750 Q 544 730 544 700 L 544 320
+      Q 544 300 512 290 Q 480 300 480 320 Z
+    " fill="black" opacity="0.3"/>
+
+    <!-- Dashes -->
+    <line x1="512" y1="340" x2="512" y2="390" stroke="black" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+    <line x1="512" y1="420" x2="512" y2="470" stroke="black" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+    <line x1="512" y1="500" x2="512" y2="550" stroke="black" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+    <line x1="512" y1="580" x2="512" y2="630" stroke="black" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+  </svg>`;
+}
+
+function createFaviconSVG() {
+  // Simplified shield for 48x48 — must read clearly
+  return `
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <defs>
+      <linearGradient id="fbg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${DARK_MID}"/>
+        <stop offset="100%" stop-color="${DARK_BG}"/>
+      </linearGradient>
+    </defs>
+    <rect width="48" height="48" rx="10" fill="url(#fbg)"/>
+
+    <!-- Bold shield at favicon scale -->
+    <path d="
+      M 24 8
+      C 28 8 33 9 36 10.5
+      Q 38 11.5 38 13
+      L 38 24
+      Q 38 30 34 34
+      L 24 42
+      L 14 34
+      Q 10 30 10 24
+      L 10 13
+      Q 10 11.5 12 10.5
+      C 15 9 20 8 24 8 Z
+    " fill="${BRAND_GREEN}" opacity="0.35" stroke="${LIGHT_GREEN}" stroke-width="1.5"/>
+
+    <!-- Road line -->
+    <line x1="24" y1="14" x2="24" y2="20" stroke="${WHITE}" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <line x1="24" y1="24" x2="24" y2="30" stroke="${WHITE}" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <line x1="24" y1="34" x2="24" y2="37" stroke="${WHITE}" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  </svg>`;
+}
+
+// --- Generate all assets ---
 
 async function generate() {
   const assetsDir = path.join(__dirname, '..', 'assets');
 
   const tasks = [
-    {
-      name: 'icon.png',
-      svg: createAppIconSVG(1024),
-      size: 1024,
-    },
-    {
-      name: 'splash-icon.png',
-      svg: createSplashIconSVG(512),
-      size: 512,
-    },
-    {
-      name: 'android-icon-foreground.png',
-      svg: createAdaptiveForegroundSVG(1024),
-      size: 1024,
-    },
-    {
-      name: 'android-icon-background.png',
-      svg: createAdaptiveBackgroundSVG(1024),
-      size: 1024,
-    },
-    {
-      name: 'android-icon-monochrome.png',
-      svg: createMonochromeSVG(1024),
-      size: 1024,
-    },
-    {
-      name: 'adaptive-icon.png',
-      svg: createAppIconSVG(1024),
-      size: 1024,
-    },
-    {
-      name: 'favicon.png',
-      svg: createFaviconSVG(48),
-      size: 48,
-    },
+    { name: 'icon.png',                     svg: createAppIconSVG(),             size: 1024 },
+    { name: 'adaptive-icon.png',             svg: createAppIconSVG(),             size: 1024 },
+    { name: 'splash-icon.png',               svg: createSplashIconSVG(),          size: 512  },
+    { name: 'android-icon-foreground.png',   svg: createAdaptiveForegroundSVG(),  size: 1024 },
+    { name: 'android-icon-background.png',   svg: createAdaptiveBackgroundSVG(),  size: 1024 },
+    { name: 'android-icon-monochrome.png',   svg: createMonochromeSVG(),          size: 1024 },
+    { name: 'favicon.png',                   svg: createFaviconSVG(),             size: 48   },
   ];
 
   for (const task of tasks) {
@@ -304,13 +294,10 @@ async function generate() {
       .resize(task.size, task.size)
       .png()
       .toFile(outPath);
-    console.log(`Generated ${task.name} (${task.size}x${task.size})`);
+    console.log(`OK  ${task.name} (${task.size}x${task.size})`);
   }
 
-  console.log('\nAll icons generated successfully!');
+  console.log('\nDone.');
 }
 
-generate().catch(err => {
-  console.error('Error:', err);
-  process.exit(1);
-});
+generate().catch(err => { console.error('Error:', err); process.exit(1); });
