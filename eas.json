@@ -16,7 +16,8 @@
         "EXPO_PUBLIC_SUPABASE_URL": "https://pgvjkgscvsgnbzwgbtqp.supabase.co",
         "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_IG7nCK4sizomSC7ufsutdg_tPLFVJ9N",
         "EXPO_PUBLIC_GOOGLE_MAPS_KEY": "AIzaSyBU9GgoN_W8LmSGoSrIZpOXW3sKA7kr8BY",
-        "EXPO_PUBLIC_SENTRY_DSN": "https://7c737337dc3c7172b4d2f337b88ff267@o4511148855197696.ingest.de.sentry.io/4511148887769168"
+        "EXPO_PUBLIC_SENTRY_DSN": "https://7c737337dc3c7172b4d2f337b88ff267@o4511148855197696.ingest.de.sentry.io/4511148887769168",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     },
     "production": {
@@ -25,7 +26,8 @@
         "EXPO_PUBLIC_SUPABASE_URL": "https://pgvjkgscvsgnbzwgbtqp.supabase.co",
         "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_IG7nCK4sizomSC7ufsutdg_tPLFVJ9N",
         "EXPO_PUBLIC_GOOGLE_MAPS_KEY": "AIzaSyBU9GgoN_W8LmSGoSrIZpOXW3sKA7kr8BY",
-        "EXPO_PUBLIC_SENTRY_DSN": "https://7c737337dc3c7172b4d2f337b88ff267@o4511148855197696.ingest.de.sentry.io/4511148887769168"
+        "EXPO_PUBLIC_SENTRY_DSN": "https://7c737337dc3c7172b4d2f337b88ff267@o4511148855197696.ingest.de.sentry.io/4511148887769168",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true"
       }
     }
   }
