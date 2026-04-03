@@ -71,7 +71,7 @@ export default function HomeScreen({ navigation: rawNav }) {
           <Text style={[styles.greetingSub, { color: colors.textSecondary }, isRTL && styles.textRight]}>
             {t('howCanWeHelp') || 'How can we help you today?'}
           </Text>
-          <TouchableOpacity style={[styles.helpLink, { color: colors.text }]}
+          <TouchableOpacity style={[styles.helpLink, { color: colors.text }, isRTL && styles.rowReverse]}
             onPress={() => { try { Linking.openURL('https://wa.me/966554404434'); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={14} color="#25D366" />
             <Text style={[styles.helpLinkText, { color: colors.text }]}>
@@ -81,14 +81,14 @@ export default function HomeScreen({ navigation: rawNav }) {
         </View>
 
         {/* Search bar + notification */}
-        <View style={[styles.searchRow, { color: colors.text }]}>
+        <View style={[styles.searchRow, { color: colors.text }, isRTL && styles.rowReverse]}>
           <TouchableOpacity
             style={[styles.searchBar, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]}
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Destination', { pickup })}
           >
             <Ionicons name="search" size={20} color={colors.gray} />
-            <Text style={[styles.searchPlaceholder, { color: colors.textSecondary }]}>{t('whereNeedSared')}</Text>
+            <Text style={[styles.searchPlaceholder, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('whereNeedSared')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.notifBtn, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]}
@@ -103,7 +103,7 @@ export default function HomeScreen({ navigation: rawNav }) {
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Service', { pickup })}>
             <LinearGradient colors={['#059669', '#047857']} style={styles.promoBanner}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-              <View style={[styles.promoContent, { color: colors.text }]}>
+              <View style={[styles.promoContent, { color: colors.text }, isRTL && styles.rowReverse]}>
                 <View style={[styles.promoBadge, { color: colors.text }]}>
                   <Text style={styles.promoBadgeText}>50%</Text>
                 </View>
@@ -112,7 +112,7 @@ export default function HomeScreen({ navigation: rawNav }) {
                   <Text style={styles.promoCode}>SARED1</Text>
                   <Text style={styles.promoSub}>{t('useCode')}</Text>
                 </View>
-                <Ionicons name="arrow-forward-circle" size={32} color="rgba(255,255,255,0.8)" />
+                <Ionicons name={isRTL ? 'arrow-back-circle' : 'arrow-forward-circle'} size={32} color="rgba(255,255,255,0.8)" />
               </View>
             </LinearGradient>
           </TouchableOpacity>

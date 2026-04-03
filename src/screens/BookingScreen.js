@@ -143,7 +143,7 @@ export default function BookingScreen({ route, navigation }) {
         <TouchableOpacity style={[styles.cancelBtn, { color: colors.text }]} onPress={() => navigation.navigate('Main')}>
           <Text style={[styles.cancelBtnText, { color: colors.textSecondary }]}>{t('cancelRide')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.trackBtn, { color: colors.text }]} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay, fareBreakdown: fare, paymentMethod, rideId })}>
+        <TouchableOpacity style={[styles.trackBtn, { color: colors.text, flexDirection: isRTL ? 'row-reverse' : 'row' }]} onPress={() => navigation.navigate('Tracking', { service, size, price: priceDisplay, fareBreakdown: fare, paymentMethod, rideId })}>
           <Ionicons name="navigate" size={18} color="#FFF" style={{ marginEnd: 6 }} />
           <Text style={styles.trackBtnText}>{t('trackDriver')}</Text>
         </TouchableOpacity>

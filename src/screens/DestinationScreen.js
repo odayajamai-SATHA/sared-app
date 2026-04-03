@@ -123,7 +123,7 @@ export default function DestinationScreen({ route, navigation }) {
         <View style={{ width: 40 }} />
       </View>
 
-      <View style={[styles.searchContainer, { color: colors.text }]}>
+      <View style={[styles.searchContainer, isRTL && styles.rowReverse, { color: colors.text }]}>
         <Ionicons name="search" size={20} color={colors.gray} />
         <TextInput
           style={[styles.searchInput, isRTL && styles.textRight]}

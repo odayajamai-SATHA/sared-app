@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
   etaBadge: {
     position: 'absolute',
     top: 110,
-    right: 16,
+    end: 16,
     backgroundColor: 'transparent',
     borderRadius: 12,
     paddingHorizontal: 14,
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   distanceBadge: {
     position: 'absolute',
     top: 170,
-    right: 16,
+    end: 16,
     backgroundColor: '#1E3A5F',
     borderRadius: 8,
     paddingHorizontal: 10,

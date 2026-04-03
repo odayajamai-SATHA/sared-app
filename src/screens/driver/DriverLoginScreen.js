@@ -89,7 +89,7 @@ export default function DriverLoginScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.switchBtn, { color: colors.text }]}
+        style={[styles.switchBtn, { color: colors.text }, isRTL && styles.rowReverse]}
         onPress={() => navigation.replace('Login')}
       >
         <Ionicons name="swap-horizontal" size={16} color={colors.primary} />
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   langToggle: {
     position: 'absolute',
     top: 52,
-    right: 20,
+    end: 20,
     zIndex: 10,
     backgroundColor: 'transparent',
     paddingHorizontal: 14,
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   switchBtn: {
     position: 'absolute',
     top: 52,
-    left: 20,
+    start: 20,
     zIndex: 10,
     flexDirection: 'row',
     alignItems: 'center',

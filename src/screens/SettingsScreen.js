@@ -55,7 +55,7 @@ export default function SettingsScreen({ navigation }) {
             </Text>
             <View style={[styles.langRow, { color: colors.text }]}>
               <TouchableOpacity
-                style={[styles.langOption, { backgroundColor: colors.surfaceSecondary, borderColor: lang === 'en' ? colors.primary : 'transparent' }]}
+                style={[styles.langOption, isRTL && styles.rowReverse, { backgroundColor: colors.surfaceSecondary, borderColor: lang === 'en' ? colors.primary : 'transparent' }]}
                 onPress={() => { if (lang !== 'en') toggleLang(); }}
               >
                 <Ionicons name="globe-outline" size={22} color={lang === 'en' ? colors.primary : colors.gray} />
@@ -63,7 +63,7 @@ export default function SettingsScreen({ navigation }) {
                 {lang === 'en' && <Ionicons name="checkmark-circle" size={20} color={colors.primary} />}
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.langOption, { backgroundColor: colors.surfaceSecondary, borderColor: lang === 'ar' ? colors.primary : 'transparent' }]}
+                style={[styles.langOption, isRTL && styles.rowReverse, { backgroundColor: colors.surfaceSecondary, borderColor: lang === 'ar' ? colors.primary : 'transparent' }]}
                 onPress={() => { if (lang !== 'ar') toggleLang(); }}
               >
                 <Ionicons name="globe-outline" size={22} color={lang === 'ar' ? colors.primary : colors.gray} />
@@ -87,6 +87,7 @@ export default function SettingsScreen({ navigation }) {
                 key={opt.id}
                 style={[
                   styles.themeOption,
+                  isRTL && styles.rowReverse,
                   { backgroundColor: colors.surfaceSecondary, borderColor: mode === opt.id ? colors.primary : 'transparent' },
                 ]}
                 onPress={() => setTheme(opt.id)}
@@ -103,15 +104,15 @@ export default function SettingsScreen({ navigation }) {
             <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
               {t('aboutApp')}
             </Text>
-            <View style={[styles.aboutRow, { borderBottomColor: colors.border }]}>
+            <View style={[styles.aboutRow, isRTL && styles.rowReverse, { borderBottomColor: colors.border }]}>
               <Text style={[styles.aboutLabel, { color: colors.textSecondary }]}>{t('version')}</Text>
               <Text style={[styles.aboutValue, { color: colors.text }]}>1.0.0</Text>
             </View>
-            <View style={[styles.aboutRow, { borderBottomColor: colors.border }]}>
+            <View style={[styles.aboutRow, isRTL && styles.rowReverse, { borderBottomColor: colors.border }]}>
               <Text style={[styles.aboutLabel, { color: colors.textSecondary }]}>{t('madeInSaudi')}</Text>
               <Text style={[styles.aboutValue, { color: colors.text }]}>{t('madeInCity')}</Text>
             </View>
-            <View style={[styles.madeWith, { backgroundColor: colors.successFaded, borderColor: colors.border }]}>
+            <View style={[styles.madeWith, isRTL && styles.rowReverse, { backgroundColor: colors.successFaded, borderColor: colors.border }]}>
               <Ionicons name="flag" size={20} color={colors.success} />
               <Text style={[styles.madeWithLabel, { color: colors.success }]}>
                 {t('proudlyMade')}
@@ -157,7 +158,7 @@ export default function SettingsScreen({ navigation }) {
           </View>
 
           {/* Danger zone */}
-          <TouchableOpacity style={[styles.deleteBtn, { backgroundColor: colors.dangerFaded, borderColor: colors.dangerBorder }]} onPress={handleDeleteAccount}>
+          <TouchableOpacity style={[styles.deleteBtn, isRTL && styles.rowReverse, { backgroundColor: colors.dangerFaded, borderColor: colors.dangerBorder }]} onPress={handleDeleteAccount}>
             <Ionicons name="trash-outline" size={20} color={colors.danger} />
             <Text style={[styles.deleteText, { color: colors.danger }]}>
               {t('deleteAccount')}

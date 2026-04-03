@@ -48,7 +48,7 @@ export default function VehiclesScreen({ navigation }) {
         {showForm && (
           <View style={[styles.formCard, { color: colors.text }]}>
             <Text style={[styles.formTitle, isRTL && styles.textRight]}>{t('addVehicle')}</Text>
-            <View style={[styles.formRow, { color: colors.text }]}>
+            <View style={[styles.formRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <View style={[styles.formField, { color: colors.text }]}>
                 <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleMake')}</Text>
                 <TextInput style={styles.input} placeholder={t('makePlaceholder')} placeholderTextColor={colors.gray}
@@ -60,7 +60,7 @@ export default function VehiclesScreen({ navigation }) {
                   value={form.model} onChangeText={(v) => setForm({ ...form, model: v })} />
               </View>
             </View>
-            <View style={[styles.formRow, { color: colors.text }]}>
+            <View style={[styles.formRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <View style={[styles.formField, { color: colors.text }]}>
                 <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleYear')}</Text>
                 <TextInput style={styles.input} placeholder={t('yearPlaceholder')} placeholderTextColor={colors.gray}
@@ -94,7 +94,7 @@ export default function VehiclesScreen({ navigation }) {
             </View>
             <Text style={[styles.emptyTitle, { color: colors.textSecondary }]}>{t('noVehiclesSaved')}</Text>
             <Text style={[styles.emptyHint, { color: colors.textSecondary }]}>{t('addVehicleForFaster')}</Text>
-            <TouchableOpacity style={[styles.emptyBtn, { color: colors.text }]} onPress={() => setShowForm(true)}>
+            <TouchableOpacity style={[styles.emptyBtn, isRTL && styles.rowReverse, { color: colors.text }]} onPress={() => setShowForm(true)}>
               <Ionicons name="add" size={20} color={colors.white} />
               <Text style={styles.emptyBtnText}>{t('addVehicle')}</Text>
             </TouchableOpacity>

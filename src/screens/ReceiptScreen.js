@@ -110,7 +110,7 @@ export default function ReceiptScreen({ route, navigation }) {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]} contentContainerStyle={{ paddingBottom: 40 }}>
-      <View style={[styles.topBar, { backgroundColor: colors.headerBg, borderColor: colors.border }]}>
+      <View style={[styles.topBar, { backgroundColor: colors.headerBg, borderColor: colors.border }, isRTL && styles.rowReverse]}>
         <TouchableOpacity onPress={() => navigation.navigate('Main')} style={[styles.closeBtn, { backgroundColor: colors.surfaceSecondary, borderColor: colors.border }]} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name="close" size={24} color={colors.text} />
         </TouchableOpacity>
@@ -129,56 +129,56 @@ export default function ReceiptScreen({ route, navigation }) {
         <View style={[styles.divider, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Trip info */}
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('tripReceipt')}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>{t('tripReceipt')}</Text>
         {[
           ['calendar-outline', t('tripDate'), dateStr],
           ['time-outline', t('tripTime'), timeStr],
           ['locate-outline', t('pickup'), lang === 'ar' ? 'طريق الملك فهد، الرياض' : 'King Fahd Rd, Riyadh'],
           ['location-outline', t('dropoff'), lang === 'ar' ? 'شارع العليا، الرياض' : 'Olaya St, Riyadh'],
         ].map(([icon, label, value], i) => (
-          <View key={i} style={[styles.infoRow, { color: colors.text }]}>
+          <View key={i} style={[styles.infoRow, { color: colors.text }, isRTL && styles.rowReverse]}>
             <Ionicons name={icon} size={16} color={i < 2 ? colors.textSecondary : i === 2 ? colors.success : colors.danger} />
-            <Text style={[styles.infoLabel, { color: colors.textSecondary }]}>{label}</Text>
-            <Text style={[styles.infoValue, { color: colors.text }]}>{value}</Text>
+            <Text style={[styles.infoLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{label}</Text>
+            <Text style={[styles.infoValue, { color: colors.text }, isRTL && styles.textRight]}>{value}</Text>
           </View>
         ))}
 
         <View style={[styles.divider, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Price breakdown */}
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('priceBreakdown')}</Text>
-        <View style={[styles.priceRow, { color: colors.text }]}>
-          <Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('dispatchFee') || t('baseFare')}</Text>
-          <Text style={[styles.priceValue, { color: colors.text }]}>SAR {baseFare}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
+        <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('dispatchFee') || t('baseFare')}</Text>
+          <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {baseFare}</Text>
         </View>
-        <View style={[styles.priceRow, { color: colors.text }]}>
-          <Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('distanceRate') || t('distance')}</Text>
-          <Text style={[styles.priceValue, { color: colors.text }]}>SAR {distFee}</Text>
+        <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('distanceRate') || t('distance')}</Text>
+          <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {distFee}</Text>
         </View>
         {nightSurcharge > 0 && (
-          <View style={[styles.priceRow, { color: colors.text }]}>
-            <Text style={[styles.priceLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text>
-            <Text style={[styles.priceValue, { color: '#8B5CF6' }]}>SAR {nightSurcharge}</Text>
+          <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+            <Text style={[styles.priceLabel, { color: '#8B5CF6' }, isRTL && styles.textRight]}>{t('nightSurcharge')}</Text>
+            <Text style={[styles.priceValue, { color: '#8B5CF6' }, isRTL && styles.textRight]}>SAR {nightSurcharge}</Text>
           </View>
         )}
-        <View style={[styles.priceRow, { color: colors.text }]}>
-          <Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('vat')}</Text>
-          <Text style={[styles.priceValue, { color: colors.text }]}>SAR {vat}</Text>
+        <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('vat')}</Text>
+          <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {vat}</Text>
         </View>
 
         <View style={[styles.totalDivider, { backgroundColor: colors.primary, borderColor: colors.border }]} />
-        <View style={[styles.priceRow, { color: colors.text }]}>
-          <Text style={[styles.totalLabel, { color: colors.text }]}>{t('totalPrice')}</Text>
-          <Text style={[styles.totalValue, { color: colors.primary }]}>SAR {total}</Text>
+        <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          <Text style={[styles.totalLabel, { color: colors.text }, isRTL && styles.textRight]}>{t('totalPrice')}</Text>
+          <Text style={[styles.totalValue, { color: colors.primary }, isRTL && styles.textRight]}>SAR {total}</Text>
         </View>
 
         <View style={[styles.divider, { backgroundColor: colors.border, borderColor: colors.border }]} />
 
         {/* Payment */}
-        <View style={[styles.paymentRow, { color: colors.text }]}>
+        <View style={[styles.paymentRow, { color: colors.text }, isRTL && styles.rowReverse]}>
           <Ionicons name="cash-outline" size={20} color={colors.success} />
-          <Text style={[styles.paymentLabel, { color: colors.textSecondary }]}>{t('paymentMethod')}</Text>
-          <Text style={[styles.paymentValue, { color: colors.success }]}>{paymentDisplay}</Text>
+          <Text style={[styles.paymentLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('paymentMethod')}</Text>
+          <Text style={[styles.paymentValue, { color: colors.success }, isRTL && styles.textRight]}>{paymentDisplay}</Text>
         </View>
 
         {/* Receipt tear line */}
@@ -193,16 +193,16 @@ export default function ReceiptScreen({ route, navigation }) {
         <Text style={[styles.shareTitle, { color: colors.text }]}>
           {lang === 'ar' ? 'مشاركة الإيصال' : 'Share Receipt'}
         </Text>
-        <View style={[styles.shareRow, { color: colors.text }]}>
-          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }]} onPress={handleShareWhatsApp}>
+        <View style={[styles.shareRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }, isRTL && styles.rowReverse]} onPress={handleShareWhatsApp}>
             <Ionicons name="logo-whatsapp" size={22} color="#FFF" />
             <Text style={styles.shareBtnText}>WhatsApp</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#EA4335' }]} onPress={handleShareEmail}>
+          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#EA4335' }, isRTL && styles.rowReverse]} onPress={handleShareEmail}>
             <Ionicons name="mail" size={22} color="#FFF" />
             <Text style={styles.shareBtnText}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: colors.primary, borderColor: colors.border }]} onPress={handleManualShare}>
+          <TouchableOpacity style={[styles.shareBtn, { backgroundColor: colors.primary, borderColor: colors.border }, isRTL && styles.rowReverse]} onPress={handleManualShare}>
             <Ionicons name="share-social" size={22} color="#FFF" />
             <Text style={styles.shareBtnText}>{lang === 'ar' ? 'أخرى' : 'Other'}</Text>
           </TouchableOpacity>
@@ -251,4 +251,6 @@ const styles = StyleSheet.create({
   shareBtnText: { fontSize: 13, fontWeight: '600', color: '#FFF' },
   doneBtn: { marginHorizontal: 16, marginTop: 16, paddingVertical: 16, borderRadius: 14, alignItems: 'center' },
   doneBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
+  rowReverse: { flexDirection: 'row-reverse' },
+  textRight: { textAlign: 'right' },
 });

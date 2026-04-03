@@ -6,7 +6,7 @@ import { colors } from '../utils/colors';
 import { useI18n } from '../utils/i18n';
 
 export default function DriverMatchingScreen({ route, navigation }) {
-  const { t } = useI18n();
+  const { t, isRTL } = useI18n();
   const params = route.params || {};
   const [statusIndex, setStatusIndex] = useState(0);
 

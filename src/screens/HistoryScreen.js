@@ -61,7 +61,7 @@ export default function HistoryScreen({ navigation }) {
           {formatDate(item.created_at)}
         </Text>
       </View>
-      <View style={{ alignItems: 'flex-end' }}>
+      <View style={{ alignItems: isRTL ? 'flex-start' : 'flex-end' }}>
         <Text style={[styles.ridePrice, { color: getStatusColor(item.status) }]}>
           {item.price ? `SAR ${item.price}` : '--'}
         </Text>
@@ -98,13 +98,14 @@ export default function HistoryScreen({ navigation }) {
           <Text style={[styles.emptyTitle, { color: colors.textSecondary }]}>{t('noTripsYet')}</Text>
           <Text style={[styles.emptyText, { color: colors.textSecondary }]}>{t('tripsWillAppear')}</Text>
           <TouchableOpacity
-            style={[styles.bookBtn, { color: colors.text }]}
+            style={[styles.bookBtn, { color: colors.text }, isRTL && styles.rowReverse]}
             onPress={() => navigation.navigate('Services')}
             activeOpacity={0.8}
           >
             <Ionicons name="car-sport" size={18} color="#FFF" />
             <Text style={styles.bookBtnText}>{t('bookNow')}</Text>
           </TouchableOpacity>
+
         </View>
       ) : (
         <FlatList

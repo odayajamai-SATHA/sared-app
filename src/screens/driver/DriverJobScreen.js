@@ -81,7 +81,7 @@ export default function DriverJobScreen({ route, navigation }) {
       <View style={[styles.stepsContainer, { color: colors.text }]}>
         {stepLabels.map((label, index) => (
           <View key={index} style={[styles.stepWrapper, { color: colors.text }]}>
-            <View style={[styles.stepRow, { color: colors.text }]}>
+            <View style={[styles.stepRow, { color: colors.text }, isRTL && styles.rowReverse]}>
               <View
                 style={[
                   styles.stepCircle,
@@ -174,9 +174,9 @@ export default function DriverJobScreen({ route, navigation }) {
 
       {/* Action Button */}
       <View style={[styles.bottomActions, { color: colors.text }]}>
-        <TouchableOpacity style={styles.nextBtn} onPress={handleNextStep}>
+        <TouchableOpacity style={[styles.nextBtn, isRTL && styles.rowReverse]} onPress={handleNextStep}>
           <Text style={[styles.nextBtnText, { color: colors.text }]}>{getNextButtonLabel()}</Text>
-          <Ionicons name="arrow-forward" size={20} color={colors.white} />
+          <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={20} color={colors.white} />
         </TouchableOpacity>
       </View>
     </View>

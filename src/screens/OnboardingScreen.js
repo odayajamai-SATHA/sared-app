@@ -60,7 +60,7 @@ const illStyles = StyleSheet.create({
 });
 
 export default function OnboardingScreen({ navigation }) {
-  const { t } = useI18n();
+  const { t, isRTL } = useI18n();
   const { width, height: screenHeight } = useWindowDimensions();
   const slideHeight = screenHeight - 200;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -152,12 +152,12 @@ export default function OnboardingScreen({ navigation }) {
         </View>
 
         <TouchableOpacity style={styles.nextBtn} onPress={handleNext} activeOpacity={0.8}>
-          <LinearGradient colors={['#059669', '#047857']} style={styles.nextGradient}
+          <LinearGradient colors={['#059669', '#047857']} style={[styles.nextGradient, isRTL && { flexDirection: 'row-reverse' }]}
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
             <Text style={styles.nextText}>
               {currentIndex === 2 ? t('getStarted') : t('next')}
             </Text>
-            <Ionicons name="arrow-forward" size={20} color="#FFF" />
+            <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={20} color="#FFF" />
           </LinearGradient>
         </TouchableOpacity>
       </View>
@@ -167,7 +167,7 @@ export default function OnboardingScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  skipBtn: { position: 'absolute', top: 60, right: 20, zIndex: 10, padding: 8 },
+  skipBtn: { position: 'absolute', top: 60, end: 20, zIndex: 10, padding: 8 },
   skipText: { fontSize: 15, color: 'rgba(255,255,255,0.6)', fontWeight: '500' },
   flatList: { flex: 1 },
   slide: {

@@ -90,7 +90,7 @@ export default function ForBusinessScreen({ navigation }) {
             value={form.company} onChangeText={(v) => update('company', v)} />
 
           <Text style={[styles.label, { color: colors.textSecondary }]}>{t('fleetSize')}</Text>
-          <TouchableOpacity style={[styles.dropdown, { color: colors.text }]} onPress={() => setShowFleetMenu(!showFleetMenu)}>
+          <TouchableOpacity style={[styles.dropdown, { color: colors.text }, isRTL && styles.rowReverse]} onPress={() => setShowFleetMenu(!showFleetMenu)}>
             <Text style={form.fleetSize ? styles.dropdownValue : styles.dropdownPlaceholder}>
               {form.fleetSize || t('fleetSize')}
             </Text>
@@ -116,7 +116,7 @@ export default function ForBusinessScreen({ navigation }) {
             keyboardType="email-address" autoCapitalize="none" value={form.email} onChangeText={(v) => update('email', v)} />
 
           <Text style={[styles.label, { color: colors.textSecondary }]}>{t('enterPhone')}</Text>
-          <View style={[styles.phoneRow, { color: colors.text }]}>
+          <View style={[styles.phoneRow, { color: colors.text }, isRTL && styles.rowReverse]}>
             <View style={[styles.codeBox, { color: colors.text }]}><Text style={[styles.codeText, { color: colors.text }]}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={9} />
@@ -124,7 +124,7 @@ export default function ForBusinessScreen({ navigation }) {
 
           <TouchableOpacity style={[styles.submitBtn, !isValid && { opacity: 0.5 }]}
             onPress={handleSubmit} disabled={!isValid}>
-            <LinearGradient colors={['#065F46', '#022C22']} style={[styles.submitGradient, { color: colors.text }]}>
+            <LinearGradient colors={['#065F46', '#022C22']} style={[styles.submitGradient, { color: colors.text }, isRTL && styles.rowReverse]}>
               <Ionicons name="send" size={18} color="#FFF" />
               <Text style={styles.submitText}>{t('submitInquiry')}</Text>
             </LinearGradient>

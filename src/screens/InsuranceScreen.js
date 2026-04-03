@@ -135,7 +135,7 @@ export default function InsuranceScreen({ navigation }) {
             {PARTNER_INSURERS.map((insurer, i) => (
               <TouchableOpacity
                 key={i}
-                style={[styles.partnerChip, company === (lang === 'ar' ? insurer.nameAr : insurer.name) && styles.partnerChipActive]}
+                style={[styles.partnerChip, isRTL && styles.rowReverse, company === (lang === 'ar' ? insurer.nameAr : insurer.name) && styles.partnerChipActive]}
                 onPress={() => handleSelectInsurer(insurer)}
               >
                 <Ionicons name={insurer.icon} size={18} color={colors.primary} />

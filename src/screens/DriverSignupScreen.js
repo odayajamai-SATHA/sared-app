@@ -106,7 +106,7 @@ export default function DriverSignupScreen({ navigation }) {
             value={form.name} onChangeText={(v) => update('name', v)} />
 
           <Text style={[styles.label, { color: colors.textSecondary }]}>{t('enterPhone')}</Text>
-          <View style={[styles.phoneRow, { color: colors.text }]}>
+          <View style={[styles.phoneRow, { color: colors.text }, isRTL && styles.rowReverse]}>
             <View style={[styles.codeBox, { color: colors.text }]}><Text style={[styles.codeText, { color: colors.text }]}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={9} />
@@ -117,7 +117,7 @@ export default function DriverSignupScreen({ navigation }) {
             keyboardType="number-pad" value={form.iqama} onChangeText={(v) => update('iqama', v)} maxLength={10} />
 
           <Text style={[styles.label, { color: colors.textSecondary }]}>{t('vehicleType')}</Text>
-          <TouchableOpacity style={[styles.dropdown, { color: colors.text }]} onPress={() => setShowVehicleMenu(!showVehicleMenu)}>
+          <TouchableOpacity style={[styles.dropdown, { color: colors.text }, isRTL && styles.rowReverse]} onPress={() => setShowVehicleMenu(!showVehicleMenu)}>
             <Text style={form.vehicleType ? styles.dropdownValue : styles.dropdownPlaceholder}>
               {form.vehicleType ? t(form.vehicleType) : t('selectVehicleType')}
             </Text>
@@ -139,7 +139,7 @@ export default function DriverSignupScreen({ navigation }) {
             autoCapitalize="characters" value={form.plate} onChangeText={(v) => update('plate', v)} />
 
           <Text style={[styles.label, { color: colors.textSecondary }]}>{t('city')}</Text>
-          <TouchableOpacity style={[styles.dropdown, { color: colors.text }]} onPress={() => setShowCityMenu(!showCityMenu)}>
+          <TouchableOpacity style={[styles.dropdown, { color: colors.text }, isRTL && styles.rowReverse]} onPress={() => setShowCityMenu(!showCityMenu)}>
             <Text style={form.city ? styles.dropdownValue : styles.dropdownPlaceholder}>
               {form.city || t('selectCity')}
             </Text>
@@ -158,7 +158,7 @@ export default function DriverSignupScreen({ navigation }) {
 
           <TouchableOpacity style={[styles.submitBtn, (!isValid || submitting) && { opacity: 0.5 }]}
             onPress={handleSubmit} disabled={!isValid || submitting}>
-            <LinearGradient colors={['#059669', '#047857']} style={[styles.submitGradient, { color: colors.text }]}>
+            <LinearGradient colors={['#059669', '#047857']} style={[styles.submitGradient, { color: colors.text }, isRTL && styles.rowReverse]}>
               {submitting ? (
                 <ActivityIndicator size="small" color="#FFF" />
               ) : (

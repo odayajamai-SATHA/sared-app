@@ -88,7 +88,7 @@ export default function MembershipScreen({ navigation }) {
           <LinearGradient colors={plans[selected].gradient} style={styles.planCard}
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
             <Text style={styles.planName}>{plans[selected].name}</Text>
-            <View style={[styles.priceRow, { color: colors.text }]}>
+            <View style={[styles.priceRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <Text style={styles.planCurrency}>SAR</Text>
               <Text style={styles.planPrice}>{plans[selected].price}</Text>
               <Text style={styles.planPeriod}>{t('perYear')}</Text>
@@ -96,7 +96,7 @@ export default function MembershipScreen({ navigation }) {
 
             <View style={[styles.featuresContainer, { color: colors.text }]}>
               {plans[selected].features.map((feat, i) => (
-                <View key={i} style={[styles.featureRow, { color: colors.text }]}>
+                <View key={i} style={[styles.featureRow, isRTL && styles.rowReverse, { color: colors.text }]}>
                   <Ionicons
                     name={feat.included ? 'checkmark-circle' : 'close-circle'}
                     size={20}
@@ -120,14 +120,14 @@ export default function MembershipScreen({ navigation }) {
         {/* Comparison table */}
         <View style={[styles.comparisonCard, { color: colors.text }]}>
           <Text style={[styles.comparisonTitle, { color: colors.text }]}>{t('choosePlan')}</Text>
-          <View style={[styles.compRow, { color: colors.text }]}>
+          <View style={[styles.compRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.compLabel, { color: colors.textSecondary }]} />
             {plans.map((p) => (
               <Text key={p.id} style={[styles.compHeader, { color: colors.text }]}>{p.name}</Text>
             ))}
           </View>
           {[t('freeTows'), t('priorityResponse'), t('coveredFlatbed'), t('dedicatedSupport')].map((feat, fi) => (
-            <View key={fi} style={[styles.compRow, fi % 2 === 0 && styles.compRowAlt]}>
+            <View key={fi} style={[styles.compRow, isRTL && styles.rowReverse, fi % 2 === 0 && styles.compRowAlt]}>
               <Text style={[styles.compLabel, { color: colors.textSecondary }]}>{feat}</Text>
               {plans.map((p) => (
                 <View key={p.id} style={[styles.compCell, { color: colors.text }]}>

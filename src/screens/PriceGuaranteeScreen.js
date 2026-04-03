@@ -71,12 +71,12 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 
           <Text style={[styles.guaranteeLabel, { color: colors.textSecondary }]}>{t('guaranteedNotToExceed')}</Text>
 
-          <View style={[styles.priceBox, { color: colors.text }]}>
+          <View style={[styles.priceBox, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.currency, { color: colors.text }]}>SAR</Text>
             <Text style={[styles.priceAmount, { color: colors.text }]}>{maxPrice}</Text>
           </View>
 
-          <View style={[styles.neverPayBadge, { color: colors.text }]}>
+          <View style={[styles.neverPayBadge, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Ionicons name="checkmark-circle" size={16} color="#22C55E" />
             <Text style={[styles.neverPayText, { color: colors.text }]}>{t('neverPayMore')}</Text>
           </View>
@@ -86,38 +86,38 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
         <Animated.View style={[styles.breakdownCard, { backgroundColor: colors.card, borderColor: colors.border }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
           <Text style={[styles.breakdownTitle, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
 
-          <View style={[styles.breakdownRow, { color: colors.text }]}>
+          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('service')}</Text>
             <Text style={[styles.breakdownValue, { color: colors.text }]}>{service}</Text>
           </View>
           {size !== '—' && (
-            <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('saredType')}</Text>
               <Text style={[styles.breakdownValue, { color: colors.text }]}>{size}</Text>
             </View>
           )}
-          <View style={[styles.breakdownRow, { color: colors.text }]}>
+          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('dispatchFee')}</Text>
             <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.baseFare}</Text>
           </View>
-          <View style={[styles.breakdownRow, { color: colors.text }]}>
+          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('distanceRate')} (~{Math.round(distKm)} {t('km')})</Text>
             <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.distanceCharge}</Text>
           </View>
           {fare.isNight && (
-            <View style={[styles.breakdownRow, { color: colors.text }]}>
+            <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <Text style={[styles.breakdownLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text>
               <Text style={[styles.breakdownValue, { color: '#8B5CF6' }]}>SAR {fare.nightSurcharge}</Text>
             </View>
           )}
-          <View style={[styles.breakdownRow, { color: colors.text }]}>
+          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('vat')}</Text>
             <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.vat}</Text>
           </View>
 
           <View style={[styles.divider, { color: colors.text }]} />
 
-          <View style={[styles.breakdownRow, { color: colors.text }]}>
+          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.maxLabel, { color: colors.text }]}>{t('maxPrice')}</Text>
             <Text style={[styles.maxValue, { color: colors.primary }]}>SAR {maxPrice}</Text>
           </View>
@@ -129,7 +129,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
       {/* Confirm button */}
       <View style={[styles.bottomBar, { color: colors.text }]}>
         <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm} activeOpacity={0.8}>
-          <LinearGradient colors={['#059669', '#047857']} style={styles.confirmGradient}
+          <LinearGradient colors={['#059669', '#047857']} style={[styles.confirmGradient, isRTL && styles.rowReverse]}
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
             <Ionicons name="shield-checkmark" size={20} color="#FFF" />
             <Text style={styles.confirmText}>{t('confirmBooking')}</Text>

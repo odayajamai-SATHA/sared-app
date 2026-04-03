@@ -214,12 +214,12 @@ export default function TrackingScreen({ route, navigation }) {
             <Text style={styles.sosTitle}>{t('emergencySOS')}</Text>
             <Text style={styles.sosDesc}>{t('sosDesc')}</Text>
             {userLocation && (
-              <View style={[styles.sosCoords, { color: colors.text }]}>
+              <View style={[styles.sosCoords, { color: colors.text }, isRTL && styles.rowReverse]}>
                 <Ionicons name="location" size={14} color="rgba(255,255,255,0.7)" />
                 <Text style={styles.sosCoordsText}>{userLocation.latitude.toFixed(5)}, {userLocation.longitude.toFixed(5)}</Text>
               </View>
             )}
-            <TouchableOpacity style={[styles.sosCallBtn, { color: colors.text }]} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch {} }}>
+            <TouchableOpacity style={[styles.sosCallBtn, { color: colors.text }, isRTL && styles.rowReverse]} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch {} }}>
               <Ionicons name="call" size={20} color="#DC2626" />
               <Text style={[styles.sosCallText, { color: colors.text }]}>{t('callEmergency') || 'Call 911'}</Text>
             </TouchableOpacity>
@@ -263,7 +263,7 @@ export default function TrackingScreen({ route, navigation }) {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={[styles.driverName, { color: colors.text }]}>{t('driverName')}</Text>
-            <View style={[styles.driverMeta, { color: colors.text }]}>
+            <View style={[styles.driverMeta, { color: colors.text }, isRTL && styles.rowReverse]}>
               <Ionicons name="star" size={12} color="#FBBF24" />
               <Text style={[styles.ratingText, { color: colors.text }]}>4.8</Text>
               <Text style={{ color: colors.gray }}>|</Text>
@@ -277,12 +277,12 @@ export default function TrackingScreen({ route, navigation }) {
         </View>
 
         {/* Action buttons */}
-        <View style={[styles.buttonRow, { color: colors.text }]}>
-          <TouchableOpacity style={[styles.msgBtn, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]} onPress={() => Alert.alert(t('messageDriver'), t('featureComingSoon'))}>
+        <View style={[styles.buttonRow, isRTL && styles.rowReverse]}>
+          <TouchableOpacity style={[styles.msgBtn, { backgroundColor: colors.primaryFaded, borderColor: colors.border }, isRTL && styles.rowReverse]} onPress={() => Alert.alert(t('messageDriver'), t('featureComingSoon'))}>
             <Ionicons name="chatbubble-outline" size={20} color={colors.primary} />
             <Text style={{ color: colors.primary, fontSize: 14, fontWeight: '600' }}>{t('messageDriver')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary, borderColor: colors.border }]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch {} }}>
+          <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary, borderColor: colors.border }, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch {} }}>
             <Ionicons name="call" size={20} color="#FFF" />
             <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '600' }}>{t('callDriver')}</Text>
           </TouchableOpacity>
@@ -331,14 +331,14 @@ const styles = StyleSheet.create({
     shadowColor: theme.primary, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 5,
   },
   etaBubble: {
-    position: 'absolute', top: 110, right: 16, borderRadius: 14,
+    position: 'absolute', top: 110, end: 16, borderRadius: 14,
     paddingHorizontal: 14, paddingVertical: 8, alignItems: 'center',
     shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3, zIndex: 5,
   },
   etaNumber: { fontSize: 22, fontWeight: 'bold' },
   etaUnit: { fontSize: 11 },
   distBubble: {
-    position: 'absolute', top: 168, right: 16, backgroundColor: theme.primary, borderRadius: 8,
+    position: 'absolute', top: 168, end: 16, backgroundColor: theme.primary, borderRadius: 8,
     paddingHorizontal: 10, paddingVertical: 4, zIndex: 5,
   },
   distText: { fontSize: 12, fontWeight: '600', color: '#FFF' },
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   stepLabel: { fontSize: 10, textAlign: 'center' },
   stepLabelActive: { fontWeight: '600' },
   stepLine: {
-    position: 'absolute', top: 13, left: '60%', right: '-40%', height: 2,
+    position: 'absolute', top: 13, start: '60%', end: '-40%', height: 2,
     backgroundColor: '#E5E7EB', zIndex: -1,
   },
   stepLineActive: { backgroundColor: theme.primary },
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', alignItems: 'center', borderWidth: 1,
   },
   sosBtn: {
-    position: 'absolute', bottom: 300, right: 16, zIndex: 10,
+    position: 'absolute', bottom: 300, end: 16, zIndex: 10,
     width: 56, height: 56, borderRadius: 28, backgroundColor: '#EF4444',
     justifyContent: 'center', alignItems: 'center',
     shadowColor: '#EF4444', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.4, shadowRadius: 8, elevation: 6,

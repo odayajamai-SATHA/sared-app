@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   priceCol: { alignItems: 'center', marginStart: 8 },
   priceNum: { fontSize: 24, fontWeight: '800', color: '#1F2937' },
   priceUnit: { fontSize: 11, color: '#6B7280', marginTop: 2 },
-  selectedCheck: { position: 'absolute', top: 12, right: 12 },
+  selectedCheck: { position: 'absolute', top: 12, end: 12 },
   textRight: { textAlign: 'right' },
   bottomBar: {
     position: 'absolute', bottom: 0, left: 0, right: 0,

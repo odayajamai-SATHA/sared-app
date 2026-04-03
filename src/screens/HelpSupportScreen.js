@@ -63,7 +63,7 @@ export default function HelpSupportScreen({ navigation }) {
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}
         </Text>
-        <View style={[styles.contactRow, { color: colors.text }]}>
+        <View style={[styles.contactRow, isRTL && styles.rowReverse, { color: colors.text }]}>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#25D36615' }]}
             onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={28} color="#25D366" />
@@ -103,7 +103,7 @@ export default function HelpSupportScreen({ navigation }) {
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
           {lang === 'ar' ? 'الإبلاغ عن مشكلة' : 'Report a Problem'}
         </Text>
-        <TouchableOpacity style={[styles.reportBtn, { color: colors.text }]} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
+        <TouchableOpacity style={[styles.reportBtn, isRTL && styles.rowReverse, { color: colors.text }]} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
           <Ionicons name="logo-whatsapp" size={20} color="#FFF" />
           <Text style={styles.reportBtnText}>
             {lang === 'ar' ? 'أبلغ عبر واتساب' : 'Report via WhatsApp'}
@@ -111,7 +111,7 @@ export default function HelpSupportScreen({ navigation }) {
         </TouchableOpacity>
 
         {/* Available 24/7 */}
-        <View style={[styles.availableRow, { color: colors.text }]}>
+        <View style={[styles.availableRow, isRTL && styles.rowReverse, { color: colors.text }]}>
           <Ionicons name="time-outline" size={16} color={colors.gray} />
           <Text style={[styles.availableText, { color: colors.textSecondary }]}>
             {lang === 'ar' ? 'متاح على مدار الساعة' : 'Available 24/7'}

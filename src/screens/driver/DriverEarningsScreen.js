@@ -58,7 +58,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
         >
           <Ionicons name="wallet-outline" size={20} color="#FFF" />
           <Text style={styles.withdrawBtnText}>{lang === 'ar' ? 'سحب الأرباح' : 'Withdraw Earnings'}</Text>
-          <Ionicons name="arrow-forward" size={18} color="rgba(255,255,255,0.7)" />
+          <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={18} color="rgba(255,255,255,0.7)" />
         </TouchableOpacity>
 
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>

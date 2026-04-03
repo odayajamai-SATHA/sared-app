@@ -177,7 +177,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
             <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
               {lang === 'ar' ? 'مبلغ السحب' : 'Withdrawal Amount'}
             </Text>
-            <View style={[styles.amountRow, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder }]}>
+            <View style={[styles.amountRow, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder }, isRTL && styles.rowReverse]}>
               <Text style={[styles.sarLabel, { color: colors.textSecondary }]}>SAR</Text>
               <TextInput
                 style={[styles.amountInput, { color: colors.text }]}
@@ -219,6 +219,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                   styles.methodCard,
                   { backgroundColor: colors.surfaceSecondary, borderColor: method === m.id ? colors.primary : colors.cardBorder },
                   method === m.id && { borderWidth: 2 },
+                  isRTL && styles.rowReverse,
                 ]}
                 onPress={() => setMethod(m.id)}
               >
@@ -304,7 +305,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
               {withdrawals.map((w) => {
                 const badge = getStatusBadge(w.status);
                 return (
-                  <View key={w.id} style={[styles.withdrawalRow, { borderBottomColor: colors.border }]}>
+                  <View key={w.id} style={[styles.withdrawalRow, { borderBottomColor: colors.border }, isRTL && styles.rowReverse]}>
                     <View style={{ flex: 1 }}>
                       <Text style={[styles.withdrawalAmount, { color: colors.text }]}>SAR {w.amount}</Text>
                       <Text style={[styles.withdrawalDate, { color: colors.textSecondary }]}>
@@ -322,7 +323,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           )}
 
           {/* Info note */}
-          <View style={[styles.infoCard, { backgroundColor: colors.warningFaded, borderColor: colors.border }]}>
+          <View style={[styles.infoCard, { backgroundColor: colors.warningFaded, borderColor: colors.border }, isRTL && styles.rowReverse]}>
             <Ionicons name="information-circle" size={20} color={colors.warning} />
             <Text style={[styles.infoText, { color: colors.textSecondary }]}>
               {lang === 'ar'

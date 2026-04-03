@@ -83,9 +83,9 @@ export default function PaymentScreen({ route, navigation }) {
           <Text style={[styles.stcInstructions, isRTL && styles.textRight]}>
             {t('stcPayInstructions').replace('{amount}', displayTotal).replace('{number}', STC_PAY_NUMBER)}
           </Text>
-          <View style={[styles.numberRow, { color: colors.text }]}>
+          <View style={[styles.numberRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.numberText, { color: colors.text }]}>{STC_PAY_NUMBER}</Text>
-            <TouchableOpacity style={styles.copyBtn} onPress={handleCopyNumber}>
+            <TouchableOpacity style={[styles.copyBtn, isRTL && styles.rowReverse]} onPress={handleCopyNumber}>
               <Ionicons name={copied ? 'checkmark' : 'copy-outline'} size={18} color={copied ? '#22C55E' : colors.primary} />
               <Text style={[styles.copyText, copied && { color: '#22C55E' }]}>
                 {copied ? (t('copied') || 'Copied!') : (t('copyNumber') || 'Copy')}
@@ -182,7 +182,7 @@ export default function PaymentScreen({ route, navigation }) {
           })}
 
           {/* Secure payment footer */}
-          <View style={[styles.secureRow, { color: colors.text }]}>
+          <View style={[styles.secureRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Ionicons name="lock-closed" size={16} color={colors.gray} />
             <Text style={[styles.secureText, { color: colors.textSecondary }]}>{t('securePayment')}</Text>
           </View>

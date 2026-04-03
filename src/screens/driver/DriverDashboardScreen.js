@@ -263,7 +263,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
             </View>
 
             {/* Accept / Decline */}
-            <View style={[styles.requestButtons, { color: colors.text }]}>
+            <View style={[styles.requestButtons, { color: colors.text }, isRTL && styles.rowReverse]}>
               <TouchableOpacity style={styles.declineBtn} onPress={handleDecline}>
                 <Ionicons name="close" size={24} color="#EF4444" />
                 <Text style={styles.declineBtnText}>{t('decline')}</Text>

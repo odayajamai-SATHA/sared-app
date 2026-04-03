@@ -147,7 +147,7 @@ export default function LoginScreen({ navigation: rawNav }) {
             disabled={!isValidPhone || loading || cooldown > 0}
             activeOpacity={0.8}
           >
-            <LinearGradient colors={['#059669', '#047857']} style={styles.otpGradient}
+            <LinearGradient colors={['#059669', '#047857']} style={[styles.otpGradient, isRTL && styles.rowReverse]}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               {loading ? (
                 <ActivityIndicator size="small" color="#FFF" />
@@ -155,7 +155,7 @@ export default function LoginScreen({ navigation: rawNav }) {
                 <Text style={styles.otpButtonText}>{t('resendIn') || 'Resend in'} {cooldown}s</Text>
               ) : (
                 <>
-                  <Ionicons name="arrow-forward" size={20} color="#FFF" />
+                  <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={20} color="#FFF" />
                   <Text style={styles.otpButtonText}>{t('getOTP')}</Text>
                 </>
               )}

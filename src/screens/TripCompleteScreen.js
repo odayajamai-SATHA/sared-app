@@ -60,12 +60,12 @@ export default function TripCompleteScreen({ route, navigation }) {
           [t('distance'), '12.4 ' + t('km')],
           [t('duration'), '28 ' + t('minutes')],
         ].map(([label, value], i) => (
-          <View key={i} style={[styles.summaryRow, { color: colors.text }]}>
+          <View key={i} style={[styles.summaryRow, { color: colors.text }, isRTL && styles.rowReverse]}>
             <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{label}</Text>
             <Text style={[styles.summaryValue, { color: colors.text }]}>{value}</Text>
           </View>
         ))}
-        <View style={[styles.totalRow, { color: colors.text }]}>
+        <View style={[styles.totalRow, { color: colors.text }, isRTL && styles.rowReverse]}>
           <Text style={[styles.totalLabel, { color: colors.text }]}>{t('totalPrice')}</Text>
           <Text style={[styles.totalValue, { color: colors.primary }]}>{price}</Text>
         </View>
@@ -101,7 +101,7 @@ export default function TripCompleteScreen({ route, navigation }) {
           onPress={handleSubmit}
           disabled={!rating}
         >
-          <LinearGradient colors={rating ? ['#059669', '#047857'] : ['#D1D5DB', '#D1D5DB']} style={[styles.submitGradient, { color: colors.text }]}>
+          <LinearGradient colors={rating ? ['#059669', '#047857'] : ['#D1D5DB', '#D1D5DB']} style={[styles.submitGradient, { color: colors.text }, isRTL && styles.rowReverse]}>
             <Ionicons name="receipt-outline" size={18} color="#FFF" />
             <Text style={styles.submitBtnText}>{t('viewReceipt')}</Text>
           </LinearGradient>
