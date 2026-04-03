@@ -72,7 +72,9 @@
         "@sentry/react-native/expo",
         {
           "organization": "sared",
-          "project": "sared-app"
+          "project": "sared-app",
+          "url": "https://sentry.io/",
+          "enableAutoUploadSourceMaps": false
         }
       ]
     ],
