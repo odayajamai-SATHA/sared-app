@@ -20,8 +20,8 @@ export default function DriverJobScreen({ route, navigation }) {
   const { colors, isDark } = useTheme();
   const [currentStep, setCurrentStep] = useState(0); // 0=Arrived, 1=Loading, 2=In Transit, 3=Completed
 
-  const customerName = ride?.users?.name || 'Mohammed';
-  const customerPhone = ride?.users?.phone || '+966512345678';
+  const customerName = ride?.users?.name || t('user');
+  const customerPhone = ride?.users?.phone || '';
 
   const stepLabels = [
     t('stepArrived'),

@@ -17,6 +17,8 @@ try {
   console.warn('Supabase init failed:', e.message);
 }
 
+import ErrorBoundary from './src/components/ErrorBoundary';
+
 // Screen imports
 import SplashScreen from './src/screens/SplashScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
@@ -80,10 +82,18 @@ function MainTabs() {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: t('tabHome') }} />
-      <Tab.Screen name="Services" component={ServiceScreen} options={{ tabBarLabel: t('tabServices') }} />
-      <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarLabel: t('tabHistory') }} />
-      <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarLabel: t('tabProfile') }} />
+      <Tab.Screen name="Home" options={{ tabBarLabel: t('tabHome') }}>
+        {(props) => <ErrorBoundary><HomeScreen {...props} /></ErrorBoundary>}
+      </Tab.Screen>
+      <Tab.Screen name="Services" options={{ tabBarLabel: t('tabServices') }}>
+        {(props) => <ErrorBoundary><ServiceScreen {...props} /></ErrorBoundary>}
+      </Tab.Screen>
+      <Tab.Screen name="History" options={{ tabBarLabel: t('tabHistory') }}>
+        {(props) => <ErrorBoundary><HistoryScreen {...props} /></ErrorBoundary>}
+      </Tab.Screen>
+      <Tab.Screen name="Profile" options={{ tabBarLabel: t('tabProfile') }}>
+        {(props) => <ErrorBoundary><ProfileScreen {...props} /></ErrorBoundary>}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }

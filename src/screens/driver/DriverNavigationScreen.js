@@ -14,8 +14,8 @@ export default function DriverNavigationScreen({ route, navigation }) {
   const { colors, isDark } = useTheme();
   const mapRef = useRef(null);
 
-  const customerName = ride?.users?.name || 'Mohammed';
-  const customerPhone = ride?.users?.phone || '+966512345678';
+  const customerName = ride?.users?.name || t('user');
+  const customerPhone = ride?.users?.phone || '';
 
   // Driver's real GPS location
   const [driverLocation, setDriverLocation] = useState(null);

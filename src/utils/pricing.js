@@ -4,7 +4,7 @@ const BASE_DISPATCH_FEE = 50;
 const MIN_FARE = 100;
 const EMERGENCY_FEE = 50;
 
-// Per-km rates by vehicle size (2026 Dammam market)
+// Per-km rates by vehicle size
 const RATE_PER_KM = {
   small: 5,    // Sedan: Camry, Accent, Elantra
   medium: 7,   // SUV: Fortuner, Patrol, Tahoe
@@ -72,7 +72,7 @@ export function getSizePriceWithVAT(serviceId, sizeKey) {
 }
 
 /**
- * NEW: Distance-based fare calculation (2026 Saudi market pricing).
+ * Distance-based fare calculation.
  *
  * Tiered distance pricing:
  *   0-50km  = full rate per km

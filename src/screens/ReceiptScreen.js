@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Share, Platform, Alert, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useI18n } from '../utils/i18n';
@@ -10,22 +10,12 @@ export default function ReceiptScreen({ route, navigation }) {
   const { colors } = useTheme();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(40)).current;
-  const [autoShared, setAutoShared] = useState(false);
 
   useEffect(() => {
     Animated.parallel([
       Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: Platform.OS !== 'web' }),
       Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 8, useNativeDriver: Platform.OS !== 'web' }),
     ]).start();
-
-    // Auto-share receipt via WhatsApp after 2 seconds
-    const timer = setTimeout(() => {
-      if (!autoShared) {
-        setAutoShared(true);
-        handleAutoShare();
-      }
-    }, 2000);
-    return () => clearTimeout(timer);
   }, []);
 
   const now = new Date();
@@ -62,23 +52,6 @@ export default function ReceiptScreen({ route, navigation }) {
       `https://sared.app`,
     ].filter(Boolean);
     return lines.join('\n');
-  };
-
-  const handleAutoShare = async () => {
-    const msg = buildReceiptMessage();
-    try {
-      // Try WhatsApp first
-      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(msg)}`;
-      const canOpen = await Linking.canOpenURL(whatsappUrl);
-      if (canOpen) {
-        await Linking.openURL(whatsappUrl);
-      } else {
-        // Fallback to system share
-        await Share.share({ message: msg, title: lang === 'ar' ? 'إيصال سارد' : 'Sared Receipt' });
-      }
-    } catch {
-      // Silent fail for auto-share
-    }
   };
 
   const handleManualShare = async () => {

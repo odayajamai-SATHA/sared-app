@@ -1,4 +1,4 @@
-﻿import * as Notifications from 'expo-notifications';
+import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { registerPushToken } from './supabase';
 
@@ -11,7 +11,6 @@ export async function setupPushNotifications(userId = null, driverId = null) {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      console.log('Push notification permission not granted');
       return null;
     }
     const tokenData = await Notifications.getExpoPushTokenAsync({ projectId: '70f882d3-12b5-418a-9167-1d06dc836669' });
@@ -31,4 +30,21 @@ export async function setupPushNotifications(userId = null, driverId = null) {
     console.error('Push notification setup failed:', err);
     return null;
   }
+}
+
+export async function registerForPushNotifications() {
+  return setupPushNotifications();
+}
+
+export function addNotificationListeners(onNotification, onResponse) {
+  const notifSub = Notifications.addNotificationReceivedListener((notification) => {
+    if (onNotification) onNotification(notification);
+  });
+  const responseSub = Notifications.addNotificationResponseReceivedListener((response) => {
+    if (onResponse) onResponse(response);
+  });
+  return () => {
+    notifSub.remove();
+    responseSub.remove();
+  };
 }

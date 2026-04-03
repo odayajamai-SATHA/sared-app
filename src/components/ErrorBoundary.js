@@ -14,7 +14,11 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('App Error:', error, errorInfo);
+    console.error('Screen Error:', error, errorInfo);
+    try {
+      const Sentry = require('../utils/sentry').default;
+      Sentry.captureException(error, { extra: { componentStack: errorInfo?.componentStack } });
+    } catch {}
   }
 
   handleRetry = () => {

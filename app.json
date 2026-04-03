@@ -21,7 +21,8 @@
       },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Sared needs your location to show nearby drivers and set your pickup location.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "Sared needs your location to track your ride in real-time."
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Sared needs your location to track your ride in real-time.",
+        "ITSAppUsesNonExemptEncryption": false
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
@@ -105,6 +106,8 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "owner": "sared",
+    "privacy": "unlisted",
     "extra": {
       "eas": {
         "projectId": "70f882d3-12b5-418a-9167-1d06dc836669"

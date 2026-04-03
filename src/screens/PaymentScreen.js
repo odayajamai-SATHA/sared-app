@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, ScrollView,
-  Animated, Alert, Platform,
+  Animated, Alert, Platform, Linking,
 } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,13 +12,25 @@ import { useI18n } from '../utils/i18n';
 
 const STC_PAY_NUMBER = '0554404434';
 
+const MOYASAR_KEY = process.env.EXPO_PUBLIC_MOYASAR_KEY;
+
+const PAYMENT_FEES = {
+  mada: 0.01,
+  card: 0.0275,
+};
+
 const PAYMENT_OPTIONS = [
-  { id: 'mada', icon: 'card', badgeColor: '#1D6F37', titleKey: 'payWithMada', descKey: 'madaDesc' },
-  { id: 'card', icon: 'card-outline', badgeColor: '#1A1F71', titleKey: 'payWithCard', descKey: 'cardDesc' },
+  { id: 'mada', icon: 'card', badgeColor: '#1D6F37', titleKey: 'payWithMada', descKey: 'madaDesc', feeLabel: '1%' },
+  { id: 'card', icon: 'card-outline', badgeColor: '#1A1F71', titleKey: 'payWithCard', descKey: 'cardDesc', feeLabel: '2.75%' },
   { id: 'stc_pay', icon: 'phone-portrait', badgeColor: '#5F259F', titleKey: 'stcPay', descKey: 'stcPayDesc' },
   { id: 'cash', icon: 'cash', badgeColor: '#F59E0B', titleKey: 'payWithCash', descKey: 'cashPaymentDesc' },
   { id: 'apple_pay', icon: 'phone-portrait-outline', badgeColor: '#000000', titleKey: 'applePay', descKey: 'applePaySoon', disabled: true },
 ];
+
+function parseSAR(priceStr) {
+  const num = parseFloat((priceStr || '').replace(/[^\d.]/g, ''));
+  return isNaN(num) ? 0 : num;
+}
 
 export default function PaymentScreen({ route, navigation }) {
   const { service, serviceId, size, price, pickup, destination, destinationName, fareTotal } = route.params || {};
@@ -26,6 +38,7 @@ export default function PaymentScreen({ route, navigation }) {
   const { colors, isDark } = useTheme();
   const [selected, setSelected] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const copiedTimerRef = useRef(null);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -40,6 +53,7 @@ export default function PaymentScreen({ route, navigation }) {
   }, []);
 
   const displayTotal = fareTotal || price || 'SAR 0';
+  const totalAmount = parseSAR(displayTotal);
 
   const navParams = {
     service, serviceId, size, price,
@@ -54,23 +68,47 @@ export default function PaymentScreen({ route, navigation }) {
     } catch {}
   }, []);
 
-  const handleComingSoon = () => {
-    Alert.alert(
-      t('paymentMethods'),
-      t('comingSoonAlert'),
-      [{ text: t('confirm'), style: 'default' }]
-    );
-  };
-
   const handleNavigate = (method) => {
     navigation.navigate('DriverMatching', { ...navParams, paymentMethod: method });
   };
 
+  const handleMoyasarPayment = (method) => {
+    if (!MOYASAR_KEY || MOYASAR_KEY === 'pk_test_placeholder') {
+      Alert.alert(
+        t('paymentMethods'),
+        t('comingSoonAlert'),
+        [{ text: t('confirm'), style: 'default' }]
+      );
+      return;
+    }
+
+    const fee = PAYMENT_FEES[method] || 0;
+    const feeAmount = Math.round(totalAmount * fee * 100) / 100;
+    const chargeTotal = totalAmount + feeAmount;
+
+    setProcessing(true);
+
+    Alert.alert(
+      method === 'mada' ? t('payWithMada') : t('payWithCard'),
+      `${t('totalAmount')}: SAR ${chargeTotal.toFixed(2)}`,
+      [
+        { text: t('cancel'), style: 'cancel', onPress: () => setProcessing(false) },
+        {
+          text: t('confirm'),
+          onPress: () => {
+            setProcessing(false);
+            handleNavigate(method);
+          },
+        },
+      ]
+    );
+  };
+
   const handleOptionPress = (option) => {
-    if (option.disabled) return;
+    if (option.disabled || processing) return;
     if (option.id === 'mada' || option.id === 'card') {
       setSelected(option.id);
-      handleComingSoon();
+      handleMoyasarPayment(option.id);
       return;
     }
     setSelected(selected === option.id ? null : option.id);
@@ -130,17 +168,14 @@ export default function PaymentScreen({ route, navigation }) {
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
-          {/* Total amount */}
           <View style={[styles.totalCard, { color: colors.text }]}>
             <Text style={[styles.totalLabel, { color: colors.textSecondary }]}>{t('totalAmount') || t('totalPrice')}</Text>
             <Text style={[styles.totalAmount, { color: colors.primary }]}>{displayTotal}</Text>
             <Text style={[styles.vatNote, { color: colors.textSecondary }]}>{t('inclVat')}</Text>
           </View>
 
-          {/* Select Payment heading */}
           <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>{t('selectPayment')}</Text>
 
-          {/* Payment options */}
           {PAYMENT_OPTIONS.map((option) => {
             const isSelected = selected === option.id;
             const isDisabled = option.disabled;
@@ -160,9 +195,16 @@ export default function PaymentScreen({ route, navigation }) {
                       <Ionicons name={option.icon} size={22} color="#FFF" />
                     </View>
                     <View style={[styles.optionTextWrap, isRTL && { alignItems: 'flex-end' }]}>
-                      <Text style={[styles.optionTitle, isRTL && styles.textRight]}>
-                        {option.id === 'stc_pay' ? 'STC Pay' : option.id === 'apple_pay' ? 'Apple Pay' : t(option.titleKey)}
-                      </Text>
+                      <View style={[styles.optionTitleRow, isRTL && styles.rowReverse]}>
+                        <Text style={[styles.optionTitle, isRTL && styles.textRight]}>
+                          {option.id === 'stc_pay' ? 'STC Pay' : option.id === 'apple_pay' ? 'Apple Pay' : t(option.titleKey)}
+                        </Text>
+                        {option.feeLabel && (
+                          <View style={styles.feeBadge}>
+                            <Text style={styles.feeText}>{option.feeLabel}</Text>
+                          </View>
+                        )}
+                      </View>
                       <Text style={[styles.optionDesc, isRTL && styles.textRight]}>
                         {t(option.descKey)}
                       </Text>
@@ -181,7 +223,13 @@ export default function PaymentScreen({ route, navigation }) {
             );
           })}
 
-          {/* Secure payment footer */}
+          <View style={[styles.currencyNote, isRTL && styles.rowReverse]}>
+            <Ionicons name="information-circle-outline" size={16} color={colors.gray} />
+            <Text style={[styles.currencyText, { color: colors.textSecondary }]}>
+              {isRTL ? 'جميع المبالغ بالريال السعودي (SAR)' : 'All amounts in Saudi Riyal (SAR)'}
+            </Text>
+          </View>
+
           <View style={[styles.secureRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Ionicons name="lock-closed" size={16} color={colors.gray} />
             <Text style={[styles.secureText, { color: colors.textSecondary }]}>{t('securePayment')}</Text>
@@ -242,8 +290,15 @@ const styles = StyleSheet.create({
   optionTextWrap: {
     flex: 1, marginHorizontal: 12,
   },
+  optionTitleRow: {
+    flexDirection: 'row', alignItems: 'center', gap: 8,
+  },
   optionTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
   optionDesc: { fontSize: 13, color: '#6B7280', marginTop: 2 },
+  feeBadge: {
+    backgroundColor: '#E0F2FE', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2,
+  },
+  feeText: { fontSize: 11, fontWeight: '600', color: '#0284C7' },
   expandedContent: {
     backgroundColor: 'transparent', borderRadius: 14, padding: 16, marginBottom: 10, marginTop: -4,
     borderWidth: 1, borderColor: 'transparent',
@@ -269,9 +324,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center', gap: 8,
   },
   actionBtnText: { fontSize: 17, fontWeight: '700', color: '#FFF' },
+  currencyNote: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    gap: 6, paddingVertical: 8,
+  },
+  currencyText: { fontSize: 12, color: '#6B7280' },
   secureRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-    gap: 6, paddingVertical: 20,
+    gap: 6, paddingVertical: 12,
   },
   secureText: { fontSize: 13, color: '#6B7280' },
   textRight: { textAlign: 'right' },

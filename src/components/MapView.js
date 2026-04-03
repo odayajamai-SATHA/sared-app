@@ -46,7 +46,6 @@ const MapView = forwardRef(function MapView({ style, children, initialRegion, ..
       initialRegion={defaultRegion}
       showsUserLocation={true}
       showsMyLocationButton={true}
-      onMapReady={() => console.log('Map ready')}
       {...props}
     >
       {children}
