@@ -126,12 +126,12 @@ export default function LoginScreen({ navigation: rawNav }) {
 
         <Animated.View style={[styles.formCard, { opacity: formFade, transform: [{ translateY: formSlide }] }]}>
           <Text style={[styles.label, isRTL && styles.textRight]}>{t('enterPhone')}</Text>
-          <View style={[styles.phoneRow, isRTL && styles.rowReverse]}>
+          <View style={styles.phoneRow}>
             <View style={styles.countryCode}>
               <Text style={styles.codeText}>+966</Text>
             </View>
             <TextInput
-              style={[styles.phoneInput, isRTL && styles.textRight]}
+              style={styles.phoneInput}
               placeholder={t('phonePlaceholder')}
               placeholderTextColor="rgba(255,255,255,0.4)"
               keyboardType="phone-pad"
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)',
   },
   label: { fontSize: 15, fontWeight: '600', color: 'rgba(255,255,255,0.8)', marginBottom: 10 },
-  phoneRow: { flexDirection: 'row', gap: 10, marginBottom: 14 },
+  phoneRow: { flexDirection: 'row', direction: 'ltr', gap: 10, marginBottom: 14 },
   rowReverse: { flexDirection: 'row-reverse' },
   countryCode: {
     flexDirection: 'row', alignItems: 'center',
@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
     flex: 1, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 14,
     paddingHorizontal: 16, paddingVertical: 12, fontSize: 18, color: '#FFF',
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)', letterSpacing: 1,
+    direction: 'ltr', writingDirection: 'ltr', textAlign: 'left',
   },
   otpButton: { borderRadius: 14, overflow: 'hidden', marginBottom: 10 },
   otpButtonDisabled: { opacity: 0.3 },

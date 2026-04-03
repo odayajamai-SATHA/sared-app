@@ -36,7 +36,7 @@ export default function DriverProfileScreen({ route, navigation }) {
         </View>
         <View style={[styles.profileInfo, isRTL && { alignItems: 'flex-end' }]}>
           <Text style={[styles.name, { color: colors.text }]}>{driver?.name || t('driverName')}</Text>
-          <Text style={[styles.phone, { color: colors.textSecondary }]}>{driver?.phone || '+966 5X XXX XXXX'}</Text>
+          <Text style={[styles.phone, { color: colors.textSecondary, direction: 'ltr', writingDirection: 'ltr' }]}>{driver?.phone || '+966 5X XXX XXXX'}</Text>
           <Text style={[styles.plate, { color: colors.text }]}>{driver?.plate_number || 'ABC 1234'}</Text>
         </View>
       </View>

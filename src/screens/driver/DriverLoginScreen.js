@@ -108,12 +108,12 @@ export default function DriverLoginScreen({ navigation }) {
         <Text style={[styles.label, isRTL && styles.textRight]}>
           {t('enterPhone')}
         </Text>
-        <View style={[styles.phoneRow, isRTL && styles.rowReverse]}>
+        <View style={styles.phoneRow}>
           <View style={[styles.countryCode, { color: colors.text }]}>
             <Text style={[styles.countryCodeText, { color: colors.text }]}>+966</Text>
           </View>
           <TextInput
-            style={[styles.phoneInput, isRTL && styles.textRight]}
+            style={styles.phoneInput}
             placeholder={t('phonePlaceholder')}
             placeholderTextColor={colors.gray}
             keyboardType="phone-pad"
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
   },
   phoneRow: {
     flexDirection: 'row',
+    direction: 'ltr',
     gap: 10,
     marginBottom: 20,
   },
@@ -258,6 +259,9 @@ const styles = StyleSheet.create({
     color: '#1F2937',
     borderWidth: 1,
     borderColor: 'transparent',
+    direction: 'ltr',
+    writingDirection: 'ltr',
+    textAlign: 'left',
   },
   idInput: {
     backgroundColor: 'transparent',

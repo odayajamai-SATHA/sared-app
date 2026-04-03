@@ -69,7 +69,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
           <View style={[styles.profileInfo, isRTL && { alignItems: 'flex-end' }]}>
             <Text style={styles.name}>{user?.user_metadata?.name || t('user')}</Text>
-            <Text style={styles.phone}>{user?.phone || t('notSignedIn')}</Text>
+            <Text style={[styles.phone, { direction: 'ltr', writingDirection: 'ltr' }]}>{user?.phone || t('notSignedIn')}</Text>
           </View>
           <Pressable
             style={({ pressed }) => [styles.editBtn, pressed && { opacity: 0.6 }]}

@@ -106,7 +106,7 @@ export default function DriverSignupScreen({ navigation }) {
             value={form.name} onChangeText={(v) => update('name', v)} />
 
           <Text style={[styles.label, { color: colors.textSecondary }]}>{t('enterPhone')}</Text>
-          <View style={[styles.phoneRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          <View style={[styles.phoneRow, { color: colors.text }]}>
             <View style={[styles.codeBox, { color: colors.text }]}><Text style={[styles.codeText, { color: colors.text }]}>+966</Text></View>
             <TextInput style={[styles.input, { flex: 1 }]} placeholder={t('phonePlaceholder')} placeholderTextColor={colors.gray}
               keyboardType="phone-pad" value={form.phone} onChangeText={(v) => update('phone', v)} maxLength={9} />
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 13,
     fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent',
   },
-  phoneRow: { flexDirection: 'row', gap: 10 },
+  phoneRow: { flexDirection: 'row', direction: 'ltr', gap: 10 },
   codeBox: {
     backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14,
     justifyContent: 'center', borderWidth: 1, borderColor: 'transparent',

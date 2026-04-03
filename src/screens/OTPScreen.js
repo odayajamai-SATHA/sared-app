@@ -127,9 +127,9 @@ export default function OTPScreen({ route, navigation }) {
             <Ionicons name="shield-checkmark" size={36} color={colors.primary} />
           </View>
           <Text style={styles.title}>{t('verifyOTP')}</Text>
-          <Text style={styles.subtitle}>{t('otpSentTo')} +966{phone}</Text>
+          <Text style={styles.subtitle}>{t('otpSentTo')} <Text style={styles.ltr}>+966{phone}</Text></Text>
 
-          <View style={[styles.otpRow, isRTL && styles.rowReverse]}>
+          <View style={styles.otpRow}>
             {code.map((digit, index) => (
               <TextInput
                 key={index}
@@ -198,13 +198,15 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 24, fontWeight: 'bold', color: '#FFF', marginBottom: 8 },
   subtitle: { fontSize: 14, color: 'rgba(255,255,255,0.6)', marginBottom: 24 },
-  otpRow: { flexDirection: 'row', gap: 10, marginBottom: 16 },
+  otpRow: { flexDirection: 'row', direction: 'ltr', writingDirection: 'ltr', gap: 10, marginBottom: 16 },
   rowReverse: { flexDirection: 'row-reverse' },
+  ltr: { writingDirection: 'ltr', direction: 'ltr' },
   otpInput: {
     width: 48, height: 58, borderRadius: 14,
     borderWidth: 2, borderColor: 'rgba(255,255,255,0.15)',
     backgroundColor: 'rgba(255,255,255,0.08)',
     textAlign: 'center', fontSize: 24, fontWeight: '700', color: '#FFF',
+    direction: 'ltr', writingDirection: 'ltr',
   },
   otpInputFilled: { borderColor: colors.primary, backgroundColor: 'rgba(5,150,105,0.15)' },
   otpInputError: { borderColor: '#EF4444' },
