@@ -107,7 +107,7 @@ export default function ProfileScreen({ navigation }) {
                   styles.menuItem,
                   isRTL && styles.rowReverse,
                   i === group.length - 1 && { borderBottomWidth: 0 },
-                  pressed && { backgroundColor: '#f0f0f0' },
+                  pressed && { backgroundColor: colors.surfaceSecondary },
                 ]}
                 onPress={() => {
                   if (item.screen) {
@@ -124,7 +124,7 @@ export default function ProfileScreen({ navigation }) {
                 <View style={[styles.menuIcon, { backgroundColor: item.color + '15' }]}>
                   <Ionicons name={item.icon} size={20} color={item.color} />
                 </View>
-                <Text style={[styles.menuLabel, isRTL && styles.textRight, { flex: 1 }]}>{item.label}</Text>
+                <Text style={[styles.menuLabel, { color: colors.text }, isRTL && styles.textRight, { flex: 1 }]}>{item.label}</Text>
                 <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
               </Pressable>
             ))}
@@ -132,7 +132,7 @@ export default function ProfileScreen({ navigation }) {
         ))}
 
         <Pressable
-          style={({ pressed }) => [styles.shareRow, isRTL && styles.rowReverse, pressed && { backgroundColor: '#f0f0f0' }]}
+          style={({ pressed }) => [styles.shareRow, isRTL && styles.rowReverse, pressed && { backgroundColor: colors.surfaceSecondary }]}
           onPress={async () => {
             try {
               await Share.share({ message: t('shareMessage') + 'https://sared.app', title: t('appName') });
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     width: 36, height: 36, borderRadius: 10,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  menuLabel: { fontSize: 15, color: '#1F2937', fontWeight: '500' },
+  menuLabel: { fontSize: 15, fontWeight: '500' },
   shareRow: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent',
     borderRadius: 16, paddingVertical: 14, paddingHorizontal: 16, marginBottom: 12,

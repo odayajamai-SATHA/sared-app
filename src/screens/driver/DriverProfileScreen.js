@@ -66,7 +66,7 @@ export default function DriverProfileScreen({ route, navigation }) {
           <TouchableOpacity key={index} style={[styles.menuItem, isRTL && styles.rowReverse]}
             onPress={() => Alert.alert(item.label, t('featureComingSoon'))}>
             <Ionicons name={item.icon} size={22} color={colors.darkGray} />
-            <Text style={[styles.menuLabel, isRTL && styles.textRight]}>{item.label}</Text>
+            <Text style={[styles.menuLabel, { color: colors.text }, isRTL && styles.textRight]}>{item.label}</Text>
             <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
           </TouchableOpacity>
         ))}
@@ -86,7 +86,6 @@ export default function DriverProfileScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',
@@ -140,11 +139,9 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
   },
   phone: {
     fontSize: 14,
-    color: '#6B7280',
     marginTop: 2,
   },
   plate: {
@@ -173,12 +170,10 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
     marginTop: 4,
   },
   statLabel: {
     fontSize: 11,
-    color: '#6B7280',
     marginTop: 2,
   },
   statDivider: {
@@ -207,7 +202,6 @@ const styles = StyleSheet.create({
   menuLabel: {
     flex: 1,
     fontSize: 15,
-    color: '#1F2937',
     marginStart: 12,
   },
   logoutBtn: {

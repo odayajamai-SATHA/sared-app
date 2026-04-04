@@ -142,7 +142,7 @@ export default function HomeScreen({ navigation: rawNav }) {
               <View style={[styles.quickIcon, { backgroundColor: action.color + '15' }]}>
                 <Ionicons name={action.icon} size={28} color={action.color} />
               </View>
-              <Text style={styles.quickLabel} numberOfLines={1}>{action.label}</Text>
+              <Text style={[styles.quickLabel, { color: colors.text }]} numberOfLines={1}>{action.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -156,8 +156,8 @@ export default function HomeScreen({ navigation: rawNav }) {
               <Ionicons name="time-outline" size={18} color={colors.textSecondary} />
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={[styles.recentName, isRTL && styles.textRight]}>{loc.name}</Text>
-              <Text style={[styles.recentSub, isRTL && styles.textRight]}>{loc.sub}</Text>
+              <Text style={[styles.recentName, { color: colors.text }, isRTL && styles.textRight]}>{loc.name}</Text>
+              <Text style={[styles.recentSub, { color: colors.textSecondary }, isRTL && styles.textRight]}>{loc.sub}</Text>
             </View>
             <Ionicons name={isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={colors.gray} />
           </TouchableOpacity>
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, paddingHorizontal: 20 },
   greetingSection: { paddingTop: 60, marginBottom: 20 },
   greeting: { fontSize: 26, fontWeight: '800' },
-  greetingSub: { fontSize: 15, color: '#6B7280', marginTop: 4 },
+  greetingSub: { fontSize: 15, marginTop: 4 },
   helpLink: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },
   helpLinkText: { fontSize: 13, color: '#25D366', fontWeight: '600' },
   searchRow: {
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent', borderRadius: 16,
     paddingHorizontal: 16, paddingVertical: 14, gap: 10,
   },
-  searchPlaceholder: { flex: 1, fontSize: 15, color: '#6B7280' },
+  searchPlaceholder: { flex: 1, fontSize: 15,  },
   notifBtn: {
     width: 44, height: 44, borderRadius: 22,
     backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center',
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   promoTitle: { fontSize: 16, fontWeight: '700', color: '#FFF' },
   promoCode: { fontSize: 20, fontWeight: '900', color: '#FFF', marginTop: 2 },
   promoSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', marginBottom: 14 },
   quickGrid: {
     flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 24,
   },
@@ -214,9 +214,9 @@ const styles = StyleSheet.create({
     width: 56, height: 56, borderRadius: 16,
     justifyContent: 'center', alignItems: 'center', marginBottom: 10,
   },
-  quickLabel: { fontSize: 14, fontWeight: '700', color: '#1F2937', textAlign: 'center' },
+  quickLabel: { fontSize: 14, fontWeight: '700', textAlign: 'center' },
   quickPrice: { fontSize: 16, fontWeight: '800', marginTop: 4, textAlign: 'center' },
-  quickVat: { fontSize: 11, color: '#6B7280', marginTop: 2 },
+  quickVat: { fontSize: 11, marginTop: 2 },
   recentRow: {
     flexDirection: 'row', alignItems: 'center', paddingVertical: 12,
     borderBottomWidth: 1, borderBottomColor: 'transparent',
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     width: 36, height: 36, borderRadius: 18, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  recentName: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
-  recentSub: { fontSize: 13, color: '#6B7280', marginTop: 2 },
+  recentName: { fontSize: 15, fontWeight: '600' },
+  recentSub: { fontSize: 13, marginTop: 2 },
   rowReverse: { flexDirection: 'row-reverse' },
   textRight: { textAlign: 'right' },
 });

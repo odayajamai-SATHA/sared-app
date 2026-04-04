@@ -61,7 +61,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
           <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={18} color="rgba(255,255,255,0.7)" />
         </TouchableOpacity>
 
-        <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
+        <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
           {t('recentTrips')}
         </Text>
 
@@ -89,7 +89,6 @@ export default function DriverEarningsScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',
@@ -162,7 +161,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
     marginBottom: 14,
   },
   jobCard: {
@@ -193,11 +191,9 @@ const styles = StyleSheet.create({
   jobCustomer: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#1F2937',
   },
   jobService: {
     fontSize: 13,
-    color: '#6B7280',
     marginTop: 2,
   },
   jobAmount: {

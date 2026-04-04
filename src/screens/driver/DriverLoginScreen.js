@@ -106,7 +106,7 @@ export default function DriverLoginScreen({ navigation }) {
       </View>
 
       <View style={[styles.formContainer, { color: colors.text }]}>
-        <Text style={[styles.label, isRTL && styles.textRight]}>
+        <Text style={[styles.label, { color: colors.text }, isRTL && styles.textRight]}>
           {t('enterPhone')}
         </Text>
         <View style={styles.phoneRow}>
@@ -124,7 +124,7 @@ export default function DriverLoginScreen({ navigation }) {
           />
         </View>
 
-        <Text style={[styles.label, isRTL && styles.textRight]}>
+        <Text style={[styles.label, { color: colors.text }, isRTL && styles.textRight]}>
           {t('driverIdLabel')}
         </Text>
         <TextInput
@@ -148,7 +148,7 @@ export default function DriverLoginScreen({ navigation }) {
           )}
         </TouchableOpacity>
 
-        <Text style={[styles.terms, isRTL && styles.textRight]}>{t('terms')}</Text>
+        <Text style={[styles.terms, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('terms')}</Text>
       </View>
     </KeyboardAvoidingView>
   );
@@ -157,7 +157,6 @@ export default function DriverLoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   langToggle: {
     position: 'absolute',
@@ -214,7 +213,6 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontSize: 16,
-    color: '#6B7280',
     marginTop: 8,
     fontWeight: '600',
   },
@@ -225,7 +223,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1F2937',
     marginBottom: 12,
   },
   phoneRow: {
@@ -247,7 +244,6 @@ const styles = StyleSheet.create({
   },
   countryCodeText: {
     fontSize: 16,
-    color: '#1F2937',
     fontWeight: '500',
   },
   phoneInput: {
@@ -257,7 +253,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: '#1F2937',
     borderWidth: 1,
     borderColor: 'transparent',
     direction: 'ltr',
@@ -270,7 +265,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
-    color: '#1F2937',
     borderWidth: 1,
     borderColor: 'transparent',
     marginBottom: 20,
@@ -292,7 +286,6 @@ const styles = StyleSheet.create({
   },
   terms: {
     fontSize: 12,
-    color: '#6B7280',
     textAlign: 'center',
     lineHeight: 18,
   },

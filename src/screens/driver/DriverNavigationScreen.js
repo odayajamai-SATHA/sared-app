@@ -219,10 +219,10 @@ export default function DriverNavigationScreen({ route, navigation }) {
         <View style={[styles.addressRow, isRTL && styles.rowReverse]}>
           <View style={[styles.addressDot, { color: colors.text }]} />
           <View style={{ flex: 1 }}>
-            <Text style={[styles.addressLabel, isRTL && styles.textRight]}>
+            <Text style={[styles.addressLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>
               {t('pickupLocation')}
             </Text>
-            <Text style={[styles.addressText, isRTL && styles.textRight]}>
+            <Text style={[styles.addressText, { color: colors.text }, isRTL && styles.textRight]}>
               {t('customerPickupAddress')}
             </Text>
           </View>
@@ -272,7 +272,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
   },
   map: {
     flex: 1,
@@ -321,7 +320,6 @@ const styles = StyleSheet.create({
   },
   etaUnit: {
     fontSize: 11,
-    color: '#6B7280',
   },
   distanceBadge: {
     position: 'absolute',
@@ -382,11 +380,9 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#1F2937',
   },
   customerDetails: {
     fontSize: 13,
-    color: '#6B7280',
     marginTop: 2,
   },
   callBtn: {
@@ -411,12 +407,10 @@ const styles = StyleSheet.create({
   },
   addressLabel: {
     fontSize: 12,
-    color: '#6B7280',
   },
   addressText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#1F2937',
     marginTop: 2,
   },
   arrivedBtn: {

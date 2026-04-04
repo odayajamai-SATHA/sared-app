@@ -65,8 +65,8 @@ export default function InsuranceScreen({ navigation }) {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Hero section */}
         <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
-          <LinearGradient colors={['#065F46', '#022C22']} style={[styles.heroCard, { color: colors.text }]}>
-            <View style={[styles.heroIcon, { color: colors.text }]}>
+          <LinearGradient colors={['#065F46', '#022C22']} style={styles.heroCard}>
+            <View style={styles.heroIcon}>
               <Ionicons name="shield-checkmark" size={36} color="#4ADE80" />
             </View>
             <Text style={styles.heroTitle}>{t('insuranceTitle')}</Text>
@@ -75,19 +75,19 @@ export default function InsuranceScreen({ navigation }) {
         </Animated.View>
 
         {/* Form */}
-        <View style={[styles.formCard, { color: colors.text }]}>
-          <Text style={[styles.formLabel, isRTL && styles.textRight]}>{t('insuranceCompany')}</Text>
+        <View style={[styles.formCard, { backgroundColor: colors.card }]}>
+          <Text style={[styles.formLabel, isRTL && styles.textRight, { color: colors.textSecondary }]}>{t('insuranceCompany')}</Text>
           <TextInput
-            style={[styles.input, isRTL && styles.textRight]}
+            style={[styles.input, isRTL && styles.textRight, { color: colors.text, borderColor: colors.border }]}
             placeholder={t('companyPlaceholder')}
             placeholderTextColor={colors.gray}
             value={company}
             onChangeText={(v) => { setCompany(v); setSaved(false); }}
           />
 
-          <Text style={[styles.formLabel, isRTL && styles.textRight]}>{t('policyNumber')}</Text>
+          <Text style={[styles.formLabel, isRTL && styles.textRight, { color: colors.textSecondary }]}>{t('policyNumber')}</Text>
           <TextInput
-            style={[styles.input, isRTL && styles.textRight]}
+            style={[styles.input, isRTL && styles.textRight, { color: colors.text, borderColor: colors.border }]}
             placeholder={t('policyPlaceholder')}
             placeholderTextColor={colors.gray}
             value={policyNum}
@@ -102,7 +102,7 @@ export default function InsuranceScreen({ navigation }) {
           >
             <LinearGradient
               colors={saved ? ['#22C55E', '#16A34A'] : ['#059669', '#047857']}
-              style={[styles.saveBtnGradient, { color: colors.text }]}
+              style={styles.saveBtnGradient}
             >
               <Ionicons name={saved ? 'checkmark-circle' : 'search'} size={20} color="#FFF" />
               <Text style={styles.saveBtnText}>
@@ -115,23 +115,23 @@ export default function InsuranceScreen({ navigation }) {
         </View>
 
         {/* Covered services */}
-        <View style={[styles.coveredCard, { color: colors.text }]}>
-          <Text style={[styles.coveredTitle, isRTL && styles.textRight]}>{t('coveredServices')}</Text>
+        <View style={[styles.coveredCard, { backgroundColor: colors.card }]}>
+          <Text style={[styles.coveredTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('coveredServices')}</Text>
           {coveredItems.map((item, i) => (
             <View key={i} style={[styles.coveredRow, isRTL && styles.rowReverse]}>
               <View style={[styles.coveredIcon, { backgroundColor: item.color + '15' }]}>
                 <Ionicons name={item.icon} size={18} color={item.color} />
               </View>
-              <Text style={[styles.coveredText, isRTL && styles.textRight]}>{item.text}</Text>
+              <Text style={[styles.coveredText, isRTL && styles.textRight, { color: colors.text }]}>{item.text}</Text>
               <Ionicons name="checkmark-circle" size={18} color="#22C55E" />
             </View>
           ))}
         </View>
 
         {/* Partner insurers */}
-        <View style={[styles.partnersCard, { color: colors.text }]}>
-          <Text style={[styles.partnersTitle, isRTL && styles.textRight]}>{t('partnerInsurers')}</Text>
-          <View style={[styles.partnersGrid, { color: colors.text }]}>
+        <View style={[styles.partnersCard, { backgroundColor: colors.card }]}>
+          <Text style={[styles.partnersTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('partnerInsurers')}</Text>
+          <View style={styles.partnersGrid}>
             {PARTNER_INSURERS.map((insurer, i) => (
               <TouchableOpacity
                 key={i}
@@ -156,13 +156,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: 'transparent',
+    borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   rowReverse: { flexDirection: 'row-reverse' },
   scrollContent: { padding: 16 },
   heroCard: { borderRadius: 20, padding: 28, alignItems: 'center', marginBottom: 16 },
@@ -173,11 +173,11 @@ const styles = StyleSheet.create({
   },
   heroTitle: { fontSize: 22, fontWeight: '800', color: '#FFF', marginBottom: 8, textAlign: 'center' },
   heroSub: { fontSize: 14, color: 'rgba(255,255,255,0.6)', textAlign: 'center', lineHeight: 20 },
-  formCard: { backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginBottom: 16 },
-  formLabel: { fontSize: 13, fontWeight: '600', color: '#6B7280', marginBottom: 6, marginTop: 8 },
+  formCard: { borderRadius: 20, padding: 20, marginBottom: 16 },
+  formLabel: { fontSize: 13, fontWeight: '600', marginBottom: 6, marginTop: 8 },
   input: {
     backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12,
-    fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent', marginBottom: 4,
+    fontSize: 15, borderWidth: 1, borderColor: 'transparent', marginBottom: 4,
   },
   saveBtn: { borderRadius: 14, overflow: 'hidden', marginTop: 16 },
   saveBtnGradient: {
@@ -185,16 +185,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center', gap: 8,
   },
   saveBtnText: { fontSize: 16, fontWeight: '700', color: '#FFF' },
-  noteText: { fontSize: 12, color: '#6B7280', marginTop: 14, lineHeight: 18 },
-  coveredCard: { backgroundColor: '#FFF', borderRadius: 20, padding: 20, marginBottom: 16 },
-  coveredTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
+  noteText: { fontSize: 12, marginTop: 14, lineHeight: 18 },
+  coveredCard: { borderRadius: 20, padding: 20, marginBottom: 16 },
+  coveredTitle: { fontSize: 16, fontWeight: '700', marginBottom: 14 },
   coveredRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 12 },
   coveredIcon: {
     width: 36, height: 36, borderRadius: 10, justifyContent: 'center', alignItems: 'center',
   },
-  coveredText: { flex: 1, fontSize: 14, fontWeight: '500', color: '#1F2937' },
-  partnersCard: { backgroundColor: '#FFF', borderRadius: 20, padding: 20 },
-  partnersTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
+  coveredText: { flex: 1, fontSize: 14, fontWeight: '500' },
+  partnersCard: { borderRadius: 20, padding: 20 },
+  partnersTitle: { fontSize: 16, fontWeight: '700', marginBottom: 14 },
   partnersGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   partnerChip: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
@@ -202,6 +202,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1.5, borderColor: 'transparent',
   },
   partnerChipActive: { borderColor: theme.primary, backgroundColor: 'rgba(5,150,105,0.1)' },
-  partnerName: { fontSize: 13, fontWeight: '600', color: '#1F2937' },
+  partnerName: { fontSize: 13, fontWeight: '600' },
   textRight: { textAlign: 'right' },
 });

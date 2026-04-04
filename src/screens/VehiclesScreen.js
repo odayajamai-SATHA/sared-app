@@ -46,34 +46,34 @@ export default function VehiclesScreen({ navigation }) {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Add vehicle form */}
         {showForm && (
-          <View style={[styles.formCard, { color: colors.text }]}>
-            <Text style={[styles.formTitle, isRTL && styles.textRight]}>{t('addVehicle')}</Text>
+          <View style={[styles.formCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <Text style={[styles.formTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('addVehicle')}</Text>
             <View style={[styles.formRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <View style={[styles.formField, { color: colors.text }]}>
                 <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleMake')}</Text>
-                <TextInput style={styles.input} placeholder={t('makePlaceholder')} placeholderTextColor={colors.gray}
+                <TextInput style={[styles.input, { color: colors.text, borderColor: colors.border }]} placeholder={t('makePlaceholder')} placeholderTextColor={colors.gray}
                   value={form.make} onChangeText={(v) => setForm({ ...form, make: v })} />
               </View>
               <View style={[styles.formField, { color: colors.text }]}>
                 <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleModel')}</Text>
-                <TextInput style={styles.input} placeholder={t('modelPlaceholder')} placeholderTextColor={colors.gray}
+                <TextInput style={[styles.input, { color: colors.text, borderColor: colors.border }]} placeholder={t('modelPlaceholder')} placeholderTextColor={colors.gray}
                   value={form.model} onChangeText={(v) => setForm({ ...form, model: v })} />
               </View>
             </View>
             <View style={[styles.formRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <View style={[styles.formField, { color: colors.text }]}>
                 <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleYear')}</Text>
-                <TextInput style={styles.input} placeholder={t('yearPlaceholder')} placeholderTextColor={colors.gray}
+                <TextInput style={[styles.input, { color: colors.text, borderColor: colors.border }]} placeholder={t('yearPlaceholder')} placeholderTextColor={colors.gray}
                   keyboardType="number-pad" value={form.year} onChangeText={(v) => setForm({ ...form, year: v })} />
               </View>
               <View style={[styles.formField, { color: colors.text }]}>
                 <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('vehicleColor')}</Text>
-                <TextInput style={styles.input} placeholder={t('colorPlaceholder')} placeholderTextColor={colors.gray}
+                <TextInput style={[styles.input, { color: colors.text, borderColor: colors.border }]} placeholder={t('colorPlaceholder')} placeholderTextColor={colors.gray}
                   value={form.color} onChangeText={(v) => setForm({ ...form, color: v })} />
               </View>
             </View>
             <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>{t('plateNumber')}</Text>
-            <TextInput style={styles.input} placeholder={t('platePlaceholder')} placeholderTextColor={colors.gray}
+            <TextInput style={[styles.input, { color: colors.text, borderColor: colors.border }]} placeholder={t('platePlaceholder')} placeholderTextColor={colors.gray}
               autoCapitalize="characters" value={form.plate} onChangeText={(v) => setForm({ ...form, plate: v })} />
 
             <TouchableOpacity
@@ -102,14 +102,14 @@ export default function VehiclesScreen({ navigation }) {
         )}
 
         {vehicles.map((v) => (
-          <View key={v.id} style={[styles.vehicleCard, { color: colors.text }]}>
+          <View key={v.id} style={[styles.vehicleCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={[styles.vehicleRow, isRTL && styles.rowReverse]}>
               <View style={[styles.vehicleColor, { backgroundColor: colorForCar(v.color) }]}>
                 <Ionicons name="car-sport" size={24} color={v.color?.toLowerCase() === 'white' ? colors.text : '#FFF'} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.vehicleName, isRTL && styles.textRight]}>{v.make} {v.model}</Text>
-                <Text style={[styles.vehicleDetails, isRTL && styles.textRight]}>
+                <Text style={[styles.vehicleName, isRTL && styles.textRight, { color: colors.text }]}>{v.make} {v.model}</Text>
+                <Text style={[styles.vehicleDetails, isRTL && styles.textRight, { color: colors.textSecondary }]}>
                   {v.year} {v.color ? `• ${v.color}` : ''}
                 </Text>
               </View>
@@ -117,8 +117,8 @@ export default function VehiclesScreen({ navigation }) {
                 <Ionicons name="trash-outline" size={18} color="#EF4444" />
               </TouchableOpacity>
             </View>
-            <View style={[styles.plateContainer, { color: colors.text }]}>
-              <Text style={[styles.plateText, { color: colors.text }]}>{v.plate}</Text>
+            <View style={[styles.plateContainer, { backgroundColor: isDark ? colors.card : '#FEFCE8', borderColor: isDark ? colors.border : '#FDE68A' }]}>
+              <Text style={[styles.plateText, { color: isDark ? colors.text : '#92400E' }]}>{v.plate}</Text>
             </View>
           </View>
         ))}
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   addBtn: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(5,150,105,0.1)',
     justifyContent: 'center', alignItems: 'center',
@@ -148,13 +148,13 @@ const styles = StyleSheet.create({
   formCard: {
     backgroundColor: 'transparent', borderRadius: 16, padding: 20, marginBottom: 16,
   },
-  formTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 16 },
+  formTitle: { fontSize: 16, fontWeight: '700', marginBottom: 16 },
   formRow: { flexDirection: 'row', gap: 12 },
   formField: { flex: 1, marginBottom: 12 },
-  fieldLabel: { fontSize: 12, fontWeight: '600', color: '#6B7280', marginBottom: 6 },
+  fieldLabel: { fontSize: 12, fontWeight: '600', marginBottom: 6 },
   input: {
     backgroundColor: 'transparent', borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12,
-    fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent',
+    fontSize: 15, borderWidth: 1, borderColor: 'transparent',
   },
   saveBtn: {
     backgroundColor: theme.primary, paddingVertical: 14, borderRadius: 12,
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
     width: 100, height: 100, borderRadius: 50, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center', marginBottom: 16,
   },
-  emptyTitle: { fontSize: 18, fontWeight: '700', color: '#374151' },
-  emptyHint: { fontSize: 14, color: '#6B7280', marginTop: 6, marginBottom: 24 },
+  emptyTitle: { fontSize: 18, fontWeight: '700' },
+  emptyHint: { fontSize: 14, marginTop: 6, marginBottom: 24 },
   emptyBtn: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: theme.primary,
     paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, gap: 8,
@@ -181,15 +181,15 @@ const styles = StyleSheet.create({
     width: 48, height: 48, borderRadius: 14,
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
-  vehicleName: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
-  vehicleDetails: { fontSize: 13, color: '#6B7280', marginTop: 2 },
+  vehicleName: { fontSize: 16, fontWeight: '700' },
+  vehicleDetails: { fontSize: 13, marginTop: 2 },
   deleteBtn: { padding: 8 },
   plateContainer: {
-    backgroundColor: '#FEFCE8', borderRadius: 8, marginTop: 12,
+    borderRadius: 8, marginTop: 12,
     paddingVertical: 8, paddingHorizontal: 14, alignSelf: 'flex-start',
-    borderWidth: 1, borderColor: '#FDE68A',
+    borderWidth: 1,
   },
-  plateText: { fontSize: 14, fontWeight: '700', color: '#92400E', letterSpacing: 2 },
+  plateText: { fontSize: 14, fontWeight: '700', letterSpacing: 2 },
   rowReverse: { flexDirection: 'row-reverse' },
   textRight: { textAlign: 'right' },
 });

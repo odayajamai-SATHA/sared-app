@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
   sosDesc: { fontSize: 14, color: 'rgba(255,255,255,0.8)', textAlign: 'center', marginBottom: 16 },
   sosCoords: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(0,0,0,0.2)', borderRadius: 8, paddingHorizontal: 12, paddingVertical: 6, marginBottom: 20 },
   sosCoordsText: { fontSize: 12, color: 'rgba(255,255,255,0.7)', fontFamily: 'monospace' },
-  sosCallBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: '#FFF', borderRadius: 14, paddingVertical: 16, width: '100%', marginBottom: 12 },
+  sosCallBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 14, paddingVertical: 16, width: '100%', marginBottom: 12 },
   sosCallText: { fontSize: 18, fontWeight: '800', color: '#DC2626' },
   sosCancelBtn: { paddingVertical: 12 },
   sosCancelText: { fontSize: 15, color: 'rgba(255,255,255,0.7)', fontWeight: '600' },

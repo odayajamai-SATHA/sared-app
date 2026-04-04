@@ -118,7 +118,7 @@ export default function PaymentScreen({ route, navigation }) {
     if (optionId === 'stc_pay') {
       return (
         <View style={[styles.expandedContent, { color: colors.text }]}>
-          <Text style={[styles.stcInstructions, isRTL && styles.textRight]}>
+          <Text style={[styles.stcInstructions, { color: colors.textSecondary }, isRTL && styles.textRight]}>
             {t('stcPayInstructions').replace('{amount}', displayTotal).replace('{number}', STC_PAY_NUMBER)}
           </Text>
           <View style={[styles.numberRow, isRTL && styles.rowReverse, { color: colors.text }]}>
@@ -174,7 +174,7 @@ export default function PaymentScreen({ route, navigation }) {
             <Text style={[styles.vatNote, { color: colors.textSecondary }]}>{t('inclVat')}</Text>
           </View>
 
-          <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>{t('selectPayment')}</Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>{t('selectPayment')}</Text>
 
           {PAYMENT_OPTIONS.map((option) => {
             const isSelected = selected === option.id;
@@ -196,7 +196,7 @@ export default function PaymentScreen({ route, navigation }) {
                     </View>
                     <View style={[styles.optionTextWrap, isRTL && { alignItems: 'flex-end' }]}>
                       <View style={[styles.optionTitleRow, isRTL && styles.rowReverse]}>
-                        <Text style={[styles.optionTitle, isRTL && styles.textRight]}>
+                        <Text style={[styles.optionTitle, { color: colors.text }, isRTL && styles.textRight]}>
                           {option.id === 'stc_pay' ? 'STC Pay' : option.id === 'apple_pay' ? 'Apple Pay' : t(option.titleKey)}
                         </Text>
                         {option.feeLabel && (
@@ -205,7 +205,7 @@ export default function PaymentScreen({ route, navigation }) {
                           </View>
                         )}
                       </View>
-                      <Text style={[styles.optionDesc, isRTL && styles.textRight]}>
+                      <Text style={[styles.optionDesc, { color: colors.textSecondary }, isRTL && styles.textRight]}>
                         {t(option.descKey)}
                       </Text>
                     </View>
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   rowReverse: { flexDirection: 'row-reverse' },
   scroll: { flex: 1 },
   scrollContent: { padding: 16 },
@@ -261,11 +261,11 @@ const styles = StyleSheet.create({
     marginBottom: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  totalLabel: { fontSize: 14, color: '#6B7280', marginBottom: 4 },
+  totalLabel: { fontSize: 14, marginBottom: 4 },
   totalAmount: { fontSize: 36, fontWeight: '800', color: '#059669' },
-  vatNote: { fontSize: 12, color: '#6B7280', marginTop: 4 },
+  vatNote: { fontSize: 12, marginTop: 4 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: '#1F2937',
+    fontSize: 17, fontWeight: '700',
     marginBottom: 12, marginTop: 4,
   },
   optionCard: {
@@ -293,8 +293,8 @@ const styles = StyleSheet.create({
   optionTitleRow: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
   },
-  optionTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
-  optionDesc: { fontSize: 13, color: '#6B7280', marginTop: 2 },
+  optionTitle: { fontSize: 16, fontWeight: '700' },
+  optionDesc: { fontSize: 13, marginTop: 2 },
   feeBadge: {
     backgroundColor: '#E0F2FE', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2,
   },
@@ -304,14 +304,14 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: 'transparent',
   },
   stcInstructions: {
-    fontSize: 14, color: '#6B7280', lineHeight: 22, marginBottom: 14,
+    fontSize: 14, lineHeight: 22, marginBottom: 14,
   },
   numberRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     backgroundColor: 'transparent', borderRadius: 14, padding: 14, marginBottom: 14,
     borderWidth: 1, borderColor: 'transparent',
   },
-  numberText: { fontSize: 22, fontWeight: '800', color: '#1F2937', letterSpacing: 2 },
+  numberText: { fontSize: 22, fontWeight: '800', letterSpacing: 2 },
   copyBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
     backgroundColor: 'transparent', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 10,
@@ -328,11 +328,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 6, paddingVertical: 8,
   },
-  currencyText: { fontSize: 12, color: '#6B7280' },
+  currencyText: { fontSize: 12,  },
   secureRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
     gap: 6, paddingVertical: 12,
   },
-  secureText: { fontSize: 13, color: '#6B7280' },
+  secureText: { fontSize: 13,  },
   textRight: { textAlign: 'right' },
 });

@@ -76,7 +76,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
       </View>
 
       <ScrollView style={styles.content} contentContainerStyle={styles.contentInner} showsVerticalScrollIndicator={false}>
-        <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>{t('whatNeed')}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('whatNeed')}</Text>
 
         {services.map((service, index) => (
           <Animated.View key={service.id} style={{
@@ -93,14 +93,14 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
               </View>
               <View style={[styles.cardContent, isRTL && { alignItems: 'flex-end' }]}>
                 <View style={[styles.titleRow, isRTL && styles.rowReverse]}>
-                  <Text style={styles.cardTitle} numberOfLines={1}>{service.title}</Text>
+                  <Text style={[styles.cardTitle, { color: colors.text }]} numberOfLines={1}>{service.title}</Text>
                   {service.comingSoon && (
                     <View style={[styles.comingSoonBadge, { color: colors.text }]}>
                       <Text style={[styles.comingSoonText, { color: colors.text }]}>{t('soon')}</Text>
                     </View>
                   )}
                 </View>
-                <Text style={[styles.cardDesc, isRTL && styles.textRight]}>{service.desc}</Text>
+                <Text style={[styles.cardDesc, { color: colors.textSecondary }, isRTL && styles.textRight]}>{service.desc}</Text>
                 {!service.comingSoon && (
                   <Text style={[styles.cardPrice, { color: service.color }]}>
                     {t('fromSar')} {service.price} ({t('inclVat')})
@@ -118,7 +118,7 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: undefined },
+  container: { flex: 1 },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
@@ -128,10 +128,10 @@ const styles = StyleSheet.create({
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   content: { flex: 1 },
   contentInner: { padding: 20 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: '#6B7280', marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 16 },
   card: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent',
     borderRadius: 16, padding: 16, marginBottom: 12,
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   },
   cardContent: { flex: 1 },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
-  cardDesc: { fontSize: 13, color: '#6B7280', marginTop: 3 },
+  cardTitle: { fontSize: 16, fontWeight: '700' },
+  cardDesc: { fontSize: 13, marginTop: 3 },
   cardPrice: { fontSize: 13, fontWeight: '700', marginTop: 4 },
   comingSoonBadge: {
     backgroundColor: '#F59E0B20', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6,

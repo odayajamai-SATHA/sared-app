@@ -305,7 +305,6 @@ export default function DriverDashboardScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',
@@ -368,7 +367,6 @@ const styles = StyleSheet.create({
   statusLabel: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
     marginBottom: 16,
   },
   toggleBtn: {
@@ -413,12 +411,10 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#1F2937',
     marginTop: 8,
   },
   statLabel: {
     fontSize: 13,
-    color: '#6B7280',
     marginTop: 4,
   },
   quickStats: {
@@ -440,7 +436,6 @@ const styles = StyleSheet.create({
   },
   quickStatText: {
     fontSize: 14,
-    color: '#6B7280',
   },
   // Incoming ride overlay
   requestOverlay: {
@@ -484,12 +479,10 @@ const styles = StyleSheet.create({
   },
   timerLabel: {
     fontSize: 10,
-    color: '#6B7280',
   },
   requestTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#1F2937',
     marginBottom: 16,
   },
   requestDetails: {
@@ -506,7 +499,6 @@ const styles = StyleSheet.create({
   },
   requestText: {
     fontSize: 15,
-    color: '#1F2937',
     fontWeight: '500',
   },
   requestButtons: {
@@ -565,7 +557,6 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     fontSize: 11,
-    color: '#6B7280',
     marginTop: 4,
   },
   rowReverse: {

@@ -53,7 +53,7 @@ export default function TripCompleteScreen({ route, navigation }) {
       </LinearGradient>
 
       <Animated.View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }, { opacity: cardFade, transform: [{ translateY: cardSlide }] }]}>
-        <Text style={[styles.cardTitle, isRTL && styles.textRight]}>{t('tripSummary')}</Text>
+        <Text style={[styles.cardTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('tripSummary')}</Text>
         {[
           [t('service'), service],
           [t('vehicleSize'), size],
@@ -77,7 +77,7 @@ export default function TripCompleteScreen({ route, navigation }) {
           <View style={[styles.driverAvatar, { color: colors.text }]}>
             <Ionicons name="person" size={24} color={colors.primary} />
           </View>
-          <Text style={styles.driverName} numberOfLines={1}>{t('driverName')}</Text>
+          <Text style={[styles.driverName, { color: colors.text }]} numberOfLines={1}>{t('driverName')}</Text>
         </View>
 
         <View style={[styles.starsRow, { color: colors.text }]}>
@@ -125,31 +125,31 @@ const styles = StyleSheet.create({
     padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08, shadowRadius: 16, elevation: 6,
   },
-  cardTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 16 },
+  cardTitle: { fontSize: 18, fontWeight: '700', marginBottom: 16 },
   summaryRow: {
     flexDirection: 'row', justifyContent: 'space-between',
     paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
-  summaryLabel: { fontSize: 14, color: '#6B7280' },
-  summaryValue: { fontSize: 14, fontWeight: '600', color: '#1F2937' },
+  summaryLabel: { fontSize: 14 },
+  summaryValue: { fontSize: 14, fontWeight: '600' },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 14, marginTop: 4 },
-  totalLabel: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
-  totalValue: { fontSize: 18, fontWeight: 'bold', color: '#059669' },
+  totalLabel: { fontSize: 16, fontWeight: '700' },
+  totalValue: { fontSize: 18, fontWeight: 'bold' },
   ratingCard: {
     backgroundColor: 'transparent', marginHorizontal: 16, marginTop: 16, borderRadius: 20,
     padding: 24, alignItems: 'center',
   },
-  rateTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937', marginBottom: 16 },
+  rateTitle: { fontSize: 18, fontWeight: '700', marginBottom: 16 },
   driverRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: {
     width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(5,150,105,0.1)',
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  driverName: { fontSize: 16, fontWeight: '600', color: '#1F2937' },
+  driverName: { fontSize: 16, fontWeight: '600' },
   starsRow: { flexDirection: 'row', gap: 8, marginBottom: 8 },
   starBtn: { padding: 4 },
-  tapHint: { fontSize: 14, color: '#6B7280', marginBottom: 20 },
+  tapHint: { fontSize: 14, marginBottom: 20 },
   submitBtn: { width: '100%', borderRadius: 14, overflow: 'hidden' },
   submitBtnDisabled: { opacity: 0.5 },
   submitGradient: {

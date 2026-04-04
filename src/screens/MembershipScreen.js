@@ -78,7 +78,7 @@ export default function MembershipScreen({ navigation }) {
               onPress={() => setSelected(plan.id)}
             >
               {plan.popular && <View style={[styles.popularBadge, { color: colors.text }]}><Text style={styles.popularText}>{t('mostPopular')}</Text></View>}
-              <Text style={[styles.tabText, selected === plan.id && styles.tabTextActive]}>{plan.name}</Text>
+              <Text style={[styles.tabText, { color: colors.textSecondary }, selected === plan.id && styles.tabTextActive]}>{plan.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -158,16 +158,16 @@ const styles = StyleSheet.create({
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   scrollContent: { padding: 20 },
-  subtitle: { fontSize: 15, color: '#6B7280', textAlign: 'center', marginBottom: 20 },
+  subtitle: { fontSize: 15, textAlign: 'center', marginBottom: 20 },
   tabRow: { flexDirection: 'row', gap: 10, marginBottom: 20 },
   tab: {
     flex: 1, paddingVertical: 12, borderRadius: 12, backgroundColor: 'transparent',
     alignItems: 'center', borderWidth: 1, borderColor: 'transparent',
   },
   tabActive: { borderColor: theme.primary, backgroundColor: 'rgba(5,150,105,0.1)' },
-  tabText: { fontSize: 14, fontWeight: '600', color: '#6B7280' },
+  tabText: { fontSize: 14, fontWeight: '600',  },
   tabTextActive: { color: '#059669' },
   popularBadge: {
     position: 'absolute', top: -8, backgroundColor: theme.primary,
@@ -193,11 +193,11 @@ const styles = StyleSheet.create({
   comparisonCard: {
     backgroundColor: 'transparent', borderRadius: 16, padding: 16, overflow: 'hidden',
   },
-  comparisonTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 12 },
+  comparisonTitle: { fontSize: 16, fontWeight: '700', marginBottom: 12 },
   compRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10 },
   compRowAlt: { backgroundColor: 'transparent', marginHorizontal: -16, paddingHorizontal: 16 },
-  compLabel: { flex: 2, fontSize: 12, color: '#6B7280' },
-  compHeader: { flex: 1, fontSize: 12, fontWeight: '700', color: '#1F2937', textAlign: 'center' },
+  compLabel: { flex: 2, fontSize: 12,  },
+  compHeader: { flex: 1, fontSize: 12, fontWeight: '700', textAlign: 'center' },
   compCell: { flex: 1, alignItems: 'center' },
   rowReverse: { flexDirection: 'row-reverse' },
 });

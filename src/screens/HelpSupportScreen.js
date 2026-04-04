@@ -35,10 +35,10 @@ export default function HelpSupportScreen({ navigation }) {
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Contact Us */}
-        <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
+        <Text style={[styles.sectionTitle, isRTL && styles.textRight, { color: colors.text }]}>
           {t('contactUs')}
         </Text>
-        <View style={[styles.contactRow, isRTL && styles.rowReverse, { color: colors.text }]}>
+        <View style={[styles.contactRow, isRTL && styles.rowReverse]}>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#25D36615' }]}
             onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={28} color="#25D366" />
@@ -57,28 +57,28 @@ export default function HelpSupportScreen({ navigation }) {
         </View>
 
         {/* FAQ */}
-        <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
+        <Text style={[styles.sectionTitle, isRTL && styles.textRight, { color: colors.text }]}>
           {t('faqTitle')}
         </Text>
         {faqs.map((faq, i) => (
-          <TouchableOpacity key={i} style={[styles.faqCard, { color: colors.text }]}
+          <TouchableOpacity key={i} style={[styles.faqCard, { backgroundColor: colors.card, borderColor: colors.border }]}
             onPress={() => setExpandedFaq(expandedFaq === i ? null : i)}
             activeOpacity={0.7}>
             <View style={[styles.faqHeader, isRTL && styles.rowReverse]}>
-              <Text style={[styles.faqQuestion, isRTL && styles.textRight, { flex: 1 }]}>{faq.q}</Text>
+              <Text style={[styles.faqQuestion, isRTL && styles.textRight, { flex: 1, color: colors.text }]}>{faq.q}</Text>
               <Ionicons name={expandedFaq === i ? 'chevron-up' : 'chevron-down'} size={18} color={colors.gray} />
             </View>
             {expandedFaq === i && (
-              <Text style={[styles.faqAnswer, isRTL && styles.textRight]}>{faq.a}</Text>
+              <Text style={[styles.faqAnswer, isRTL && styles.textRight, { color: colors.textSecondary, borderTopColor: colors.border }]}>{faq.a}</Text>
             )}
           </TouchableOpacity>
         ))}
 
         {/* Report Problem */}
-        <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
+        <Text style={[styles.sectionTitle, isRTL && styles.textRight, { color: colors.text }]}>
           {t('reportProblem')}
         </Text>
-        <TouchableOpacity style={[styles.reportBtn, isRTL && styles.rowReverse, { color: colors.text }]} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
+        <TouchableOpacity style={[styles.reportBtn, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
           <Ionicons name="logo-whatsapp" size={20} color="#FFF" />
           <Text style={styles.reportBtnText}>
             {t('reportViaWhatsapp')}
@@ -86,7 +86,7 @@ export default function HelpSupportScreen({ navigation }) {
         </TouchableOpacity>
 
         {/* Available 24/7 */}
-        <View style={[styles.availableRow, isRTL && styles.rowReverse, { color: colors.text }]}>
+        <View style={[styles.availableRow, isRTL && styles.rowReverse]}>
           <Ionicons name="time-outline" size={16} color={colors.gray} />
           <Text style={[styles.availableText, { color: colors.textSecondary }]}>
             {t('available247')}
@@ -104,33 +104,32 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
-    backgroundColor: '#FFF', borderBottomWidth: 1, borderBottomColor: 'transparent',
+    borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
   backBtn: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   rowReverse: { flexDirection: 'row-reverse' },
   scrollContent: { padding: 16 },
   sectionTitle: {
-    fontSize: 17, fontWeight: '700', color: '#1F2937', marginBottom: 12, marginTop: 8,
+    fontSize: 17, fontWeight: '700', marginBottom: 12, marginTop: 8,
   },
   contactRow: { flexDirection: 'row', gap: 12, marginBottom: 24 },
   contactCard: {
     flex: 1, alignItems: 'center', paddingVertical: 20, borderRadius: 16,
-    backgroundColor: '#FFF',
   },
-  contactLabel: { fontSize: 13, fontWeight: '600', color: '#1F2937', marginTop: 8 },
+  contactLabel: { fontSize: 13, fontWeight: '600', marginTop: 8 },
   faqCard: {
-    backgroundColor: '#FFF', borderRadius: 14, padding: 16, marginBottom: 8,
+    borderRadius: 14, padding: 16, marginBottom: 8,
     borderWidth: 1, borderColor: 'transparent',
   },
   faqHeader: { flexDirection: 'row', alignItems: 'center' },
-  faqQuestion: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
+  faqQuestion: { fontSize: 15, fontWeight: '600' },
   faqAnswer: {
-    fontSize: 14, color: '#6B7280', lineHeight: 22, marginTop: 12,
-    paddingTop: 12, borderTopWidth: 1, borderTopColor: '#E5E7EB',
+    fontSize: 14, lineHeight: 22, marginTop: 12,
+    paddingTop: 12, borderTopWidth: 1,
   },
   reportBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
@@ -140,6 +139,6 @@ const styles = StyleSheet.create({
   availableRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
   },
-  availableText: { fontSize: 13, color: '#6B7280' },
+  availableText: { fontSize: 13 },
   textRight: { textAlign: 'right' },
 });

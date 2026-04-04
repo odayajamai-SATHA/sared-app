@@ -54,10 +54,10 @@ export default function HistoryScreen({ navigation }) {
         <Ionicons name="car-sport" size={20} color={getStatusColor(item.status)} />
       </View>
       <View style={{ flex: 1 }}>
-        <Text style={[styles.rideService, isRTL && styles.textRight]}>
+        <Text style={[styles.rideService, { color: colors.text }, isRTL && styles.textRight]}>
           {item.service_type || t('towService')}
         </Text>
-        <Text style={[styles.rideDate, isRTL && styles.textRight]}>
+        <Text style={[styles.rideDate, { color: colors.textSecondary }, isRTL && styles.textRight]}>
           {formatDate(item.created_at)}
         </Text>
       </View>
@@ -76,7 +76,7 @@ export default function HistoryScreen({ navigation }) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
         <View style={[styles.header, { borderBottomColor: colors.border }]}>
-          <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
+          <Text style={[styles.headerTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('rideHistory')}</Text>
         </View>
         <View style={[styles.empty, { color: colors.text }]}>
           <ActivityIndicator size="large" color={colors.primary} />
@@ -88,7 +88,7 @@ export default function HistoryScreen({ navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
-        <Text style={[styles.headerTitle, isRTL && styles.textRight]}>{t('rideHistory')}</Text>
+        <Text style={[styles.headerTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('rideHistory')}</Text>
       </View>
       {rides.length === 0 ? (
         <View style={[styles.empty, { color: colors.text }]}>
@@ -121,12 +121,12 @@ export default function HistoryScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: undefined },
+  container: { flex: 1 },
   header: {
     paddingTop: 60, paddingHorizontal: 20, paddingBottom: 16,
     borderBottomWidth: 1, borderBottomColor: 'transparent',
   },
-  headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#1F2937' },
+  headerTitle: { fontSize: 22, fontWeight: 'bold' },
   empty: {
     flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 80, paddingHorizontal: 40,
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center', marginBottom: 20,
   },
   emptyTitle: { fontSize: 20, fontWeight: '700', color: '#374151', marginTop: 8 },
-  emptyText: { fontSize: 14, color: '#6B7280', marginTop: 8, textAlign: 'center' },
+  emptyText: { fontSize: 14, marginTop: 8, textAlign: 'center' },
   bookBtn: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
     backgroundColor: theme.primary, paddingHorizontal: 28, paddingVertical: 14,
@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
     width: 44, height: 44, borderRadius: 12,
     justifyContent: 'center', alignItems: 'center', marginEnd: 12,
   },
-  rideService: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
-  rideDate: { fontSize: 12, color: '#6B7280', marginTop: 2 },
+  rideService: { fontSize: 15, fontWeight: '600' },
+  rideDate: { fontSize: 12, marginTop: 2 },
   ridePrice: { fontSize: 15, fontWeight: '700' },
   rideStatus: { fontSize: 11, fontWeight: '600', marginTop: 2, textTransform: 'capitalize' },
   textRight: { textAlign: 'right' },

@@ -82,7 +82,7 @@ export default function BookingScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
-    <ScrollView style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]} contentContainerStyle={{ paddingBottom: 40 }} keyboardShouldPersistTaps='handled'>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background, borderColor: colors.border }]} contentContainerStyle={{ paddingBottom: 120 }} keyboardShouldPersistTaps='handled'>
       <View style={[styles.topSection, { color: colors.text }]}>
         <View style={[styles.checkCircle, { color: colors.text }]}>
           <Ionicons name="checkmark" size={40} color="#FFF" />
@@ -91,11 +91,11 @@ export default function BookingScreen({ route, navigation }) {
         <Text style={styles.confirmedSub}>{t('driverOnWay')}</Text>
       </View>
 
-      <Animated.View style={[styles.card, { opacity: cardFade, transform: [{ translateY: cardAnim }] }]}>
+      <Animated.View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border, opacity: cardFade, transform: [{ translateY: cardAnim }] }]}>
         <View style={[styles.driverRow, isRTL && styles.rowReverse]}>
           <View style={[styles.driverAvatar, { color: colors.text }]}><Ionicons name="person" size={28} color={colors.primary} /></View>
           <View style={[styles.driverInfo, isRTL && { alignItems: 'flex-end' }]}>
-            <Text style={styles.driverName} numberOfLines={1}>{t('driverName')}</Text>
+            <Text style={[styles.driverName, { color: colors.text }]} numberOfLines={1}>{t('driverName')}</Text>
             <View style={[styles.ratingRow, isRTL && styles.rowReverse]}>
               <Ionicons name="star" size={16} color="#FBBF24" />
               <Text style={[styles.ratingText, { color: colors.textSecondary }]}>4.8</Text>
@@ -103,7 +103,7 @@ export default function BookingScreen({ route, navigation }) {
           </View>
           <View style={[styles.callBtn, { color: colors.text }]}><Ionicons name="call" size={20} color={colors.primary} /></View>
         </View>
-        <View style={[styles.divider, { color: colors.text }]} />
+        <View style={[styles.divider, { backgroundColor: colors.border }]} />
         <View style={[styles.detailsGrid, { color: colors.text }]}>
           {[[t('saredType'), size], [t('service'), service], [t('eta'), `15 ${t('minutes')}`], [t('distance'), `${fare.distanceKm} ${t('km')}`]].map(([label, val], i) => (
             <View key={i} style={[styles.detailItem, { color: colors.text }]}>
@@ -114,23 +114,23 @@ export default function BookingScreen({ route, navigation }) {
         </View>
       </Animated.View>
 
-      <Animated.View style={[styles.priceCard, { opacity: priceFade, transform: [{ translateY: priceAnim }] }]}>
-        <Text style={[styles.priceCardTitle, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
+      <Animated.View style={[styles.priceCard, { backgroundColor: colors.card, borderColor: colors.border, opacity: priceFade, transform: [{ translateY: priceAnim }] }]}>
+        <Text style={[styles.priceCardTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('priceBreakdown')}</Text>
         {[[t('baseFare'), fare.baseFare], [`${t('distanceCharge')} (${fare.distanceKm} ${t('km')})`, fare.distanceCharge]].map(([l, v], i) => (
           <View key={i} style={[styles.priceRow, { color: colors.text }]}><Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{l}</Text><Text style={[styles.priceValue, { color: colors.text }]}>SAR {v}</Text></View>
         ))}
         {fare.isNight && <View style={[styles.priceRow, { color: colors.text }]}><Text style={[styles.priceLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text><Text style={[styles.priceValue, { color: '#8B5CF6' }]}>SAR {fare.nightSurcharge}</Text></View>}
         {fare.promoDiscount > 0 && <View style={[styles.priceRow, { color: colors.text }]}><Text style={[styles.priceLabel, { color: '#22C55E' }]}>{t('discount')}</Text><Text style={[styles.priceValue, { color: '#22C55E' }]}>-SAR {fare.promoDiscount}</Text></View>}
-        <View style={[styles.priceDivider, { color: colors.text }]} />
+        <View style={[styles.priceDivider, { backgroundColor: colors.border }]} />
         <View style={[styles.priceRow, { color: colors.text }]}><Text style={[styles.priceLabel, { color: colors.textSecondary }]}>{t('vat')}</Text><Text style={[styles.priceValue, { color: colors.text }]}>SAR {fare.vat}</Text></View>
-        <View style={[styles.priceDivider, { color: colors.text }]} />
+        <View style={[styles.priceDivider, { backgroundColor: colors.border }]} />
         <View style={[styles.priceRow, { color: colors.text }]}><Text style={[styles.totalLabel, { color: colors.text }]}>{t('totalPrice')}</Text><Text style={[styles.totalValue, { color: colors.primary }]}>SAR {fare.total}</Text></View>
       </Animated.View>
 
       <View style={[styles.promoCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-        <Text style={[styles.promoTitle, isRTL && styles.textRight]}>{t('promoCode')}</Text>
+        <Text style={[styles.promoTitle, isRTL && styles.textRight, { color: colors.text }]}>{t('promoCode')}</Text>
         <View style={[styles.promoRow, isRTL && styles.rowReverse]}>
-          <TextInput style={[styles.promoInput, isRTL && styles.textRight]} placeholder={t('promoPlaceholder')} placeholderTextColor={colors.gray} value={promoCode} onChangeText={setPromoCode} autoCapitalize="characters" />
+          <TextInput style={[styles.promoInput, isRTL && styles.textRight, { color: colors.text, borderColor: colors.border }]} placeholder={t('promoPlaceholder')} placeholderTextColor={colors.gray} value={promoCode} onChangeText={setPromoCode} autoCapitalize="characters" />
           <TouchableOpacity style={[styles.promoBtn, !promoCode.trim() && { opacity: 0.5 }]} onPress={handleApplyPromo} disabled={!promoCode.trim()}>
             <Text style={styles.promoBtnText}>{t('applyPromo')}</Text>
           </TouchableOpacity>
@@ -155,7 +155,7 @@ export default function BookingScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent' },
-  topSection: { backgroundColor: theme.primary, alignItems: 'center', paddingTop: 70, paddingBottom: 40 },
+  topSection: { backgroundColor: theme.primary, alignItems: 'center', paddingTop: 60, paddingBottom: 40 },
   checkCircle: { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.25)', justifyContent: 'center', alignItems: 'center', marginBottom: 16 },
   confirmedTitle: { fontSize: 24, fontWeight: 'bold', color: '#FFF' },
   confirmedSub: { fontSize: 15, color: 'rgba(255,255,255,0.85)', marginTop: 6 },
@@ -164,27 +164,27 @@ const styles = StyleSheet.create({
   rowReverse: { flexDirection: 'row-reverse' },
   driverAvatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: 'rgba(5,150,105,0.1)', justifyContent: 'center', alignItems: 'center', marginEnd: 14 },
   driverInfo: { flex: 1 },
-  driverName: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  driverName: { fontSize: 18, fontWeight: '700' },
   ratingRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4, gap: 4 },
-  ratingText: { fontSize: 14, fontWeight: '600', color: '#374151' },
+  ratingText: { fontSize: 14, fontWeight: '600' },
   callBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: 'rgba(5,150,105,0.1)', justifyContent: 'center', alignItems: 'center' },
-  divider: { height: 1, backgroundColor: '#E5E7EB', marginVertical: 16 },
+  divider: { height: 1, marginVertical: 16 },
   detailsGrid: { flexDirection: 'row', flexWrap: 'wrap' },
   detailItem: { width: '50%', marginBottom: 14 },
-  detailLabel: { fontSize: 12, color: '#6B7280', marginBottom: 4 },
-  detailValue: { fontSize: 15, fontWeight: '600', color: '#1F2937' },
+  detailLabel: { fontSize: 12, marginBottom: 4 },
+  detailValue: { fontSize: 15, fontWeight: '600' },
   priceCard: { backgroundColor: 'transparent', marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
-  priceCardTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
+  priceCardTitle: { fontSize: 16, fontWeight: '700', marginBottom: 14 },
   priceRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 },
-  priceLabel: { fontSize: 14, color: '#6B7280' },
-  priceValue: { fontSize: 14, fontWeight: '500', color: '#1F2937' },
-  priceDivider: { height: 1, backgroundColor: '#E5E7EB', marginVertical: 8 },
-  totalLabel: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
-  totalValue: { fontSize: 18, fontWeight: 'bold', color: '#059669' },
+  priceLabel: { fontSize: 14 },
+  priceValue: { fontSize: 14, fontWeight: '500' },
+  priceDivider: { height: 1, marginVertical: 8 },
+  totalLabel: { fontSize: 16, fontWeight: '700' },
+  totalValue: { fontSize: 18, fontWeight: 'bold' },
   promoCard: { backgroundColor: 'transparent', marginHorizontal: 16, marginTop: 12, borderRadius: 20, padding: 20 },
-  promoTitle: { fontSize: 15, fontWeight: '600', color: '#1F2937', marginBottom: 10 },
+  promoTitle: { fontSize: 15, fontWeight: '600', marginBottom: 10 },
   promoRow: { flexDirection: 'row', gap: 10 },
-  promoInput: { flex: 1, backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15, color: '#1F2937', borderWidth: 1, borderColor: 'transparent' },
+  promoInput: { flex: 1, backgroundColor: 'transparent', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15, borderWidth: 1, borderColor: 'transparent' },
   promoBtn: { backgroundColor: theme.primary, paddingHorizontal: 18, borderRadius: 12, justifyContent: 'center' },
   promoBtnText: { color: '#FFF', fontSize: 14, fontWeight: '600' },
   promoSuccess: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 10 },
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   promoError: { fontSize: 13, color: '#EF4444', marginTop: 8 },
   buttonRow: { flexDirection: 'row', paddingHorizontal: 16, gap: 12, marginTop: 20 },
   cancelBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5, borderColor: 'transparent', backgroundColor: 'transparent', alignItems: 'center' },
-  cancelBtnText: { fontSize: 15, fontWeight: '600', color: '#374151' },
+  cancelBtnText: { fontSize: 15, fontWeight: '600' },
   trackBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, backgroundColor: theme.primary, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
   trackBtnText: { fontSize: 15, fontWeight: '600', color: '#FFF' },
   textRight: { textAlign: 'right' },

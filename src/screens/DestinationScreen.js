@@ -161,10 +161,10 @@ export default function DestinationScreen({ route, navigation }) {
               <Ionicons name="location-outline" size={18} color={colors.textSecondary} />
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={[styles.suggestionName, isRTL && styles.textRight]}>
+              <Text style={[styles.suggestionName, { color: colors.text }, isRTL && styles.textRight]}>
                 {lang === 'ar' ? item.nameAr : item.name}
               </Text>
-              <Text style={[styles.suggestionSub, isRTL && styles.textRight]}>
+              <Text style={[styles.suggestionSub, { color: colors.textSecondary }, isRTL && styles.textRight]}>
                 {lang === 'ar' ? item.name : item.nameAr}
               </Text>
             </View>
@@ -178,7 +178,6 @@ export default function DestinationScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   header: {
     flexDirection: 'row',
@@ -202,7 +201,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -217,7 +215,6 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: '#1F2937',
   },
   mapOption: {
     flexDirection: 'row',
@@ -266,11 +263,9 @@ const styles = StyleSheet.create({
   suggestionName: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#1F2937',
   },
   suggestionSub: {
     fontSize: 13,
-    color: '#6B7280',
     marginTop: 2,
   },
   rowReverse: {

@@ -102,7 +102,8 @@ export default function DriverJobScreen({ route, navigation }) {
               <Text
                 style={[
                   styles.stepLabel,
-                  index <= currentStep && styles.stepLabelActive,
+                  { color: colors.textSecondary },
+                  index <= currentStep && [styles.stepLabelActive, { color: colors.text }],
                 ]}
               >
                 {label}
@@ -186,7 +187,6 @@ export default function DriverJobScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   header: {
     backgroundColor: '#1E3A5F',
@@ -245,11 +245,9 @@ const styles = StyleSheet.create({
   },
   stepLabel: {
     fontSize: 15,
-    color: '#6B7280',
     fontWeight: '500',
   },
   stepLabelActive: {
-    color: '#1F2937',
     fontWeight: '700',
   },
   stepLine: {
@@ -283,11 +281,9 @@ const styles = StyleSheet.create({
   detailTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
   },
   detailText: {
     fontSize: 14,
-    color: '#6B7280',
     lineHeight: 22,
   },
   routeInfo: {
@@ -305,7 +301,6 @@ const styles = StyleSheet.create({
   },
   routeText: {
     fontSize: 14,
-    color: '#1F2937',
     fontWeight: '500',
   },
   routeConnector: {
@@ -344,7 +339,6 @@ const styles = StyleSheet.create({
   customerName: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#1F2937',
   },
   customerPrice: {
     fontSize: 14,

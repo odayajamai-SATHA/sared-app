@@ -84,7 +84,7 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 
         {/* Price breakdown */}
         <Animated.View style={[styles.breakdownCard, { backgroundColor: colors.card, borderColor: colors.border }, { opacity: detailFade, transform: [{ translateY: detailSlide }] }]}>
-          <Text style={[styles.breakdownTitle, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
+          <Text style={[styles.breakdownTitle, { color: colors.text }, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
 
           <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
             <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('service')}</Text>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     width: 40, height: 40, borderRadius: 20, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   rowReverse: { flexDirection: 'row-reverse' },
   content: { flex: 1, padding: 16 },
   priceSection: { alignItems: 'center', paddingVertical: 24 },
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
     shadowColor: '#22C55E', shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3, shadowRadius: 12, elevation: 8,
   },
-  guaranteeLabel: { fontSize: 15, fontWeight: '600', color: '#6B7280', marginBottom: 8 },
+  guaranteeLabel: { fontSize: 15, fontWeight: '600', marginBottom: 8 },
   priceBox: { flexDirection: 'row', alignItems: 'baseline', marginBottom: 12 },
-  currency: { fontSize: 20, fontWeight: '600', color: '#1F2937', marginEnd: 6 },
-  priceAmount: { fontSize: 52, fontWeight: '800', color: '#1F2937' },
+  currency: { fontSize: 20, fontWeight: '600', marginEnd: 6 },
+  priceAmount: { fontSize: 52, fontWeight: '800' },
   neverPayBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
     backgroundColor: '#F0FDF4', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 8,
@@ -178,16 +178,16 @@ const styles = StyleSheet.create({
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06, shadowRadius: 12, elevation: 4,
   },
-  breakdownTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937', marginBottom: 14 },
+  breakdownTitle: { fontSize: 16, fontWeight: '700', marginBottom: 14 },
   breakdownRow: {
     flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8,
   },
-  breakdownLabel: { fontSize: 14, color: '#6B7280' },
-  breakdownValue: { fontSize: 14, fontWeight: '600', color: '#1F2937' },
+  breakdownLabel: { fontSize: 14,  },
+  breakdownValue: { fontSize: 14, fontWeight: '600' },
   divider: { height: 1, backgroundColor: theme.primary, opacity: 0.2, marginVertical: 8 },
-  maxLabel: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
+  maxLabel: { fontSize: 16, fontWeight: '700' },
   maxValue: { fontSize: 20, fontWeight: '800', color: '#22C55E' },
-  noteText: { fontSize: 12, color: '#6B7280', marginTop: 12, lineHeight: 18 },
+  noteText: { fontSize: 12, marginTop: 12, lineHeight: 18 },
   bottomBar: { padding: 16, paddingBottom: 40, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: 'transparent' },
   confirmBtn: { borderRadius: 16, overflow: 'hidden' },
   confirmGradient: {

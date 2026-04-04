@@ -76,7 +76,7 @@ export default function SizeScreen({ route, navigation }) {
 
       <ScrollView style={styles.content} contentContainerStyle={styles.contentInner}>
         <Text style={[styles.serviceLabel, isRTL && styles.textRight]}>{service}</Text>
-        <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>{t('chooseSize')}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('chooseSize')}</Text>
 
         {sizes.map((size) => {
           const isSelected = selectedId === size.id;
@@ -92,18 +92,18 @@ export default function SizeScreen({ route, navigation }) {
                   <Ionicons name={size.icon} size={28} color={isSelected ? colors.primary : colors.gray} />
                 </View>
                 <View style={[styles.cardContent, isRTL && { alignItems: 'flex-end' }]}>
-                  <Text style={[styles.cardTitle, isSelected && { color: colors.primary }]}>
+                  <Text style={[styles.cardTitle, { color: colors.text }, isSelected && { color: colors.primary }]}>
                     {isAr ? size.nameAr : size.nameEn}
                   </Text>
-                  <Text style={[styles.cardDesc, isRTL && styles.textRight]}>
+                  <Text style={[styles.cardDesc, { color: colors.textSecondary }, isRTL && styles.textRight]}>
                     {isAr ? size.descAr : size.descEn}
                   </Text>
-                  <Text style={[styles.cardSpec, isRTL && styles.textRight]}>
+                  <Text style={[styles.cardSpec, { color: colors.textSecondary }, isRTL && styles.textRight]}>
                     {isAr ? size.specAr : size.specEn}
                   </Text>
                 </View>
                 <View style={[styles.priceCol, { color: colors.text }]}>
-                  <Text style={[styles.priceNum, isSelected && { color: colors.primary }]}>
+                  <Text style={[styles.priceNum, { color: colors.text }, isSelected && { color: colors.primary }]}>
                     {size.pricePerKm}
                   </Text>
                   <Text style={[styles.priceUnit, { color: colors.textSecondary }]}>{isAr ? 'ر.س/كم' : 'SAR/km'}</Text>
@@ -133,7 +133,7 @@ export default function SizeScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: undefined },
+  container: { flex: 1 },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingTop: 60, paddingHorizontal: 16, paddingBottom: 16,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     width: 44, height: 44, borderRadius: 22, backgroundColor: 'transparent',
     justifyContent: 'center', alignItems: 'center',
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#1F2937' },
+  headerTitle: { fontSize: 18, fontWeight: '700' },
   content: { flex: 1 },
   contentInner: { padding: 20 },
   serviceLabel: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8,
     overflow: 'hidden', marginBottom: 12,
   },
-  sectionTitle: { fontSize: 16, fontWeight: '600', color: '#6B7280', marginBottom: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 16 },
   card: {
     backgroundColor: 'transparent', borderRadius: 16, padding: 16, marginBottom: 12,
     borderWidth: 2, borderColor: 'transparent', position: 'relative',
@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center', alignItems: 'center', marginEnd: 14,
   },
   cardContent: { flex: 1 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: '#1F2937' },
-  cardDesc: { fontSize: 13, color: '#6B7280', marginTop: 2 },
-  cardSpec: { fontSize: 12, color: '#6B7280', marginTop: 2 },
+  cardTitle: { fontSize: 16, fontWeight: '700' },
+  cardDesc: { fontSize: 13, marginTop: 2 },
+  cardSpec: { fontSize: 12, marginTop: 2 },
   priceCol: { alignItems: 'center', marginStart: 8 },
-  priceNum: { fontSize: 24, fontWeight: '800', color: '#1F2937' },
-  priceUnit: { fontSize: 11, color: '#6B7280', marginTop: 2 },
+  priceNum: { fontSize: 24, fontWeight: '800' },
+  priceUnit: { fontSize: 11, marginTop: 2 },
   selectedCheck: { position: 'absolute', top: 12, end: 12 },
   textRight: { textAlign: 'right' },
   bottomBar: {

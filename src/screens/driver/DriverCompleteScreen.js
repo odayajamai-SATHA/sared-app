@@ -25,7 +25,7 @@ export default function DriverCompleteScreen({ route, navigation }) {
       </View>
 
       <View style={[styles.card, { color: colors.text }]}>
-        <Text style={[styles.cardTitle, isRTL && styles.textRight]}>
+        <Text style={[styles.cardTitle, { color: colors.text }, isRTL && styles.textRight]}>
           {t('tripSummary')}
         </Text>
 
@@ -72,7 +72,6 @@ export default function DriverCompleteScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: undefined,
   },
   topSection: {
     backgroundColor: '#22C55E',
@@ -108,7 +107,6 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1F2937',
     marginBottom: 16,
   },
   summaryRow: {
@@ -120,12 +118,10 @@ const styles = StyleSheet.create({
   },
   summaryLabel: {
     fontSize: 14,
-    color: '#6B7280',
   },
   summaryValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1F2937',
   },
   totalRow: {
     flexDirection: 'row',
@@ -136,7 +132,6 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#1F2937',
   },
   totalValue: {
     fontSize: 20,
@@ -159,12 +154,10 @@ const styles = StyleSheet.create({
   ratingTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1F2937',
     marginTop: 8,
   },
   ratingText: {
     fontSize: 13,
-    color: '#6B7280',
     marginTop: 4,
     textAlign: 'center',
   },
