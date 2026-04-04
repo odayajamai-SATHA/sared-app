@@ -153,8 +153,8 @@ export default function TrackingScreen({ route, navigation }) {
 
   const handleComplete = async () => {
     Alert.alert(
-      lang === 'ar' ? 'تأكيد الوصول' : 'Confirm Arrival',
-      lang === 'ar' ? 'هل وصل السائق وتم تحميل سيارتك؟' : 'Has the driver arrived and loaded your vehicle?',
+      t('confirmArrival'),
+      t('confirmArrivalMsg'),
       [
         { text: t('cancel'), style: 'cancel' },
         {
@@ -221,7 +221,7 @@ export default function TrackingScreen({ route, navigation }) {
             )}
             <TouchableOpacity style={[styles.sosCallBtn, { color: colors.text }, isRTL && styles.rowReverse]} onPress={() => { setShowSOS(false); try { Linking.openURL('tel:911'); } catch {} }}>
               <Ionicons name="call" size={20} color="#DC2626" />
-              <Text style={[styles.sosCallText, { color: colors.text }]}>{t('callEmergency') || 'Call 911'}</Text>
+              <Text style={[styles.sosCallText, { color: colors.text }]}>{t('callEmergency')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.sosCancelBtn, { color: colors.text }]} onPress={() => setShowSOS(false)}>
               <Text style={styles.sosCancelText}>{t('cancel')}</Text>

@@ -67,11 +67,11 @@ export default function LoginScreen({ navigation: rawNav }) {
       setLoading(false);
       if (error) {
         Alert.alert(
-          t('error') || 'Error',
-          'SMS service is being configured. Please continue as guest for now.',
+          t('error'),
+          t('smsConfiguring'),
           [
-            { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
-            { text: 'Test OTP Screen', onPress: () => navigation.navigate('OTP', { phone }) },
+            { text: t('continueAsGuest'), onPress: () => navigation.replace('Main') },
+            { text: t('verifyOTP'), onPress: () => navigation.navigate('OTP', { phone }) },
           ]
         );
         return;
@@ -81,12 +81,11 @@ export default function LoginScreen({ navigation: rawNav }) {
     } catch (e) {
       setLoading(false);
       Alert.alert(
-        t('error') || 'Error',
-        'SMS verification not available yet.',
+        t('error'),
+        t('smsNotAvailable'),
         [
-          { text: t('cancel') || 'Cancel', style: 'cancel' },
-          { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
-          { text: 'Test OTP', onPress: () => navigation.navigate('OTP', { phone }) },
+          { text: t('cancel'), style: 'cancel' },
+          { text: t('continueAsGuest'), onPress: () => navigation.replace('Main') },
         ]
       );
     }

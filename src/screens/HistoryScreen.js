@@ -66,7 +66,7 @@ export default function HistoryScreen({ navigation }) {
           {item.price ? `SAR ${item.price}` : '--'}
         </Text>
         <Text style={[styles.rideStatus, { color: getStatusColor(item.status) }]}>
-          {item.status || 'pending'}
+          {t('status' + (item.status || 'pending').charAt(0).toUpperCase() + (item.status || 'pending').slice(1)) || item.status || t('pending')}
         </Text>
       </View>
     </View>

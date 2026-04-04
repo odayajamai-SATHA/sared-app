@@ -135,7 +135,7 @@ export default function BookingScreen({ route, navigation }) {
             <Text style={styles.promoBtnText}>{t('applyPromo')}</Text>
           </TouchableOpacity>
         </View>
-        {fare.promoApplied && <View style={[styles.promoSuccess, { color: colors.text }]}><Ionicons name="checkmark-circle" size={16} color="#22C55E" /><Text style={[styles.promoSuccessText, { color: colors.primary }]}>{fare.promoApplied === 'SARED1' ? (t('promoFirstFree') || 'Promo applied: First rescue free!') : t('promoApplied')}</Text></View>}
+        {fare.promoApplied && <View style={[styles.promoSuccess, { color: colors.text }]}><Ionicons name="checkmark-circle" size={16} color="#22C55E" /><Text style={[styles.promoSuccessText, { color: colors.primary }]}>{fare.promoApplied === 'SARED1' ? t('promoFirstFree') : t('promoApplied')}</Text></View>}
         {fare.promoError && <Text style={styles.promoError}>{t(fare.promoError)}</Text>}
       </View>
 

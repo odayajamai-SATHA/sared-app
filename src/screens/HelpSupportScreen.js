@@ -16,36 +16,11 @@ export default function HelpSupportScreen({ navigation }) {
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   const faqs = [
-    {
-      q: lang === 'ar' ? 'كيف أطلب سطحة؟' : 'How do I request a tow?',
-      a: lang === 'ar'
-        ? 'افتح التطبيق، اختر الخدمة، اختر حجم المركبة، أكد السعر، واختر طريقة الدفع. سيتم ربطك بسائق خلال دقائق.'
-        : 'Open the app, select your service, choose vehicle size, confirm the price, and pick your payment method. A driver will be matched to you within minutes.',
-    },
-    {
-      q: lang === 'ar' ? 'ما هي طرق الدفع المتاحة؟' : 'What payment methods do you accept?',
-      a: lang === 'ar'
-        ? 'نقبل STC Pay، نقد، ودفع بالبطاقة (مدى/فيزا) قريباً.'
-        : 'We accept STC Pay, Cash, and card payments (Mada/Visa) coming soon.',
-    },
-    {
-      q: lang === 'ar' ? 'كيف يتم حساب السعر؟' : 'How is the price calculated?',
-      a: lang === 'ar'
-        ? 'الأسعار تعتمد على المسافة، حجم المركبة، والوقت. جميع الأسعار شاملة ضريبة القيمة المضافة 15%. ترى السعر المضمون قبل التأكيد.'
-        : 'Prices are based on distance, vehicle size, and time of day. All prices include 15% VAT. You see the guaranteed maximum price before confirming.',
-    },
-    {
-      q: lang === 'ar' ? 'هل أقدر ألغي الطلب؟' : 'Can I cancel a request?',
-      a: lang === 'ar'
-        ? 'نعم، تقدر تلغي مجاناً قبل إرسال السائق. بعد الإرسال، قد تطبق رسوم إلغاء 15 ريال.'
-        : 'Yes, you can cancel for free before a driver is dispatched. After dispatch, a SAR 15 cancellation fee may apply.',
-    },
-    {
-      q: lang === 'ar' ? 'هل سيارتي مؤمنة أثناء النقل؟' : 'Is my car insured during transport?',
-      a: lang === 'ar'
-        ? 'جميع سائقي سارد لديهم تأمين مسؤولية. تحقق من تغطية تأمينك من خلال شاشة التأمين.'
-        : 'All Sared drivers carry liability insurance. Check your own insurance coverage through our Insurance screen.',
-    },
+    { q: t('faq1Q'), a: t('faq1A') },
+    { q: t('faq2Q'), a: t('faq2A') },
+    { q: t('faq3Q'), a: t('faq3A') },
+    { q: t('faq4Q'), a: t('faq4A') },
+    { q: t('faq5Q'), a: t('faq5A') },
   ];
 
   return (
@@ -61,29 +36,29 @@ export default function HelpSupportScreen({ navigation }) {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Contact Us */}
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
-          {lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+          {t('contactUs')}
         </Text>
         <View style={[styles.contactRow, isRTL && styles.rowReverse, { color: colors.text }]}>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#25D36615' }]}
             onPress={() => { try { Linking.openURL(WHATSAPP_URL); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={28} color="#25D366" />
-            <Text style={[styles.contactLabel, { color: colors.text }]}>{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</Text>
+            <Text style={[styles.contactLabel, { color: colors.text }]}>{t('whatsapp')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#3B82F615' }]}
             onPress={() => { try { Linking.openURL(PHONE_URL); } catch {} }}>
             <Ionicons name="call" size={28} color="#3B82F6" />
-            <Text style={[styles.contactLabel, { color: colors.text }]}>{lang === 'ar' ? 'اتصال' : 'Call'}</Text>
+            <Text style={[styles.contactLabel, { color: colors.text }]}>{t('callUs')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.contactCard, { backgroundColor: '#EF444415' }]}
             onPress={() => { try { Linking.openURL(EMAIL_URL); } catch {} }}>
             <Ionicons name="mail" size={28} color="#EF4444" />
-            <Text style={[styles.contactLabel, { color: colors.text }]}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
+            <Text style={[styles.contactLabel, { color: colors.text }]}>{t('emailUs')}</Text>
           </TouchableOpacity>
         </View>
 
         {/* FAQ */}
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
-          {lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
+          {t('faqTitle')}
         </Text>
         {faqs.map((faq, i) => (
           <TouchableOpacity key={i} style={[styles.faqCard, { color: colors.text }]}
@@ -101,12 +76,12 @@ export default function HelpSupportScreen({ navigation }) {
 
         {/* Report Problem */}
         <Text style={[styles.sectionTitle, isRTL && styles.textRight]}>
-          {lang === 'ar' ? 'الإبلاغ عن مشكلة' : 'Report a Problem'}
+          {t('reportProblem')}
         </Text>
         <TouchableOpacity style={[styles.reportBtn, isRTL && styles.rowReverse, { color: colors.text }]} onPress={() => { try { Linking.openURL(REPORT_URL); } catch {} }}>
           <Ionicons name="logo-whatsapp" size={20} color="#FFF" />
           <Text style={styles.reportBtnText}>
-            {lang === 'ar' ? 'أبلغ عبر واتساب' : 'Report via WhatsApp'}
+            {t('reportViaWhatsapp')}
           </Text>
         </TouchableOpacity>
 
@@ -114,7 +89,7 @@ export default function HelpSupportScreen({ navigation }) {
         <View style={[styles.availableRow, isRTL && styles.rowReverse, { color: colors.text }]}>
           <Ionicons name="time-outline" size={16} color={colors.gray} />
           <Text style={[styles.availableText, { color: colors.textSecondary }]}>
-            {lang === 'ar' ? 'متاح على مدار الساعة' : 'Available 24/7'}
+            {t('available247')}
           </Text>
         </View>
 

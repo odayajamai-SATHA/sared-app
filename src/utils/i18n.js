@@ -457,7 +457,7 @@ const translations = {
     faq: 'Frequently Asked Questions',
     reportProblem: 'Report a Problem',
     notifyMe: 'Notify Me',
-    comingSoonPayments: 'Coming soon - payments launching April 2026',
+    comingSoonPayments: 'Membership payments launching soon!',
     notifyMeAlert: "We'll notify you when memberships launch!",
     darkModeComingSoon: 'Dark Mode (Coming Soon)',
     demoOtpHint: 'For demo: enter any 6 digits',
@@ -544,6 +544,81 @@ const translations = {
     madeInCity: 'Dammam, Saudi Arabia',
     proudlyMade: 'Proudly made in Saudi Arabia',
     rateApp: 'Rate the App',
+
+    // SMS/OTP errors
+    smsConfiguring: 'SMS service is being configured. Please continue as guest for now.',
+    smsNotAvailable: 'SMS verification not available yet.',
+    couldNotResend: 'Could not resend OTP.',
+
+    // Settings - Appearance
+    appearance: 'Appearance',
+    lightTheme: 'Light',
+    darkTheme: 'Dark',
+    systemTheme: 'System',
+
+    // Help & Support
+    contactUs: 'Contact Us',
+    whatsapp: 'WhatsApp',
+    callUs: 'Call',
+    emailUs: 'Email',
+    faqTitle: 'FAQ',
+    reportViaWhatsapp: 'Report via WhatsApp',
+    available247: 'Available 24/7',
+    faq1Q: 'How do I request a tow?',
+    faq1A: 'Open the app, select your service, choose vehicle size, confirm the price, and pick your payment method. A driver will be matched to you within minutes.',
+    faq2Q: 'What payment methods do you accept?',
+    faq2A: 'We accept STC Pay, Cash, and card payments (Mada/Visa) coming soon.',
+    faq3Q: 'How is the price calculated?',
+    faq3A: 'Prices are based on distance, vehicle size, and time of day. All prices include 15% VAT. You see the guaranteed maximum price before confirming.',
+    faq4Q: 'Can I cancel a request?',
+    faq4A: 'Yes, you can cancel for free before a driver is dispatched. After dispatch, a SAR 15 cancellation fee may apply.',
+    faq5Q: 'Is my car insured during transport?',
+    faq5A: 'All Sared drivers carry liability insurance. Check your own insurance coverage through our Insurance screen.',
+
+    // Tracking alerts
+    confirmArrival: 'Confirm Arrival',
+    confirmArrivalMsg: 'Has the driver arrived and loaded your vehicle?',
+    needHelp: 'Need help?',
+
+    // Receipt sharing
+    whatsappNotInstalled: 'WhatsApp not installed',
+    noEmailApp: 'No email app found',
+
+    // Payment
+    currencyNote: 'All amounts in Saudi Riyal (SAR)',
+
+    // History status
+    statusCompleted: 'Completed',
+    statusCancelled: 'Cancelled',
+    statusPending: 'Pending',
+
+    // Driver Withdrawal
+    withdrawEarnings: 'Withdraw Earnings',
+    availableBalance: 'Available Balance',
+    withdrawalAmount: 'Withdrawal Amount',
+    allBalance: 'All',
+    withdrawalMethod: 'Withdrawal Method',
+    bankTransfer: 'Bank Transfer',
+    businessHours: '24-48 business hours',
+    withinHours: 'Within hours',
+    bankNamePlaceholder: 'Bank Name',
+    ibanPlaceholder: 'IBAN Number',
+    stcPayPlaceholder: 'STC Pay Number',
+    withdrawFunds: 'Withdraw Funds',
+    recentWithdrawals: 'Recent Withdrawals',
+    validAmountError: 'Enter a valid amount',
+    exceedsBalance: 'Amount exceeds available balance',
+    minWithdrawal: 'Minimum withdrawal is SAR 50',
+    selectWithdrawMethod: 'Select a withdrawal method',
+    enterBankDetails: 'Enter bank details',
+    enterStcNumber: 'Enter STC Pay number',
+    withdrawSubmitted: 'Request Submitted',
+    withdrawSubmittedMsg: 'Withdrawal request for SAR {amount} submitted. Transfer within 24-48 hours.',
+    withdrawCompleted: 'Completed',
+    withdrawPending: 'Pending',
+    withdrawRejected: 'Rejected',
+    bankLabel: 'Bank',
+    minWithdrawalInfo: 'Minimum withdrawal SAR 50. Bank transfers within 24-48 business hours. STC Pay within hours.',
   },
   ar: {
     // Login
@@ -674,6 +749,81 @@ const translations = {
     madeInCity: 'الدمام، السعودية',
     proudlyMade: 'صنع بفخر في المملكة العربية السعودية',
     rateApp: 'قيّم التطبيق',
+
+    // SMS/OTP errors
+    smsConfiguring: 'خدمة الرسائل قيد الإعداد. يرجى الدخول كزائر حالياً.',
+    smsNotAvailable: 'التحقق عبر الرسائل غير متاح حالياً.',
+    couldNotResend: 'تعذر إعادة إرسال الرمز.',
+
+    // Settings - Appearance
+    appearance: 'المظهر',
+    lightTheme: 'فاتح',
+    darkTheme: 'داكن',
+    systemTheme: 'حسب النظام',
+
+    // Help & Support
+    contactUs: 'تواصل معنا',
+    whatsapp: 'واتساب',
+    callUs: 'اتصال',
+    emailUs: 'بريد',
+    faqTitle: 'الأسئلة الشائعة',
+    reportViaWhatsapp: 'أبلغ عبر واتساب',
+    available247: 'متاح على مدار الساعة',
+    faq1Q: 'كيف أطلب سطحة؟',
+    faq1A: 'افتح التطبيق، اختر الخدمة، اختر حجم المركبة، أكد السعر، واختر طريقة الدفع. سيتم ربطك بسائق خلال دقائق.',
+    faq2Q: 'ما هي طرق الدفع المتاحة؟',
+    faq2A: 'نقبل STC Pay، نقد، ودفع بالبطاقة (مدى/فيزا) قريباً.',
+    faq3Q: 'كيف يتم حساب السعر؟',
+    faq3A: 'الأسعار تعتمد على المسافة، حجم المركبة، والوقت. جميع الأسعار شاملة ضريبة القيمة المضافة 15%. ترى السعر المضمون قبل التأكيد.',
+    faq4Q: 'هل أقدر ألغي الطلب؟',
+    faq4A: 'نعم، تقدر تلغي مجاناً قبل إرسال السائق. بعد الإرسال، قد تطبق رسوم إلغاء 15 ريال.',
+    faq5Q: 'هل سيارتي مؤمنة أثناء النقل؟',
+    faq5A: 'جميع سائقي سارد لديهم تأمين مسؤولية. تحقق من تغطية تأمينك من خلال شاشة التأمين.',
+
+    // Tracking alerts
+    confirmArrival: 'تأكيد الوصول',
+    confirmArrivalMsg: 'هل وصل السائق وتم تحميل سيارتك؟',
+    needHelp: 'تحتاج مساعدة؟',
+
+    // Receipt sharing
+    whatsappNotInstalled: 'واتساب غير مثبت',
+    noEmailApp: 'لا يوجد تطبيق بريد',
+
+    // Payment
+    currencyNote: 'جميع المبالغ بالريال السعودي (SAR)',
+
+    // History status
+    statusCompleted: 'مكتملة',
+    statusCancelled: 'ملغية',
+    statusPending: 'معلقة',
+
+    // Driver Withdrawal
+    withdrawEarnings: 'سحب الأرباح',
+    availableBalance: 'الرصيد المتاح',
+    withdrawalAmount: 'مبلغ السحب',
+    allBalance: 'الكل',
+    withdrawalMethod: 'طريقة السحب',
+    bankTransfer: 'تحويل بنكي',
+    businessHours: '24-48 ساعة عمل',
+    withinHours: 'خلال ساعات',
+    bankNamePlaceholder: 'اسم البنك',
+    ibanPlaceholder: 'رقم الآيبان (IBAN)',
+    stcPayPlaceholder: 'رقم STC Pay',
+    withdrawFunds: 'سحب الأرباح',
+    recentWithdrawals: 'عمليات السحب السابقة',
+    validAmountError: 'أدخل مبلغ صحيح',
+    exceedsBalance: 'المبلغ أكبر من الرصيد المتاح',
+    minWithdrawal: 'الحد الأدنى للسحب 50 ريال',
+    selectWithdrawMethod: 'اختر طريقة السحب',
+    enterBankDetails: 'أدخل بيانات البنك',
+    enterStcNumber: 'أدخل رقم STC Pay',
+    withdrawSubmitted: 'تم الطلب',
+    withdrawSubmittedMsg: 'تم تقديم طلب سحب {amount} ريال. سيتم التحويل خلال 24-48 ساعة.',
+    withdrawCompleted: 'مكتمل',
+    withdrawPending: 'قيد المعالجة',
+    withdrawRejected: 'مرفوض',
+    bankLabel: 'بنك',
+    minWithdrawalInfo: 'الحد الأدنى للسحب 50 ريال. التحويلات البنكية تتم خلال 24-48 ساعة عمل. STC Pay خلال ساعات.',
 
     // Driver
     driverMode: 'وضع السائق',
@@ -1041,7 +1191,7 @@ const translations = {
     faq: 'الأسئلة الشائعة',
     reportProblem: 'الإبلاغ عن مشكلة',
     notifyMe: 'أبلغني',
-    comingSoonPayments: 'قريباً - الدفع ينطلق أبريل 2026',
+    comingSoonPayments: 'اشتراكات العضوية تنطلق قريباً!',
     notifyMeAlert: 'سنبلغك عند إطلاق العضويات!',
     darkModeComingSoon: 'الوضع الداكن (قريباً)',
     demoOtpHint: 'للتجربة: أدخل أي 6 أرقام',

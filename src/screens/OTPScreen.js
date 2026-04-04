@@ -83,11 +83,11 @@ export default function OTPScreen({ route, navigation }) {
     } catch (e) {
       setLoading(false);
       Alert.alert(
-        t('error') || 'Error',
-        'SMS verification not available yet. Continue as guest?',
+        t('error'),
+        t('smsNotAvailable'),
         [
-          { text: t('cancel') || 'Cancel', style: 'cancel' },
-          { text: t('continueAsGuest') || 'Continue as Guest', onPress: () => navigation.replace('Main') },
+          { text: t('cancel'), style: 'cancel' },
+          { text: t('continueAsGuest'), onPress: () => navigation.replace('Main') },
         ]
       );
     }
@@ -110,7 +110,7 @@ export default function OTPScreen({ route, navigation }) {
         });
       }, 1000);
     } catch (e) {
-      Alert.alert(t('error') || 'Error', 'Could not resend OTP.');
+      Alert.alert(t('error'), t('couldNotResend'));
     }
   };
 

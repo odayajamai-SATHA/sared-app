@@ -67,7 +67,7 @@ export default function ReceiptScreen({ route, navigation }) {
     try {
       await Linking.openURL(whatsappUrl);
     } catch {
-      Alert.alert(t('error'), lang === 'ar' ? 'واتساب غير مثبت' : 'WhatsApp not installed');
+      Alert.alert(t('error'), t('whatsappNotInstalled'));
     }
   };
 
@@ -77,7 +77,7 @@ export default function ReceiptScreen({ route, navigation }) {
     try {
       await Linking.openURL(`mailto:?subject=${subject}&body=${body}`);
     } catch {
-      Alert.alert(t('error'), lang === 'ar' ? 'لا يوجد تطبيق بريد' : 'No email app found');
+      Alert.alert(t('error'), t('noEmailApp'));
     }
   };
 
@@ -164,7 +164,7 @@ export default function ReceiptScreen({ route, navigation }) {
       {/* Share action buttons */}
       <View style={[styles.shareSection, { color: colors.text }]}>
         <Text style={[styles.shareTitle, { color: colors.text }]}>
-          {lang === 'ar' ? 'مشاركة الإيصال' : 'Share Receipt'}
+          {t('shareReceipt')}
         </Text>
         <View style={[styles.shareRow, { color: colors.text }, isRTL && styles.rowReverse]}>
           <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#25D366' }, isRTL && styles.rowReverse]} onPress={handleShareWhatsApp}>

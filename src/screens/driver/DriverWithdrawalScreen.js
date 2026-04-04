@@ -81,27 +81,27 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
   const handleWithdraw = async () => {
     const num = parseFloat(amount);
     if (!num || num <= 0) {
-      Alert.alert(t('error'), lang === 'ar' ? 'أدخل مبلغ صحيح' : 'Enter a valid amount');
+      Alert.alert(t('error'), t('validAmountError'));
       return;
     }
     if (num > balance) {
-      Alert.alert(t('error'), lang === 'ar' ? 'المبلغ أكبر من الرصيد المتاح' : 'Amount exceeds available balance');
+      Alert.alert(t('error'), t('exceedsBalance'));
       return;
     }
     if (num < 50) {
-      Alert.alert(t('error'), lang === 'ar' ? 'الحد الأدنى للسحب 50 ريال' : 'Minimum withdrawal is SAR 50');
+      Alert.alert(t('error'), t('minWithdrawal'));
       return;
     }
     if (!method) {
-      Alert.alert(t('error'), lang === 'ar' ? 'اختر طريقة السحب' : 'Select a withdrawal method');
+      Alert.alert(t('error'), t('selectWithdrawMethod'));
       return;
     }
     if (method === 'bank' && (!bankName.trim() || !iban.trim())) {
-      Alert.alert(t('error'), lang === 'ar' ? 'أدخل بيانات البنك' : 'Enter bank details');
+      Alert.alert(t('error'), t('enterBankDetails'));
       return;
     }
     if (method === 'stc_pay' && !stcNumber.trim()) {
-      Alert.alert(t('error'), lang === 'ar' ? 'أدخل رقم STC Pay' : 'Enter STC Pay number');
+      Alert.alert(t('error'), t('enterStcNumber'));
       return;
     }
 
@@ -131,10 +131,8 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
       fetchWithdrawals();
 
       Alert.alert(
-        lang === 'ar' ? 'تم الطلب' : 'Request Submitted',
-        lang === 'ar'
-          ? `تم تقديم طلب سحب ${num} ريال. سيتم التحويل خلال 24-48 ساعة.`
-          : `Withdrawal request for SAR ${num} submitted. Transfer within 24-48 hours.`
+        t('withdrawSubmitted'),
+        t('withdrawSubmittedMsg').replace('{amount}', num)
       );
     } catch (e) {
       Alert.alert(t('error'), e.message || t('connectionError'));
@@ -144,9 +142,9 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'completed': return { bg: colors.successFaded, color: colors.success, label: lang === 'ar' ? 'مكتمل' : 'Completed' };
-      case 'pending': return { bg: colors.warningFaded, color: colors.warning, label: lang === 'ar' ? 'قيد المعالجة' : 'Pending' };
-      case 'rejected': return { bg: colors.dangerFaded, color: colors.danger, label: lang === 'ar' ? 'مرفوض' : 'Rejected' };
+      case 'completed': return { bg: colors.successFaded, color: colors.success, label: t('withdrawCompleted') };
+      case 'pending': return { bg: colors.warningFaded, color: colors.warning, label: t('withdrawPending') };
+      case 'rejected': return { bg: colors.dangerFaded, color: colors.danger, label: t('withdrawRejected') };
       default: return { bg: colors.surfaceSecondary, color: colors.gray, label: status };
     }
   };
@@ -160,12 +158,12 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Ionicons name={isRTL ? 'arrow-forward' : 'arrow-back'} size={24} color="#FFF" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>{lang === 'ar' ? 'سحب الأرباح' : 'Withdraw Earnings'}</Text>
+          <Text style={styles.headerTitle}>{t('withdrawEarnings')}</Text>
           <View style={{ width: 40 }} />
         </View>
 
         <View style={[styles.balanceCard, { color: colors.text }]}>
-          <Text style={styles.balanceLabel}>{lang === 'ar' ? 'الرصيد المتاح' : 'Available Balance'}</Text>
+          <Text style={styles.balanceLabel}>{t('availableBalance')}</Text>
           <Text style={styles.balanceAmount}>{balance} SAR</Text>
         </View>
       </View>
@@ -175,7 +173,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           {/* Amount input */}
           <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
             <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
-              {lang === 'ar' ? 'مبلغ السحب' : 'Withdrawal Amount'}
+              {t('withdrawalAmount')}
             </Text>
             <View style={[styles.amountRow, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder }, isRTL && styles.rowReverse]}>
               <Text style={[styles.sarLabel, { color: colors.textSecondary }]}>SAR</Text>
@@ -202,7 +200,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                 style={[styles.quickChip, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]}
                 onPress={() => setAmount(String(balance))}
               >
-                <Text style={[styles.quickText, { color: colors.primary }]}>{lang === 'ar' ? 'الكل' : 'All'}</Text>
+                <Text style={[styles.quickText, { color: colors.primary }]}>{t('allBalance')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -210,7 +208,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           {/* Withdrawal method */}
           <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
             <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
-              {lang === 'ar' ? 'طريقة السحب' : 'Withdrawal Method'}
+              {t('withdrawalMethod')}
             </Text>
             {WITHDRAWAL_METHODS.map((m) => (
               <TouchableOpacity
@@ -228,12 +226,10 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={[styles.methodTitle, { color: colors.text }]}>
-                    {m.id === 'bank' ? (lang === 'ar' ? 'تحويل بنكي' : 'Bank Transfer') : 'STC Pay'}
+                    {m.id === 'bank' ? t('bankTransfer') : 'STC Pay'}
                   </Text>
                   <Text style={[styles.methodDesc, { color: colors.textSecondary }]}>
-                    {m.id === 'bank'
-                      ? (lang === 'ar' ? '24-48 ساعة عمل' : '24-48 business hours')
-                      : (lang === 'ar' ? 'خلال ساعات' : 'Within hours')}
+                    {m.id === 'bank' ? t('businessHours') : t('withinHours')}
                   </Text>
                 </View>
                 {method === m.id && <Ionicons name="checkmark-circle" size={22} color={colors.primary} />}
@@ -245,14 +241,14 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
               <View style={[styles.detailsSection, { color: colors.text }]}>
                 <TextInput
                   style={[styles.detailInput, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder, color: colors.text }]}
-                  placeholder={lang === 'ar' ? 'اسم البنك' : 'Bank Name'}
+                  placeholder={t('bankNamePlaceholder')}
                   placeholderTextColor={colors.gray}
                   value={bankName}
                   onChangeText={setBankName}
                 />
                 <TextInput
                   style={[styles.detailInput, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder, color: colors.text }]}
-                  placeholder={lang === 'ar' ? 'رقم الآيبان (IBAN)' : 'IBAN Number'}
+                  placeholder={t('ibanPlaceholder')}
                   placeholderTextColor={colors.gray}
                   value={iban}
                   onChangeText={setIban}
@@ -267,7 +263,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
               <View style={[styles.detailsSection, { color: colors.text }]}>
                 <TextInput
                   style={[styles.detailInput, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder, color: colors.text }]}
-                  placeholder={lang === 'ar' ? 'رقم STC Pay' : 'STC Pay Number'}
+                  placeholder={t('stcPayPlaceholder')}
                   placeholderTextColor={colors.gray}
                   value={stcNumber}
                   onChangeText={setStcNumber}
@@ -290,7 +286,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
               <>
                 <Ionicons name="wallet-outline" size={20} color="#FFF" />
                 <Text style={styles.withdrawBtnText}>
-                  {lang === 'ar' ? 'سحب الأرباح' : 'Withdraw Funds'}
+                  {t('withdrawFunds')}
                 </Text>
               </>
             )}
@@ -300,7 +296,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           {withdrawals.length > 0 && (
             <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
               <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
-                {lang === 'ar' ? 'عمليات السحب السابقة' : 'Recent Withdrawals'}
+                {t('recentWithdrawals')}
               </Text>
               {withdrawals.map((w) => {
                 const badge = getStatusBadge(w.status);
@@ -310,7 +306,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                       <Text style={[styles.withdrawalAmount, { color: colors.text }]}>SAR {w.amount}</Text>
                       <Text style={[styles.withdrawalDate, { color: colors.textSecondary }]}>
                         {new Date(w.created_at).toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-SA', { month: 'short', day: 'numeric' })}
-                        {' • '}{w.method === 'bank' ? (lang === 'ar' ? 'بنك' : 'Bank') : 'STC Pay'}
+                        {' • '}{w.method === 'bank' ? t('bankLabel') : 'STC Pay'}
                       </Text>
                     </View>
                     <View style={[styles.statusBadge, { backgroundColor: badge.bg }]}>
@@ -326,9 +322,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
           <View style={[styles.infoCard, { backgroundColor: colors.warningFaded, borderColor: colors.border }, isRTL && styles.rowReverse]}>
             <Ionicons name="information-circle" size={20} color={colors.warning} />
             <Text style={[styles.infoText, { color: colors.textSecondary }]}>
-              {lang === 'ar'
-                ? 'الحد الأدنى للسحب 50 ريال. التحويلات البنكية تتم خلال 24-48 ساعة عمل. STC Pay خلال ساعات.'
-                : 'Minimum withdrawal SAR 50. Bank transfers within 24-48 business hours. STC Pay within hours.'}
+              {t('minWithdrawalInfo')}
             </Text>
           </View>
 

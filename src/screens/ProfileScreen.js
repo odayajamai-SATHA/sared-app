@@ -34,8 +34,8 @@ export default function ProfileScreen({ navigation }) {
   const showComingSoon = (feature) => {
     Alert.alert(
       t('comingSoon'),
-      t('featureComingSoonDesc') || 'This feature will be available in the next update.',
-      [{ text: 'OK' }]
+      t('featureComingSoonDesc'),
+      [{ text: t('confirm') }]
     );
   };
 
@@ -135,7 +135,7 @@ export default function ProfileScreen({ navigation }) {
           style={({ pressed }) => [styles.shareRow, isRTL && styles.rowReverse, pressed && { backgroundColor: '#f0f0f0' }]}
           onPress={async () => {
             try {
-              await Share.share({ message: 'Download Sared - Saudi tow truck app: https://sared.app', title: 'Sared' });
+              await Share.share({ message: t('shareMessage') + 'https://sared.app', title: t('appName') });
             } catch {}
           }}
         >

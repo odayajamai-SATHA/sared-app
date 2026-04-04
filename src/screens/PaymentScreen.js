@@ -226,7 +226,7 @@ export default function PaymentScreen({ route, navigation }) {
           <View style={[styles.currencyNote, isRTL && styles.rowReverse]}>
             <Ionicons name="information-circle-outline" size={16} color={colors.gray} />
             <Text style={[styles.currencyText, { color: colors.textSecondary }]}>
-              {isRTL ? 'جميع المبالغ بالريال السعودي (SAR)' : 'All amounts in Saudi Riyal (SAR)'}
+              {t('currencyNote')}
             </Text>
           </View>
 

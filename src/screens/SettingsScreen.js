@@ -76,12 +76,12 @@ export default function SettingsScreen({ navigation }) {
           {/* Dark Mode - FUNCTIONAL */}
           <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
             <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
-              {lang === 'ar' ? 'المظهر' : 'Appearance'}
+              {t('appearance')}
             </Text>
             {[
-              { id: 'light', icon: 'sunny', label: lang === 'ar' ? 'فاتح' : 'Light' },
-              { id: 'dark', icon: 'moon', label: lang === 'ar' ? 'داكن' : 'Dark' },
-              { id: 'system', icon: 'phone-portrait-outline', label: lang === 'ar' ? 'حسب النظام' : 'System' },
+              { id: 'light', icon: 'sunny', label: t('lightTheme') },
+              { id: 'dark', icon: 'moon', label: t('darkTheme') },
+              { id: 'system', icon: 'phone-portrait-outline', label: t('systemTheme') },
             ].map((opt) => (
               <TouchableOpacity
                 key={opt.id}

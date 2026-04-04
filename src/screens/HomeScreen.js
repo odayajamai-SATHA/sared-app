@@ -69,13 +69,13 @@ export default function HomeScreen({ navigation: rawNav }) {
         <View style={[styles.greetingSection, { color: colors.text }]}>
           <Text style={[styles.greeting, { color: colors.text }, isRTL && styles.textRight]}>{getGreeting()}</Text>
           <Text style={[styles.greetingSub, { color: colors.textSecondary }, isRTL && styles.textRight]}>
-            {t('howCanWeHelp') || 'How can we help you today?'}
+            {t('howCanWeHelp')}
           </Text>
           <TouchableOpacity style={[styles.helpLink, { color: colors.text }, isRTL && styles.rowReverse]}
             onPress={() => { try { Linking.openURL('https://wa.me/966554404434'); } catch {} }}>
             <Ionicons name="logo-whatsapp" size={14} color="#25D366" />
             <Text style={[styles.helpLinkText, { color: colors.text }]}>
-              {isRTL ? 'تحتاج مساعدة؟' : 'Need help?'}
+              {t('needHelp')}
             </Text>
           </TouchableOpacity>
         </View>
