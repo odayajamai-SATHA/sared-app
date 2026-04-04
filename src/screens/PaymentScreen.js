@@ -126,7 +126,7 @@ export default function PaymentScreen({ route, navigation }) {
             <TouchableOpacity style={[styles.copyBtn, isRTL && styles.rowReverse]} onPress={handleCopyNumber}>
               <Ionicons name={copied ? 'checkmark' : 'copy-outline'} size={18} color={copied ? '#22C55E' : colors.primary} />
               <Text style={[styles.copyText, copied && { color: '#22C55E' }]}>
-                {copied ? (t('copied') || 'Copied!') : (t('copyNumber') || 'Copy')}
+                {copied ? t('copied') : t('copyNumber')}
               </Text>
             </TouchableOpacity>
           </View>

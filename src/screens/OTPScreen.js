@@ -78,7 +78,7 @@ export default function OTPScreen({ route, navigation }) {
       if (data?.session) {
         navigation.replace('Main');
       } else {
-        setError(t('verificationFailed') || 'Verification failed. Please try again.');
+        setError(t('verificationFailed'));
       }
     } catch (e) {
       setLoading(false);
@@ -98,10 +98,10 @@ export default function OTPScreen({ route, navigation }) {
     try {
       const { error: resendError } = await supabase.auth.signInWithOtp({ phone: '+966' + phone });
       if (resendError) {
-        Alert.alert(t('error') || 'Error', resendError.message);
+        Alert.alert(t('error'), resendError.message);
         return;
       }
-      Alert.alert(t('otpResent') || 'OTP Resent');
+      Alert.alert(t('otpResent'));
       setResendCooldown(30);
       cooldownRef.current = setInterval(() => {
         setResendCooldown((prev) => {
@@ -170,7 +170,7 @@ export default function OTPScreen({ route, navigation }) {
           <TouchableOpacity style={styles.resendBtn} onPress={handleResend} disabled={resendCooldown > 0}>
             <Text style={[styles.resendText, resendCooldown > 0 && { opacity: 0.5 }]}>
               {resendCooldown > 0
-                ? `${t('resendIn') || 'Resend in'} ${resendCooldown}s`
+                ? `${t('resendIn')} ${resendCooldown}s`
                 : t('resendOTP')}
             </Text>
           </TouchableOpacity>

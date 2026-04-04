@@ -32,10 +32,10 @@ export default function DriverLoginScreen({ navigation }) {
       if (error || !data) {
         setLoading(false);
         Alert.alert(
-          t('error') || 'Error',
+          t('error'),
           t('noDriverAccount'),
           [
-            { text: t('cancel') || 'Cancel', style: 'cancel' },
+            { text: t('cancel'), style: 'cancel' },
             {
               text: t('demoMode'),
               onPress: () => {
@@ -61,7 +61,7 @@ export default function DriverLoginScreen({ navigation }) {
       if (data.driver_id && data.driver_id !== driverId) {
         setLoading(false);
         Alert.alert(
-          t('error') || 'Error',
+          t('error'),
           t('driverIdMismatch')
         );
         return;
@@ -70,7 +70,7 @@ export default function DriverLoginScreen({ navigation }) {
     } catch {
       setLoading(false);
       Alert.alert(
-        t('error') || 'Error',
+        t('error'),
         t('connectionError')
       );
     } finally {

@@ -96,14 +96,14 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
                   <Text style={styles.cardTitle} numberOfLines={1}>{service.title}</Text>
                   {service.comingSoon && (
                     <View style={[styles.comingSoonBadge, { color: colors.text }]}>
-                      <Text style={[styles.comingSoonText, { color: colors.text }]}>{lang === 'ar' ? 'قريباً' : 'Soon'}</Text>
+                      <Text style={[styles.comingSoonText, { color: colors.text }]}>{t('soon')}</Text>
                     </View>
                   )}
                 </View>
                 <Text style={[styles.cardDesc, isRTL && styles.textRight]}>{service.desc}</Text>
                 {!service.comingSoon && (
                   <Text style={[styles.cardPrice, { color: service.color }]}>
-                    {t('fromSar')} {service.price} ({t('inclVat') || 'incl. VAT'})
+                    {t('fromSar')} {service.price} ({t('inclVat')})
                   </Text>
                 )}
               </View>

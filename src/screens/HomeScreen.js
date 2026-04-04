@@ -120,7 +120,7 @@ export default function HomeScreen({ navigation: rawNav }) {
 
         {/* Quick Actions 2x2 grid */}
         <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>
-          {t('quickServices') || 'Quick Services'}
+          {t('quickServices')}
         </Text>
         <View style={[styles.quickGrid, { color: colors.text }]}>
           {quickActions.map((action) => (

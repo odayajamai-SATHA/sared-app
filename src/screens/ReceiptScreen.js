@@ -30,25 +30,23 @@ export default function ReceiptScreen({ route, navigation }) {
   const total = fareBreakdown?.total || totalNum;
   const txnId = `TXN-${Date.now().toString().slice(-8)}`;
 
-  const paymentDisplay = paymentMethod === 'stc_pay' ? 'STC Pay'
-    : paymentMethod === 'cash' ? (lang === 'ar' ? 'نقداً' : 'Cash')
-    : (lang === 'ar' ? 'نقداً' : 'Cash');
+  const paymentDisplay = paymentMethod === 'stc_pay' ? 'STC Pay' : t('cashLabel');
 
   const buildReceiptMessage = () => {
     const lines = [
       `━━━━━━━━━━━━━━━━`,
-      `🛡️ ${lang === 'ar' ? 'إيصال سارد' : 'Sared Receipt'}`,
+      `🛡️ ${t('saredReceipt')}`,
       `━━━━━━━━━━━━━━━━`,
       ``,
       `📅 ${dateStr} | ${timeStr}`,
-      `🔧 ${service || (lang === 'ar' ? 'سطحة' : 'Tow')}`,
+      `🔧 ${service || t('towService')}`,
       size && size !== '—' ? `🚗 ${size}` : null,
       ``,
-      `💰 ${lang === 'ar' ? 'المبلغ الإجمالي' : 'Total'}: SAR ${total}`,
-      `💳 ${lang === 'ar' ? 'طريقة الدفع' : 'Payment'}: ${paymentDisplay}`,
+      `💰 ${t('receiptTotal')}: SAR ${total}`,
+      `💳 ${t('receiptPayment')}: ${paymentDisplay}`,
       `📝 ${txnId}`,
       ``,
-      `${lang === 'ar' ? 'شكراً لاستخدام سارد!' : 'Thank you for using Sared!'}`,
+      `${t('thankYouSared')}`,
       `https://sared.app`,
     ].filter(Boolean);
     return lines.join('\n');
@@ -57,7 +55,7 @@ export default function ReceiptScreen({ route, navigation }) {
   const handleManualShare = async () => {
     const msg = buildReceiptMessage();
     try {
-      await Share.share({ message: msg, title: lang === 'ar' ? 'إيصال سارد' : 'Sared Receipt' });
+      await Share.share({ message: msg, title: t('saredReceipt') });
     } catch {}
   };
 
@@ -72,7 +70,7 @@ export default function ReceiptScreen({ route, navigation }) {
   };
 
   const handleShareEmail = async () => {
-    const subject = encodeURIComponent(lang === 'ar' ? `إيصال سارد - ${txnId}` : `Sared Receipt - ${txnId}`);
+    const subject = encodeURIComponent(`${t('saredReceipt')} - ${txnId}`);
     const body = encodeURIComponent(buildReceiptMessage());
     try {
       await Linking.openURL(`mailto:?subject=${subject}&body=${body}`);
@@ -173,11 +171,11 @@ export default function ReceiptScreen({ route, navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.shareBtn, { backgroundColor: '#EA4335' }, isRTL && styles.rowReverse]} onPress={handleShareEmail}>
             <Ionicons name="mail" size={22} color="#FFF" />
-            <Text style={styles.shareBtnText}>{lang === 'ar' ? 'بريد' : 'Email'}</Text>
+            <Text style={styles.shareBtnText}>{t('emailLabel')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.shareBtn, { backgroundColor: colors.primary, borderColor: colors.border }, isRTL && styles.rowReverse]} onPress={handleManualShare}>
             <Ionicons name="share-social" size={22} color="#FFF" />
-            <Text style={styles.shareBtnText}>{lang === 'ar' ? 'أخرى' : 'Other'}</Text>
+            <Text style={styles.shareBtnText}>{t('otherShare')}</Text>
           </TouchableOpacity>
         </View>
       </View>

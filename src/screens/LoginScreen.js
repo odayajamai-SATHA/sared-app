@@ -151,7 +151,7 @@ export default function LoginScreen({ navigation: rawNav }) {
               {loading ? (
                 <ActivityIndicator size="small" color="#FFF" />
               ) : cooldown > 0 ? (
-                <Text style={styles.otpButtonText}>{t('resendIn') || 'Resend in'} {cooldown}s</Text>
+                <Text style={styles.otpButtonText}>{t('resendIn')} {cooldown}s</Text>
               ) : (
                 <>
                   <Ionicons name={isRTL ? 'arrow-back' : 'arrow-forward'} size={20} color="#FFF" />

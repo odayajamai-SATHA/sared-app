@@ -619,6 +619,16 @@ const translations = {
     withdrawRejected: 'Rejected',
     bankLabel: 'Bank',
     minWithdrawalInfo: 'Minimum withdrawal SAR 50. Bank transfers within 24-48 business hours. STC Pay within hours.',
+
+    // Receipt sharing text
+    saredReceipt: 'Sared Receipt',
+    receiptTotal: 'Total',
+    receiptPayment: 'Payment',
+    thankYouSared: 'Thank you for using Sared!',
+    cashLabel: 'Cash',
+    emailLabel: 'Email',
+    otherShare: 'Other',
+    soon: 'Soon',
   },
   ar: {
     // Login
@@ -824,6 +834,16 @@ const translations = {
     withdrawRejected: 'مرفوض',
     bankLabel: 'بنك',
     minWithdrawalInfo: 'الحد الأدنى للسحب 50 ريال. التحويلات البنكية تتم خلال 24-48 ساعة عمل. STC Pay خلال ساعات.',
+
+    // Receipt sharing text
+    saredReceipt: 'إيصال سارد',
+    receiptTotal: 'المبلغ الإجمالي',
+    receiptPayment: 'طريقة الدفع',
+    thankYouSared: 'شكراً لاستخدام سارد!',
+    cashLabel: 'نقداً',
+    emailLabel: 'بريد',
+    otherShare: 'أخرى',
+    soon: 'قريباً',
 
     // Driver
     driverMode: 'وضع السائق',
