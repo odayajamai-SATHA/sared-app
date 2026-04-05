@@ -16,14 +16,11 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
   const destinationName = route.params?.destinationName;
 
   const services = [
-    { id: 'tow', icon: 'car-sport', title: t('towVehicle'), desc: t('towDesc'), price: getServicePriceWithVAT('tow'), color: '#059669' },
-    { id: 'flatTire', icon: 'disc-outline', title: t('flatTireChange'), desc: t('flatTireDesc'), price: getServicePriceWithVAT('flatTire'), color: '#3B82F6' },
-    { id: 'battery', icon: 'flash-outline', title: t('batteryJump'), desc: t('batteryJumpDesc'), price: getServicePriceWithVAT('battery'), color: '#F59E0B' },
-    { id: 'fuel', icon: 'water-outline', title: t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: getServicePriceWithVAT('fuel'), color: '#EF4444' },
-    { id: 'lockout', icon: 'key-outline', title: t('carLockout'), desc: t('carLockoutDesc'), color: '#8B5CF6', comingSoon: true },
-    { id: 'emergency', icon: 'warning-outline', title: t('winchRecovery'), desc: t('winchRecoveryDesc'), color: '#F97316', comingSoon: true },
-    { id: 'transport', icon: 'cube', title: t('transportItems'), desc: t('transportDesc'), color: '#06B6D4', comingSoon: true },
-    { id: 'heavyTow', icon: 'airplane-outline', title: t('intercityTransport'), desc: t('intercityDesc'), color: '#6366F1', comingSoon: true },
+    { id: 'tow', icon: 'car-outline', title: t('towVehicle'), desc: t('towDesc'), price: getServicePriceWithVAT('tow'), color: '#059669', serviceType: 'towing' },
+    { id: 'flatTire', icon: 'ellipse-outline', title: t('tireChange') || t('flatTireChange'), desc: t('flatTireDesc'), price: getServicePriceWithVAT('flatTire'), color: '#3B82F6', serviceType: 'flat' },
+    { id: 'battery', icon: 'flash-outline', title: t('batteryJumpStart') || t('batteryJump'), desc: t('batteryJumpDesc'), price: getServicePriceWithVAT('battery'), color: '#F59E0B', serviceType: 'flat' },
+    { id: 'fuel', icon: 'water-outline', title: t('fuelDeliveryLabel') || t('fuelDeliveryService'), desc: t('fuelDeliveryDesc'), price: getServicePriceWithVAT('fuel'), color: '#EF4444', serviceType: 'flat' },
+    { id: 'insurance', icon: 'shield-checkmark-outline', title: t('insuranceClaims') || t('insurance'), desc: t('insuranceSubtitle') || '', color: '#8B5CF6', comingSoon: true },
   ];
 
   const animations = useRef(services.map(() => new Animated.Value(0))).current;
@@ -37,27 +34,26 @@ export default function ServiceScreen({ route, navigation: rawNav }) {
 
   const handleSelect = (service) => {
     if (service.comingSoon) {
-      Alert.alert(
-        t('comingSoon'),
-        t('featureComingSoon')
-      );
+      Alert.alert(t('comingSoon'), t('featureComingSoon'));
       return;
     }
-    const directServices = ['flatTire', 'battery', 'fuel'];
-    if (directServices.includes(service.id)) {
+
+    if (service.serviceType === 'flat') {
+      // Non-towing: skip Size and Destination screens, go directly to PriceGuarantee
       navigation.navigate('PriceGuarantee', {
         service: service.title,
         serviceId: service.id,
+        serviceType: 'flat',
         size: '—',
         price: `SAR ${service.price} (${t('inclVat')})`,
         pickup,
-        destination,
-        destinationName,
       });
     } else {
+      // Towing: needs vehicle size selection
       navigation.navigate('Size', {
         service: service.title,
         serviceId: service.id,
+        serviceType: 'towing',
         pickup,
         destination,
         destinationName,

@@ -137,11 +137,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
   },
   phone: {
-    fontSize: 14,
+    fontSize: 18,
     marginTop: 2,
   },
   plate: {
@@ -195,13 +195,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 14,
+    minHeight: 64,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: 'transparent',
   },
   menuLabel: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 18,
     marginStart: 12,
   },
   logoutBtn: {
@@ -210,9 +211,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
     paddingVertical: 14,
+    minHeight: 64,
   },
   logoutText: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#EF4444',
     fontWeight: '600',
     marginStart: 8,

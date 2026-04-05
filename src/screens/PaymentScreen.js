@@ -20,11 +20,11 @@ const PAYMENT_FEES = {
 };
 
 const PAYMENT_OPTIONS = [
-  { id: 'mada', icon: 'card', badgeColor: '#1D6F37', titleKey: 'payWithMada', descKey: 'madaDesc', feeLabel: '1%' },
+  { id: 'mada', icon: 'card', badgeColor: '#008539', titleKey: 'payWithMada', descKey: 'madaDesc', feeLabel: '1%' },
+  { id: 'apple_pay', icon: 'phone-portrait-outline', badgeColor: '#000000', titleKey: 'applePay', descKey: 'applePaySoon', disabled: true },
   { id: 'card', icon: 'card-outline', badgeColor: '#1A1F71', titleKey: 'payWithCard', descKey: 'cardDesc', feeLabel: '2.75%' },
   { id: 'stc_pay', icon: 'phone-portrait', badgeColor: '#5F259F', titleKey: 'stcPay', descKey: 'stcPayDesc' },
   { id: 'cash', icon: 'cash', badgeColor: '#F59E0B', titleKey: 'payWithCash', descKey: 'cashPaymentDesc' },
-  { id: 'apple_pay', icon: 'phone-portrait-outline', badgeColor: '#000000', titleKey: 'applePay', descKey: 'applePaySoon', disabled: true },
 ];
 
 function parseSAR(priceStr) {
@@ -33,7 +33,7 @@ function parseSAR(priceStr) {
 }
 
 export default function PaymentScreen({ route, navigation }) {
-  const { service, serviceId, size, price, pickup, destination, destinationName, fareTotal } = route.params || {};
+  const { service, serviceId, serviceType, size, price, pickup, destination, destinationName, fareTotal, fareBreakdown } = route.params || {};
   const { t, isRTL } = useI18n();
   const { colors, isDark } = useTheme();
   const [selected, setSelected] = useState(null);
@@ -56,8 +56,8 @@ export default function PaymentScreen({ route, navigation }) {
   const totalAmount = parseSAR(displayTotal);
 
   const navParams = {
-    service, serviceId, size, price,
-    pickup, destination, destinationName, fareTotal,
+    service, serviceId, serviceType, size, price,
+    pickup, destination, destinationName, fareTotal, fareBreakdown,
   };
 
   const handleCopyNumber = useCallback(async () => {

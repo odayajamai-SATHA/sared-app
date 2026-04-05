@@ -19,6 +19,13 @@ import {
 } from '../../utils/supabase';
 import { notifyCustomerDriverAccepted } from '../../utils/notifications';
 
+const SERVICE_DISPLAY = {
+  tow: { icon: 'car-outline', label: '🚛', color: '#059669' },
+  flatTire: { icon: 'ellipse-outline', label: '🔧', color: '#3B82F6' },
+  battery: { icon: 'flash-outline', label: '🔋', color: '#F59E0B' },
+  fuel: { icon: 'water-outline', label: '⛽', color: '#EF4444' },
+};
+
 export default function DriverDashboardScreen({ route, navigation }) {
   const driver = route.params?.driver;
   const { t, isRTL } = useI18n();
@@ -28,7 +35,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
   const [earnings, setEarnings] = useState(450);
   const [totalRides, setTotalRides] = useState(12);
   const [incomingRide, setIncomingRide] = useState(null);
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState(15);
   const timerRef = useRef(null);
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
@@ -62,7 +69,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
 
     const channel = subscribeToNewRides((ride) => {
       setIncomingRide(ride);
-      setTimer(30);
+      setTimer(15);
     });
 
     return () => {
@@ -96,7 +103,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
           price: 180,
           users: { name: 'Mohammed', phone: '+966512345678' },
         });
-        setTimer(30);
+        setTimer(15);
       }, 3000);
       return () => clearTimeout(demoTimeout);
     }
@@ -138,7 +145,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
   const handleDecline = () => {
     clearTimeout(timerRef.current);
     setIncomingRide(null);
-    setTimer(30);
+    setTimer(15);
   };
 
   return (
@@ -201,7 +208,7 @@ export default function DriverDashboardScreen({ route, navigation }) {
         <View style={[styles.statsRow, { color: colors.text }]}>
           <View style={[styles.statCard, { color: colors.text }]}>
             <Ionicons name="cash-outline" size={28} color={colors.primary} />
-            <Text style={[styles.statValue, { color: colors.text }]}>{earnings} SAR</Text>
+            <Text style={[styles.statValue, { color: colors.text }]}>{earnings} {t('sar')}</Text>
             <Text style={[styles.statLabel, { color: colors.textSecondary }]}>{t('todayEarnings')}</Text>
           </View>
           <View style={[styles.statCard, { color: colors.text }]}>
@@ -228,21 +235,31 @@ export default function DriverDashboardScreen({ route, navigation }) {
       {incomingRide && (
         <View style={[styles.requestOverlay, { color: colors.text }]}>
           <View style={[styles.requestCard, { color: colors.text }]}>
-            {/* Timer Circle */}
-            <View style={[styles.timerCircle, { color: colors.text }]}>
-              <Text style={[styles.timerText, { color: colors.primary }]}>{timer}</Text>
-              <Text style={[styles.timerLabel, { color: colors.textSecondary }]}>{t('seconds')}</Text>
+            {/* Service type icon + name */}
+            <View style={[styles.serviceTypeRow, isRTL && styles.rowReverse]}>
+              <View style={[styles.serviceIconCircle, { backgroundColor: (SERVICE_DISPLAY[incomingRide.service_type]?.color || '#059669') + '20' }]}>
+                <Ionicons name={SERVICE_DISPLAY[incomingRide.service_type]?.icon || 'car-outline'} size={28} color={SERVICE_DISPLAY[incomingRide.service_type]?.color || '#059669'} />
+              </View>
+              <Text style={[styles.requestTitle, { color: colors.text }]}>
+                {SERVICE_DISPLAY[incomingRide.service_type]?.label || '🚛'} {incomingRide.service_type === 'tow' ? t('towVehicle') || t('towService') : incomingRide.service_type === 'flatTire' ? t('flatTire') : incomingRide.service_type === 'battery' ? t('batteryJump') || t('deadBattery') : incomingRide.service_type === 'fuel' ? t('fuelDelivery') : t('towService')}
+              </Text>
             </View>
 
-            <Text style={[styles.requestTitle, { color: colors.text }]}>{t('newRideRequest')}</Text>
+            {/* Timer countdown */}
+            <View style={[styles.timerBar, { color: colors.text }]}>
+              <View style={[styles.timerProgress, { width: `${(timer / 15) * 100}%`, backgroundColor: timer > 5 ? '#22C55E' : '#EF4444' }]} />
+            </View>
+            <Text style={[styles.timerLabel, { color: colors.textSecondary }]}>{timer} {t('seconds')}</Text>
 
             {/* Ride Details */}
             <View style={[styles.requestDetails, { color: colors.text }]}>
               <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
-                <Ionicons name="person" size={18} color={colors.primary} />
-                <Text style={[styles.requestText, { color: colors.text }]}>
-                  {incomingRide.users?.name || 'Mohammed'}
-                </Text>
+                <Ionicons name="navigate" size={18} color={colors.primary} />
+                <Text style={[styles.requestText, { color: colors.text }]}>3.2 {t('km')} {t('away')}</Text>
+              </View>
+              <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
+                <Ionicons name="cash" size={18} color={colors.primary} />
+                <Text style={[styles.requestText, { color: colors.text }]}>{t('sar')} {incomingRide.price}</Text>
               </View>
               <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
                 <Ionicons name="car-sport" size={18} color={colors.primary} />
@@ -250,27 +267,17 @@ export default function DriverDashboardScreen({ route, navigation }) {
                   {incomingRide.sared_size} • {incomingRide.service_type}
                 </Text>
               </View>
-              <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
-                <Ionicons name="cash" size={18} color={colors.primary} />
-                <Text style={[styles.requestText, { color: colors.text }]}>
-                  {incomingRide.price} SAR
-                </Text>
-              </View>
-              <View style={[styles.requestRow, isRTL && styles.rowReverse]}>
-                <Ionicons name="navigate" size={18} color={colors.primary} />
-                <Text style={[styles.requestText, { color: colors.text }]}>3.2 {t('km')} {t('away')}</Text>
-              </View>
             </View>
 
-            {/* Accept / Decline */}
+            {/* Accept / Decline - larger buttons */}
             <View style={[styles.requestButtons, { color: colors.text }, isRTL && styles.rowReverse]}>
               <TouchableOpacity style={styles.declineBtn} onPress={handleDecline}>
                 <Ionicons name="close" size={24} color="#EF4444" />
                 <Text style={styles.declineBtnText}>{t('decline')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.acceptBtn} onPress={handleAccept}>
-                <Ionicons name="checkmark" size={24} color={colors.white} />
-                <Text style={[styles.acceptBtnText, { color: colors.text }]}>{t('accept')}</Text>
+                <Ionicons name="checkmark" size={24} color="#FFF" />
+                <Text style={styles.acceptBtnText}>{t('accept')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -374,6 +381,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 28,
     paddingVertical: 14,
+    minHeight: 64,
     borderRadius: 30,
     gap: 8,
   },
@@ -480,6 +488,31 @@ const styles = StyleSheet.create({
   timerLabel: {
     fontSize: 10,
   },
+  serviceTypeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 12,
+  },
+  serviceIconCircle: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timerBar: {
+    width: '100%',
+    height: 6,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 3,
+    marginBottom: 6,
+    overflow: 'hidden',
+  },
+  timerProgress: {
+    height: '100%',
+    borderRadius: 3,
+  },
   requestTitle: {
     fontSize: 20,
     fontWeight: '700',
@@ -511,7 +544,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 14,
+    paddingVertical: 18,
+    minHeight: 64,
     borderRadius: 14,
     backgroundColor: '#FEF2F2',
     borderWidth: 1.5,
@@ -528,7 +562,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 14,
+    paddingVertical: 18,
+    minHeight: 64,
     borderRadius: 14,
     backgroundColor: '#22C55E',
     gap: 6,
@@ -536,7 +571,7 @@ const styles = StyleSheet.create({
   acceptBtnText: {
     fontSize: 16,
     fontWeight: '700',
-    color: theme.white,
+    color: '#FFFFFF',
   },
   // Bottom nav
   bottomNav: {

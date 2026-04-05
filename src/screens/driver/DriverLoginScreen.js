@@ -20,7 +20,7 @@ export default function DriverLoginScreen({ navigation }) {
   const [phone, setPhone] = useState('');
   const [driverId, setDriverId] = useState('');
   const [loading, setLoading] = useState(false);
-  const { t, toggleLang, isRTL, lang } = useI18n();
+  const { t, toggleLang, setLang, isRTL, lang } = useI18n();
   const { colors, isDark } = useTheme();
 
   const handleLogin = async () => {
@@ -85,9 +85,17 @@ export default function DriverLoginScreen({ navigation }) {
     >
       <StatusBar style="dark" />
 
-      <TouchableOpacity style={styles.langToggle} onPress={toggleLang}>
-        <Text style={[styles.langToggleText, { color: colors.primary }]}>{t('langToggle')}</Text>
-      </TouchableOpacity>
+      <View style={styles.langRow}>
+        <TouchableOpacity style={[styles.langBtn, lang === 'en' && { backgroundColor: colors.primary + '20', borderColor: colors.primary }]} onPress={() => setLang('en')}>
+          <Text style={[styles.langBtnText, { color: lang === 'en' ? colors.primary : colors.textSecondary }]}>English</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.langBtn, lang === 'ar' && { backgroundColor: colors.primary + '20', borderColor: colors.primary }]} onPress={() => setLang('ar')}>
+          <Text style={[styles.langBtnText, { color: lang === 'ar' ? colors.primary : colors.textSecondary }]}>العربية</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.langBtn, lang === 'ur' && { backgroundColor: colors.primary + '20', borderColor: colors.primary }]} onPress={() => setLang('ur')}>
+          <Text style={[styles.langBtnText, { color: lang === 'ur' ? colors.primary : colors.textSecondary }]}>اردو</Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity
         style={[styles.switchBtn, { color: colors.text }, isRTL && styles.rowReverse]}
@@ -158,20 +166,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  langToggle: {
+  langRow: {
     position: 'absolute',
     top: 52,
-    end: 20,
+    end: 16,
     zIndex: 10,
-    backgroundColor: 'transparent',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
+    flexDirection: 'row',
+    gap: 6,
   },
-  langToggleText: {
-    fontSize: 14,
+  langBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
+  },
+  langBtnText: {
+    fontSize: 13,
     fontWeight: '600',
-    color: '#059669',
   },
   switchBtn: {
     position: 'absolute',

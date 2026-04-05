@@ -1,8 +1,12 @@
 const VAT_RATE = 0.15;
-const NIGHT_SURCHARGE_RATE = 0.25;
+const NIGHT_SURCHARGE_RATE = 0.25; // Legacy – kept for backward compat
+const NIGHT_SURCHARGE_TOW = 50;    // SAR 50 fixed surcharge for towing at night
+const NIGHT_SURCHARGE_FLAT = 25;   // SAR 25 fixed surcharge for non-towing at night
 const BASE_DISPATCH_FEE = 50;
 const MIN_FARE = 100;
 const EMERGENCY_FEE = 50;
+
+const FLAT_RATE_SERVICES = ['flatTire', 'battery', 'fuel'];
 
 // Per-km rates by vehicle size
 const RATE_PER_KM = {
@@ -12,15 +16,16 @@ const RATE_PER_KM = {
   enclosed: 12, // Luxury/classic car
 };
 
-// Base fares per service (for screens without distance)
+// Base fares per service
 const SERVICE_BASE_FARES = {
-  tow: 150,
+  tow: 100,        // SAR 100 base for towing
+  flatTire: 100,   // SAR 100 flat rate for tire change
+  battery: 75,     // SAR 75 flat rate for battery jump
+  fuel: 65,        // SAR 65 flat rate for fuel delivery (incl 5L)
+  // Legacy
   heavyTow: 250,
   emergency: 200,
   transport: 300,
-  flatTire: 80,
-  battery: 100,
-  fuel: 70,
   lockout: 120,
 };
 
@@ -120,8 +125,36 @@ export function calculateDistanceFare(distanceKm, vehicleSize, isNight, isEmerge
 }
 
 /**
+ * Calculate flat-rate fare for non-towing services (flatTire, battery, fuel).
+ *
+ * @param {string} serviceId - Service type key
+ * @param {Date} [date] - Date/time of the request (defaults to now)
+ * @returns {{ serviceFee, nightSurcharge, subtotal, vat, total, isNight, isFlat }}
+ */
+export function calculateFlatRateFare(serviceId, date = new Date()) {
+  const baseFare = SERVICE_BASE_FARES[serviceId] || 100;
+  const isNight = isNightTime(date);
+  const nightSurcharge = isNight ? NIGHT_SURCHARGE_FLAT : 0;
+  const subtotal = baseFare + nightSurcharge;
+  const vat = Math.round(subtotal * VAT_RATE);
+  const total = subtotal + vat;
+
+  return {
+    serviceFee: baseFare,
+    nightSurcharge,
+    subtotal,
+    vat,
+    total,
+    isNight,
+    isFlat: true,
+  };
+}
+
+/**
  * Calculate the fare breakdown (used by BookingScreen and PriceGuaranteeScreen).
- * Uses tiered distance-based pricing.
+ *
+ * For flat-rate services (flatTire, battery, fuel) delegates to calculateFlatRateFare.
+ * For towing services uses tiered distance-based pricing with a fixed night surcharge.
  *
  * @param {string} serviceId - Service type key (tow, flatTire, etc.)
  * @param {string} sizeLabel - Translated size name or size key
@@ -129,6 +162,11 @@ export function calculateDistanceFare(distanceKm, vehicleSize, isNight, isEmerge
  * @param {Date} [date] - Date/time of the ride (defaults to now)
  */
 export function calculateFare(serviceId, sizeLabel, distanceKm, date = new Date()) {
+  // Flat-rate services bypass distance calculation
+  if (FLAT_RATE_SERVICES.includes(serviceId)) {
+    return calculateFlatRateFare(serviceId, date);
+  }
+
   const sizeKey = getSizeKey(sizeLabel);
   const km = Math.max(0, distanceKm || 0);
   const isNight = isNightTime(date);
@@ -147,12 +185,12 @@ export function calculateFare(serviceId, sizeLabel, distanceKm, date = new Date(
   }
   distanceCharge = Math.round(distanceCharge);
 
-  const baseFare = BASE_DISPATCH_FEE;
+  const baseFare = SERVICE_BASE_FARES.tow;
   let subtotal = Math.max(baseFare + distanceCharge, MIN_FARE);
 
   if (isEmergency) subtotal += EMERGENCY_FEE;
 
-  const nightSurcharge = isNight ? Math.round(subtotal * NIGHT_SURCHARGE_RATE) : 0;
+  const nightSurcharge = isNight ? NIGHT_SURCHARGE_TOW : 0;
   subtotal += nightSurcharge;
 
   const vat = Math.round(subtotal * VAT_RATE);
@@ -241,4 +279,4 @@ export function getPriceRange(serviceId, sizeKey) {
   return `SAR ${priceWithVat} – ${maxWithVat}`;
 }
 
-export { SERVICE_BASE_FARES, SIZE_MULTIPLIERS, VAT_RATE, NIGHT_SURCHARGE_RATE, RATE_PER_KM };
+export { SERVICE_BASE_FARES, SIZE_MULTIPLIERS, VAT_RATE, NIGHT_SURCHARGE_RATE, NIGHT_SURCHARGE_TOW, NIGHT_SURCHARGE_FLAT, FLAT_RATE_SERVICES, RATE_PER_KM };

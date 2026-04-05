@@ -5,10 +5,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors as theme } from '../utils/colors';
 import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
-import { calculateFare, getDistanceKm } from '../utils/pricing';
+import { calculateFare, calculateFlatRateFare, getDistanceKm } from '../utils/pricing';
 
 export default function PriceGuaranteeScreen({ route, navigation }) {
-  const { service, serviceId, size, price, pickup, destination, destinationName } = route.params || {};
+  const { service, serviceId, serviceType, size, price, pickup, destination, destinationName } = route.params || {};
   const { t, isRTL } = useI18n();
   const { colors, isDark } = useTheme();
 
@@ -19,12 +19,19 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
   const detailFade = useRef(new Animated.Value(0)).current;
 
   // Calculate the guaranteed max price
-  let distKm = 15; // generous estimate
-  if (pickup && destination) {
-    const actual = getDistanceKm(pickup.latitude, pickup.longitude, destination.latitude, destination.longitude);
-    distKm = Math.max(actual * 1.2, 5); // add 20% buffer for route vs straight-line
+  const isFlat = serviceType === 'flat' || ['flatTire', 'battery', 'fuel'].includes(serviceId);
+  let fare, distKm = 0;
+
+  if (isFlat) {
+    fare = calculateFlatRateFare(serviceId);
+  } else {
+    distKm = 15; // generous estimate
+    if (pickup && destination) {
+      const actual = getDistanceKm(pickup.latitude, pickup.longitude, destination.latitude, destination.longitude);
+      distKm = Math.max(actual * 1.2, 5);
+    }
+    fare = calculateFare(serviceId || 'tow', size, distKm);
   }
-  const fare = calculateFare(serviceId || 'tow', size, distKm);
   const maxPrice = fare.total;
 
   useEffect(() => {
@@ -43,9 +50,10 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
 
   const handleConfirm = () => {
     navigation.navigate('Payment', {
-      service, serviceId, size, price: `SAR ${maxPrice}`,
+      service, serviceId, serviceType, size, price: `SAR ${maxPrice}`,
       pickup, destination, destinationName,
       fareTotal: `SAR ${maxPrice}`,
+      fareBreakdown: fare,
     });
   };
 
@@ -96,14 +104,23 @@ export default function PriceGuaranteeScreen({ route, navigation }) {
               <Text style={[styles.breakdownValue, { color: colors.text }]}>{size}</Text>
             </View>
           )}
-          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
-            <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('dispatchFee')}</Text>
-            <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.baseFare}</Text>
-          </View>
-          <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
-            <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('distanceRate')} (~{Math.round(distKm)} {t('km')})</Text>
-            <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.distanceCharge}</Text>
-          </View>
+          {isFlat ? (
+            <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
+              <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('serviceFee')}</Text>
+              <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.serviceFee || fare.baseFare}</Text>
+            </View>
+          ) : (
+            <>
+              <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
+                <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('baseFare')}</Text>
+                <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.baseFare}</Text>
+              </View>
+              <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
+                <Text style={[styles.breakdownLabel, { color: colors.textSecondary }]}>{t('distanceRate')} (~{Math.round(distKm)} {t('km')})</Text>
+                <Text style={[styles.breakdownValue, { color: colors.text }]}>SAR {fare.distanceCharge}</Text>
+              </View>
+            </>
+          )}
           {fare.isNight && (
             <View style={[styles.breakdownRow, isRTL && styles.rowReverse, { color: colors.text }]}>
               <Text style={[styles.breakdownLabel, { color: '#8B5CF6' }]}>{t('nightSurcharge')}</Text>

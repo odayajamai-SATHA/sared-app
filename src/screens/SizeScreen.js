@@ -6,7 +6,7 @@ import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function SizeScreen({ route, navigation }) {
-  const { service, serviceId } = route.params || {};
+  const { service, serviceId, serviceType } = route.params || {};
   const { t, isRTL, lang } = useI18n();
   const { colors, isDark } = useTheme();
   const [selectedId, setSelectedId] = useState(null);
@@ -57,7 +57,7 @@ export default function SizeScreen({ route, navigation }) {
     if (!size) return;
     const sizeName = isAr ? size.nameAr : size.nameEn;
     navigation.navigate('PriceGuarantee', {
-      service, serviceId,
+      service, serviceId, serviceType,
       size: sizeName,
       price: `SAR ${size.pricePerKm * 15} (${t('inclVat')})`,
       pickup, destination, destinationName,

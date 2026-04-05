@@ -49,7 +49,7 @@ export default function DriverMatchingScreen({ route, navigation }) {
       Animated.spring(checkScale, { toValue: 1, tension: 60, friction: 6, useNativeDriver: Platform.OS !== 'web' }).start();
     }, 3000);
     const t3 = setTimeout(() => {
-      navigation.replace('Booking', params);
+      navigation.replace('Booking', { ...params, serviceType: params.serviceType, serviceId: params.serviceId });
     }, 4500);
 
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };

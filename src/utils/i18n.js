@@ -629,6 +629,53 @@ const translations = {
     emailLabel: 'Email',
     otherShare: 'Other',
     soon: 'Soon',
+    tireChange: 'Tire Change',
+    batteryJumpStart: 'Battery Jump Start',
+    fuelDeliveryLabel: 'Fuel Delivery',
+    flatRate: 'Flat Rate',
+    includes5LFuel: 'Includes 5L fuel',
+    serviceAtLocation: 'Service at your location',
+    noDestinationNeeded: 'No destination needed',
+    vatIncluded: 'Includes 15% VAT',
+    estimatedArrival: 'Estimated arrival',
+    driverOnWayToYou: 'Driver on the way',
+    serviceInProgress: 'Service in progress',
+    serviceCompleted: 'Service completed',
+    rateService: 'How was the service?',
+    tipDriver: 'Tip your driver',
+    guaranteedPrice: 'Guaranteed maximum price',
+    total: 'Total',
+    shareTrip: 'Share trip with someone',
+    sosEmergency: 'SOS Emergency',
+    driverInfo: 'Driver Information',
+    selectService: 'What do you need?',
+    requestHelp: 'Request Help',
+    // Tracking steps
+    trackStepRequested: 'Requested',
+    trackStepAssigned: 'Driver assigned',
+    trackStepEnRoute: 'En route',
+    trackStepArrived: 'Arrived',
+    trackStepLoading: 'Loading vehicle',
+    trackStepTransit: 'In transit to destination',
+    trackStepDelivered: 'Delivered',
+    trackStepPerforming: 'Performing service',
+    trackStepComplete: 'Complete',
+    // Tip
+    tipYourDriver: 'Tip your driver',
+    tipDriverAr: 'إكرامية للسائق',
+    noTip: 'No tip',
+    customTip: 'Custom',
+    // Insurance
+    insuranceClaims: 'Insurance Claims',
+    insuranceClaimsAr: 'مطالبات التأمين',
+    // Rating categories
+    responseTime: 'Response Time',
+    professionalism: 'Professionalism',
+    equipmentQuality: 'Equipment Quality',
+    communication: 'Communication',
+    skipRating: 'Skip',
+    // Payment
+    payDriverDirectly: 'Pay the driver directly',
   },
   ar: {
     // Login
@@ -1256,33 +1303,246 @@ const translations = {
     sosConfirm: 'هل أنت متأكد من تفعيل طوارئ SOS؟',
     yes: 'نعم',
     no: 'لا',
+    tireChange: 'تبديل كفر',
+    batteryJumpStart: 'شحن بطارية',
+    fuelDeliveryLabel: 'توصيل وقود',
+    flatRate: 'سعر ثابت',
+    includes5LFuel: 'يشمل 5 لتر وقود',
+    serviceAtLocation: 'الخدمة في موقعك',
+    noDestinationNeeded: 'لا حاجة لتحديد وجهة',
+    vatIncluded: 'شامل ضريبة القيمة المضافة 15%',
+    estimatedArrival: 'وقت الوصول المتوقع',
+    driverOnWayToYou: 'السائق في الطريق إليك',
+    serviceInProgress: 'جاري تنفيذ الخدمة',
+    serviceCompleted: 'تمت الخدمة بنجاح',
+    rateService: 'كيف كانت الخدمة؟',
+    tipDriver: 'إكرامية للسائق',
+    guaranteedPrice: 'السعر الأقصى المضمون',
+    total: 'الإجمالي',
+    shareTrip: 'شارك الرحلة مع شخص',
+    sosEmergency: 'طوارئ SOS',
+    driverInfo: 'معلومات السائق',
+    selectService: 'ماذا تحتاج؟',
+    requestHelp: 'اطلب المساعدة',
+    trackStepRequested: 'تم الطلب',
+    trackStepAssigned: 'تم تعيين سائق',
+    trackStepEnRoute: 'في الطريق',
+    trackStepArrived: 'وصل',
+    trackStepLoading: 'تحميل المركبة',
+    trackStepTransit: 'في الطريق للوجهة',
+    trackStepDelivered: 'تم التوصيل',
+    trackStepPerforming: 'جاري تنفيذ الخدمة',
+    trackStepComplete: 'مكتمل',
+    tipYourDriver: 'إكرامية للسائق',
+    noTip: 'بدون إكرامية',
+    customTip: 'مبلغ مخصص',
+    insuranceClaims: 'مطالبات التأمين',
+    responseTime: 'سرعة الاستجابة',
+    professionalism: 'الاحترافية',
+    equipmentQuality: 'جودة المعدات',
+    communication: 'التواصل',
+    skipRating: 'تخطي',
+    payDriverDirectly: 'الدفع للسائق مباشرة',
+    perKmRate: 'سعر الكيلومتر',
+  },
+  ur: {
+    // Login
+    appName: 'سارد',
+    tagline: 'آپ کی سڑک کی کہانی، ہم سنبھالیں',
+    driverLogin: 'ڈرائیور لاگ ان',
+    driverSignup: 'نیا ڈرائیور اکاؤنٹ',
+    phoneNumber: 'فون نمبر',
+    driverId: 'ڈرائیور آئی ڈی',
+    login: 'لاگ ان',
+    enterPhone: 'اپنا فون نمبر درج کریں',
+    phonePlaceholder: '5XXXXXXXX',
+    langToggle: 'English',
+    switchToUser: 'صارف موڈ',
+    switchToDriver: 'ڈرائیور موڈ',
+    driverMode: 'ڈرائیور موڈ',
+    driverIdLabel: 'ڈرائیور آئی ڈی / اقامہ نمبر',
+    driverIdPlaceholder: 'آئی ڈی نمبر درج کریں',
+    terms: 'جاری رکھنے سے آپ ہماری سروس کی شرائط اور رازداری کی پالیسی سے اتفاق کرتے ہیں',
+    error: 'خرابی',
+    connectionError: 'کنکشن کی خرابی',
+    noDriverAccount: 'اس نمبر سے کوئی ڈرائیور اکاؤنٹ نہیں ملا۔ پہلے رجسٹر کریں۔',
+    driverIdMismatch: 'ڈرائیور آئی ڈی مطابقت نہیں رکھتی',
+    demoMode: 'ڈیمو موڈ',
+
+    // Home / Dashboard
+    goOnline: 'آن لائن ہوں',
+    goOffline: 'آف لائن ہوں',
+    youAreOnline: 'آن لائن',
+    youAreOffline: 'آف لائن',
+    online: 'آن لائن',
+    offline: 'آف لائن',
+    newRideRequest: 'نئی درخواست!',
+    accept: 'قبول کریں',
+    decline: 'رد کریں',
+    helloDriver: 'ہیلو،',
+    driverName: 'احمد',
+    todayEarnings: 'آج کی آمدنی',
+    totalRidesToday: 'آج کے سفر',
+    avgResponseTime: 'اوسط جواب',
+    acceptanceRate: 'قبولیت کی شرح',
+    seconds: 'سیکنڈ',
+    away: 'دور',
+    home: 'ہوم',
+
+    // Service types
+    towVehicle: 'ٹو ٹرک',
+    towService: 'ٹو ٹرک',
+    tireChange: 'ٹائر تبدیلی',
+    batteryJump: 'بیٹری چارج',
+    batteryJumpStart: 'بیٹری چارج',
+    fuelDelivery: 'ایندھن کی ترسیل',
+    fuelDeliveryService: 'ایندھن کی ترسیل',
+    flatTire: 'ٹائر تبدیلی',
+    deadBattery: 'بیٹری چارج',
+    transportItems: 'سامان کی منتقلی',
+    emergencyRoadside: 'سڑک پر ہنگامی مدد',
+
+    // Navigation
+    navigateToCustomer: 'گاہک تک نیویگیٹ کریں',
+    routeToCustomer: 'گاہک تک راستہ',
+    followRoute: 'GPS پر راستے پر چلیں',
+    customerPickupAddress: 'کنگ فہد روڈ، ریاض',
+    iHaveArrived: 'میں پہنچ گیا',
+    customerLocation: 'گاہک کا مقام',
+    callCustomer: 'گاہک کو کال کریں',
+
+    // Job flow
+    jobInProgress: 'کام جاری ہے',
+    stepArrived: 'پہنچ گیا',
+    stepLoading: 'لوڈنگ',
+    stepInTransit: 'راستے میں',
+    stepCompleted: 'مکمل',
+    startLoading: 'لوڈنگ شروع کریں',
+    startTrip: 'سفر شروع کریں',
+    completeJob: 'کام مکمل کریں',
+    done: 'ہو گیا',
+    arrived: 'پہنچ گیا',
+    loading: 'لوڈنگ',
+    inTransit: 'راستے میں',
+    delivered: 'ڈیلیور ہو گیا',
+    performingService: 'سروس جاری ہے',
+    serviceComplete: 'سروس مکمل',
+    arrivedInstruction: 'آپ پک اپ مقام پر پہنچ گئے ہیں۔ ضرورت ہو تو گاہک سے رابطہ کریں۔',
+    loadingInstruction: 'گاڑی/سامان کو فلیٹ بیڈ پر محفوظ کریں۔',
+    inTransitInstruction: 'ڈراپ آف مقام تک نیویگیٹ کریں۔ محفوظ ڈرائیو کریں۔',
+    completedInstruction: 'کام مکمل۔ اتاریں اور گاہک سے تصدیق کریں۔',
+    dropoffLocation: 'ڈراپ آف مقام',
+
+    // Job complete
+    jobCompleted: 'کام مکمل!',
+    jobCompletedSub: 'شاندار! ادائیگی شامل کر دی گئی۔',
+    customerLabel: 'گاہک',
+    youEarned: 'آپ نے کمایا',
+    waitingForRating: 'ریٹنگ کا انتظار',
+    ratingNotice: 'گاہک سفر کے بعد آپ کو ریٹ کرے گا۔',
+    backToDashboard: 'ڈیش بورڈ پر واپس',
+
+    // Earnings
+    driverEarnings: 'آمدنی',
+    earnings: 'آمدنی',
+    dailyEarnings: 'آج کی آمدنی',
+    weeklyEarnings: 'ہفتے کی آمدنی',
+    weekEarnings: 'اس ہفتے',
+    completedTrips: 'مکمل سفر',
+    tripsCompleted: 'سفر',
+    onlineHours: 'آن لائن گھنٹے',
+    tripAvg: 'سفر',
+    recentTrips: 'حالیہ سفر',
+
+    // Withdrawal
+    withdrawEarnings: 'رقم نکالیں',
+    availableBalance: 'دستیاب بیلنس',
+    withdrawalAmount: 'رقم کی مقدار',
+    bankTransfer: 'بینک ٹرانسفر',
+    withdrawFunds: 'رقم نکالیں',
+    allBalance: 'سب',
+    withdrawalMethod: 'نکالنے کا طریقہ',
+    businessHours: '24-48 کاروباری گھنٹے',
+    withinHours: 'گھنٹوں میں',
+    bankNamePlaceholder: 'بینک کا نام',
+    ibanPlaceholder: 'IBAN نمبر',
+    stcPayPlaceholder: 'STC Pay نمبر',
+    recentWithdrawals: 'حالیہ نکاسی',
+    validAmountError: 'درست رقم درج کریں',
+    exceedsBalance: 'رقم دستیاب بیلنس سے زیادہ ہے',
+    minWithdrawal: 'کم از کم نکاسی 50 ریال',
+    selectWithdrawMethod: 'نکالنے کا طریقہ منتخب کریں',
+    enterBankDetails: 'بینک تفصیلات درج کریں',
+    enterStcNumber: 'STC Pay نمبر درج کریں',
+    withdrawSubmitted: 'درخواست جمع',
+    withdrawSubmittedMsg: '{amount} ریال نکاسی کی درخواست جمع۔ 24-48 گھنٹوں میں منتقلی۔',
+    withdrawCompleted: 'مکمل',
+    withdrawPending: 'زیر التوا',
+    withdrawRejected: 'مسترد',
+    bankLabel: 'بینک',
+    minWithdrawalInfo: 'کم از کم نکاسی 50 ریال۔ بینک ٹرانسفر 24-48 گھنٹے۔ STC Pay گھنٹوں میں۔',
+
+    // Profile
+    driverProfile: 'ڈرائیور پروفائل',
+    profile: 'پروفائل',
+    vehicleInfo: 'گاڑی کی معلومات',
+    documents: 'دستاویزات',
+    bankDetails: 'بینک تفصیلات',
+    totalTrips: 'کل سفر',
+    memberSince: 'ممبر',
+    rating: 'ریٹنگ',
+
+    // Common
+    cancel: 'منسوخ',
+    confirm: 'تصدیق',
+    success: 'کامیاب',
+    settings: 'سیٹنگز',
+    logout: 'لاگ آؤٹ',
+    language: 'زبان',
+    km: 'کلومیٹر',
+    min: 'منٹ',
+    sar: 'ریال',
+
+    // Tracking/Receipt (driver sees these)
+    callDriver: 'ڈرائیور کو کال کریں',
+    messageDriver: 'پیغام',
+    plateNum: 'پلیٹ',
+    trackingDriver: 'ڈرائیور ٹریکنگ',
+    driverAssigned: 'ڈرائیور مقرر',
+    onTheWay: 'راستے میں',
+    arriving: 'پہنچنے والا ہے',
   },
 };
 
 const I18nContext = createContext();
 
 export function I18nProvider({ children }) {
-  const [lang, setLang] = useState('ar');
+  const [lang, setLangState] = useState('ar');
 
-  const toggleLang = useCallback(() => {
-    const newLang = lang === 'en' ? 'ar' : 'en';
-    setLang(newLang);
-    const isRTL = newLang === 'ar';
+  const setLang = useCallback((newLang) => {
+    if (!translations[newLang]) return;
+    setLangState(newLang);
+    const isRTL = newLang === 'ar' || newLang === 'ur';
     if (I18nManager.isRTL !== isRTL) {
       I18nManager.allowRTL(isRTL);
       I18nManager.forceRTL(isRTL);
     }
-  }, [lang]);
+  }, []);
+
+  const toggleLang = useCallback(() => {
+    const newLang = lang === 'en' ? 'ar' : 'en';
+    setLang(newLang);
+  }, [lang, setLang]);
 
   const t = useCallback(
-    (key) => translations[lang][key] || key,
+    (key) => translations[lang]?.[key] || translations['en']?.[key] || key,
     [lang]
   );
 
-  const isRTL = lang === 'ar';
+  const isRTL = lang === 'ar' || lang === 'ur';
 
   return (
-    <I18nContext.Provider value={{ lang, t, toggleLang, isRTL }}>
+    <I18nContext.Provider value={{ lang, t, toggleLang, setLang, isRTL }}>
       {children}
     </I18nContext.Provider>
   );

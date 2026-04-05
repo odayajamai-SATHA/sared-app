@@ -164,7 +164,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
 
         <View style={[styles.balanceCard, { color: colors.text }]}>
           <Text style={styles.balanceLabel}>{t('availableBalance')}</Text>
-          <Text style={styles.balanceAmount}>{balance} SAR</Text>
+          <Text style={styles.balanceAmount}>{balance} {t('sar')}</Text>
         </View>
       </View>
 
@@ -176,7 +176,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
               {t('withdrawalAmount')}
             </Text>
             <View style={[styles.amountRow, { backgroundColor: colors.inputBg, borderColor: colors.inputBorder }, isRTL && styles.rowReverse]}>
-              <Text style={[styles.sarLabel, { color: colors.textSecondary }]}>SAR</Text>
+              <Text style={[styles.sarLabel, { color: colors.textSecondary }]}>{t('sar')}</Text>
               <TextInput
                 style={[styles.amountInput, { color: colors.text }]}
                 placeholder="0"
@@ -193,7 +193,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                   style={[styles.quickChip, { backgroundColor: colors.primaryFaded, borderColor: amount === String(a) ? colors.primary : 'transparent', borderWidth: 1.5 }]}
                   onPress={() => setAmount(String(a))}
                 >
-                  <Text style={[styles.quickText, { color: colors.primary }]}>{a} SAR</Text>
+                  <Text style={[styles.quickText, { color: colors.primary }]}>{a} {t('sar')}</Text>
                 </TouchableOpacity>
               ))}
               <TouchableOpacity
@@ -226,7 +226,7 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={[styles.methodTitle, { color: colors.text }]}>
-                    {m.id === 'bank' ? t('bankTransfer') : 'STC Pay'}
+                    {m.id === 'bank' ? t('bankTransfer') : t('stcPay')}
                   </Text>
                   <Text style={[styles.methodDesc, { color: colors.textSecondary }]}>
                     {m.id === 'bank' ? t('businessHours') : t('withinHours')}
@@ -303,10 +303,10 @@ export default function DriverWithdrawalScreen({ route, navigation }) {
                 return (
                   <View key={w.id} style={[styles.withdrawalRow, { borderBottomColor: colors.border }, isRTL && styles.rowReverse]}>
                     <View style={{ flex: 1 }}>
-                      <Text style={[styles.withdrawalAmount, { color: colors.text }]}>SAR {w.amount}</Text>
+                      <Text style={[styles.withdrawalAmount, { color: colors.text }]}>{t('sar')} {w.amount}</Text>
                       <Text style={[styles.withdrawalDate, { color: colors.textSecondary }]}>
-                        {new Date(w.created_at).toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-SA', { month: 'short', day: 'numeric' })}
-                        {' • '}{w.method === 'bank' ? t('bankLabel') : 'STC Pay'}
+                        {new Date(w.created_at).toLocaleDateString(lang === 'ar' ? 'ar-SA' : lang === 'ur' ? 'ur-PK' : 'en-SA', { month: 'short', day: 'numeric' })}
+                        {' • '}{w.method === 'bank' ? t('bankLabel') : t('stcPay')}
                       </Text>
                     </View>
                     <View style={[styles.statusBadge, { backgroundColor: badge.bg }]}>
@@ -354,15 +354,15 @@ const styles = StyleSheet.create({
   quickText: { fontSize: 13, fontWeight: '600' },
   methodCard: { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14, marginBottom: 10, borderWidth: 1, gap: 12 },
   methodIcon: { width: 44, height: 44, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
-  methodTitle: { fontSize: 16, fontWeight: '700' },
+  methodTitle: { fontSize: 18, fontWeight: '700' },
   methodDesc: { fontSize: 12, marginTop: 2 },
   detailsSection: { marginTop: 12, gap: 10 },
   detailInput: { borderRadius: 12, paddingHorizontal: 16, paddingVertical: 14, fontSize: 16, borderWidth: 1 },
   withdrawBtn: {
-    backgroundColor: '#1E3A5F', borderRadius: 14, paddingVertical: 16,
+    backgroundColor: '#1E3A5F', borderRadius: 14, paddingVertical: 16, minHeight: 64,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 16,
   },
-  withdrawBtnText: { color: '#FFF', fontSize: 17, fontWeight: '700' },
+  withdrawBtnText: { color: '#FFF', fontSize: 18, fontWeight: '700' },
   withdrawalRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1 },
   withdrawalAmount: { fontSize: 16, fontWeight: '700' },
   withdrawalDate: { fontSize: 12, marginTop: 2 },

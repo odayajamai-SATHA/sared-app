@@ -7,7 +7,7 @@ import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 
 export default function TripCompleteScreen({ route, navigation }) {
-  const { service, size, price, fareBreakdown, paymentMethod } = route.params || {};
+  const { service, serviceId, serviceType, size, price, fareBreakdown, paymentMethod } = route.params || {};
   const [rating, setRating] = useState(0);
   const { t, isRTL } = useI18n();
   const { colors, isDark } = useTheme();
@@ -38,7 +38,7 @@ export default function TripCompleteScreen({ route, navigation }) {
   };
 
   const handleSubmit = () => {
-    navigation.navigate('Receipt', { service, size, price, fareBreakdown, paymentMethod });
+    navigation.navigate('Receipt', { service, serviceId, serviceType, size, price, fareBreakdown, paymentMethod });
   };
 
   return (
@@ -96,6 +96,16 @@ export default function TripCompleteScreen({ route, navigation }) {
 
         <Text style={[styles.tapHint, { color: colors.textSecondary }]}>{rating > 0 ? `${rating}/5` : t('tapToRate')}</Text>
 
+        {rating > 0 && rating < 5 && (
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8, marginBottom: 16 }}>
+            {[t('responseTime') || 'Response Time', t('professionalism') || 'Professionalism', t('equipmentQuality') || 'Equipment Quality', t('communication') || 'Communication'].map((cat) => (
+              <TouchableOpacity key={cat} style={{ paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20, backgroundColor: colors.surfaceSecondary || colors.lightGray, borderWidth: 1, borderColor: colors.border }}>
+                <Text style={{ fontSize: 13, color: colors.text }}>{cat}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
         <TouchableOpacity
           style={[styles.submitBtn, !rating && styles.submitBtnDisabled]}
           onPress={handleSubmit}
@@ -105,6 +115,12 @@ export default function TripCompleteScreen({ route, navigation }) {
             <Ionicons name="receipt-outline" size={18} color="#FFF" />
             <Text style={styles.submitBtnText}>{t('viewReceipt')}</Text>
           </LinearGradient>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ paddingVertical: 12, marginTop: 8 }}
+          onPress={handleSubmit}
+        >
+          <Text style={{ fontSize: 14, color: colors.textSecondary, textAlign: 'center' }}>{t('skipRating') || t('skip')}</Text>
         </TouchableOpacity>
       </Animated.View>
     </ScrollView>

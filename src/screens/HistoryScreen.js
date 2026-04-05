@@ -6,6 +6,17 @@ import { useTheme } from '../utils/theme';
 import { useI18n } from '../utils/i18n';
 import { supabase } from '../utils/supabase';
 
+const SERVICE_ICONS = {
+  tow: { icon: 'car-outline', color: '#059669' },
+  flatTire: { icon: 'ellipse-outline', color: '#3B82F6' },
+  battery: { icon: 'flash-outline', color: '#F59E0B' },
+  fuel: { icon: 'water-outline', color: '#EF4444' },
+};
+
+function getServiceDisplay(serviceType) {
+  return SERVICE_ICONS[serviceType] || SERVICE_ICONS.tow;
+}
+
 export default function HistoryScreen({ navigation }) {
   const { t, isRTL, lang } = useI18n();
   const { colors, isDark } = useTheme();
@@ -50,8 +61,8 @@ export default function HistoryScreen({ navigation }) {
 
   const renderRide = ({ item }) => (
     <View style={[styles.rideCard, { backgroundColor: colors.card, borderColor: colors.cardBorder }, isRTL && styles.rowReverse]}>
-      <View style={[styles.rideIcon, { backgroundColor: getStatusColor(item.status) + '15' }]}>
-        <Ionicons name="car-sport" size={20} color={getStatusColor(item.status)} />
+      <View style={[styles.rideIcon, { backgroundColor: (getServiceDisplay(item.service_id || item.service_type).color) + '15' }]}>
+        <Ionicons name={getServiceDisplay(item.service_id || item.service_type).icon} size={20} color={getServiceDisplay(item.service_id || item.service_type).color} />
       </View>
       <View style={{ flex: 1 }}>
         <Text style={[styles.rideService, { color: colors.text }, isRTL && styles.textRight]}>

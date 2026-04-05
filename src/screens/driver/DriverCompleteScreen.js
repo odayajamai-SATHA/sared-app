@@ -32,16 +32,16 @@ export default function DriverCompleteScreen({ route, navigation }) {
         <View style={[styles.summaryRow, { color: colors.text }]}>
           <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('customerLabel')}</Text>
           <Text style={[styles.summaryValue, { color: colors.text }]}>
-            {ride?.users?.name || 'Mohammed'}
+            {ride?.users?.name || t('user')}
           </Text>
         </View>
         <View style={[styles.summaryRow, { color: colors.text }]}>
           <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('service')}</Text>
-          <Text style={[styles.summaryValue, { color: colors.text }]}>{ride?.service_type || 'Tow'}</Text>
+          <Text style={[styles.summaryValue, { color: colors.text }]}>{ride?.service_type || t('towService')}</Text>
         </View>
         <View style={[styles.summaryRow, { color: colors.text }]}>
           <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('vehicleSize')}</Text>
-          <Text style={[styles.summaryValue, { color: colors.text }]}>{ride?.sared_size || 'Medium'}</Text>
+          <Text style={[styles.summaryValue, { color: colors.text }]}>{ride?.sared_size || t('medium')}</Text>
         </View>
         <View style={[styles.summaryRow, { color: colors.text }]}>
           <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t('distance')}</Text>
@@ -50,7 +50,7 @@ export default function DriverCompleteScreen({ route, navigation }) {
 
         <View style={[styles.totalRow, { color: colors.text }]}>
           <Text style={[styles.totalLabel, { color: colors.text }]}>{t('youEarned')}</Text>
-          <Text style={[styles.totalValue, { color: colors.primary }]}>{ride?.price || 180} SAR</Text>
+          <Text style={[styles.totalValue, { color: colors.primary }]}>{ride?.price || 180} {t('sar')}</Text>
         </View>
       </View>
 
@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   summaryLabel: {
-    fontSize: 14,
+    fontSize: 18,
   },
   summaryValue: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '600',
   },
   totalRow: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   ratingText: {
-    fontSize: 13,
+    fontSize: 18,
     marginTop: 4,
     textAlign: 'center',
   },
@@ -172,8 +172,10 @@ const styles = StyleSheet.create({
   doneBtn: {
     backgroundColor: '#1E3A5F',
     paddingVertical: 16,
+    minHeight: 64,
     borderRadius: 14,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   doneBtnText: {
     color: theme.white,

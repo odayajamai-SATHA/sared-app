@@ -2,6 +2,23 @@
 // For themed/dark mode colors, use useTheme() from './theme' in components
 export const colors = {
   primary: '#059669',
+  primaryPressed: '#047857',
+  primaryContainer: '#D1FAE5',
+  onPrimary: '#FFFFFF',
+  secondary: '#0F172A',
+  secondaryContainer: '#E2E8F0',
+  accent: '#D97706',
+  background: '#FAFAFA',
+  surface: '#FFFFFF',
+  surfaceVariant: '#F3F4F6',
+  text: '#111827',
+  textSecondary: '#6B7280',
+  error: '#DC2626',
+  errorContainer: '#FEF2F2',
+  success: '#059669',
+  warning: '#D97706',
+  border: '#D1D5DB',
+  // Legacy aliases for backward compatibility
   primaryDark: '#047857',
   primaryLight: '#34D399',
   primaryFaded: '#D1FAE5',
@@ -10,8 +27,4 @@ export const colors = {
   gray: '#6B7280',
   lightGray: '#F3F4F6',
   darkGray: '#374151',
-  border: '#E5E7EB',
-  background: '#FFFFFF',
-  text: '#1F2937',
-  textSecondary: '#6B7280',
 };

@@ -166,7 +166,7 @@ export default function DriverJobScreen({ route, navigation }) {
         </View>
         <View style={[styles.customerInfo, isRTL && { alignItems: 'flex-end' }]}>
           <Text style={[styles.customerName, { color: colors.text }]}>{customerName}</Text>
-          <Text style={[styles.customerPrice, { color: colors.primary }]}>{ride?.price} SAR</Text>
+          <Text style={[styles.customerPrice, { color: colors.primary }]}>{ride?.price} {t('sar')}</Text>
         </View>
         <TouchableOpacity style={styles.callBtn} onPress={handleCall}>
           <Ionicons name="call" size={18} color="#1E3A5F" />
@@ -283,8 +283,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   detailText: {
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 18,
+    lineHeight: 26,
   },
   routeInfo: {
     marginTop: 12,
@@ -347,8 +347,8 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   callBtn: {
-    width: 40,
-    height: 40,
+    width: 64,
+    height: 64,
     borderRadius: 20,
     backgroundColor: '#E0E7EF',
     justifyContent: 'center',
@@ -368,6 +368,7 @@ const styles = StyleSheet.create({
   nextBtn: {
     backgroundColor: '#1E3A5F',
     paddingVertical: 16,
+    minHeight: 64,
     borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',

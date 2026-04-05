@@ -41,10 +41,10 @@ export default function HomeScreen({ navigation: rawNav }) {
   const pickup = location || defaultLocation;
 
   const quickActions = [
-    { id: 'tow', icon: 'car-sport', label: t('towService'), color: '#059669', price: getServicePriceWithVAT('tow'), needsSize: true },
-    { id: 'flatTire', icon: 'disc-outline', label: t('flatTire'), color: '#3B82F6', price: getServicePriceWithVAT('flatTire') },
-    { id: 'battery', icon: 'flash-outline', label: t('deadBattery'), color: '#F59E0B', price: getServicePriceWithVAT('battery') },
-    { id: 'fuel', icon: 'water-outline', label: t('fuelDelivery'), color: '#EF4444', price: getServicePriceWithVAT('fuel') },
+    { id: 'tow', icon: 'car-outline', label: t('towVehicle') || t('towService'), color: '#059669', price: getServicePriceWithVAT('tow'), serviceType: 'towing' },
+    { id: 'flatTire', icon: 'ellipse-outline', label: t('tireChange') || t('flatTire'), color: '#3B82F6', price: getServicePriceWithVAT('flatTire'), serviceType: 'flat' },
+    { id: 'battery', icon: 'flash-outline', label: t('batteryJumpStart') || t('deadBattery'), color: '#F59E0B', price: getServicePriceWithVAT('battery'), serviceType: 'flat' },
+    { id: 'fuel', icon: 'water-outline', label: t('fuelDeliveryLabel') || t('fuelDelivery'), color: '#EF4444', price: getServicePriceWithVAT('fuel'), serviceType: 'flat' },
   ];
 
   const recentLocations = [
@@ -128,12 +128,14 @@ export default function HomeScreen({ navigation: rawNav }) {
               key={action.id}
               style={[styles.quickCard, { width: (width - 52) / 2 }]}
               onPress={() => {
-                if (action.needsSize) {
-                  navigation.navigate('Size', { service: action.label, serviceId: action.id, pickup });
+                if (action.serviceType === 'towing') {
+                  navigation.navigate('Size', {
+                    service: action.label, serviceId: action.id, serviceType: 'towing', pickup
+                  });
                 } else {
                   navigation.navigate('PriceGuarantee', {
-                    service: action.label, serviceId: action.id, size: '—',
-                    price: `SAR ${action.price} (${t('inclVat')})`, pickup,
+                    service: action.label, serviceId: action.id, serviceType: 'flat',
+                    size: '—', price: `SAR ${action.price} (${t('inclVat')})`, pickup,
                   });
                 }
               }}
@@ -143,6 +145,9 @@ export default function HomeScreen({ navigation: rawNav }) {
                 <Ionicons name={action.icon} size={28} color={action.color} />
               </View>
               <Text style={[styles.quickLabel, { color: colors.text }]} numberOfLines={1}>{action.label}</Text>
+              <Text style={[styles.quickPrice, { color: action.color }]}>
+                {t('fromSar')} {action.price}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>

@@ -5,7 +5,7 @@ import { useI18n } from '../utils/i18n';
 import { useTheme } from '../utils/theme';
 
 export default function ReceiptScreen({ route, navigation }) {
-  const { service, size, price, fareBreakdown, paymentMethod } = route.params || {};
+  const { service, serviceId, serviceType, size, price, fareBreakdown, paymentMethod } = route.params || {};
   const { t, isRTL, lang } = useI18n();
   const { colors } = useTheme();
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -22,9 +22,11 @@ export default function ReceiptScreen({ route, navigation }) {
   const dateStr = now.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-SA', { year: 'numeric', month: 'short', day: 'numeric' });
   const timeStr = now.toLocaleTimeString(lang === 'ar' ? 'ar-SA' : 'en-SA', { hour: '2-digit', minute: '2-digit' });
 
+  const isFlat = fareBreakdown?.isFlat || serviceType === 'flat' || ['flatTire', 'battery', 'fuel'].includes(serviceId);
   const totalNum = fareBreakdown?.total || parseInt((price || '').replace(/\D/g, '')) || 0;
+  const serviceFee = fareBreakdown?.serviceFee || fareBreakdown?.baseFare || 50;
   const baseFare = fareBreakdown?.baseFare || 50;
-  const distFee = fareBreakdown?.distanceCharge || Math.max(0, Math.round((totalNum / 1.15) - 50));
+  const distFee = fareBreakdown?.distanceCharge || (isFlat ? 0 : Math.max(0, Math.round((totalNum / 1.15) - 50)));
   const nightSurcharge = fareBreakdown?.nightSurcharge || 0;
   const vat = fareBreakdown?.vat || Math.round((totalNum / 1.15) * 0.15);
   const total = fareBreakdown?.total || totalNum;
@@ -118,19 +120,36 @@ export default function ReceiptScreen({ route, navigation }) {
 
         {/* Price breakdown */}
         <Text style={[styles.sectionTitle, { color: colors.text }, isRTL && styles.textRight]}>{t('priceBreakdown')}</Text>
-        <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
-          <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('dispatchFee') || t('baseFare')}</Text>
-          <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {baseFare}</Text>
-        </View>
-        <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
-          <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('distanceRate') || t('distance')}</Text>
-          <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {distFee}</Text>
-        </View>
-        {nightSurcharge > 0 && (
-          <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
-            <Text style={[styles.priceLabel, { color: '#8B5CF6' }, isRTL && styles.textRight]}>{t('nightSurcharge')}</Text>
-            <Text style={[styles.priceValue, { color: '#8B5CF6' }, isRTL && styles.textRight]}>SAR {nightSurcharge}</Text>
-          </View>
+        {isFlat ? (
+          <>
+            <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+              <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('serviceFee')}</Text>
+              <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {serviceFee}</Text>
+            </View>
+            {nightSurcharge > 0 && (
+              <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+                <Text style={[styles.priceLabel, { color: '#8B5CF6' }, isRTL && styles.textRight]}>{t('nightSurcharge')}</Text>
+                <Text style={[styles.priceValue, { color: '#8B5CF6' }, isRTL && styles.textRight]}>SAR {nightSurcharge}</Text>
+              </View>
+            )}
+          </>
+        ) : (
+          <>
+            <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+              <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('baseFare')}</Text>
+              <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {baseFare}</Text>
+            </View>
+            <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+              <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('distanceRate') || t('distance')}</Text>
+              <Text style={[styles.priceValue, { color: colors.text }, isRTL && styles.textRight]}>SAR {distFee}</Text>
+            </View>
+            {nightSurcharge > 0 && (
+              <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+                <Text style={[styles.priceLabel, { color: '#8B5CF6' }, isRTL && styles.textRight]}>{t('nightSurcharge')}</Text>
+                <Text style={[styles.priceValue, { color: '#8B5CF6' }, isRTL && styles.textRight]}>SAR {nightSurcharge}</Text>
+              </View>
+            )}
+          </>
         )}
         <View style={[styles.priceRow, { color: colors.text }, isRTL && styles.rowReverse]}>
           <Text style={[styles.priceLabel, { color: colors.textSecondary }, isRTL && styles.textRight]}>{t('vat')}</Text>
@@ -178,6 +197,27 @@ export default function ReceiptScreen({ route, navigation }) {
             <Text style={styles.shareBtnText}>{t('otherShare')}</Text>
           </TouchableOpacity>
         </View>
+      </View>
+
+      {/* Tip section */}
+      <View style={[styles.shareSection, { color: colors.text }]}>
+        <Text style={[styles.shareTitle, { color: colors.text }]}>
+          {t('tipYourDriver') || t('tipDriver')}
+        </Text>
+        <View style={[styles.shareRow, { color: colors.text }, isRTL && styles.rowReverse]}>
+          {[5, 10, 20].map((amount) => (
+            <TouchableOpacity
+              key={amount}
+              style={[styles.shareBtn, { backgroundColor: colors.primary, borderColor: colors.border }]}
+              onPress={() => Alert.alert(t('tipDriver'), `SAR ${amount} - ${t('thankYouSared')}`)}
+            >
+              <Text style={styles.shareBtnText}>SAR {amount}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 8, alignItems: 'center' }}>
+          <Text style={{ color: colors.textSecondary, fontSize: 14 }}>{t('noTip') || 'No tip'}</Text>
+        </TouchableOpacity>
       </View>
 
       <TouchableOpacity

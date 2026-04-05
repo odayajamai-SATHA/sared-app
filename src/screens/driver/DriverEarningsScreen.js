@@ -10,9 +10,9 @@ export default function DriverEarningsScreen({ route, navigation }) {
   const { colors, isDark } = useTheme();
 
   const recentJobs = [
-    { id: 1, customer: 'Mohammed', service: 'Tow', amount: 180, time: '2:30 PM' },
-    { id: 2, customer: 'Abdullah', service: 'Transport', amount: 120, time: '11:15 AM' },
-    { id: 3, customer: 'Fahad', service: 'Emergency', amount: 250, time: '9:00 AM' },
+    { id: 1, customer: t('user'), service: t('towService'), amount: 180, time: '2:30 PM' },
+    { id: 2, customer: t('user'), service: t('transportItems'), amount: 120, time: '11:15 AM' },
+    { id: 3, customer: t('user'), service: t('emergencyRoadside'), amount: 250, time: '9:00 AM' },
   ];
 
   return (
@@ -28,7 +28,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
 
         <View style={[styles.earningsTotal, { color: colors.text }]}>
           <Text style={styles.earningsLabel}>{t('todayEarnings')}</Text>
-          <Text style={[styles.earningsAmount, { color: colors.text }]}>450 SAR</Text>
+          <Text style={[styles.earningsAmount, { color: colors.text }]}>450 {t('sar')}</Text>
         </View>
 
         <View style={[styles.earningsStats, { color: colors.text }]}>
@@ -44,7 +44,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
           <View style={[styles.earningDivider, { color: colors.text }]} />
           <View style={[styles.earningStat, { color: colors.text }]}>
             <Text style={[styles.earningStatValue, { color: colors.text }]}>37.5</Text>
-            <Text style={styles.earningStatLabel}>SAR/{t('tripAvg')}</Text>
+            <Text style={styles.earningStatLabel}>{t('sar')}/{t('tripAvg')}</Text>
           </View>
         </View>
       </View>
@@ -76,7 +76,7 @@ export default function DriverEarningsScreen({ route, navigation }) {
                 {job.service} • {job.time}
               </Text>
             </View>
-            <Text style={[styles.jobAmount, { color: colors.primary }]}>+{job.amount} SAR</Text>
+            <Text style={[styles.jobAmount, { color: colors.primary }]}>+{job.amount} {t('sar')}</Text>
           </View>
         ))}
 
@@ -189,11 +189,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   jobCustomer: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '600',
   },
   jobService: {
-    fontSize: 13,
+    fontSize: 14,
     marginTop: 2,
   },
   jobAmount: {
@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 16,
+    minHeight: 64,
     borderRadius: 14,
     gap: 8,
     marginBottom: 20,
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
   withdrawBtnText: {
     flex: 1,
     color: '#FFF',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
     textAlign: 'center',
   },

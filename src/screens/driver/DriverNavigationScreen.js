@@ -207,7 +207,7 @@ export default function DriverNavigationScreen({ route, navigation }) {
           <View style={[styles.customerInfo, isRTL && { alignItems: 'flex-end' }]}>
             <Text style={[styles.customerName, { color: colors.text }]}>{customerName}</Text>
             <Text style={[styles.customerDetails, { color: colors.textSecondary }]}>
-              {ride?.sared_size} | {ride?.service_type} | {ride?.price} SAR
+              {ride?.sared_size} | {ride?.service_type} | {ride?.price} {t('sar')}
             </Text>
           </View>
           <TouchableOpacity style={styles.callBtn} onPress={handleCall}>
@@ -378,16 +378,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   customerName: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
   },
   customerDetails: {
-    fontSize: 13,
+    fontSize: 14,
     marginTop: 2,
   },
   callBtn: {
-    width: 44,
-    height: 44,
+    width: 64,
+    height: 64,
     borderRadius: 22,
     backgroundColor: '#E0E7EF',
     justifyContent: 'center',
@@ -416,6 +416,7 @@ const styles = StyleSheet.create({
   arrivedBtn: {
     backgroundColor: '#1E3A5F',
     paddingVertical: 16,
+    minHeight: 64,
     borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',

@@ -3,7 +3,7 @@
     "name": "Sared",
     "slug": "sared-app",
     "version": "1.0.0",
-    "description": "On-demand flatbed tow truck and roadside assistance",
+    "description": "On-demand roadside assistance — tow trucks, tire change, battery jump, fuel delivery in Saudi Arabia",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

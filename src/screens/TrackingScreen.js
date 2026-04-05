@@ -9,7 +9,7 @@ import { useI18n } from '../utils/i18n';
 import { supabase, updateRideStatus, subscribeToRideUpdates, subscribeToDriverLocation } from '../utils/supabase';
 
 export default function TrackingScreen({ route, navigation }) {
-  const { service, size, price, fareBreakdown, paymentMethod, rideId } = route.params || {};
+  const { service, serviceId, serviceType, size, price, fareBreakdown, paymentMethod, rideId } = route.params || {};
   const { t, isRTL, lang } = useI18n();
   const { colors, isDark } = useTheme();
   const mapRef = useRef(null);
@@ -37,7 +37,7 @@ export default function TrackingScreen({ route, navigation }) {
       }
       // Auto-navigate to TripComplete when ride is completed
       if (updatedRide.status === 'completed') {
-        navigation.navigate('TripComplete', { service, size, price, fareBreakdown, paymentMethod });
+        navigation.navigate('TripComplete', { service, serviceId, serviceType, size, price, fareBreakdown, paymentMethod });
       }
     });
     return () => { channel?.unsubscribe(); };
@@ -102,10 +102,15 @@ export default function TrackingScreen({ route, navigation }) {
 
   // Step progression based on ETA and ride status
   useEffect(() => {
-    if (rideStatus === 'arrived' || eta <= 3) setActiveStep(3);
-    else if (rideStatus === 'in_transit' || eta <= 8) setActiveStep(2);
+    if (rideStatus === 'completed') setActiveStep(steps.length);
+    else if (rideStatus === 'in_transit') setActiveStep(isTowing ? 6 : 5);
+    else if (rideStatus === 'performing') setActiveStep(isTowing ? 5 : 5);
+    else if (rideStatus === 'loading') setActiveStep(5);
+    else if (rideStatus === 'arrived' || eta <= 3) setActiveStep(4);
+    else if (eta <= 8) setActiveStep(3);
+    else if (eta <= 12) setActiveStep(2);
     else setActiveStep(1);
-  }, [eta, rideStatus]);
+  }, [eta, rideStatus, steps.length]);
 
   // Fit map to markers
   useEffect(() => {
@@ -145,11 +150,28 @@ export default function TrackingScreen({ route, navigation }) {
     latitudeDelta: 0.04, longitudeDelta: 0.04,
   } : { ...defaultCoord, latitudeDelta: 0.04, longitudeDelta: 0.04 };
 
-  const steps = [
-    { label: t('driverAssigned'), icon: 'checkmark-circle' },
-    { label: t('onTheWay'), icon: 'car-sport' },
-    { label: t('arriving'), icon: 'flag' },
+  const isTowing = serviceType === 'towing' || serviceId === 'tow' || !serviceType;
+
+  const towingSteps = [
+    { label: t('trackStepRequested') || t('driverAssigned'), icon: 'radio-button-on' },
+    { label: t('trackStepAssigned') || t('driverAssigned'), icon: 'checkmark-circle' },
+    { label: t('trackStepEnRoute') || t('onTheWay'), icon: 'car-sport' },
+    { label: t('trackStepArrived') || t('arriving'), icon: 'flag' },
+    { label: t('trackStepLoading'), icon: 'cube' },
+    { label: t('trackStepTransit'), icon: 'navigate' },
+    { label: t('trackStepDelivered') || t('delivered'), icon: 'checkmark-done-circle' },
   ];
+
+  const flatSteps = [
+    { label: t('trackStepRequested') || t('driverAssigned'), icon: 'radio-button-on' },
+    { label: t('trackStepAssigned') || t('driverAssigned'), icon: 'checkmark-circle' },
+    { label: t('trackStepEnRoute') || t('onTheWay'), icon: 'car-sport' },
+    { label: t('trackStepArrived') || t('arriving'), icon: 'flag' },
+    { label: t('trackStepPerforming') || t('serviceInProgress'), icon: 'build' },
+    { label: t('trackStepComplete') || t('serviceCompleted'), icon: 'checkmark-done-circle' },
+  ];
+
+  const steps = isTowing ? towingSteps : flatSteps;
 
   const handleComplete = async () => {
     Alert.alert(
@@ -161,7 +183,7 @@ export default function TrackingScreen({ route, navigation }) {
           text: t('confirm'),
           onPress: async () => {
             try { if (rideId) await updateRideStatus(rideId, 'completed'); } catch {}
-            navigation.navigate('TripComplete', { service, size, price, fareBreakdown, paymentMethod });
+            navigation.navigate('TripComplete', { service, serviceId, serviceType, size, price, fareBreakdown, paymentMethod });
           },
         },
       ]
@@ -248,10 +270,10 @@ export default function TrackingScreen({ route, navigation }) {
           {steps.map((step, i) => (
             <View key={i} style={[styles.stepItem, { color: colors.text }]}>
               <View style={[styles.stepCircle, activeStep > i && styles.stepCircleActive, activeStep === i + 1 && styles.stepCircleCurrent]}>
-                <Ionicons name={step.icon} size={14} color={activeStep > i ? '#FFF' : colors.gray} />
+                <Ionicons name={step.icon} size={12} color={activeStep > i ? '#FFF' : colors.gray} />
               </View>
-              <Text style={[styles.stepLabel, activeStep >= i + 1 && styles.stepLabelActive, { color: activeStep >= i+1 ? colors.primary : colors.gray }]}>{step.label}</Text>
-              {i < 2 && <View style={[styles.stepLine, activeStep > i + 1 && styles.stepLineActive]} />}
+              <Text style={[styles.stepLabel, activeStep >= i + 1 && styles.stepLabelActive, { color: activeStep >= i+1 ? colors.primary : colors.gray }]} numberOfLines={2}>{step.label}</Text>
+              {i < steps.length - 1 && <View style={[styles.stepLine, activeStep > i + 1 && styles.stepLineActive]} />}
             </View>
           ))}
         </View>
@@ -285,6 +307,13 @@ export default function TrackingScreen({ route, navigation }) {
           <TouchableOpacity style={[styles.callBtn, { backgroundColor: colors.primary, borderColor: colors.border }, isRTL && styles.rowReverse]} onPress={() => { try { Linking.openURL('tel:+966500000000'); } catch {} }}>
             <Ionicons name="call" size={20} color="#FFF" />
             <Text style={{ color: '#FFF', fontSize: 14, fontWeight: '600' }}>{t('callDriver')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.completeBtn, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]} onPress={() => {
+            const msg = `${t('shareTrip') || 'Track my service'}: ${service || t('towService')} - ETA: ${eta} min`;
+            const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(msg)}`;
+            try { Linking.openURL(whatsappUrl); } catch {}
+          }}>
+            <Ionicons name="share-social" size={20} color={colors.primary} />
           </TouchableOpacity>
           <TouchableOpacity style={[styles.completeBtn, { backgroundColor: colors.primaryFaded, borderColor: colors.border }]} onPress={handleComplete}>
             <Ionicons name="checkmark" size={20} color={colors.primary} />
