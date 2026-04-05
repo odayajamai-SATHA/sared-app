@@ -650,6 +650,7 @@ const translations = {
     driverInfo: 'Driver Information',
     selectService: 'What do you need?',
     requestHelp: 'Request Help',
+    perKmRate: 'Per kilometer',
     // Tracking steps
     trackStepRequested: 'Requested',
     trackStepAssigned: 'Driver assigned',
